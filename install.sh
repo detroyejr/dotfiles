@@ -6,3 +6,6 @@ cp -r vim/. $HOME
 
 ## Install vim plugins
 vim -c PluginInstall
+
+## Add .bashrc file.
+cp -f bash/.bashrc $HOME/.bashrc
