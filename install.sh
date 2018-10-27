@@ -27,8 +27,14 @@ sudo apt-get install -y \
     tk-dev \
     libxml2-dev \
     libxmlsec1-dev \
-    libffi-dev
+    libffi-dev \
+    zsh
 
 
 ## Add .bashrc file.
 cp -f bash/.bashrc $HOME/.bashrc
+
+## Add oh-my-zsh.
+## To use in Cmder for Windows, create a zsh startup task and assign:
+## cmd /c C:\Windows\System32\bash.exe -c zsh ~ -new_console:p:%USERPROFILE%
+cp -f zsh/.zshrc $HOME/.zshrc
