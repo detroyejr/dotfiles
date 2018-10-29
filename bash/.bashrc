@@ -117,8 +117,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-## Set visible path in terminal
-export PS1='\u@\h: '
 ## CDPath to Work Directory
 CDPATH="/mnt/c/Users/detro/OneDrive/Documents"
 
