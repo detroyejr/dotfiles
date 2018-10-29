@@ -11,7 +11,7 @@ vim -c PluginInstall
 git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
 
 # Packages for pyenv.
-sudo apt-get install -y \
+sudo apt-get update && sudo apt-get install -y \
     make \
     build-essential \
     libssl-dev \
