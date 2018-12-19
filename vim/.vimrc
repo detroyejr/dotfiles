@@ -56,6 +56,7 @@ set smartindent
 
 " Line options
 set number
+set relativenumber
 set showcmd
 
 " Set visual line wrap
