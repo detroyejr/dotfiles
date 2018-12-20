@@ -30,6 +30,8 @@ sudo apt-get update && sudo apt-get install -y \
     libffi-dev
 
 
+## Install export-env.
+cp bash/export-env /usr/bin/export-env
 ## Add .bashrc file.
 cp -f bash/.bashrc $HOME/.bashrc
 

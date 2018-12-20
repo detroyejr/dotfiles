@@ -1,0 +1,22 @@
+#!/bin/bash
+
+## Export Env
+## Jonathan De Troye
+## 2018-12-20
+##
+## Quick export variables that are stored in a .env type file.
+## These files should generally be setup with name=value pairs:
+## API_KEY=123456789abcdefgh
+##
+## Add to /usr/bin and use alias export-env='. export-env' to get everything
+## to work properly.
+
+## Get FILE. The default uses .env
+FILE=${1:-.env}
+
+if [ -f $FILE ]; then
+   echo "Setting environment variables from $FILE"
+   export `cat $FILE`
+else
+   echo "File $FILE does not exist."
+fi

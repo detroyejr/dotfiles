@@ -131,3 +131,4 @@ fi
 alias docker="docker.exe"
 alias docker-compose="docker-compose.exe"
 alias kubectl="kubectl.exe"
+alias export-env=". export-env"
