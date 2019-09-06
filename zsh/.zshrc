@@ -111,3 +111,11 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 export SPACESHIP_CHAR_SYMBOL=" \U1f680 -> "
+
+## Aliases
+alias docker="docker.exe"
+alias d="docker.exe"
+alias docker-compose="docker-compose.exe"
+alias kubectl="kubectl.exe"
+alias k="kubectl.exe"
+alias export-env=". export-env"
