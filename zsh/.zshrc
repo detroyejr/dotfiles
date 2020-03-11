@@ -1,9 +1,8 @@
-export TERM=xterm-256color
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH="/home/jon/.oh-my-zsh"
+export ZSH="/home/jon/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -27,8 +26,14 @@ ZSH_THEME="spaceship"
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -64,11 +69,14 @@ ZSH_THEME="spaceship"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git,
+  git
   zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# ZSH autosuggestion color can sometimes be too light with themes like solarized.
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=25'
 
 # User configuration
 
@@ -87,9 +95,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -99,10 +104,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-## CDPath to Work Directory
+# CDPath to Work Directory
 CDPATH="/mnt/c/Users/detro/OneDrive/Documents"
 
-## PyEnv Options.
+# PyEnv Init 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
@@ -110,12 +115,22 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
-export SPACESHIP_CHAR_SYMBOL=" \U1f680 -> "
+# export SPACESHIP_CHAR_SYMBOL=" \U1f680 -> "
+export SPACESHIP_CHAR_SYMBOL=" -> "
 
-## Aliases
+# Aliases
+# -------
 alias docker="docker.exe"
 alias d="docker.exe"
 alias docker-compose="docker-compose.exe"
-alias kubectl="kubectl.exe"
-alias k="kubectl.exe"
+alias k="kubectl"
 alias export-env=". export-env"
+alias radian='radian.exe'
+alias skaffold='skaffold.exe'
+alias minikube='minikube.exe'
+
+# Completion
+# ----------
+if [ /usr/bin/kubectl ]; then source <(kubectl completion zsh); fi
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/kustomize kustomize
