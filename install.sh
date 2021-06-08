@@ -1,46 +1,29 @@
-## Install Vundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+#!/bin/bash
 
-## Setup vim environment
-cp -r vim/. $HOME
+# Pyenv
+sudo apt-get update \ 
+    && sudo apt-get install -y 
+        make \
+        build-essential \
+        libssl-dev zlib1g-dev \
+        libbz2-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        wget curl llvm \
+        libncursesw5-dev \
+        xz-utils \
+        tk-dev \
+        libxml2-dev \
+        libxmlsec1-dev \
+        libffi-dev \
+        liblzma-dev
 
-## Install vim plugins
-vim -c PluginInstall
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 
-## Add PyEnv
-git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
+# Vim
+ln --force ${PWD}/vim/.vimrc ${HOME}/.vimrc
 
-# Packages for pyenv.
-sudo apt-get update && sudo apt-get install -y \
-    make \
-    build-essential \
-    libssl-dev \
-    zlib1g-dev \
-    libbz2-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    wget \
-    curl \
-    llvm \
-    libncurses5-dev \
-    xz-utils \
-    tk-dev \
-    libxml2-dev \
-    libxmlsec1-dev \
-    libffi-dev
+# ZSH
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+ln --force ${PWD}/zsh/.zshrc ${HOME}/.zshrc
 
-
-## Install export-env.
-sudo cp bash/export-env /usr/bin/export-env
-## Add .bashrc file.
-cp -f bash/.bashrc $HOME/.bashrc
-
-## Add oh-my-zsh.
-## To use in Cmder for Windows, create a zsh startup task and assign:
-## cmd /c C:\Windows\System32\bash.exe -c zsh ~ -new_console:p:%USERPROFILE%
-
-sudo apt-get install -y \
-    zsh \
-    fonts-powerline
-
-cp -f zsh/.zshrc $HOME/.zshrc

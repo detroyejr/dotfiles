@@ -4,8 +4,10 @@ filetype indent plugin on
 setlocal ff=unix
 
 " Editor
+colorscheme slate
 set nocompatible
-set number
+set relativenumber
+set shiftwidth=4
 set tabstop=4
 set autoindent
 set expandtab
