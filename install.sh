@@ -12,6 +12,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 ln --force ${PWD}/vim/.vimrc ${HOME}/.vimrc
 
 # ZSH
+FOLDER=$(dirname ${BASH_SOURCE[0]})
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-ln --force ${PWD}/zsh/.zshrc ${HOME}/.zshrc
-ln --force ${PWD}/zsh/.p10k.zsh ${HOME}/.p10k.zsh
+ln --force ${FOLDER}/zsh/.zshrc ${HOME}/.zshrc
+ln --force ${FOLDER}/zsh/.p10k.zsh ${HOME}/.p10k.zsh
