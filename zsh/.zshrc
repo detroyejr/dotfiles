@@ -16,7 +16,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/detroyejr/.oh-my-zsh"
+export ZSH="${HOME}/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -91,8 +91,8 @@ source $ZSH/oh-my-zsh.sh
 # CDPATHS and Aliases
 CDPATH="/mnt/c/Users/detro/OneDrive/Documents"
 
-alias k=kubectl
-alias d=docker
+if [[ `which kubectl` ]]; then alias k=kubectl; fi;
+if [[ `which docker` ]]; then alias d=docker; fi;
 
 # # Kubectl Completion
 source <(kubectl completion zsh)
