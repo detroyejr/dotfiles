@@ -91,13 +91,13 @@ source $ZSH/oh-my-zsh.sh
 # CDPATHS and Aliases
 CDPATH="/mnt/c/Users/detro/OneDrive/Documents"
 
-if [[ `which kubectl` ]]; then 
+if [[ `which-command kubectl` ]]; then 
   alias k=kubectl
   source <(kubectl completion zsh)
 fi;
-if [[ `which docker` ]]; then alias d=docker; fi;
+if [[ `which-command docker` ]]; then alias d=docker; fi;
 
-if [[ `which pyenv` ]]; then
+if [[ `which-command pyenv` ]]; then
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
   if command -v pyenv 1>/dev/null 2>&1; then
