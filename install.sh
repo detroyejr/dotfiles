@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # ZSH
-sudo apt-get update \ 
-    && sudo apt-get install -y 
+sudo apt-get update && \
+    sudo apt-get install -y 
         zsh \
         curl
 
