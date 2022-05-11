@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # ZSH
-sudo apt-get update && \
-    sudo apt-get install -y zsh curl
+apt-get update && apt-get install -y zsh curl
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
