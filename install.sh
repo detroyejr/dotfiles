@@ -6,7 +6,7 @@ sudo apt-get update && \
         zsh \
         curl
 
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # Vim
 ln --force ${PWD}/vim/.vimrc ${HOME}/.vimrc
