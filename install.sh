@@ -1,24 +1,12 @@
 #!/bin/bash
 
-# Pyenv
+# ZSH
 sudo apt-get update \ 
     && sudo apt-get install -y 
-        make \
-        build-essential \
-        libssl-dev zlib1g-dev \
-        libbz2-dev \
-        libreadline-dev \
-        libsqlite3-dev \
-        wget curl llvm \
-        libncursesw5-dev \
-        xz-utils \
-        tk-dev \
-        libxml2-dev \
-        libxmlsec1-dev \
-        libffi-dev \
-        liblzma-dev
+        zsh \
+        curl
 
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Vim
 ln --force ${PWD}/vim/.vimrc ${HOME}/.vimrc
@@ -26,4 +14,4 @@ ln --force ${PWD}/vim/.vimrc ${HOME}/.vimrc
 # ZSH
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ln --force ${PWD}/zsh/.zshrc ${HOME}/.zshrc
-
+ln --force ${PWD}/zsh/.p10k.zsh ${HOME}/.p10k.zsh

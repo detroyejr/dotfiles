@@ -86,7 +86,6 @@ CDPATH="/mnt/c/Users/detro/OneDrive/Documents"
 
 alias k=kubectl
 alias d=docker
-alias ls=ls --color=no
 
 # # Kubectl Completion
 source <(kubectl completion zsh)
