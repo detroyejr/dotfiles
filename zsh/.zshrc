@@ -97,9 +97,9 @@ if [[ `which-command kubectl` ]]; then
 fi;
 if [[ `which-command docker` ]]; then alias d=docker; fi;
 
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 if [[ `which-command pyenv` ]]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
   if command -v pyenv 1>/dev/null 2>&1; then
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
