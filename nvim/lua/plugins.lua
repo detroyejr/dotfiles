@@ -94,7 +94,7 @@ return packer.startup(function(use)
   use { "hrsh7th/nvim-cmp" } 
 
   -- Code Formatter
-  use { "vim-autoformat/vim-autoformat" }
+  use { "jose-elias-alvarez/null-ls.nvim" }
 
   -- For vsnip users.
   use {'hrsh7th/cmp-vsnip' } 

@@ -164,6 +164,16 @@ local on_attach = function(client, bufnr)
     debounce_text_changes = 150,
   }
 
+  local null_ls = require("null-ls")
+
+  null_ls.setup({
+    sources = {
+      null_ls.builtins.formatting.black,
+      null_ls.builtins.formatting.rustfmt,
+      null_ls.builtins.formatting.styler,
+    },
+  })
+
   -- Set up nvim-cmp.
   local cmp = require'cmp'
 
@@ -184,31 +194,6 @@ local on_attach = function(client, bufnr)
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if not cmp.visible() then
-          cmp.complete()
-        elseif cmp.visible() then
-          cmp.select_next_item()
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        elseif has_words_before() then
-          cmp.complete()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if not cmp.visible() then
-          cmp.complete()
-        elseif cmp.visible() then
-          cmp.select_prev_item()
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },

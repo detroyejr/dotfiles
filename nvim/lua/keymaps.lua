@@ -52,7 +52,7 @@ keymap("v", ">", ">gv", opts)
 -- Plugins --
 
 -- Auto Format
-keymap("n", "<F3>", ":Autoformat<CR>")
+keymap("n", "<F3>", ":lua vim.lsp.buf.format()<CR>")
 
 -- NvimTree
 keymap("n", "<leader>f", ":NvimTreeToggle<CR>", opts)
