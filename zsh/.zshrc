@@ -84,17 +84,17 @@ DISABLE_LS_COLORS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker docker-compose kubectl)
+plugins=(git docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
 # CDPATHS and Aliases
 CDPATH="/mnt/c/Users/detro/OneDrive/Documents"
 
-if [[ `which-command kubectl` ]]; then 
-  alias k=kubectl
-  source <(kubectl completion zsh)
-fi;
+#if [[ `which-command kubectl` ]]; then 
+#  alias k=kubectl
+#  source <(kubectl completion zsh)
+#fi;
 if [[ `which-command docker` ]]; then alias d=docker; fi;
 
 export PYENV_ROOT="$HOME/.pyenv"
