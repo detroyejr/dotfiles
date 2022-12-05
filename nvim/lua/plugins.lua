@@ -92,12 +92,20 @@ return packer.startup(function(use)
   use { "hrsh7th/cmp-path" }
   use { "hrsh7th/cmp-cmdline" } 
   use { "hrsh7th/nvim-cmp" } 
+  
+  -- COQ Nvim
+  use({ 'ms-jpq/coq_nvim', commit = '84ec5faf2aaf49819e626f64dd94f4e71cf575bc' }) 
+  -- use { "ms-jpq/coq_nvim", branch = "coq" }
+  use { "ms-jpq/coq.artifacts", branch = "artifacts" }
+  use { "ms-jpq/coq.thirdparty", branch = "3p"}
+
 
   -- Code Formatter
   use { "jose-elias-alvarez/null-ls.nvim" }
+  use { "vim-autoformat/vim-autoformat" }
 
   -- For vsnip users.
-  use {'hrsh7th/cmp-vsnip' } 
+  use { 'hrsh7th/cmp-vsnip' } 
   use { 'hrsh7th/vim-vsnip' }
 
 	-- Quick word search under cursor alt+p and alt+n

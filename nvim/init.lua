@@ -1,3 +1,4 @@
+vim.g.python3_host_prog="C://Users/detro/.pyenv/pyenv-win/shims/python.bat"
 require('keymaps')
 require('plugins')
 require('impatient') --Uses impatient plugin to load faster
@@ -122,8 +123,6 @@ require("indent_blankline").setup {
   show_current_context_start = true,
 }
 
--- Language Server
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -185,7 +184,7 @@ local on_attach = function(client, bufnr)
       end,
     },
     window = {
-      completion = cmp.config.window.bordered(),
+      -- completion = cmp.config.window.bordered(),
       -- documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
@@ -233,9 +232,14 @@ local on_attach = function(client, bufnr)
     })
   })
 
+-- Language Server
+vim.g.coq_settings = { auto_start = true }
+local lsp = require "lspconfig"
+local coq = require "coq"
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-
-  require('lspconfig')['rust_analyzer'].setup{
+  lsp.rust_analyzer.setup{
+    coq.lsp_ensure_capabilities(),
     capabilities = capabilities,
     on_attach = on_attach,
     flags = lsp_flags,
@@ -247,21 +251,13 @@ local on_attach = function(client, bufnr)
   }
 
   require'lspconfig'.r_language_server.setup{
-    capabilities=capabilities
+    coq.lsp_ensure_capabilities(),
+    capabilities = capabilities,
   }
 
-  require'lspconfig'.pylsp.setup{
-    capabilities=capabilities,
-    cmd = { "pylsp" },
-    settings = {
-      pylsp = {
-        plugins = {
-          pycodestyle = {
-            ignore = {'W391'},
-            maxLineLength = 100
-          }
-        }
-      }
-    }
+  require'lspconfig'.jedi_language_server.setup{
+    coq.lsp_ensure_capabilities(),
+    capabilities = capabilities,
+    cmd = { "C://Users/detro/.pyenv/pyenv-win/versions/3.11.0/Scripts/jedi-language-server" },
   }
 
