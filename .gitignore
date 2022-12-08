@@ -1,2 +1,3 @@
 # Ignore plugins execpt for vundle.
 vim/.vim/bundle/*
+nvim/plugin/packer_compiled.lua
