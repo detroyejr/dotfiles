@@ -18,6 +18,12 @@ vim.g.maplocalleader = " "
 --   term_mode = "t",
 --   command_mode = "c",
 
+-- avoid freezing the vim process forever, see
+-- https://github.com/neovim/neovim/issues/6660
+if vim.fn.has('win32') == 1 then
+    keymap("n", "<C-z>", "<Nop>", opts)
+end
+
 -- Normal --
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
