@@ -56,6 +56,7 @@ return packer.startup(function(use)
   use 'goolord/alpha-nvim'
   use 'feline-nvim/feline.nvim'
   use "folke/which-key.nvim"
+  use "folke/zen-mode.nvim"
   
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin

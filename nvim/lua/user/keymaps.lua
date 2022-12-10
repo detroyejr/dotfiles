@@ -78,3 +78,6 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- Nvimtree
 keymap("n", "<leader>e", ":NeoTreeRevealToggle<cr>", opts)
 keymap("n", "<leader>o", ":NeoTreeFocus<cr>", opts)
+
+-- Zenmode
+keymap("n", "<C-z>", ":ZenMode<cr>", opts)

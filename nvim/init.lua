@@ -48,3 +48,6 @@ require("user.whichkey")
 
 -- Gitsigns
 require("user.gitsigns")
+
+-- Zenmod
+require("user.zenmode")
