@@ -49,12 +49,15 @@ return packer.startup(function(use)
   use "lukas-reineke/indent-blankline.nvim"
 
   -- UI
-  use { "catppuccin/nvim", as = "catppuccin" }
+  use 'folke/tokyonight.nvim'
   use "EdenEast/nightfox.nvim" -- Packer
   use "akinsho/bufferline.nvim"
   use "moll/vim-bbye"
   use 'goolord/alpha-nvim'
-  use 'feline-nvim/feline.nvim'
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
   use "folke/which-key.nvim"
   use "folke/zen-mode.nvim"
   

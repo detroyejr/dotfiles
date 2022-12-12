@@ -40,8 +40,8 @@ require("user.toggleterm")
 -- Alpha
 require("user.alpha")
 
--- Feline
-require("user.feline")
+-- Lualine
+require("user.lualine")
 
 -- Whichkey
 require("user.whichkey")
