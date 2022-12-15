@@ -51,3 +51,6 @@ require("user.gitsigns")
 
 -- Zenmod
 require("user.zenmode")
+
+-- LuaSnip
+require("user.luasnip")
