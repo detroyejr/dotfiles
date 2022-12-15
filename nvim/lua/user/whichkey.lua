@@ -132,33 +132,19 @@ local mappings = {
   l = {
     name = "LSP",
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-    d = {
-      "<cmd>Telescope diagnostics<cr>",
-      "Document Diagnostics",
-    },
-    w = {
-      "<cmd>Telescope diagnostics<cr>",
-      "Workspace Diagnostics",
-    },
+    D = { "<cmd>Telescope diagnostics<cr>", "Document Diagnostics" },
+    d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Document Diagnostics" },
+    k = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Document Diagnostics" },
+    j = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Document Diagnostics" },
     f = { "<cmd>lua vim.lsp.buf.format{async=true}<cr>", "Format" },
     i = { "<cmd>LspInfo<cr>", "Info" },
     I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
-    j = {
-      "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",
-      "Next Diagnostic",
-    },
-    k = {
-      "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
-      "Prev Diagnostic",
-    },
-    l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-    q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
+    h = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
+    l = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
+    q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-    S = {
-      "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-      "Workspace Symbols",
-    },
+    S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
   },
   s = {
     name = "Search",
@@ -182,6 +168,7 @@ local mappings = {
     f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+    x = { "<cmd>ToggleTermSendCurrentLine<cr>", "Execute Line"}
   },
 }
 
@@ -195,6 +182,10 @@ local vopts = {
 }
 local vmappings = {
   ["/"] = { "<ESC><CMD>lua require(\"Comment.api\").toggle_linewise_op(vim.fn.visualmode())<CR>", "Comment" },
+  t = {
+    name = "Terminal",
+    x = { "<cmd>ToggleTermSendVisualLines<cr>", "Execute Selection"}
+  }
 }
 
 which_key.setup(setup)
