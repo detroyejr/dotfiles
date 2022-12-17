@@ -54,3 +54,5 @@ require("user.zenmode")
 
 -- LuaSnip
 require("user.luasnip")
+
+require("user.snippets")
