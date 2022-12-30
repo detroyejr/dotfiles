@@ -9,11 +9,12 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    gcc
-    unzip
     cmake
-    wget
     curl
+    gcc
+    openssh
+    unzip
+    wget
     zk
     zsh-powerlevel10k
   ];
@@ -33,7 +34,7 @@
       . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
       . $HOME/.nix-profile/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       . $HOME/.p10k.zsh
-      export ZK_NOTEBOOK = /mnt/c/Users/detro/OneDrive/Documents/zk-notes/
+      export ZK_NOTEBOOK_DIR=/mnt/c/Users/detro/OneDrive/Documents/zk-notes/
     '';
   };
   # Theme for Powerlevel10k.
