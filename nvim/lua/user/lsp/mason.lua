@@ -5,6 +5,7 @@ local servers = {
   "sumneko_lua",
 }
 
+
 local settings = {
   ui = {
     border = "none",
@@ -20,7 +21,7 @@ local settings = {
 
 require("mason").setup(settings)
 require("mason-lspconfig").setup({
-  ensure_installed = servers,
+  -- ensure_installed = servers,
   automatic_installation = false,
 })
 
