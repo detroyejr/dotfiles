@@ -33,6 +33,7 @@
       . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
       . $HOME/.nix-profile/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       . $HOME/.p10k.zsh
+      export ZK_NOTEBOOK = /mnt/c/Users/detro/OneDrive/Documents/zk-notes/
     '';
   };
   # Theme for Powerlevel10k.
