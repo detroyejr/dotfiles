@@ -5,4 +5,6 @@
     userName  = "detroyejr";
     userEmail = "detroyejr@outlook.com";
   };
+
+  programs.lazygit.enable = true;
 }

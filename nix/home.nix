@@ -9,16 +9,19 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    gnumake
     cmake
     curl
     gcc
     openssh
     unzip
     wget
+    fzf
     zk
     zsh-powerlevel10k
   ];
   
+  programs.bash.enable = true;
 
   programs.zsh = {
     enable = true;

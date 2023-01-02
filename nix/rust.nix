@@ -8,4 +8,7 @@
     exa
   ];
 
+  programs.zsh.shellAliases = {
+    ls = "exa";
+  };
 }
