@@ -46,6 +46,8 @@
   local cyan='6'
   local white='7'
 
+  typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
+
   # Left prompt segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # context                 # user@host
