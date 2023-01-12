@@ -9,6 +9,7 @@ let
     ipython
     pytest
     dask
+    s3fs
     black
     python-lsp-server  
 ]);

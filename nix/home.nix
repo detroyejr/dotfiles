@@ -16,6 +16,7 @@
     openssh
     unzip
     wget
+    jq
     fzf
     zk
     zsh-powerlevel10k

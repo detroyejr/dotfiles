@@ -6,6 +6,7 @@
     bat
     ripgrep
     exa
+    dogdns
   ];
 
   programs.zsh.shellAliases = {
