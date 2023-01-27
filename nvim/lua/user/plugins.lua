@@ -74,13 +74,14 @@ return packer.startup(function(use)
   }
 
   -- UI
-  use 'folke/tokyonight.nvim'
-  use "EdenEast/nightfox.nvim" -- Packer
+  use "folke/tokyonight.nvim"
+  use "EdenEast/nightfox.nvim"
+  use "NLKNguyen/papercolor-theme"
   use "akinsho/bufferline.nvim"
   use "moll/vim-bbye"
-  use 'goolord/alpha-nvim'
+  use "goolord/alpha-nvim"
   use {
-    'nvim-lualine/lualine.nvim',
+    "nvim-lualine/lualine.nvim",
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
   use "folke/which-key.nvim"
