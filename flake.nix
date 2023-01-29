@@ -32,5 +32,12 @@
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
       };
+
+      nixosConfigurations.detroyejr = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ ./nixos/surface/configuration.nix ];
+      };
+
     };
+
 }
