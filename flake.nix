@@ -23,8 +23,8 @@
         modules = [
           ./nix/home.nix
           ./nix/neovim.nix
-          ./nix/python.nix
-          ./nix/r.nix
+          #./nix/python.nix
+          #./nix/r.nix
           ./nix/rust.nix
           ./nix/git.nix
         ];
@@ -38,6 +38,12 @@
         modules = [ ./nixos/surface/configuration.nix ];
       };
 
+      nixosConfigurations.proxmox = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ 
+          ./nixos/proxmox/configuration.nix
+        ];
+      };
     };
 
 }

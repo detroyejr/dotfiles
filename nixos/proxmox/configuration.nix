@@ -24,6 +24,8 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
+  # Enable experimental features.
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
     # Set your time zone.
   time.timeZone = "US/New_York";
 
@@ -117,7 +119,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
