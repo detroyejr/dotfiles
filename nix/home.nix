@@ -9,15 +9,17 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    gnumake
     cmake
     curl
+    ffmpeg
+    fzf
     gcc
+    gnumake
+    jq
     openssh
     unzip
     wget
-    jq
-    fzf
+    youtube-dl
     zk
     zsh-powerlevel10k
   ];
