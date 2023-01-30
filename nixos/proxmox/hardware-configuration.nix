@@ -18,6 +18,11 @@
       fsType = "ext4";
     };
 
+  fileSystems."/mnt/Media" = {
+    device = "192.168.1.107:/mnt/nas0/Media";
+    fsType = "nfs";
+  };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/1e942cd2-e8c4-46d3-bac3-15090c463d76"; }
     ];
