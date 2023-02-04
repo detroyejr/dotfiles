@@ -13,6 +13,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # networking.hostName = "nixos"; # Define your hostname.
@@ -80,6 +81,7 @@
     efibootmgr
     sbctl
     gcc
+    dislocker
   ];
 
   #----=[ Fonts ]=----#
@@ -95,10 +97,21 @@
       serif = [ "CaskaydiaCove NF Serif" "Ubuntu" ];
       sansSerif = [ "CanskaydiaCove NF" "Ubuntu" ];
       monospace = [ "CaskaydiaCove NF Mono" "Ubuntu" ];
+      };
     };
   };
-};
 
+  systemd.services.dislocker = {
+    path = [ pkgs.dislocker ];
+    script = ''
+      dislocker /dev/nvme0n1p3 -- /mnt/bitlocker
+      /run/current-system/sw/bin/mount -o loop,rw,umask=0 /mnt/bitlocker/dislocker-file /mnt/c
+    '';
+    serviceConfig = {
+        Type = "forking";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
   virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
