@@ -82,6 +82,7 @@
     sbctl
     gcc
     dislocker
+    rclone
   ];
 
   #----=[ Fonts ]=----#
@@ -110,6 +111,26 @@
     serviceConfig = {
         Type = "forking";
     };
+    wantedBy = [ "multi-user.target" ];
+  };
+
+  systemd.services.onedrive = {
+    path = [ pkgs.rclone ];
+    script = ''
+      FILE=home/detroyejr/.config/rclone/rclone.conf
+      mkdir -p home/detroyejr/OneDrive/
+      if test -f $FILE; then
+        rclone \
+          --vfs-cache-mode writes \
+          --vfs-cache-max-size 100M \
+          --log-level INFO \
+          --log-file /tmp/rclone-%i.log \
+          --umask 022 \
+          --allow-other \
+          --config=$FILE mount \
+          "OneDrive": /home/detroyejr/OneDrive/
+      fi
+    '';
     wantedBy = [ "multi-user.target" ];
   };
   virtualisation.docker.enable = true;
