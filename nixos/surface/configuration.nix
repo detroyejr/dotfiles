@@ -133,6 +133,19 @@
     '';
     wantedBy = [ "multi-user.target" ];
   };
+
+  systemd.services.sbctl_sign = {
+    path = [ pkgs.sbctl ];
+    script = ''
+      sbctl sign /boot/EFI/nixos/$(ls /boot/EFI/nixos | grep bzImage)
+      sbctl sign-all
+    '';
+    serviceConfig = {
+      User = "root";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
+
   virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
