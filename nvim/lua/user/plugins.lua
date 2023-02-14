@@ -57,7 +57,7 @@ local plugins = {
   { "goolord/alpha-nvim" },
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons", opt = true }
+    dependencies = { "nvim-tree/nvim-web-devicons", opt = true }
   },
   { "folke/which-key.nvim" },
   { "folke/zen-mode.nvim" },
@@ -99,7 +99,7 @@ local plugins = {
   {
   "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
-    requires = { 
+    dependencies = { 
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
