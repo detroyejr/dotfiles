@@ -9,6 +9,10 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    aircrack-ng
+    audible-cli
+    awscli
+    bc
     cmake
     curl
     ffmpeg
@@ -16,6 +20,10 @@
     gcc
     gnumake
     jq
+    kubectl
+    lame
+    mediainfo
+    mp4v2
     openssh
     unzip
     wget

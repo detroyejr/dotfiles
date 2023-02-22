@@ -13,6 +13,7 @@ let
     python-lsp-server  
     requests
     s3fs
+    sqlalchemy
 ]);
 in
 {
