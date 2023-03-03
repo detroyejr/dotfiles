@@ -1,9 +1,14 @@
 # Windows Terminal Settings.
-mklink "%USERPROFILE%\.config\dotfiles\windows\settings.json"  "C:\Users\detro\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
-mklink /J "%OneDrive%\Documents\.ssh" "%UserProfile%\.ssh
-mklink /J "%OneDrive%\Documents\.kube" "%UserProfile%\.kube
-mklink /J "%OneDrive%\Documents\.aws" "%UserProfile%\.aws
-mklink "%OneDrive%\Documents\.radian_history "%UserProfile%\.radian_history
+mklink "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" "%USERPROFILE%\.config\dotfiles\windows\settings.json"
+
+# Symlinks of folders
+mklink /J "%UserProfile%\.ssh" "%OneDrive%\Documents\.ssh" 
+mklink /J "%UserProfile%\.kube" "%OneDrive%\Documents\.kube"
+mklink /J "%UserProfile%\.aws" "%OneDrive%\Documents\.aws" 
+
+# History
+mklink "%UserProfile%\.pwsh_history" "%OneDrive%\Documents\.pwsh_history"
+mklink "%UserProfile%\.radian_history" "%OneDrive%\Documents\.radian_history"
 
 # Add some icons.
 Install-Module -Name Terminal-Icons -Repository PSGallery
