@@ -50,6 +50,9 @@
       . $HOME/.p10k.zsh
       export EDITOR=nvim
       export ZK_NOTEBOOK_DIR=/mnt/c/Users/detro/OneDrive/Documents/zk-notes/
+
+      # Add a few aliases.
+      alias k=kubectl
     '';
   };
   # Theme for Powerlevel10k.
