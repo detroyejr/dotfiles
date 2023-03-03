@@ -1,2 +1,12 @@
 # Windows Terminal Settings.
-mklink C:\Users\detro\.config\dotfiles\windows\settings.json  "C:\Users\detro\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+mklink "%USERPROFILE%\.config\dotfiles\windows\settings.json"  "C:\Users\detro\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+mklink /J "%OneDrive%\Documents\.ssh" "%UserProfile%\.ssh
+mklink /J "%OneDrive%\Documents\.kube" "%UserProfile%\.kube
+mklink /J "%OneDrive%\Documents\.aws" "%UserProfile%\.aws
+mklink "%OneDrive%\Documents\.radian_history "%UserProfile%\.radian_history
+
+# Add some icons.
+Install-Module -Name Terminal-Icons -Repository PSGallery
+
+# Useful command to run as administrator.
+# Get-Service -Name ssh-agent | Set-Service -StartupType Manual

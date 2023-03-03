@@ -44,7 +44,7 @@
             "font": 
             {
                 "face": "CaskaydiaCove Nerd Font Mono",
-                "size": 12,
+                "size": 12.0,
                 "weight": "semi-bold"
             },
             "padding": "0, 0, 0, 0",
@@ -61,16 +61,22 @@
                 "name": "Windows PowerShell"
             },
             {
-                "guid": "{f9ceaf27-504c-58d7-927c-d1d6a7ac7d3c}",
+                "guid": "{17bf3de4-5353-5709-bcf9-835bd952a95e}",
                 "hidden": false,
                 "name": "Ubuntu",
-                "source": "CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc"
+                "source": "Windows.Terminal.Wsl"
             },
             {
                 "commandline": "%SystemRoot%\\System32\\cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "Command Prompt"
+            },
+            {
+                "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
+                "hidden": false,
+                "name": "kali-linux",
+                "source": "Windows.Terminal.Wsl"
             }
         ]
     },
@@ -399,5 +405,6 @@
             "yellow": "#E0AF68"
         }
     ],
+    "themes": [],
     "useAcrylicInTabRow": true
 }
