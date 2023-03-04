@@ -90,29 +90,29 @@
     enableDefaultFonts = true;
       fonts = with pkgs; [ 
         ubuntu_font_family
-        nerdfonts
-      ];
+        (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+       ];
 
     fontconfig = {
       defaultFonts = {
       serif = [ "CaskaydiaCove NF Serif" "Ubuntu" ];
-      sansSerif = [ "CanskaydiaCove NF" "Ubuntu" ];
+      sansSerif = [ "CaskaydiaCove NF" "Ubuntu" ];
       monospace = [ "CaskaydiaCove NF Mono" "Ubuntu" ];
       };
     };
   };
 
-  systemd.services.dislocker = {
-    path = [ pkgs.dislocker ];
-    script = ''
-      dislocker /dev/nvme0n1p3 -- /mnt/bitlocker
-      /run/current-system/sw/bin/mount -o loop,rw,umask=0 /mnt/bitlocker/dislocker-file /mnt/c
-    '';
-    serviceConfig = {
-        Type = "forking";
-    };
-    wantedBy = [ "multi-user.target" ];
-  };
+  # systemd.services.dislocker = {
+  #   path = [ pkgs.dislocker ];
+  #   script = ''
+  #     dislocker /dev/nvme0n1p3 -- /mnt/bitlocker
+  #     /run/current-system/sw/bin/mount -o loop,rw,umask=0 /mnt/bitlocker/dislocker-file /mnt/c
+  #   '';
+  #   serviceConfig = {
+  #       Type = "forking";
+  #   };
+  #   wantedBy = [ "multi-user.target" ];
+  # };
 
   systemd.services.onedrive = {
     path = [ pkgs.rclone ];

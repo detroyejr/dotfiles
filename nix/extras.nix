@@ -8,7 +8,7 @@
   
   home.file."/home/detroyejr/.config/kitty/kitty.conf".text = "
     include ./Tokyo Night Day.conf
-    font_family CaskaydiaCove NF Mono
+    font_family CaskaydiaCove Nerd Font Mono
     bold_font auto
     italic_font auto
     bold_italic_font auto
