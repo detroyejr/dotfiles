@@ -4,6 +4,8 @@
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     kitty
+    hyperion-ng
+    wireshark
   ];
   
   home.file."/home/detroyejr/.config/kitty/kitty.conf".text = "
