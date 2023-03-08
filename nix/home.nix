@@ -56,6 +56,12 @@
       alias k=kubectl
     '';
   };
+
+  programs.mcfly = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   # Theme for Powerlevel10k.
   home.file."/home/detroyejr/.p10k.zsh".source = ../zsh/.p10k.zsh;
 
