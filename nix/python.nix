@@ -4,6 +4,7 @@ let
   python = pkgs.python310;
   python-with-packages = python.withPackages (p: with p; [
     black
+    boto3
     dask
     ipython
     lxml
