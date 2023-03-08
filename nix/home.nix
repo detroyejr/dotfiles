@@ -45,7 +45,8 @@
     };
     initExtra = ''
       export PATH=$PATH:/home/detroyejr/.nix-profile/bin
-      . $HOME/.nix-profile/etc/profile.d/nix.sh
+      [[ -f $HOME/.nix-profile/etc/profile.d/nix.sh ]] && . $HOME/.nix-profile/etc/profile.d/nix.sh 
+      [[ -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]] && . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
       . $HOME/.nix-profile/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       . $HOME/.p10k.zsh
       export EDITOR=nvim

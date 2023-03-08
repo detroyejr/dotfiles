@@ -90,29 +90,29 @@
     enableDefaultFonts = true;
       fonts = with pkgs; [ 
         ubuntu_font_family
-        nerdfonts
-      ];
+        (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+       ];
 
     fontconfig = {
       defaultFonts = {
       serif = [ "CaskaydiaCove NF Serif" "Ubuntu" ];
-      sansSerif = [ "CanskaydiaCove NF" "Ubuntu" ];
+      sansSerif = [ "CaskaydiaCove NF" "Ubuntu" ];
       monospace = [ "CaskaydiaCove NF Mono" "Ubuntu" ];
       };
     };
   };
 
-  systemd.services.dislocker = {
-    path = [ pkgs.dislocker ];
-    script = ''
-      dislocker /dev/nvme0n1p3 -- /mnt/bitlocker
-      /run/current-system/sw/bin/mount -o loop,rw,umask=0 /mnt/bitlocker/dislocker-file /mnt/c
-    '';
-    serviceConfig = {
-        Type = "forking";
-    };
-    wantedBy = [ "multi-user.target" ];
-  };
+  # systemd.services.dislocker = {
+  #   path = [ pkgs.dislocker ];
+  #   script = ''
+  #     dislocker /dev/nvme0n1p3 -- /mnt/bitlocker
+  #     /run/current-system/sw/bin/mount -o loop,rw,umask=0 /mnt/bitlocker/dislocker-file /mnt/c
+  #   '';
+  #   serviceConfig = {
+  #       Type = "forking";
+  #   };
+  #   wantedBy = [ "multi-user.target" ];
+  # };
 
   systemd.services.onedrive = {
     path = [ pkgs.rclone ];
@@ -122,9 +122,9 @@
       if test -f $FILE; then
         rclone \
           --vfs-cache-mode writes \
-          --vfs-cache-max-size 100M \
+          --vfs-cache-max-size 4G \
           --log-level INFO \
-          --log-file /tmp/rclone-%i.log \
+          --log-file /tmp/rclone-onedrive.log \
           --umask 022 \
           --allow-other \
           --config=$FILE mount \
@@ -134,6 +134,25 @@
     wantedBy = [ "multi-user.target" ];
   };
 
+  systemd.services.google_drive = {
+    path = [ pkgs.rclone ];
+    script = ''
+      FILE=home/detroyejr/.config/rclone/rclone.conf
+      mkdir -p home/detroyejr/Google Drive/
+      if test -f $FILE; then
+        rclone \
+          --vfs-cache-mode writes \
+          --vfs-cache-max-size 4G \
+          --log-level INFO \
+          --log-file /tmp/rclone-google.log \
+          --umask 022 \
+          --allow-other \
+          --config=$FILE mount \
+          "Google Drive": "/home/detroyejr/Google Drive/"
+      fi
+    '';
+    wantedBy = [ "multi-user.target" ];
+  };
   systemd.services.sbctl_sign = {
     path = [ pkgs.sbctl ];
     script = ''
