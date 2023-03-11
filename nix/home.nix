@@ -27,7 +27,7 @@
     openssh
     unzip
     wget
-    youtube-dl
+    yt-dlp
     zk
     zsh-powerlevel10k
   ];
