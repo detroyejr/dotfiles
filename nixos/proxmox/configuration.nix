@@ -21,7 +21,7 @@
 
   networking.hostName = "NixOS"; # Define your hostname.
   # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Enable experimental features.
@@ -102,23 +102,55 @@
       serif = [ "CaskaydiaCove NF Serif" "Ubuntu" ];
       sansSerif = [ "CanskaydiaCove NF" "Ubuntu" ];
       monospace = [ "CaskaydiaCove NF Mono" "Ubuntu" ];
+      };
     };
   };
-};
 
   virtualisation.docker.enable = true;
+ 
+  # services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
+  services.samba = {
+    enable = true;
+    securityType = "user";
+    extraConfig = ''
+      workgroup = WORKGROUP
+      server string = smbnix
+      netbios name = smbnix
+      security = user 
+      #use sendfile = yes
+      # max protocol = nt1
+      client min protocol = NT1
+      server min protocol = NT1
+      # note: localhost is the ipv6 localhost ::1
+      hosts allow = 192.168.1. 127.0.0.1 localhost
+      hosts deny = 0.0.0.0/0
+      guest account = nobody
+      map to guest = bad user
+    '';
+    shares = {
+      photos = {
+        path = "/mnt/Media/Photos/";
+        browseable = "yes";
+        "read only" = "yes";
+        "guest ok" = "yes";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "detroyejr";
+        "force group" = "users";
+      };
+    };
+  };
+# Some programs need SUID wrappers, can be configured further or are
+# started in user sessions.
+# programs.mtr.enable = true;
+# programs.gnupg.agent = {
+#   enable = true;
+#   enableSSHSupport = true;
+# };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+# List services that you want to enable:
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
+# Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
   # Open ports in the firewall.
