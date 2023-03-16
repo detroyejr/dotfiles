@@ -38,6 +38,7 @@ let
       languageserver
       magick
       relaimpo
+      sf
       sjlabelled
       surveytools
       usethis
