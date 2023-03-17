@@ -37,6 +37,7 @@ let
       knitr
       languageserver
       magick
+      readxl
       relaimpo
       sf
       sjlabelled
@@ -49,7 +50,10 @@ in
   home.packages = [ R-with-packages ];
 
   programs.zsh.shellAliases = {
-    R = "R --vanilla";
+    R = "R --no-save --no-restore";
   };
+
+  home.file."/home/detroyejr/.radian_profile".source = ../R/.radian_profile;
+  home.file."/home/detroyejr/.Rprofile".source = ../R/.Rprofile;
 }
 
