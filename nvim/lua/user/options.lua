@@ -20,6 +20,7 @@ local options = {
   backup = false,                          -- creates a backup file
   clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
   cmdheight = 0,                           -- more space in the neovim command line for displaying messages
+  colorcolumn = "84",
   completeopt = { "menuone", "noselect" }, -- mostly just for cmp
   conceallevel = 0,                        -- so that `` is visible in markdown files
   cursorline = false,                       -- highlight the current line
@@ -62,3 +63,4 @@ vim.opt.shortmess:append "c"
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
+vim.cmd "autocmd filetype r set colorcolumn=80"
