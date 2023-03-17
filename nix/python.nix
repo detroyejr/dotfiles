@@ -6,6 +6,7 @@ let
     black
     boto3
     dask
+    flake8
     ipython
     lxml
     pandas
