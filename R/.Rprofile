@@ -6,8 +6,7 @@
 
   # Prompt
   options(
-    prompt = sprintf("%s ", crayon::blue("> ")), 
-    continuie = "+\t"
+    prompt = "> "
   )
 
   if (interactive()) {

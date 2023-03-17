@@ -23,6 +23,7 @@
     kubectl
     lame
     mediainfo
+    mitmproxy
     mp4v2
     openssh
     unzip
@@ -55,6 +56,13 @@
       # Add a few aliases.
       alias k=kubectl
     '';
+  };
+
+  programs.tmux = {
+    enable = true;    
+    shortcut = "a";
+    newSession = true;
+    clock24 = true;
   };
 
   programs.mcfly = {
