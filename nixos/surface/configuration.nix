@@ -77,12 +77,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget
-    efibootmgr
-    sbctl
-    gcc
     dislocker
+    efibootmgr
+    gcc
     rclone
+    sbctl
+    wget
   ];
 
   #----=[ Fonts ]=----#

@@ -1,8 +1,64 @@
 { config, pkgs, fetchFromGitHub, ... }:
 
 {
-  # Packages that should be installed to the user profile.
+  gtk = {
+    enable = true;
+
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+
+    theme = {
+      name = "Catppuccin-Macchiato-Compact-Blue-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "blue" ];
+        size = "compact";
+        tweaks = [ "rimless" "black" ];
+        variant = "macchiato";
+      };    
+    };
+
+    cursorTheme = {
+      name = "Numix-Cursor";
+      package = pkgs.numix-cursor-theme;
+    };
+
+    gtk3.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+
+    gtk4.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+  };
+  dconf.settings = {
+    "org/gnome/shell" = {
+      favorite-apps = [
+        "firefox.desktop"
+        "kitty.desktop"
+        "org.gnome.Nautilus.desktop"
+      ];
+    };
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      enable-hot-corners = false;
+    };
+    "org/gnome/desktop/wm/preferences" = {
+      workspace-names = [ "Main" ];
+    };
+  };
+  home.sessionVariables.GTK_THEME = "Catppuccin-Macchiato-Compact-Blue-Dark";
   home.packages = with pkgs; [
+    gnome3.gnome-themes-extra
+    gnome3.gnome-tweaks
+    gnomeExtensions.user-themes
+    gnomeExtensions.rounded-corners
+    papirus-icon-theme
     kitty
     hyperion-ng
     wireshark
