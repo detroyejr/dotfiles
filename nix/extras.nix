@@ -51,13 +51,39 @@
     "org/gnome/desktop/wm/preferences" = {
       workspace-names = [ "Main" ];
     };
+    "org/gnome/shell" = {
+      disable-user-extensions = false;
+      enabled-extensions = [
+        "user-theme@gnome-shell-extensions.gcampax.github.com"
+        "rounded-window-corners@yilozt"
+        "Move_Clock@rmy.pobox.com"
+        "blur-my-shell@aunetx"
+      ];
+    };
+    "org/gnome/shell/extensions/rounded-window-corners" = {
+      border-width = 0;
+      tweak-kitty-terminal = true;
+    };
+    # Configure blur-my-shell
+    "org/gnome/shell/extensions/blur-my-shell" = {
+      brightness = 0.85;
+      dash-opacity = 0.25;
+      sigma = 15; # Sigma means blur amount
+      static-blur = true;
+    };
+    "org/gnome/shell/extensions/blur-my-shell/panel".blur = false;
   };
   home.sessionVariables.GTK_THEME = "Catppuccin-Macchiato-Compact-Blue-Dark";
   home.packages = with pkgs; [
     gnome3.gnome-themes-extra
     gnome3.gnome-tweaks
+    gnome3.gnome-shell
+    gnome.gnome-shell
+    gnomeExtensions.extension-list
+    gnomeExtensions.blur-my-shell
     gnomeExtensions.user-themes
-    gnomeExtensions.rounded-corners
+    gnomeExtensions.move-clock
+    gnomeExtensions.rounded-window-corners
     papirus-icon-theme
     kitty
     hyperion-ng
