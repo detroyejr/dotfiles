@@ -24,12 +24,6 @@
       package = pkgs.numix-cursor-theme;
     };
 
-    gtk3.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
-
     gtk4.extraConfig = {
       Settings = ''
         gtk-application-prefer-dark-theme=1
@@ -50,6 +44,9 @@
     };
     "org/gnome/desktop/wm/preferences" = {
       workspace-names = [ "Main" ];
+    };
+    "org/gnome/mutter" = {
+      experimental-features = ["scale-monitor-framebuffer"];
     };
     "org/gnome/shell" = {
       disable-user-extensions = false;
@@ -75,23 +72,47 @@
   };
   home.sessionVariables.GTK_THEME = "Catppuccin-Macchiato-Compact-Blue-Dark";
   home.packages = with pkgs; [
-    gnome3.gnome-themes-extra
-    gnome3.gnome-tweaks
-    gnome3.gnome-shell
+    gnome.dconf-editor
     gnome.gnome-shell
-    gnomeExtensions.extension-list
+    gnome.gnome-themes-extra
+    gnome.gnome-tweaks
     gnomeExtensions.blur-my-shell
-    gnomeExtensions.user-themes
+    gnomeExtensions.upower-battery
+    gnomeExtensions.extension-list
+    gnomeExtensions.floating-panel
     gnomeExtensions.move-clock
     gnomeExtensions.rounded-window-corners
-    papirus-icon-theme
-    kitty
+    gnomeExtensions.user-themes
+    gtklock
     hyperion-ng
+    hyprpaper
+    socat
+    gjs
+    kitty
+    papirus-icon-theme
     wireshark
+    pavucontrol
+    brightnessctl
+    wl-clipboard
+    wlsunset
   ];
-  
+
+  programs.rofi.enable = true;
+  programs.eww = {
+    enable = true;
+    package = pkgs.eww-wayland;
+    configDir = ../assets/.config/eww;
+  };
+
+  home.file."/home/detroyejr/.config/hypr/hyprpaper.conf".text = "
+    preload = ~/.config/dotfiles/assets/wallpaper.jpg
+    wallpaper = DP-4,~/.config/dotfiles/assets/wallpaper.jpg
+    wallpaper = eDP-1,~/.config/dotfiles/assets/wallpaper.jpg
+  ";
+
   home.file."/home/detroyejr/.config/kitty/kitty.conf".text = "
     include ./Tokyo Night Day.conf
+    include ./Tokyo Night.conf
     font_family CaskaydiaCove Nerd Font Mono
     bold_font auto
     italic_font auto
@@ -147,5 +168,57 @@
     # extended colors
     color16 #b15c00
     color17 #c64343
+  ";
+  home.file."/home/detroyejr/.config/kitty/Tokyo Night.conf".text = "
+    # vim:ft=kitty
+
+    ## name: Tokyo Night
+    ## license: MIT
+    ## author: Folke Lemaitre
+    ## upstream: https://github.com/folke/tokyonight.nvim/raw/main/extras/kitty/tokyonight_night.conf
+
+
+    background #1a1b26
+    foreground #c0caf5
+    selection_background #33467c
+    selection_foreground #c0caf5
+    url_color #73daca
+    cursor #c0caf5
+    cursor_text_color #1a1b26
+
+    # Tabs
+    active_tab_background #7aa2f7
+    active_tab_foreground #16161e
+    inactive_tab_background #292e42
+    inactive_tab_foreground #545c7e
+    #tab_bar_background #15161e
+
+    # Windows
+    active_border_color #7aa2f7
+    inactive_border_color #292e42
+
+    # normal
+    color0 #15161e
+    color1 #f7768e
+    color2 #9ece6a
+    color3 #e0af68
+    color4 #7aa2f7
+    color5 #bb9af7
+    color6 #7dcfff
+    color7 #a9b1d6
+
+    # bright
+    color8 #414868
+    color9 #f7768e
+    color10 #9ece6a
+    color11 #e0af68
+    color12 #7aa2f7
+    color13 #bb9af7
+    color14 #7dcfff
+    color15 #c0caf5
+
+    # extended colors
+    color16 #ff9e64
+    color17 #db4b4b
   ";
 }

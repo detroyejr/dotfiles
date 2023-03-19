@@ -8,9 +8,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, hyprland, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -41,12 +42,12 @@
         # the path to your home.nix.
         modules = [
           ./nix/home.nix
-          ./nix/extras.nix
           ./nix/neovim.nix
           ./nix/python.nix
           ./nix/r.nix
           ./nix/rust.nix
           ./nix/git.nix
+          ./nix/extras.nix
         ];
 
         # Optionally use extraSpecialArgs
@@ -55,7 +56,20 @@
       
       nixosConfigurations.surface = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ ./nixos/surface/configuration.nix ];
+        modules = [ 
+          ./nixos/surface/configuration.nix
+          hyprland.nixosModules.default
+          {
+            programs.hyprland = {
+              enable = true;
+              xwayland = {
+                enable = true;
+                hidpi = true;
+              };
+              nvidiaPatches = false;
+            };
+          }
+        ];
       };
 
       nixosConfigurations.proxmox = nixpkgs.lib.nixosSystem {

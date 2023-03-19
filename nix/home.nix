@@ -22,6 +22,7 @@
     jq
     kubectl
     lame
+    neofetch
     mediainfo
     mitmproxy
     mp4v2

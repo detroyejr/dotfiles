@@ -13,6 +13,10 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+   
+  # Allow proprietary software (such as the NVIDIA drivers).
+  nixpkgs.config.allowUnfree = true; 
+  
   boot.supportedFilesystems = [ "ntfs" ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -63,15 +67,32 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.detroyejr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     packages = with pkgs; [
-      firefox
+      firefox-wayland
       docker
     ];
+  };
+
+  environment.sessionVariables = {
+     MOZ_ENABLE_WAYLAND = "1";
   };
 
   # List packages installed in system profile. To search, run:
@@ -85,12 +106,15 @@
     wget
   ];
 
-  #----=[ Fonts ]=----#
+  # For sway.
+  security.polkit.enable = true;
+
+  # Fonts
   fonts = {
     enableDefaultFonts = true;
       fonts = with pkgs; [ 
         ubuntu_font_family
-        (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+        (nerdfonts.override { fonts = [ "CascadiaCode" "Ubuntu" ]; })
        ];
 
     fontconfig = {
