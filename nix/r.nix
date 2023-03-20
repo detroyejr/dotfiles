@@ -27,6 +27,7 @@ let
       ];
     };
     in [
+      PracTools
       RMariaDB
       RPostgres
       data_table
