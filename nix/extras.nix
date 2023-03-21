@@ -1,6 +1,13 @@
 { config, pkgs, fetchFromGitHub, ... }:
 
 {
+  nixpkgs.overlays = [
+    (self: super: {
+      waybar = super.waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      });
+    })
+  ];
   gtk = {
     enable = true;
 
@@ -90,14 +97,21 @@
     gjs
     kitty
     papirus-icon-theme
+    pamixer
     wireshark
     pavucontrol
     brightnessctl
     wl-clipboard
     wlsunset
+    wofi
+    dunst
   ];
 
   programs.rofi.enable = true;
+  programs.waybar = {
+    enable = true;
+    package = pkgs.waybar;
+  };
   programs.eww = {
     enable = true;
     package = pkgs.eww-wayland;
