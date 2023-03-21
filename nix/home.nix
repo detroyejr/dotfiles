@@ -39,27 +39,29 @@
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
-    # oh-my-zsh = {
-    #   enable = true;
-    #   plugins = [ "git" ];
-    #   theme = "robbyrussell";
-    # };
+    oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" ];
+      theme = "robbyrussell";
+    };
     initExtra = ''
       export PATH=$PATH:/home/detroyejr/.nix-profile/bin
       [[ -f $HOME/.nix-profile/etc/profile.d/nix.sh ]] && . $HOME/.nix-profile/etc/profile.d/nix.sh 
       [[ -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]] && . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-      # . $HOME/.nix-profile/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      . $HOME/.nix-profile/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       . $HOME/.p10k.zsh
       export EDITOR=nvim
       export ZK_NOTEBOOK_DIR=/mnt/c/Users/detro/OneDrive/Documents/zk-notes/
-      export STARSHIP_CONFIG=~/.config/starship.toml
+      # export STARSHIP_CONFIG=~/.config/starship.toml
 
       # Add a few aliases.
       alias k=kubectl
     '';
   };
-  programs.starship.enable = true;
-  home.file."/home/detroyejr/.config/starship.toml".source = ../assets/.config/starship.toml;
+
+  # Doesn't work well with WSL2 at the moment. So leaving disabled for now.
+  # programs.starship.enable = true;
+  # home.file."/home/detroyejr/.config/starship.toml".source = ../assets/.config/starship.toml;
 
   programs.tmux = {
     enable = true;    
