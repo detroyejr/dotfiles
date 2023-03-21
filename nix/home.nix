@@ -54,6 +54,7 @@
       export EDITOR=nvim
       export ZK_NOTEBOOK_DIR=/mnt/c/Users/detro/OneDrive/Documents/zk-notes/
       # export STARSHIP_CONFIG=~/.config/starship.toml
+      export TZ='America/New_York'
 
       # Add a few aliases.
       alias k=kubectl
