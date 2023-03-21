@@ -1,7 +1,7 @@
 # Custom RProfile
 .First <- function() {
   # Auto Set Console width.
-  # options(setWidthOnResize = TRUE)
+  options(setWidthOnResize = TRUE)
   options(width = 120)
 
   # Prompt
