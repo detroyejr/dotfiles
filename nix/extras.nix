@@ -108,21 +108,34 @@
   ];
 
   programs.rofi.enable = true;
+ 
+  home.file."/home/detroyejr/.config/rofi" = {
+    source = ../assets/.config/rofi;
+    recursive = true;
+  };
+  
   programs.waybar = {
     enable = true;
     package = pkgs.waybar;
   };
+
+  home.file."/home/detroyejr/.config/waybar" = {
+    source = ../assets/.config/waybar;
+    recursive = true;
+  };
+
   programs.eww = {
     enable = true;
     package = pkgs.eww-wayland;
     configDir = ../assets/.config/eww;
   };
 
-  home.file."/home/detroyejr/.config/hypr/hyprpaper.conf".text = "
-    preload = ~/.config/dotfiles/assets/wallpaper.jpg
-    wallpaper = DP-4,~/.config/dotfiles/assets/wallpaper.jpg
-    wallpaper = eDP-1,~/.config/dotfiles/assets/wallpaper.jpg
-  ";
+  home.file."/home/detroyejr/.config/hypr" = {
+    source = ../assets/.config/hypr;
+    recursive = true;
+  };
+  
+  
 
   home.file."/home/detroyejr/.config/kitty/kitty.conf".text = "
     include ./Tokyo Night Day.conf
