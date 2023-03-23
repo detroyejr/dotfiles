@@ -98,12 +98,14 @@
     kitty
     papirus-icon-theme
     pamixer
+    plex-media-player
     wireshark
     pavucontrol
     brightnessctl
     wl-clipboard
     wlsunset
     wofi
+    ranger
     dunst
   ];
 
@@ -135,6 +137,10 @@
     recursive = true;
   };
   
+  home.file."/home/detroyejr/.config/ranger" = {
+    source = ../assets/.config/ranger;
+    recursive = true;
+  };
   
 
   home.file."/home/detroyejr/.config/kitty/kitty.conf".text = "

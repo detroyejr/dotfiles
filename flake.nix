@@ -16,6 +16,9 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
+      # Allow Unfreej
+      nixpkgs.config.allowUnfree = true;
+
       # A default configuration that should work on non-NixOS machines.
       homeConfigurations.detroyejr = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
