@@ -69,6 +69,12 @@ function _PYTHON_TOGGLE()
 	python:toggle()
 end
 
+local r = Terminal:new({ cmd = "R", hidden = true })
+
+function _r_TOGGLE()
+	r:toggle()
+end
+
 local radian = Terminal:new({ cmd = "radian", hidden = true })
 
 function _RADIAN_TOGGLE()
