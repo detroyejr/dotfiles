@@ -13,12 +13,12 @@ let
           rev = "33aae7b5303bc21c21e2e4bf1b9d76f8f349b195";
         };
       buildInputs = [ 
-        pkgs.R 
         RMariaDB 
         RPostgres 
         huxtable 
         knitr 
         magick 
+        pkgs.R 
         relaimpo 
         rmarkdown 
         scales 
@@ -32,6 +32,7 @@ let
       RPostgres
       data_table
       dplyr
+      ggplot2
       haven
       httr
       huxtable
