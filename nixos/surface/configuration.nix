@@ -45,10 +45,10 @@
 
 
   # Enable the Plasma 5 Desktop Environment.
-  #services.xserver.displayManager.sddm.enable = true;
-  #services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true; 
+  services.xserver.displayManager.sddm.enable = true;
+  # services.xserver.desktopManager.plasma5.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true; 
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -90,12 +90,6 @@
       docker
     ];
   }; 
-
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "insync"
-    "plex-media-player"
-    "plexamp"
-  ];
 
   environment.sessionVariables = {
      MOZ_ENABLE_WAYLAND = "1";
@@ -150,7 +144,7 @@
       FILE=home/detroyejr/.config/rclone/rclone.conf
       mkdir -p home/detroyejr/OneDrive/
       if test -f $FILE; then
-        rclone \
+        sudo rclone \
           --vfs-cache-mode writes \
           --vfs-cache-max-size 4G \
           --log-level INFO \
