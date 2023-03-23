@@ -50,6 +50,8 @@
           ./nix/r.nix
           ./nix/rust.nix
           ./nix/git.nix
+          ./nix/kitty.nix
+          ./nix/hyprland.nix
           ./nix/extras.nix
         ];
 

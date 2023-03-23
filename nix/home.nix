@@ -9,7 +9,6 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    aircrack-ng
     audible-cli
     awscli
     bc
@@ -22,11 +21,12 @@
     jq
     kubectl
     lame
-    neofetch
     mediainfo
     mitmproxy
     mp4v2
+    neofetch
     openssh
+    ranger
     unzip
     wget
     yt-dlp
