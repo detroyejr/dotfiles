@@ -25,6 +25,7 @@
     mitmproxy
     mp4v2
     neofetch
+    nitch
     openssh
     ranger
     unzip
