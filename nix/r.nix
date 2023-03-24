@@ -2,9 +2,9 @@
 
 with pkgs;
 let
-  R-with-packages = radianWrapper.override{ 
-    # Expose R packages.
-    wrapR = true;
+  R-with-packages = rWrapper.override{ 
+    # Expose R packages when using radian.
+    # wrapR = true;
     packages = with rPackages; let
       surveytools = buildRPackage {
         name = "EchelonSurveyTools";
