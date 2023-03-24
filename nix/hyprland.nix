@@ -54,6 +54,7 @@
     wl-clipboard
     wlogout
     wlsunset
+    xdg-desktop-portal-wlr
   ];
 
   programs.rofi.enable = true;
