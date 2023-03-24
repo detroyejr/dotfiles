@@ -1,70 +1,61 @@
 #!/usr/bin/env bash
 
-function screen_icon {
-    ARRAY=( '󰛩' '󱩎' '󱩏' '󱩐' '󱩑' '󱩒' '󱩓' '󱩔' '󱩕' '󱩖' '󰛨' )
-    IND=$(( $(screen_level) / 10))
-    echo ${ARRAY[$IND]}
+icons=("" "" "")
+if [ ! "$XDG_CACHE_HOME" ]; then
+  XDG_CACHE_HOME="/home/mihai/.local/cache"
+fi
+date="$XDG_CACHE_HOME/eww/osd_brightness.date"
+
+osd() {
+  if [ ! -f "$date" ]; then
+    mkdir -p "$XDG_CACHE_HOME/eww"
+  fi
+  date +%s > "$date"
 }
 
-function kbd_icon {
-    ARRAY=( '󰛩' '󱩎' '󱩏' '󱩐' '󱩑' '󱩒' '󱩓' '󱩔' '󱩕' '󱩖' '󰛨' )
-    IND=$(( $(kbd_level) / 10))
-    echo ${ARRAY[$IND]}
+osd_handler() {
+  lock=0
+  rundate=0
+  if [ ! -f "$date" ]; then
+    mkdir -p "$XDG_CACHE_HOME/eww"
+    echo 0 > "$date"
+  fi
+
+  while true; do
+    # get dates
+    rundate=$(cat "$date")
+    currentdate=$(date +%s)
+
+    # handle showing
+    if [ "$rundate" = "$currentdate" ] && [ "$lock" -eq 0 ]; then
+      eww open osd
+      eww update osd-brightness=true
+      lock=1
+    elif [ "$((currentdate - rundate))" = "2" ] && [ "$lock" -eq 1 ]; then
+      eww update osd-brightness=false
+      lock=0
+      if [ "$(eww get osd-brightness)" = "false" ] && [ "$(eww get osd-volume)" = "false" ]; then
+        eww close osd
+      fi
+    fi
+
+    sleep 0.1
+  done
+
+  eww close osd
 }
 
-function screen_level {
-    echo $(brightnessctl info | grep Current | awk '{print $4}' | tr '%' ' ' | tr '(' ' ' | tr ')' ' ')
-}
+if [ "$1" = "osd" ]; then
+  osd
+else
+  osd_handler &
+  # initial
+  icon=${icons[$(awk -v n="$(light)" 'BEGIN{print int(n/34)}')]}
+  echo '{ "percent": '"$(light)"', "icon": "'"$icon"'" }'
 
-function kbd_level {
-    echo $(brightnessctl -d asus::kbd_backlight info | grep Current | awk '{print $4}' | tr '%' ' ' | tr '(' ' ' | tr ')' ' ')
-}
+  udevadm monitor | rg --line-buffered "backlight" | while read -r _; do
+    icon="${icons[$(awk -v n="$(light)" 'BEGIN{print int(n/34)}')]}"
 
-function raise_screen {
-    brightnessctl set 5%+ -q
-    update_screen
-}
-
-function lower_screen {
-    brightnessctl set 5%- -q
-    update_screen
-}
-
-function raise_kbd {
-    brightnessctl -d asus::kbd_backlight set +1 -q
-    update_kbd
-}
-
-function lower_kbd { 
-    brightnessctl -d asus::kbd_backlight set 1- -q
-    update_kbd
-}
-
-function update_kbd {
-    eww update kbd_level=$(kbd_level)
-    eww update kbd_icon=$(kbd_icon)
-    ~/.config/eww/scripts/./osd $(kbd_icon) $(kbd_level)
-}
-
-function update_screen {
-    eww update screen_level=$(screen_level)
-    eww update screen_icon=$(screen_icon)
-    ~/.config/eww/scripts/./osd $(screen_icon) $(screen_level)
-}
-
-function set_screen {
-    echo "screen: "$1
-    brightnessctl set $1"%" -q
-    eww update screen_level=$(screen_level)
-    eww update screen_icon=$(screen_icon)
-}
-
-if [[ $1 == 'kbd_level' ]]; then echo $(kbd_level); fi
-if [[ $1 == 'screen_level' ]]; then echo $(screen_level); fi
-if [[ $1 == 'kbd_icon' ]]; then echo $(kbd_icon); fi
-if [[ $1 == 'screen_icon' ]]; then echo $(screen_icon); fi
-if [[ $1 == 'kbd' ]] && [[ $2 == 'up'   ]]; then raise_kbd; fi
-if [[ $1 == 'kbd' ]] && [[ $2 == 'down' ]]; then lower_kbd; fi
-if [[ $1 == 'screen' ]] && [[ $2 == 'up'   ]]; then raise_screen; fi
-if [[ $1 == 'screen' ]] && [[ $2 == 'down' ]]; then lower_screen; fi
-if [[ $1 == 'set_screen' ]]; then set_screen $2; fi
+    echo '{ "percent": '"$(light)"', "icon": "'"$icon"'" }'
+  done
+fi

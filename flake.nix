@@ -3,11 +3,11 @@
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
@@ -52,6 +52,7 @@
           ./nix/git.nix
           ./nix/kitty.nix
           ./nix/hyprland.nix
+          ./nix/dunst.nix
           ./nix/extras.nix
         ];
 

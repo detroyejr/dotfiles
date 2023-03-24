@@ -1,72 +1,102 @@
 #!/usr/bin/env bash
-VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | grep Volume | awk '{print $5}' | tr % " ")
 
-function icon {
-    if [[   $VOLUME -ge 66 ]]; then echo '󰕾'
-    elif [[ $VOLUME -ge 33 ]]; then echo '󰖀'
-    elif [[ $VOLUME -ge 1  ]]; then echo '󰕿'
-    else echo '󰝟'
+volicons=("" "" "")
+if [ ! "$XDG_CACHE_HOME" ]; then
+  XDG_CACHE_HOME="/home/mihai/.local/cache"
+fi
+date="$XDG_CACHE_HOME/eww/osd_vol.date"
+
+vol() {
+  wpctl get-volume @DEFAULT_AUDIO_"$1"@ | awk '{print int($2*100)}'
+}
+ismuted() {
+  wpctl get-volume @DEFAULT_AUDIO_"$1"@ | rg -i muted
+  echo $?
+}
+setvol() {
+  wpctl set-volume @DEFAULT_AUDIO_"$1"@ "$(awk -v n="$2" 'BEGIN{print (n / 100)}')"
+}
+setmute() {
+  wpctl set-mute @DEFAULT_AUDIO_"$1"@ toggle
+}
+
+osd() {
+  if [ ! -f "$date" ]; then
+    mkdir -p "$XDG_CACHE_HOME/eww"
+  fi
+  date +%s > "$date"
+}
+
+osd_handler() {
+  lock=0
+  rundate=0
+  if [ ! -f "$date" ]; then
+    mkdir -p "$XDG_CACHE_HOME/eww"
+    echo 0 > "$date"
+  fi
+
+  while true; do
+    # get dates
+    rundate=$(cat "$date")
+    currentdate=$(date +%s)
+
+    # handle showing
+    if [ "$rundate" = "$currentdate" ] && [ "$lock" -eq 0 ]; then
+      eww open osd
+      eww update osd-volume=true
+      lock=1
+    elif [ "$((currentdate - rundate))" = "2" ] && [ "$lock" -eq 1 ]; then
+      eww update osd-volume=false
+      lock=0
+      if [ "$(eww get osd-volume)" = "false" ] && [ "$(eww get osd-brightness)" = "false" ]; then
+        eww close osd
+      fi
     fi
+
+    sleep 0.1
+  done
+
+  eww close osd
 }
 
-function level {
-    echo $(pactl get-sink-volume @DEFAULT_SINK@ | grep Volume | awk '{print $5}' | tr % " ")
-}
+if [ "$1" = "mute" ]; then
+  if [ "$2" != "SOURCE" ] && [ "$2" != "SINK" ]; then
+    echo "Can only mute SINK or SOURCE"; exit 1
+  fi
+  setmute "$2"
+elif [ "$1" = "setvol" ]; then
+  if [ "$2" != "SOURCE" ] && [ "$2" != "SINK" ]; then
+    echo "Can only set volume for SINK or SOURCE"; exit 1
+  elif [ "$3" -lt 1 ] || [ "$3" -gt 100 ]; then
+    echo "Volume must be between 1 and 100"; exit 1
+  fi
+  setvol "$2" "$3"
+elif [ "$1" = "osd" ]; then
+  osd
+else
+  # initial values
+  lvl=$(awk -v n="$(vol "SINK")" 'BEGIN{print int(n/34)}')
+  ismuted=$(ismuted "SINK")
 
-function set {
-    echo "volume:" $1
-    pactl set-sink-volume @DEFAULT_SINK@ $1"%"
-    eww update volume_level=$(level)
-    eww update volume_icon=$(icon)
-}
+  if [ "$ismuted" = 1 ]; then
+  	icon="${volicons[$lvl]}"
+  else
+    icon=""
+  fi
+  echo '{ "icon": "'"$icon"'", "percent": "'"$(vol "SINK")"'", "microphone": "'"$(vol "SOURCE")"'" }'
 
-function lower {
-    pactl set-sink-volume @DEFAULT_SINK@ -5%
-    update
-}
+  osd_handler &
 
-function raise {
-    pactl set-sink-volume @DEFAULT_SINK@ +5%
-    update
-}
+  # event loop
+  pactl subscribe | rg --line-buffered "change" | while read -r _; do
+    lvl=$(awk -v n="$(vol "SINK")" 'BEGIN{print int(n/34)}')
+    ismuted=$(ismuted "SINK")
 
-function update {
-    eww update volume_level=$(level)
-    eww update volume_icon=$(icon)
-    ~/.config/eww/scripts/osd $(icon) $(level)
-}
-
-function type_icon {
-    SINK=$(pactl get-default-sink)
-    if [[ $SINK == *'bluez_output'* ]]; then echo "󰋋"
-    else echo "󰓃"
+    if [ "$ismuted" = 1 ]; then
+    	icon="${volicons[$lvl]}"
+    else
+      icon=""
     fi
-}
-
-function mute_state {
-    STATE=$(pactl get-source-mute @DEFAULT_SOURCE@ | awk '{print $2}')
-    if [[ $STATE == 'no' ]]; then echo 'off'
-    else echo 'on'; fi
-}
-
-function mute_icon {
-    STATE=$(mute_state)
-    if [[ $STATE == 'off' ]]; then echo '󰍬'
-    else echo '󰍭'; fi
-}
-
-function mute_toggle {
-    pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    eww update mute_icon=$(mute_icon)
-    eww update mute_state=$(mute_state)
-}
-
-if [[ $1 == 'mute_state' ]]; then mute_state; fi
-if [[ $1 == 'mute_icon' ]]; then mute_icon; fi
-if [[ $1 == 'mute_toggle' ]]; then mute_toggle; fi
-if [[ $1 == 'down' ]]; then lower; fi
-if [[ $1 == 'up' ]]; then raise; fi
-if [[ $1 == 'icon' ]]; then icon; fi
-if [[ $1 == 'level' ]]; then level; fi
-if [[ $1 == 'set' ]]; then set $2; fi
-if [[ $1 == 'type_icon' ]]; then type_icon; fi
+    echo '{ "icon": "'"$icon"'", "percent": "'"$(vol "SINK")"'", "microphone": "'"$(vol "SOURCE")"'" }'
+  done
+fi
