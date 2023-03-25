@@ -116,49 +116,49 @@
   #   wantedBy = [ "multi-user.target" ];
   # };
 
-  systemd.services.onedrive = {
-    path = [ pkgs.rclone ];
-    script = ''
-      FILE=home/detroyejr/.config/rclone/rclone.conf
-      mkdir -p home/detroyejr/OneDrive/
-      if test -f $FILE; then
-        rclone \
-          --vfs-cache-mode writes \
-          --vfs-cache-max-size 4G \
-          --log-level INFO \
-          --log-file /tmp/rclone-onedrive.log \
-          --umask 022 \
-          --allow-other \
-          --config=$FILE mount \
-          "OneDrive": /home/detroyejr/OneDrive/
-      fi
-    '';
-    wantedBy = [ "multi-user.target" ];
-  };
+  # systemd.services.onedrive = {
+  #   path = [ pkgs.rclone ];
+  #   script = ''
+  #     FILE=home/detroyejr/.config/rclone/rclone.conf
+  #     mkdir -p home/detroyejr/OneDrive/
+  #     if test -f $FILE; then
+  #       rclone \
+  #         --vfs-cache-mode writes \
+  #         --vfs-cache-max-size 4G \
+  #         --log-level INFO \
+  #         --log-file /tmp/rclone-onedrive.log \
+  #         --umask 022 \
+  #         --allow-other \
+  #         --config=$FILE mount \
+  #         "OneDrive": "{config.user.home.homeDirectory}/OneDrive/"
+  #     fi
+  #   '';
+  #   wantedBy = [ "multi-user.target" ];
+  # };
 
-  systemd.services.google_drive = {
-    path = [ pkgs.rclone ];
-    script = ''
-      FILE=home/detroyejr/.config/rclone/rclone.conf
-      mkdir -p home/detroyejr/Google Drive/
-      if test -f $FILE; then
-        rclone \
-          --vfs-cache-mode writes \
-          --vfs-cache-max-size 4G \
-          --log-level INFO \
-          --log-file /tmp/rclone-google.log \
-          --umask 022 \
-          --allow-other \
-          --config=$FILE mount \
-          "Google Drive": "/home/detroyejr/Google Drive/"
-      fi
-    '';
-    wantedBy = [ "multi-user.target" ];
-  };
+  # systemd.services.google_drive = {
+  #   path = [ pkgs.rclone ];
+  #   script = ''
+  #     FILE=home/detroyejr/.config/rclone/rclone.conf
+  #     mkdir -p home/detroyejr/Google Drive/
+  #     if test -f $FILE; then
+  #       rclone \
+  #         --vfs-cache-mode writes \
+  #         --vfs-cache-max-size 4G \
+  #         --log-level INFO \
+  #         --log-file /tmp/rclone-google.log \
+  #         --umask 022 \
+  #         --allow-other \
+  #         --config=$FILE mount \
+  #         "Google Drive": "/home/detroyejr/Google Drive/"
+  #     fi
+  #   '';
+  #   wantedBy = [ "multi-user.target" ];
+  # };
   systemd.services.sbctl_sign = {
     path = [ pkgs.sbctl ];
     script = ''
-      ls /boot/EFI/nixos | xargs -n1 -I {} sbctl sign /boot/EFI/nixos/{}
+      ls /boot/EFI/nixos | xargs -n1 -I {} sbctl sign /boot/EFI/nixos/{} | exit 0
     '';
     serviceConfig = {
       User = "root";

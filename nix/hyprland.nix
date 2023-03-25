@@ -1,19 +1,5 @@
 { config, pkgs, lib, dotfiles, fetchFromGitHub, ... }:
 {
-  nixpkgs.overlays = [
-    (self: super: {
-      waybar = super.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      });
-    })
-  ];
-  
-  home.sessionVariables = {
-    QT_QPA_PLATFORM = "wayland";
-    SDL_VIDEODRIVER = "wayland";
-    XDG_SESSION_TYPE = "wayland";
-  };
-
   home.packages = with pkgs; [
     acpi
     bash
@@ -75,8 +61,4 @@
     recursive = true;
   };
   
-  home.file.".config/ranger" = {
-    source = ../dotfiles/ranger;
-    recursive = true;
-  };
 }

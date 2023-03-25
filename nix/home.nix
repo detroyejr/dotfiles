@@ -37,10 +37,20 @@
   
   programs.bash.enable = true;
 
+  # Theme for Powerlevel10k.
+  home.file.".p10k.zsh".source = ../dotfiles/zsh/.p10k.zsh;
+  
   programs.zsh = {
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+    ];
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];
@@ -50,15 +60,10 @@
       export PATH=$PATH:/home/detroyejr/.nix-profile/bin
       [[ -f $HOME/.nix-profile/etc/profile.d/nix.sh ]] && . $HOME/.nix-profile/etc/profile.d/nix.sh 
       [[ -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]] && . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-      . $HOME/.nix-profile/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      . $HOME/.p10k.zsh
+      source $HOME/.zsh/plugins/powerlevel10k/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      source $HOME/.p10k.zsh
       export EDITOR=nvim
       export ZK_NOTEBOOK_DIR=/mnt/c/Users/detro/OneDrive/Documents/zk-notes/
-      # export STARSHIP_CONFIG=~/.config/starship.toml
-      export TZ='America/New_York'
-
-      # Add a few aliases.
-      alias k=kubectl
     '';
   };
 
@@ -74,16 +79,10 @@
     enableZshIntegration = true;
   };
 
-  # Theme for Powerlevel10k.
-  home.file.".p10k.zsh".source = ../dotfiles/zsh/.p10k.zsh;
+  home.file.".config/ranger" = {
+    source = ../dotfiles/ranger;
+    recursive = true;
+  };
 
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
   home.stateVersion = "22.11";
 }

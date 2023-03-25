@@ -5,12 +5,7 @@
     wireshark
     hyperion-ng
     aircrack-ng
-    plexamp
     plex-media-player
+    plexamp
   ];
-
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "plexamp"
-  ];
-
 }
