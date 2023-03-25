@@ -59,7 +59,7 @@
 
   programs.rofi.enable = true;
  
-  home.file."/home/detroyejr/.config/rofi" = {
+  home.file.".config/rofi" = {
     source = ../config/rofi;
     recursive = true;
   };
@@ -70,12 +70,12 @@
     configDir = ../config/eww;
   };
 
-  home.file."/home/detroyejr/.config/hypr" = {
+  home.file.".config/hypr" = {
     source = ../config/hypr;
     recursive = true;
   };
   
-  home.file."/home/detroyejr/.config/ranger" = {
+  home.file.".config/ranger" = {
     source = ../config/ranger;
     recursive = true;
   };
