@@ -68,10 +68,9 @@
           ./nixos/surface/configuration.nix
           hyprland.nixosModules.default
           home-manager.nixosModules.home-manager {
-            # inherit pkgs;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            # home-manager.extraSpecialArgs = extraArgs;
+            home-manager.extraSpecialArgs = { inherit nix-colors; };
             home-manager.users.detroyejr = {
               imports = [
                 ./nix/home.nix
@@ -86,24 +85,6 @@
                 ./nix/extras.nix
               ];
             };
-              # Specify your home configuration modules here, for example,
-              # the path to your home.nix.
-              # modules = [
-              #   ./nix/home.nix
-              #   ./nix/neovim.nix
-              #   ./nix/python.nix
-              #   ./nix/r.nix
-              #   ./nix/rust.nix
-              #   ./nix/git.nix
-              #   ./nix/kitty.nix
-              #   ./nix/hyprland.nix
-              #   ./nix/dunst.nix
-              #   ./nix/extras.nix
-              # ];
-
-              # Optionally use extraSpecialArgs
-              # to pass through arguments to home.nix
-              # extraSpecialArgs = { inherit nix-colors; };
           }
           {
             programs.hyprland = {
