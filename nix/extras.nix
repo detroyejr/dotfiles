@@ -5,6 +5,7 @@
     aircrack-ng
     hyperion-ng
     keepass
+    keeweb
     plex-media-player
     plexamp
     wireshark
