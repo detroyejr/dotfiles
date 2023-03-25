@@ -1,118 +1,52 @@
-{ config, pkgs, lib, fetchFromGitHub, ... }:
+{ config, pkgs, lib, fetchFromGitHub, nix-colors, colorSchemeName, ... }:
 {
-  home.packages = with pkgs; [
-    kitty
+  imports = [
+    nix-colors.homeManagerModule
   ];
 
-  home.file."/home/detroyejr/.config/kitty/kitty.conf".text = "
-    include ./Tokyo Night Day.conf
-    include ./Tokyo Night.conf
-    font_family CaskaydiaCove Nerd Font Mono
-    bold_font auto
-    italic_font auto
-    bold_italic_font auto
-    font_size 19.0
-    disable_ligatures never
-    initial_window_width 640 
-    initial_window_height 100
-  ";
-  
-  home.file."/home/detroyejr/.config/kitty/Tokyo Night Day.conf".text = "
-    # vim:ft=kitty
-    
-    ## name: Tokyo Night Day
-    ## license: MIT
-    ## author: Folke Lemaitre
-    ## upstream: https://github.com/folke/tokyonight.nvim/raw/main/extras/kitty_tokyonight_day.conf
-    
-    background #e1e2e7
-    foreground #3760bf
-    selection_background #99a7df
-    selection_foreground #3760bf
-    url_color #387068
-    cursor #3760bf
-    
-    # Tabs
-    active_tab_background #2e7de9
-    active_tab_foreground #d4d6e4
-    inactive_tab_background #c4c8da
-    inactive_tab_foreground #8990b3
-    #tab_bar_background #e9e9ed
-    
-    # normal
-    color0 #e9e9ed
-    color1 #f52a65
-    color2 #587539
-    color3 #8c6c3e
-    color4 #2e7de9
-    color5 #9854f1
-    color6 #007197
-    color7 #6172b0
-    
-    # bright
-    color8 #a1a6c5
-    color9 #f52a65
-    color10 #587539
-    color11 #8c6c3e
-    color12 #2e7de9
-    color13 #9854f1
-    color14 #007197
-    color15 #3760bf
-    
-    # extended colors
-    color16 #b15c00
-    color17 #c64343
-  ";
-  home.file."/home/detroyejr/.config/kitty/Tokyo Night.conf".text = "
-    # vim:ft=kitty
+  colorScheme = nix-colors.colorSchemes.${colorSchemeName};
 
-    ## name: Tokyo Night
-    ## license: MIT
-    ## author: Folke Lemaitre
-    ## upstream: https://github.com/folke/tokyonight.nvim/raw/main/extras/kitty/tokyonight_night.conf
+  programs.kitty = {
+    enable = true;
+    font = {
+      name= "CaskaydiaCove NF";
+      size = 14;
+    };
+    settings = with config.colorScheme.colors; {
+      bold_font = "auto";
+      disable_liagures = "never";
+      enable_audio_bell = false;
+      # Based on https://github.com/kdrag0n/base16-kitty/
+      active_border_color = "#${base03}";
+      active_tab_background = "#${base00}";
+      active_tab_foreground = "#${base05}";
+      background = "#${base00}";
+      cursor = "#${base05}";
+      foreground = "#${base05}";
+      inactive_border_color = "#${base01}";
+      inactive_tab_background = "#${base01}";
+      inactive_tab_foreground = "#${base04}";
+      selection_background = "#${base05}";
+      selection_foreground = "#${base00}";
+      tab_bar_background = "#${base01}";
+      url_color = "#${base04}";
 
-
-    background #1a1b26
-    foreground #c0caf5
-    selection_background #33467c
-    selection_foreground #c0caf5
-    url_color #73daca
-    cursor #c0caf5
-    cursor_text_color #1a1b26
-
-    # Tabs
-    active_tab_background #7aa2f7
-    active_tab_foreground #16161e
-    inactive_tab_background #292e42
-    inactive_tab_foreground #545c7e
-    #tab_bar_background #15161e
-
-    # Windows
-    active_border_color #7aa2f7
-    inactive_border_color #292e42
-
-    # normal
-    color0 #15161e
-    color1 #f7768e
-    color2 #9ece6a
-    color3 #e0af68
-    color4 #7aa2f7
-    color5 #bb9af7
-    color6 #7dcfff
-    color7 #a9b1d6
-
-    # bright
-    color8 #414868
-    color9 #f7768e
-    color10 #9ece6a
-    color11 #e0af68
-    color12 #7aa2f7
-    color13 #bb9af7
-    color14 #7dcfff
-    color15 #c0caf5
-
-    # extended colors
-    color16 #ff9e64
-    color17 #db4b4b
-  ";
+      color0 = "#${base00}";
+      color1 = "#${base08}";
+      color2 = "#${base0B}";
+      color3 = "#${base0A}";
+      color4 = "#${base0D}";
+      color5 = "#${base0E}";
+      color6 = "#${base0C}";
+      color7 = "#${base05}";
+      color8 = "#${base03}";
+      color9 = "#${base09}";
+      color10 = "#${base0B}";
+      color11 = "#${base0F}";
+      color12 = "#${base0D}";
+      color13 = "#${base0E}";
+      color14 = "#${base0F}";
+      color15 = "#${base07}";
+    };
+  };
 }

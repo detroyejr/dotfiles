@@ -16,10 +16,10 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      colorSchemeName = "tokyodark-terminal";
     in {
-      
-      dotfiles = ./dotfiles;
 
+      dotfiles = ./dotfiles;
       # A default configuration that should work on non-NixOS machines.
       homeConfigurations.detroyejr = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -70,7 +70,7 @@
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit nix-colors; };
+            home-manager.extraSpecialArgs = { inherit nix-colors colorSchemeName; };
             home-manager.users.detroyejr = {
               imports = [
                 ./nix/home.nix
