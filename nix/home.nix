@@ -62,10 +62,6 @@
     '';
   };
 
-  # Doesn't work well with WSL2 at the moment. So leaving disabled for now.
-  # programs.starship.enable = true;
-  # home.file."/home/detroyejr/.config/starship.toml".source = "$(dotfiles)/starship.toml";
-
   programs.tmux = {
     enable = true;    
     shortcut = "a";
@@ -79,7 +75,7 @@
   };
 
   # Theme for Powerlevel10k.
-  home.file."/home/detroyejr/.p10k.zsh".source = ../zsh/.p10k.zsh;
+  home.file."/home/detroyejr/.p10k.zsh".source = ../config/zsh/.p10k.zsh;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
