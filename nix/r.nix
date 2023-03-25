@@ -55,7 +55,7 @@ in
     R = "R --no-save --no-restore";
   };
 
-  home.file."/home/detroyejr/.radian_profile".source = ../config/R/.radian_profile;
-  home.file."/home/detroyejr/.Rprofile".source = ../config/R/.Rprofile;
+  home.file.".radian_profile".source = ../dotfiles/R/.radian_profile;
+  home.file.".Rprofile".source = ../dotfiles/R/.Rprofile;
 }
 

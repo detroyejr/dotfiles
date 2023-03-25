@@ -75,7 +75,7 @@
   };
 
   # Theme for Powerlevel10k.
-  home.file.".p10k.zsh".source = ../config/zsh/.p10k.zsh;
+  home.file.".p10k.zsh".source = ../dotfiles/zsh/.p10k.zsh;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

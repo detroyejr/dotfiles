@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 {
-  home.file."/home/detroyejr/.config/nvim" = {
-    source = ../config/nvim;
+  home.file.".config/nvim" = {
+    source = ../dotfiles/nvim;
     recursive = true;
   };
 

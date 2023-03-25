@@ -18,7 +18,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       
-      dotfiles = ./config;
+      dotfiles = ./dotfiles;
 
       # A default configuration that should work on non-NixOS machines.
       homeConfigurations.detroyejr = home-manager.lib.homeManagerConfiguration {

@@ -60,23 +60,23 @@
   programs.rofi.enable = true;
  
   home.file.".config/rofi" = {
-    source = ../config/rofi;
+    source = ../dotfiles/rofi;
     recursive = true;
   };
   
   programs.eww = {
     enable = true;
     package = pkgs.eww-wayland;
-    configDir = ../config/eww;
+    configDir = ../dotfiles/eww;
   };
 
   home.file.".config/hypr" = {
-    source = ../config/hypr;
+    source = ../dotfiles/hypr;
     recursive = true;
   };
   
   home.file.".config/ranger" = {
-    source = ../config/ranger;
+    source = ../dotfiles/ranger;
     recursive = true;
   };
 }
