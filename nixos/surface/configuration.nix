@@ -45,6 +45,8 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
   services.xserver.dpi = 267;
+  
+  services.gnome.gnome-keyring.enable = true;
 
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
@@ -116,25 +118,26 @@
   #   wantedBy = [ "multi-user.target" ];
   # };
 
-  # systemd.services.onedrive = {
-  #   path = [ pkgs.rclone ];
-  #   script = ''
-  #     FILE=home/detroyejr/.config/rclone/rclone.conf
-  #     mkdir -p home/detroyejr/OneDrive/
-  #     if test -f $FILE; then
-  #       rclone \
-  #         --vfs-cache-mode writes \
-  #         --vfs-cache-max-size 4G \
-  #         --log-level INFO \
-  #         --log-file /tmp/rclone-onedrive.log \
-  #         --umask 022 \
-  #         --allow-other \
-  #         --config=$FILE mount \
-  #         "OneDrive": "{config.user.home.homeDirectory}/OneDrive/"
-  #     fi
-  #   '';
-  #   wantedBy = [ "multi-user.target" ];
-  # };
+  systemd.services.onedrive = {
+    path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
+    script = ''
+      FILE=home/detroyejr/.config/rclone/rclone.conf
+      mkdir -p /home/detroyejr/OneDrive/
+      if test -f $FILE; then
+        ${pkgs.rclone}/bin/rclone mount \
+          "onedrive": "/home/detroyejr/OneDrive/" \
+          --vfs-cache-mode writes \
+          --vfs-cache-max-size 4G \
+          --log-level INFO \
+          --log-file /tmp/rclone-onedrive.log \
+          --umask 022 \
+          --allow-other \
+          --config=$FILE
+      fi
+    '';
+    wantedBy = [ "multi-user.target" ];
+
+  };
 
   # systemd.services.google_drive = {
   #   path = [ pkgs.rclone ];
