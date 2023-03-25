@@ -8,16 +8,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nix-colors.url = "github:misterio77/nix-colors";
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { nixpkgs, home-manager, hyprland, ... }:
+  outputs = { nixpkgs, home-manager, hyprland, nix-colors, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      # Allow Unfreej
-      nixpkgs.config.allowUnfree = true;
+      
+      dotfiles = ./config;
 
       # A default configuration that should work on non-NixOS machines.
       homeConfigurations.detroyejr = home-manager.lib.homeManagerConfiguration {
@@ -58,6 +59,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
+        extraSpecialArgs = { inherit nix-colors; };
       };
       
       nixosConfigurations.surface = nixpkgs.lib.nixosSystem {

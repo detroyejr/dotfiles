@@ -1,4 +1,4 @@
-{ config, pkgs, lib, fetchFromGitHub, ... }:
+{ config, pkgs, lib, dotfiles, fetchFromGitHub, ... }:
 {
   nixpkgs.overlays = [
     (self: super: {
@@ -60,33 +60,23 @@
   programs.rofi.enable = true;
  
   home.file."/home/detroyejr/.config/rofi" = {
-    source = ../assets/.config/rofi;
+    source = ../config/rofi;
     recursive = true;
   };
   
-  # programs.waybar = {
-  #   enable = true;
-  #   package = pkgs.waybar;
-  # };
-  #
-  # home.file."/home/detroyejr/.config/waybar" = {
-  #   source = ../assets/.config/waybar;
-  #   recursive = true;
-  # };
-
   programs.eww = {
     enable = true;
     package = pkgs.eww-wayland;
-    configDir = ../assets/.config/eww;
+    configDir = ../config/eww;
   };
 
   home.file."/home/detroyejr/.config/hypr" = {
-    source = ../assets/.config/hypr;
+    source = ../config/hypr;
     recursive = true;
   };
   
   home.file."/home/detroyejr/.config/ranger" = {
-    source = ../assets/.config/ranger;
+    source = ../config/ranger;
     recursive = true;
   };
 }

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, dotfiles, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -64,7 +64,7 @@
 
   # Doesn't work well with WSL2 at the moment. So leaving disabled for now.
   # programs.starship.enable = true;
-  # home.file."/home/detroyejr/.config/starship.toml".source = ../assets/.config/starship.toml;
+  # home.file."/home/detroyejr/.config/starship.toml".source = "$(dotfiles)/starship.toml";
 
   programs.tmux = {
     enable = true;    
