@@ -2,10 +2,11 @@
 
 {
   home.packages = with pkgs; [
-    wireshark
-    hyperion-ng
     aircrack-ng
+    hyperion-ng
+    keepass
     plex-media-player
     plexamp
+    wireshark
   ];
 }
