@@ -6,60 +6,52 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
+      ../default.nix
+      ../../modules/fonts
     ];
 
-  # Allow proprietary software (such as the NVIDIA drivers).
-  nixpkgs.config.allowUnfree = true; 
-  
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # networking.hostName = "nixos"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-  # Set your time zone.
-  time.timeZone = "US/New_York";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
  
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
-  services.xserver.dpi = 267;
-  
-  services.gnome.gnome-keyring.enable = true;
+  services = {
+    xserver = {
+      enable = true;
+      displayManager.gdm.enable = true;
+      libinput = {
+        enable = true;
+        touchpad = {
+          scrollMethod = "twofinger";
+          naturalScrolling = false;
+        };
+      };
+      dpi = 267;
+    };
+    gnome.gnome-keyring.enable = true;
+  };
 
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
 
-  hardware.opengl = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
+  sound.enable = true;
+  hardware = {
+    pulseaudio.enable = true;
+    opengl = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver # LIBVA_DRIVER_NAME=iHD
+        vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
   };
 
   users.users.detroyejr = {
@@ -89,22 +81,15 @@
   # For sway.
   security.polkit.enable = true;
 
-  # Fonts
-  fonts = {
-    optimizeForVeryHighDPI = true;
-    enableDefaultFonts = true;
-      fonts = with pkgs; [ 
-        ubuntu_font_family
-        (nerdfonts.override { fonts = [ "CascadiaCode" "Ubuntu" ]; })
-       ];
-
-    fontconfig = {
-      defaultFonts = {
-      serif = [ "CaskaydiaCove NF Serif" "Ubuntu" ];
-      sansSerif = [ "CaskaydiaCove NF" "Ubuntu" ];
-      monospace = [ "CaskaydiaCove NF Mono" "Ubuntu" ];
-      };
+  systemd.services.sbctl_sign = {
+    path = [ pkgs.sbctl ];
+    script = ''
+      ls /boot/EFI/nixos | xargs -n1 -I {} sbctl sign /boot/EFI/nixos/{} | exit 0
+    '';
+    serviceConfig = {
+      User = "root";
     };
+    wantedBy = [ "multi-user.target" ];
   };
 
   # systemd.services.dislocker = {
@@ -159,16 +144,7 @@
   #   '';
   #   wantedBy = [ "multi-user.target" ];
   # };
-  systemd.services.sbctl_sign = {
-    path = [ pkgs.sbctl ];
-    script = ''
-      ls /boot/EFI/nixos | xargs -n1 -I {} sbctl sign /boot/EFI/nixos/{} | exit 0
-    '';
-    serviceConfig = {
-      User = "root";
-    };
-    wantedBy = [ "multi-user.target" ];
-  };
+  
 
   virtualisation.docker.enable = true;
 
