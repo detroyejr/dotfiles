@@ -74,6 +74,7 @@
 
   environment.sessionVariables = {
      MOZ_ENABLE_WAYLAND = "1";
+     TZ = "US/New_York";
   };
 
   environment.systemPackages = with pkgs; [
