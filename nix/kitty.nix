@@ -1,10 +1,5 @@
-{ config, pkgs, lib, fetchFromGitHub, nix-colors, colorSchemeName, ... }:
+{ config, pkgs, lib, fetchFromGitHub, colorScheme, ... }:
 {
-  imports = [
-    nix-colors.homeManagerModule
-  ];
-
-  colorScheme = nix-colors.colorSchemes.${colorSchemeName};
 
   programs.kitty = {
     enable = true;
@@ -12,7 +7,7 @@
       name= "CaskaydiaCove NF";
       size = 14;
     };
-    settings = with config.colorScheme.colors; {
+    settings = with colorScheme.colors; {
       bold_font = "auto";
       disable_liagures = "never";
       enable_audio_bell = false;

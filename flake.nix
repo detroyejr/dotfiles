@@ -14,11 +14,14 @@
 
   outputs = { nixpkgs, home-manager, hyprland, nix-colors, ... }:
     let
+      # System
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      
+      # Customization
       colorSchemeName = "tokyodark-terminal";
+      colorScheme = nix-colors.colorSchemes.${colorSchemeName};
     in {
-
       dotfiles = ./dotfiles;
       # A default configuration that should work on non-NixOS machines.
       homeConfigurations.detroyejr = home-manager.lib.homeManagerConfiguration {
@@ -70,7 +73,7 @@
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit nix-colors colorSchemeName; };
+            home-manager.extraSpecialArgs = { inherit colorScheme; };
             home-manager.users.detroyejr = {
               imports = [
                 ./nix/home.nix
