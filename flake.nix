@@ -56,7 +56,6 @@
           ./nix/git.nix
           ./nix/kitty.nix
           ./nix/hyprland.nix
-          ./nix/dunst.nix
           ./nix/extras.nix
         ];
 
@@ -84,7 +83,6 @@
                 ./nix/git.nix
                 ./nix/kitty.nix
                 ./nix/hyprland.nix
-                ./nix/dunst.nix
                 ./nix/extras.nix
               ];
             };
