@@ -69,8 +69,8 @@ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Terminal --
-keymap("n", "<C-x>", ":ToggleTermSendCurrentLine<CR>", opts)
-keymap("v", "<C-x>", ":ToggleTermSendVisualSelection<CR>", opts)
+keymap("n", "<C-A-x>", ":ToggleTermSendCurrentLine<CR>", opts)
+keymap("v", "<C-A-x>", ":ToggleTermSendVisualSelection<CR>", opts)
 
 -- Nvimtree
 keymap("n", "<leader>e", ":NeoTreeRevealToggle<CR>", opts)
