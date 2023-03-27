@@ -1,5 +1,11 @@
 { config, pkgs, dotfiles, ... }:
 
+let 
+  oh-my-tmux = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/gpakosz/.tmux/master/.tmux.conf";
+    sha256 = "sha256-79rKNtU+1uTaEJaMXXVmkMHAPBSr9F2HUsLjLOxD3tI=";
+  };
+in 
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -72,7 +78,10 @@
     shortcut = "a";
     newSession = true;
     clock24 = true;
+    extraConfig = builtins.readFile oh-my-tmux;
   };
+  
+
 
   programs.mcfly = {
     enable = true;
