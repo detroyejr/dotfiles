@@ -78,7 +78,10 @@ in
     shortcut = "a";
     newSession = true;
     clock24 = true;
-    extraConfig = builtins.readFile oh-my-tmux;
+    extraConfig = 
+      (builtins.readFile oh-my-tmux) +
+      # Tmux and neovim colors. Things look slightly off at least in WSL2.
+      "set-option -ga terminal-overrides \",xterm-256color:Tc\"";
   };
   
 
