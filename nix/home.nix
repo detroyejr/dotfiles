@@ -1,4 +1,4 @@
-{ config, pkgs, dotfiles, ... }:
+{ config, pkgs, dotfiles, devenv, ... }:
 
 let 
   oh-my-tmux = pkgs.fetchurl {
@@ -20,6 +20,7 @@ in
     bc
     cmake
     curl
+    devenv.packages.x86_64-linux.devenv
     ffmpeg
     fzf
     gcc
