@@ -6,17 +6,18 @@ let
     black
     boto3
     dask
+    flake8
     ipython
     lxml
     pandas
     pip
-    python-lsp-server
     pytest
+    python-lsp-server  
     requests
     s3fs
     sqlalchemy
 ]);
 in
 {
-  home.packages = [ python-with-packages pkgs.ruff ];
+  home.packages = [ python-with-packages ];
 }

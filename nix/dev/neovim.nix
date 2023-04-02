@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 {
   home.file.".config/nvim" = {
-    source = ../dotfiles/nvim;
+    source = ../../dotfiles/nvim;
     recursive = true;
   };
 

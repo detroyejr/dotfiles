@@ -1,4 +1,4 @@
-{ config, pkgs, lib, fetchFromGitHub, colorScheme, ... }:
+{ config, pkgs, colorScheme, ... }:
 {
 
   programs.kitty = {

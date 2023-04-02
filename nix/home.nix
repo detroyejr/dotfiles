@@ -1,9 +1,9 @@
-{ config, pkgs, dotfiles, devenv, ... }:
+{ config, pkgs, dotfiles, ... }:
 
 let 
   oh-my-tmux = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/gpakosz/.tmux/master/.tmux.conf";
-    sha256 = "sha256-79rKNtU+1uTaEJaMXXVmkMHAPBSr9F2HUsLjLOxD3tI=";
+    sha256 = "sha256-E2e/v9Dn4Q6uFl/mLuSNyPntLciTc3QbYVtc71yW2BI=";
   };
 in 
 {
@@ -20,7 +20,6 @@ in
     bc
     cmake
     curl
-    devenv.packages.x86_64-linux.devenv
     ffmpeg
     fzf
     gcc

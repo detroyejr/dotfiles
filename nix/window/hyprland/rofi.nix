@@ -1,48 +1,5 @@
-{ config, pkgs, lib, dotfiles, fetchFromGitHub, colorScheme, ... }:
+{config, pkgs, colorScheme, ...}:
 {
-  home.packages = with pkgs; [
-    acpi
-    bash
-    bc
-    blueberry
-    bluez
-    brightnessctl
-    coreutils
-    dbus
-    dunst
-    dunst
-    findutils
-    gawk
-    gnome.gnome-control-center
-    gnused
-    gojq
-    grim
-    hyprpaper
-    imagemagick
-    jaq
-    light
-    material-icons
-    networkmanager
-    pamixer
-    pavucontrol
-    pipewire
-    playerctl
-    procps
-    pulseaudio
-    ripgrep
-    slurp
-    socat
-    udev
-    upower
-    util-linux
-    wget
-    wireplumber
-    wl-clipboard
-    wlogout
-    wlsunset
-    xdg-desktop-portal-wlr
-  ];
-
   programs.rofi = {
     enable = true;
     theme = "colors";
@@ -50,17 +7,17 @@
  
   home.file.".config/rofi/colors.rasi".text = with colorScheme.colors; ''
     * {
-        bg-col:  #303446;
-        bg-col-light: #303446;
-        border-col: #303446;
-        selected-col: #303446;
-        blue: #8caaee;
+        bg-col:  #${base00};
+        bg-col-light: #${base09};
+        border-col: #${base04};
+        selected-col: #${base02};
+        blue: #${base0D};
         fg-col: #c6d0f5;
         fg-col2: #e78284;
         grey: #737994;
 
         width: 600;
-        font: "JetBrainsMono Nerd Font 14";
+        font: "Ubuntu 14";
     }
 
     element-text, element-icon , mode-switcher {
@@ -161,16 +118,4 @@
         background-color: @bg-col-light;
     }
   '';
-  
-  programs.eww = {
-    enable = true;
-    package = pkgs.eww-wayland;
-    configDir = ../dotfiles/eww;
-  };
-
-  home.file.".config/hypr" = {
-    source = ../dotfiles/hypr;
-    recursive = true;
-  };
-  
 }
