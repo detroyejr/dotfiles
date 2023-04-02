@@ -4,7 +4,7 @@
     ./gtk.nix
     ./rofi.nix
     ./swaylock.nix
-    # ./eww.nix
+    ./waybar.nix
   ];
   
  
