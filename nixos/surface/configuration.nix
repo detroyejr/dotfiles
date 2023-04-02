@@ -12,6 +12,8 @@
       ../../modules/fonts
     ];
 
+  # Set kernel version
+  microsoft-surface.kernelVersion = "6.1.6";
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -54,20 +56,16 @@
     };
   };
 
+  # Recent change. Adding this prevents errors.
+  programs.zsh.enable = true;
   users.users.detroyejr = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     packages = with pkgs; [
-      firefox-wayland
       docker
     ];
   }; 
-
-  environment.sessionVariables = {
-     MOZ_ENABLE_WAYLAND = "1";
-     TZ = "US/New_York";
-  };
 
   environment.systemPackages = with pkgs; [
     dislocker
