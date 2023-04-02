@@ -1,12 +1,13 @@
 {config, pkgs, ...}:
 {
-  programs.light.enable = true;
+  environment.systemPackages = with pkgs; [
+    brightnessctl
+  ];
   services.actkbd = {
     enable = true;
     bindings = [
-      { keys = [ 67 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -A 10"; }
-      { keys = [ 68 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
+      { keys = [ 86 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set +10%"; }
+      { keys = [ 87 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set -10%"; }
     ];
   };
 }
-
