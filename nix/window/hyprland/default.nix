@@ -3,11 +3,12 @@
   imports = [
     ./gtk.nix
     ./rofi.nix
-    ./eww.nix
+    ./swaylock.nix
+    # ./eww.nix
   ];
-
-  home.sessionVariables = {
-    XCURSOR_SIZE = 12;
+  
+ 
+ home.sessionVariables = {
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
     XDG_SESSION_DESKTOP = "Hyprland";
@@ -21,44 +22,46 @@
 
   home.packages = with pkgs; [
     acpi
-    bash
-    bc
-    blueberry
-    bluez
-    brightnessctl
-    coreutils
-    dbus
-    dunst
-    dunst
-    findutils
-    gawk
-    gnome.gnome-control-center
-    gnused
-    gojq
-    grim
     hyprpaper
-    imagemagick
-    jaq
-    light
-    material-icons
-    pamixer
-    pavucontrol
-    pipewire
-    playerctl
-    procps
-    pulseaudio
-    ripgrep
+    grim
     slurp
-    socat
-    udev
-    upower
-    util-linux
-    wget
-    wireplumber
-    wl-clipboard
-    wlogout
-    wlsunset
-    xdg-desktop-portal-wlr
+    playerctl
+    # acpi
+    # bash
+    # bc
+    # blueberry
+    # bluez
+    # brightnessctl
+    # coreutils
+    # dbus
+    # dunst
+    # dunst
+    # findutils
+    # gawk
+    # gnome.gnome-control-center
+    # gnused
+    # gojq
+    # imagemagick
+    # jaq
+    # light
+    # material-icons
+    # pamixer
+    # pavucontrol
+    # pipewire
+    # playerctl
+    # procps
+    # pulseaudio
+    # ripgrep
+    # socat
+    # udev
+    # upower
+    # util-linux
+    # wget
+    # wireplumber
+    # wl-clipboard
+    # wlogout
+    # wlsunset
+    # xdg-desktop-portal-wlr
   ];
 
   home.file.".config/hypr" = {
