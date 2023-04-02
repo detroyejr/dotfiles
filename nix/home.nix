@@ -2,8 +2,8 @@
 
 let 
   oh-my-tmux = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/gpakosz/.tmux/master/.tmux.conf";
-    sha256 = "sha256-E2e/v9Dn4Q6uFl/mLuSNyPntLciTc3QbYVtc71yW2BI=";
+    url = "https://raw.githubusercontent.com/gpakosz/.tmux/7706ab724f3811479a358c6f9ea6aeb6decece5f/.tmux.conf";
+    sha256 = "sha256-+i4Etzuxqf4io1SoKJkgK2mYHTu7CCYxXlDmv2BxTYQ=";
   };
 in 
 {
