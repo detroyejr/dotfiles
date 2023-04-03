@@ -25,6 +25,7 @@
     hyprpaper
     grim
     slurp
+    pamixer
     playerctl
     # acpi
     # bash
@@ -45,7 +46,6 @@
     # jaq
     # light
     # material-icons
-    # pamixer
     # pavucontrol
     # pipewire
     # playerctl

@@ -8,18 +8,17 @@
     "height": 0,
     "modules-left": [
         "custom/clock",
-        "custom/calendar",
+        "wlr/workspaces"
+        // "custom/calendar",
         // "cpu",
         // "memory",
-        "custom/weather",
-        "wlr/workspaces"
+        // "custom/weather",
     ],
-    "modules-center": ["hyprland/window"],
+    // "modules-center": ["hyprland/window"],
     "modules-right": [
         "tray",
-        "custom/updates",
-        // "custom/language",
         "battery",
+        "network",
         "pulseaudio",
         "pulseaudio#microphone"
     ],
@@ -45,8 +44,9 @@
           }
     },
     "custom/clock": {
-        "exec": "TZ='America/New_York' date +'%I:%M %p'",
-        "format": " {}",
+        "exec": "TZ='America/New_York' date +'%I:%M'",
+        "tooltip": true,
+        "format": "{}",
         "interval": 5
     },
     "custom/calendar": {
@@ -56,6 +56,18 @@
     },
     "battery": {
       "format": "{}%"
+    },
+    "network": {
+      "interface": "wlp1s0",
+      "format": "{ifname}",
+      "format-wifi": "",
+      "format-ethernet": "{ipaddr}/{cidr} ",
+      "format-disconnected": "", //An empty format will hide the module.
+      "tooltip-format": "{ifname} via {gwaddr} ",
+      "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+      "tooltip-format-ethernet": "{ifname} ",
+      "tooltip-format-disconnected": "Disconnected",
+      "max-length": 50
     },
     // "cpu": {
     //     "interval": 10,

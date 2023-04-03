@@ -119,7 +119,7 @@ tooltip {
     color: #fab387;
     border-radius: 10px 0px 0px 10px;
     margin-left: 10px;
-    border-right: 0px;
+    border-right: 10px;
 }
 
 #custom-calendar {
@@ -143,6 +143,7 @@ tooltip {
     border-left: 0px;
     border-right: 0px;
 }
+
 #pulseaudio.microphone {
     color: #cba6f7;
     margin-right: 5px;
