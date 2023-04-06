@@ -56,3 +56,6 @@ require("user.zenmode")
 require("user.luasnip")
 
 require("user.snippets")
+
+-- Noice
+require("user.noice")

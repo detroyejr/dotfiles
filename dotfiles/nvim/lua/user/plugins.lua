@@ -56,6 +56,12 @@ local plugins = {
   { "moll/vim-bbye" },
   { "goolord/alpha-nvim" },
   {
+    "folke/noice.nvim", dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+      }
+  },
+  {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons", opt = true }
   },
