@@ -1,6 +1,3 @@
--- Impatient
-require("user.impatient")
-
 -- Options
 require("user.options")
 
@@ -44,7 +41,6 @@ require("user.alpha")
 require("user.heirline")
 
 --[[ require("user.lualine") ]]
-
 -- Whichkey
 require("user.whichkey")
 

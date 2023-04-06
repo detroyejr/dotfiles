@@ -27,6 +27,9 @@ in
     jq
     kubectl
     lame
+    lua
+    lua-language-server
+    luaformatter
     mediainfo
     mitmproxy
     mp4v2
@@ -34,6 +37,7 @@ in
     nitch
     openssh
     ranger
+    ripgrep
     unzip
     wget
     yt-dlp

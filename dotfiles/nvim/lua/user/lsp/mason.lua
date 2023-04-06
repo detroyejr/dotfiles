@@ -2,6 +2,7 @@ local servers = {
   "pylsp",
   "rust_analyzer",
   "r_language_server",
+  "lua_ls"
 }
 
 

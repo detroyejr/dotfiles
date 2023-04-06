@@ -71,7 +71,6 @@ cmp.setup {
       },
       { "i", "c" }
     ),
-
     ["<c-space>"] = cmp.mapping {
       i = cmp.mapping.complete(),
       c = function(
@@ -86,10 +85,8 @@ cmp.setup {
         end
       end,
     },
-
     -- ["<tab>"] = false,
     ["<tab>"] = cmp.config.disable,
-
     -- ["<tab>"] = cmp.mapping {
     --   i = cmp.config.disable,
     --   c = function(fallback)
@@ -102,7 +99,6 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Replace,
       select = false,
     },
-
     -- If you want tab completion :'(
     --  First you have to just promise to read `:help ins-completion`.
     --

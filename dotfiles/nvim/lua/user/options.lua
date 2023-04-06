@@ -3,7 +3,8 @@
 if vim.fn.has('win32') == 1 then
   local powershell_options = {
     shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
-    shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+    shellcmdflag =
+    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
     shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
     shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
     shellquote = "",
@@ -23,7 +24,7 @@ local options = {
   colorcolumn = "84",
   completeopt = { "menuone", "noselect" }, -- mostly just for cmp
   conceallevel = 0,                        -- so that `` is visible in markdown files
-  cursorline = false,                       -- highlight the current line
+  cursorline = false,                      -- highlight the current line
   expandtab = true,                        -- convert tabs to spaces
   fileencoding = "utf-8",                  -- the encoding written to a file
   fileformat = "unix",
@@ -34,7 +35,7 @@ local options = {
   number = true,                           -- set numbered lines
   numberwidth = 4,                         -- set number column width to 2 {default 4}
   pumheight = 10,                          -- pop up menu height
-  relativenumber = true,                  -- set relative numbered lines
+  relativenumber = true,                   -- set relative numbered lines
   scrolloff = 8,                           -- is one of my fav
   shiftwidth = 2,                          -- the number of spaces inserted for each indentation
   showmode = false,                        -- we don't need to see things like -- INSERT -- anymore
@@ -48,7 +49,7 @@ local options = {
   swapfile = false,                        -- creates a swapfile
   tabstop = 2,                             -- insert 2 spaces for a tab
   termguicolors = true,                    -- set term gui colors (most terminals support this)
-  timeoutlen = 200,                       -- time to wait for a mapped sequence to complete (in milliseconds)
+  timeoutlen = 200,                        -- time to wait for a mapped sequence to complete (in milliseconds)
   undofile = true,                         -- enable persistent undo
   updatetime = 300,                        -- faster completion (4000ms default)
   wrap = false,                            -- display lines as one long line

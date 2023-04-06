@@ -21,7 +21,7 @@ vim.g.maplocalleader = " "
 -- avoid freezing the vim process forever, see
 -- https://github.com/neovim/neovim/issues/6660
 if vim.fn.has('win32') == 1 then
-    keymap("n", "<C-z>", "<Nop>", opts)
+  keymap("n", "<C-z>", "<Nop>", opts)
 end
 
 -- Normal --
