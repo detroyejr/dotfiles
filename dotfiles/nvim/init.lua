@@ -40,8 +40,10 @@ require("user.toggleterm")
 -- Alpha
 require("user.alpha")
 
--- Lualine
-require("user.lualine")
+-- Status Line
+require("user.heirline")
+
+--[[ require("user.lualine") ]]
 
 -- Whichkey
 require("user.whichkey")

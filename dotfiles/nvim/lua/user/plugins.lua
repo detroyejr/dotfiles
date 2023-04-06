@@ -53,6 +53,7 @@ local plugins = {
   { "EdenEast/nightfox.nvim" },
   { "NLKNguyen/papercolor-theme" },
   { "akinsho/bufferline.nvim" },
+  { "rebelot/heirline.nvim" },
   { "moll/vim-bbye" },
   { "goolord/alpha-nvim" },
   {
