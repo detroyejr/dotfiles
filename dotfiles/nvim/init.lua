@@ -16,6 +16,9 @@ require("user.cmp")
 -- LSP
 require("user.lsp")
 
+-- NeoTree
+require("user.neotree")
+
 -- Telescope
 require("user.telescope")
 

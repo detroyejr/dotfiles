@@ -49,4 +49,4 @@ for _, server in pairs(servers) do
 end
 
 
-require'lspconfig'.zk.setup{}
+require 'lspconfig'.zk.setup {}

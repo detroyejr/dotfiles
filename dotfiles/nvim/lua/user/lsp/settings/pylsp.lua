@@ -3,7 +3,7 @@ settings = {
     pylsp = {
       plugins = {
         black = {
-          enabled: true
+          enabled = true
         }
       }
     }
