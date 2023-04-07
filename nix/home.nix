@@ -35,6 +35,7 @@ in
     mp4v2
     neofetch
     nitch
+    nil
     openssh
     ranger
     ripgrep
