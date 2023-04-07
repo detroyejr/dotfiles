@@ -17,6 +17,7 @@ in
   home.packages = with pkgs; [
     audible-cli
     awscli
+    bat
     bc
     cmake
     curl
