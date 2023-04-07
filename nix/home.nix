@@ -1,4 +1,4 @@
-{ config, pkgs, dotfiles, ... }:
+{ config, pkgs, ... }:
 
 let 
   oh-my-tmux = pkgs.fetchurl {
@@ -20,6 +20,7 @@ in
     bc
     cmake
     curl
+    exa
     ffmpeg
     fzf
     gcc
@@ -55,6 +56,10 @@ in
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
+    shellAliases = {
+      ls = "exa";
+      ll = "exa -l";
+    };
     plugins = [
       {
         name = "powerlevel10k";
