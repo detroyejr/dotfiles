@@ -32,7 +32,7 @@ require("user.autopairs")
 require("user.comment")
 
 -- Bufferline
-require("user.bufferline")
+--require("user.bufferline")
 
 -- Toggle Term
 require("user.toggleterm")
@@ -43,7 +43,6 @@ require("user.alpha")
 -- Status Line
 require("user.heirline")
 
---[[ require("user.lualine") ]]
 -- Whichkey
 require("user.whichkey")
 
