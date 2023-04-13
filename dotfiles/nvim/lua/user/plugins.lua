@@ -100,7 +100,6 @@ local plugins = {
     run = ":TSUpdate",
   },
   { "nvim-treesitter/playground" },
-  { "JoosepAlviste/nvim-ts-context-commentstring" },
 
   -- NeoTree
   {
