@@ -12,6 +12,12 @@ null_ls.setup({
   debug = false,
   sources = {
     formatting.black.with({ extra_args = { "--fast" } }),
-    diagnostics.flake8
+    --[[ diagnostics.flake8.with({ extra_args = { "--max-line-length", "88" } }), ]]
+    diagnostics.ruff.with({
+      extra_args = {
+        "--select", "ALL",
+        "--ignore", "EXE",
+      }
+    }),
   },
 })

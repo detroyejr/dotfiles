@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
   python = pkgs.python310;
@@ -8,6 +8,7 @@ let
     dask
     flake8
     ipython
+    isort
     lxml
     pandas
     pip
@@ -19,5 +20,5 @@ let
 ]);
 in
 {
-  home.packages = [ python-with-packages ];
+  home.packages = [ python-with-packages pkgs.ruff ];
 }
