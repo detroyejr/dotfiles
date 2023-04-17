@@ -85,7 +85,6 @@
             home-manager.users.detroyejr = {
               imports = [
                 ./nix/home.nix
-                ./nix/dev/default.nix
                 ./nix/dev/neovim.nix
                 ./nix/dev/git.nix
                 ./nix/dev/python.nix
