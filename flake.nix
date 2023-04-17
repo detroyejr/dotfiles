@@ -78,6 +78,20 @@
         system = "x86_64-linux";
         modules = [ 
           ./nixos/proxmox/configuration.nix
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit devenv; };
+            home-manager.users.detroyejr = {
+              imports = [
+                ./nix/home.nix
+                ./nix/dev/default.nix
+                ./nix/dev/neovim.nix
+                ./nix/dev/git.nix
+                ./nix/dev/python.nix
+               ];
+            };
+          }
         ];
       };
     };
