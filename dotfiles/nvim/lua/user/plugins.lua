@@ -50,6 +50,7 @@ local plugins = {
   -- UI
   { "folke/tokyonight.nvim" },
   { "EdenEast/nightfox.nvim" },
+  { 'navarasu/onedark.nvim' },
   { "NLKNguyen/papercolor-theme" },
   { "akinsho/bufferline.nvim" },
   { "rebelot/heirline.nvim" },
