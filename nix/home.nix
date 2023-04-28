@@ -1,11 +1,5 @@
 { config, pkgs, devenv, ... }:
 
-let 
-  oh-my-tmux = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/gpakosz/.tmux/7706ab724f3811479a358c6f9ea6aeb6decece5f/.tmux.conf";
-    sha256 = "sha256-+i4Etzuxqf4io1SoKJkgK2mYHTu7CCYxXlDmv2BxTYQ=";
-  };
-in 
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -90,10 +84,55 @@ in
     shortcut = "a";
     newSession = true;
     clock24 = true;
-    extraConfig = 
-      (builtins.readFile oh-my-tmux) +
-      # Tmux and neovim colors. Things look slightly off at least in WSL2.
-      "set-option -ga terminal-overrides \",xterm-256color:Tc\"";
+    extraConfig = ''
+      # Keybindings
+      bind -n M-H previous-window
+      bind -n M-L next-window
+
+      bind '"' split-window -v -c "#{pane_current_path}"
+      bind % split-window -h -c "#{pane_current_path}"
+
+      # Get 256 colors in Windows Terminal/WSL2.
+      set -g default-terminal "screen-256color"
+      set-option -ga terminal-overrides ',*-256color*:Tc'
+
+      # Fix weird character issue.
+      set -g escape-time 10 
+
+      # Start windows at 1 instead of 0.
+      set -g base-index 1
+      set -g pane-base-index 1
+      set-window-option -g pane-base-index 1
+      set-option -g renumber-windows on
+
+      # List of plugins
+      set -g @plugin 'tmux-plugins/tpm'
+      set -g @plugin 'tmux-plugins/tmux-sensible'
+      set -g @plugin "janoamaral/tokyo-night-tmux" 
+      set -g @plugin 'christoomey/vim-tmux-navigator'
+      set -g @plugin 'tmux-plugins/tmux-yank'
+
+      # Manually set colors
+      set -g status-left "#[fg=black,bg=green,bold] #S #[fg=blue,bg=default,nobold,noitalics,nounderscore]"
+      set -g status-left "#[fg=black,bg=#41a6b5,bold] #S #[fg=blue,bg=default,nobold,noitalics,nounderscore]"
+      set -g window-status-format "#[fg=brightwhite,bg=default,nobold,noitalics,nounderscore]   #I #W #F  " 
+      set -g window-status-format "#[fg=brightwhite,bg=#1a1b26,nobold,noitalics,nounderscore]   #I #W #F  "
+      
+      # Status bar background
+      set -g status-bg "#1a1b26"
+
+      # Enable mouse support
+      set -g mouse
+
+      run '$HOME/.tmux/plugins/tpm/tpm'
+    '';
+  };
+
+  home.file.".tmux/plugins/tpm/".source = pkgs.fetchFromGitHub {
+    owner = "tmux-plugins";
+    repo = "tpm";
+    rev = "master";
+    sha256 = "sha256-hW8mfwB8F9ZkTQ72WQp/1fy8KL1IIYMZBtZYIwZdMQc=";
   };
   
 

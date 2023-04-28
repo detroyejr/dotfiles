@@ -17,7 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Install your plugins here
 local plugins = {
   { "folke/lazy.nvim" },       -- Have lazy manage itself
-
+  { "christoomey/vim-tmux-navigator" },
   { "nvim-lua/popup.nvim" },   -- An implementation of the Popup API from vim in Neovim
   { "nvim-lua/plenary.nvim" }, -- Useful lua functions used in lots of plugins
   { "lewis6991/impatient.nvim" },
@@ -117,7 +117,7 @@ local plugins = {
   { "lewis6991/gitsigns.nvim" },
 
   -- Toggle Term
-  { "akinsho/toggleterm.nvim", version = "*" }
+  { "akinsho/toggleterm.nvim",   version = "*" }
 
 }
 require("lazy").setup(plugins)

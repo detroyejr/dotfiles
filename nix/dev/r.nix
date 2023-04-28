@@ -41,6 +41,7 @@ let
       magick
       readxl
       relaimpo
+      rmarkdown
       sf
       sjlabelled
       surveytools
@@ -49,7 +50,7 @@ let
   };
 in
 {
-  home.packages = [ R-with-packages ];
+  home.packages = [ R-with-packages pandoc ];
 
   programs.zsh.shellAliases = {
     R = "R --no-save --no-restore";
