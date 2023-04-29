@@ -2,4 +2,4 @@
 vim/.vim/bundle/*
 nvim/plugin/packer_compiled.lua
 result/
-nvim/lazy-lock.json
+dotfiles/nvim/lazy-lock.json
