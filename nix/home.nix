@@ -56,6 +56,7 @@
       ls = "exa";
       ll = "exa -l";
       st = "set-title";
+      tf = "tmux-fzf";
     };
     plugins = [
       {
