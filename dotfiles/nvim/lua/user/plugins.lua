@@ -72,7 +72,6 @@ local plugins = {
   { "hrsh7th/cmp-path" },         -- path completions
   { "hrsh7th/nvim-cmp" },         -- The completion plugin
   { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
-  { "windwp/nvim-autopairs" }, -- Autopairs, integrates with both cmp and treesitter
 
   -- snippets
   { "L3MON4D3/LuaSnip" },             --snippet engine
