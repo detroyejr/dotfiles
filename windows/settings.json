@@ -32,7 +32,8 @@
     "alwaysShowNotificationIcon": true,
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+    "defaultProfile": "{17bf3de4-5353-5709-bcf9-835bd952a95e}",
+    "firstWindowPreference": "defaultProfile",
     "launchMode": "default",
     "profiles": 
     {
@@ -40,6 +41,7 @@
         {
             "bellStyle": "none",
             "colorScheme": "tokyonight",
+            "cursorHeight": 28,
             "cursorShape": "vintage",
             "font": 
             {
@@ -49,11 +51,19 @@
             },
             "padding": "0, 0, 0, 0",
             "scrollbarState": "hidden",
-            "suppressApplicationTitle": true,
+            "suppressApplicationTitle": false,
+            "useAcrylic": true,
             "useAtlasEngine": true
         },
         "list": 
         [
+            {
+                "guid": "{17bf3de4-5353-5709-bcf9-835bd952a95e}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Windows.Terminal.Wsl",
+                "suppressApplicationTitle": false
+            },
             {
                 "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
@@ -62,22 +72,10 @@
                 "name": "Windows PowerShell"
             },
             {
-                "guid": "{17bf3de4-5353-5709-bcf9-835bd952a95e}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
-            },
-            {
                 "commandline": "%SystemRoot%\\System32\\cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "Command Prompt"
-            },
-            {
-                "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
-                "hidden": false,
-                "name": "kali-linux",
-                "source": "Windows.Terminal.Wsl"
             }
         ]
     },
