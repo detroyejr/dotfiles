@@ -57,6 +57,7 @@
       ll = "exa -l";
       st = "set-title";
       tf = "tmux-fzf";
+      k = "kubectl";
     };
     plugins = [
       {
