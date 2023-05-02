@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 ## Export Env
 ## Jonathan De Troye

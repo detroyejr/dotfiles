@@ -65,7 +65,7 @@
     ];
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" ];
+      plugins = [ "git" "tmux" ];
       theme = "robbyrussell";
     };
     initExtra = ''
@@ -74,9 +74,19 @@
       [[ -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]] && . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
       source $HOME/.zsh/plugins/powerlevel10k/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       source $HOME/.p10k.zsh
+      
+      DISABLE_AUTO_TITLE="true"
       export EDITOR=nvim
       export ZK_NOTEBOOK_DIR=/mnt/c/Users/detro/OneDrive/Documents/zk-notes/
-    '';
+      
+      if [ -d "$HOME/.local/bin/bash/" ] ; then
+          PATH="$HOME/.local/bin/bash/:$PATH"
+      fi
+      
+      bindkey -v
+      bindkey ^R history-incremental-search-backward 
+      bindkey ^S history-incremental-search-forward
+      '';
   };
 
   programs.tmux = {
@@ -106,11 +116,12 @@
       set-option -g renumber-windows on
 
       # List of plugins
-      set -g @plugin 'tmux-plugins/tpm'
-      set -g @plugin 'tmux-plugins/tmux-sensible'
       set -g @plugin "janoamaral/tokyo-night-tmux" 
       set -g @plugin 'christoomey/vim-tmux-navigator'
+      set -g @plugin 'tmux-plugins/tmux-resurrect'
+      set -g @plugin 'tmux-plugins/tmux-sensible'
       set -g @plugin 'tmux-plugins/tmux-yank'
+      set -g @plugin 'tmux-plugins/tpm'
 
       # Manually set colors
       set -g status-left "#[fg=black,bg=green,bold] #S #[fg=blue,bg=default,nobold,noitalics,nounderscore]"
@@ -136,6 +147,7 @@
   };
   
 
+  home.file.".local/bin/bash".source = ../dotfiles/bash;
 
   programs.mcfly = {
     enable = true;

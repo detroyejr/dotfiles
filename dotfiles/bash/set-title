@@ -1,0 +1,5 @@
+#!/bin/env bash 
+
+TITLE=${1:-Ubuntu}
+
+echo -e "\033];${TITLE}\007"
