@@ -1,0 +1,4 @@
+#!/bin/env bash
+# TMUX fuzzy find.
+
+tmux attach -t $(tmux ls | fzf | awk '{print $1}')
