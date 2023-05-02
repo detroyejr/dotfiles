@@ -55,6 +55,7 @@
     shellAliases = {
       ls = "exa";
       ll = "exa -l";
+      st = "set-title";
     };
     plugins = [
       {
