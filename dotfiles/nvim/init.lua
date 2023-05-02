@@ -1,61 +1,23 @@
--- Options
-require("user.options")
 
--- Plugins
+-- Plugins need to be loaded first.
 require("user.plugins")
 
--- Colors
-require("user.colorscheme")
-
--- Keymaps
-require("user.keymaps")
-
--- CMP
-require("user.cmp")
-
--- LSP
-require("user.lsp")
-
--- NeoTree
-require("user.neotree")
-
--- Telescope
-require("user.telescope")
-
--- Treesitter
-require("user.treesitter")
-
--- AutoPairs
-require("user.autopairs")
-
--- Comment
-require("user.comment")
-
--- Bufferline
---require("user.bufferline")
-
--- Toggle Term
-require("user.toggleterm")
-
--- Alpha
 require("user.alpha")
-
--- Status Line
-require("user.heirline")
-
--- Whichkey
-require("user.whichkey")
-
--- Gitsigns
+require("user.autopairs")
+require("user.cmp")
+require("user.colorscheme")
+require("user.comment")
 require("user.gitsigns")
-
--- Zenmod
-require("user.zenmode")
-
--- LuaSnip
+require("user.keymaps")
+require("user.lsp")
 require("user.luasnip")
-
-require("user.snippets")
-
--- Noice
+require("user.neotree")
 require("user.noice")
+require("user.options")
+require("user.snippets")
+require("user.statusline")
+require("user.telescope")
+require("user.toggleterm")
+require("user.treesitter")
+require("user.whichkey")
+require("user.zenmode")

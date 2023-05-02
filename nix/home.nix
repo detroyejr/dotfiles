@@ -72,13 +72,18 @@
       theme = "robbyrussell";
     };
     initExtra = ''
+      # ZSH Options
+      DISABLE_AUTO_TITLE=true
+      ZSH_TMUX_AUTOSTART=true
+      ZSH_TMUX_AUTOCONNECT=true
+
       export PATH=$PATH:/home/detroyejr/.nix-profile/bin
       [[ -f $HOME/.nix-profile/etc/profile.d/nix.sh ]] && . $HOME/.nix-profile/etc/profile.d/nix.sh 
       [[ -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]] && . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
       source $HOME/.zsh/plugins/powerlevel10k/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       source $HOME/.p10k.zsh
       
-      DISABLE_AUTO_TITLE="true"
+
       export EDITOR=nvim
       export ZK_NOTEBOOK_DIR=/mnt/c/Users/detro/OneDrive/Documents/zk-notes/
       

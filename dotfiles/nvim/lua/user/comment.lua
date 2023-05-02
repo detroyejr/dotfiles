@@ -1,1 +1,1 @@
-require('Comment').setup()
+require('mini.comment').setup()

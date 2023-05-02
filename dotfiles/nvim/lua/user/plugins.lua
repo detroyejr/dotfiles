@@ -18,9 +18,9 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
   { "folke/lazy.nvim" },       -- Have lazy manage itself
   { "christoomey/vim-tmux-navigator" },
-  { "nvim-lua/popup.nvim" },   -- An implementation of the Popup API from vim in Neovim
   { "nvim-lua/plenary.nvim" }, -- Useful lua functions used in lots of plugins
-  { "lewis6991/impatient.nvim" },
+  { "nvim-lua/popup.nvim" },   -- An implementation of the Popup API from vim in Neovim
+  { 'echasnovski/mini.nvim', version = '*' },
   { "lukas-reineke/indent-blankline.nvim" },
   {
     "mickael-menu/zk-nvim",
@@ -52,9 +52,7 @@ local plugins = {
   { "EdenEast/nightfox.nvim" },
   { 'navarasu/onedark.nvim' },
   { "NLKNguyen/papercolor-theme" },
-  { "akinsho/bufferline.nvim" },
   { "rebelot/heirline.nvim" },
-  { "moll/vim-bbye" },
   { "goolord/alpha-nvim" },
   {
     "folke/noice.nvim",
@@ -63,33 +61,28 @@ local plugins = {
       "rcarriga/nvim-notify",
     }
   },
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons", opt = true }
-  },
   { "folke/which-key.nvim" },
   { "folke/zen-mode.nvim" },
 
   -- cmp plugins
-  { "hrsh7th/nvim-cmp" },         -- The completion plugin
   { "hrsh7th/cmp-buffer" },       -- buffer completions
-  { "hrsh7th/cmp-path" },         -- path completions
   { "hrsh7th/cmp-cmdline" },      -- cmdline completions
-  { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
   { "hrsh7th/cmp-nvim-lsp" },
   { "hrsh7th/cmp-nvim-lua" },
+  { "hrsh7th/cmp-path" },         -- path completions
+  { "hrsh7th/nvim-cmp" },         -- The completion plugin
+  { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
   { "windwp/nvim-autopairs" }, -- Autopairs, integrates with both cmp and treesitter
-  { "numToStr/Comment.nvim" }, -- Easily comment stuff.
 
   -- snippets
   { "L3MON4D3/LuaSnip" },             --snippet engine
   { "rafamadriz/friendly-snippets" }, -- a bunch of snippets to use
 
   -- LSP
-  { "neovim/nvim-lspconfig" },             -- enable LSP
-  { "williamboman/mason.nvim" },           -- simple to use language server installer
-  { "williamboman/mason-lspconfig.nvim" }, -- simple to use language server installer
   { "jose-elias-alvarez/null-ls.nvim" },   -- LSP diagnostics and code actions
+  { "neovim/nvim-lspconfig" },             -- enable LSP
+  { "williamboman/mason-lspconfig.nvim" }, -- simple to use language server installer
+  { "williamboman/mason.nvim" },           -- simple to use language server installer
 
   -- Telescope
   { "nvim-telescope/telescope.nvim" },
