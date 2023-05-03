@@ -103,27 +103,27 @@
     newSession = true;
     clock24 = true;
     extraConfig = ''
-      # Keybindings
-      bind -n M-H previous-window
-      bind -n M-L next-window
-
-      bind '"' split-window -v -c "#{pane_current_path}"
-      bind % split-window -h -c "#{pane_current_path}"
-
       # Get 256 colors in Windows Terminal/WSL2.
       set -g default-terminal "screen-256color"
       set-option -ga terminal-overrides ',*-256color*:Tc'
-
+      set -g mouse
+     
       # Fix weird character issue.
       set -g escape-time 10 
-
-      # Start windows at 1 instead of 0.
+      
+      # We can use base index of 1 for everything but sessions.
       set -g base-index 1
       set -g pane-base-index 1
       set-window-option -g pane-base-index 1
       set-option -g renumber-windows on
 
-      # List of plugins
+      # Keybindings
+      bind -n M-H previous-window
+      bind -n M-L next-window
+      bind '"' split-window -v -c "#{pane_current_path}"
+      bind % split-window -h -c "#{pane_current_path}"
+
+      # List of plugins.
       set -g @plugin "janoamaral/tokyo-night-tmux" 
       set -g @plugin 'christoomey/vim-tmux-navigator'
       set -g @plugin 'tmux-plugins/tmux-resurrect'
@@ -131,17 +131,8 @@
       set -g @plugin 'tmux-plugins/tmux-yank'
       set -g @plugin 'tmux-plugins/tpm'
 
-      # Manually set colors
-      set -g status-left "#[fg=black,bg=green,bold] #S #[fg=blue,bg=default,nobold,noitalics,nounderscore]"
-      set -g status-left "#[fg=black,bg=#41a6b5,bold] #S #[fg=blue,bg=default,nobold,noitalics,nounderscore]"
-      set -g window-status-format "#[fg=brightwhite,bg=default,nobold,noitalics,nounderscore]   #I #W #F  " 
-      set -g window-status-format "#[fg=brightwhite,bg=#1a1b26,nobold,noitalics,nounderscore]   #I #W #F  "
-      
-      # Status bar background
+      # Set status color manually.
       set -g status-bg "#1a1b26"
-
-      # Enable mouse support
-      set -g mouse
 
       run '$HOME/.tmux/plugins/tpm/tpm'
     '';
