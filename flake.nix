@@ -74,10 +74,10 @@
         ];
       };
 
-      nixosConfigurations.proxmox = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.tower = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ 
-          ./nixos/proxmox/configuration.nix
+          ./nixos/tower/configuration.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

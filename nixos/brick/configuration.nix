@@ -11,7 +11,6 @@
     ];
   
   nixpkgs.config.allowUnfree = true;
-
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
@@ -21,17 +20,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  networking.hostName = "BrickOS"; # Define your hostname.
-
-  # Enable networking
   networking.networkmanager.enable = true;
-
-  # Set your time zone.
+  networking.hostName = "BrickOS";
   time.timeZone = "America/New_York";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
     LC_IDENTIFICATION = "en_US.UTF-8";
@@ -49,31 +42,20 @@
     enable = true;
     driSupport32Bit = true;
   };
-
-  # Optionally, you may need to select the appropriate driver version for your specific GPU.
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-
   hardware.nvidia.prime = {
     sync.enable = true;
-
-    # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
     nvidiaBusId = "PCI:1:0:0";
-
-    # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
     intelBusId = "PCI:0:2:0";
   };  
   
   hardware.nvidia.modesetting.enable = true;
 
-  # Configure keymap in X11
   services.xserver = {
     layout = "us";
     xkbVariant = "";
   };
 
-  # Enable sound with pipewire.
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.detroyejr = {
     isNormalUser = true;
     description = "Jonathan De Troye";
@@ -81,15 +63,12 @@
   };
 
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
     home-manager
     nfs-utils
   ];
 
-  # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
     settings.passwordAuthentication = false;
@@ -104,11 +83,5 @@
   
   networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
 }
