@@ -20,7 +20,7 @@ local plugins = {
   { "christoomey/vim-tmux-navigator" },
   { "nvim-lua/plenary.nvim" }, -- Useful lua functions used in lots of plugins
   { "nvim-lua/popup.nvim" },   -- An implementation of the Popup API from vim in Neovim
-  { 'echasnovski/mini.nvim', version = '*' },
+  { 'echasnovski/mini.nvim',              version = '*' },
   { "lukas-reineke/indent-blankline.nvim" },
   {
     "mickael-menu/zk-nvim",
@@ -54,6 +54,7 @@ local plugins = {
   { "NLKNguyen/papercolor-theme" },
   { "rebelot/heirline.nvim" },
   { "goolord/alpha-nvim" },
+  { "xiyaowong/transparent.nvim" },
   {
     "folke/noice.nvim",
     dependencies = {
@@ -63,10 +64,11 @@ local plugins = {
   },
   { "folke/which-key.nvim" },
   { "folke/zen-mode.nvim" },
+  { "famiu/bufdelete.nvim" },
 
   -- cmp plugins
-  { "hrsh7th/cmp-buffer" },       -- buffer completions
-  { "hrsh7th/cmp-cmdline" },      -- cmdline completions
+  { "hrsh7th/cmp-buffer" },  -- buffer completions
+  { "hrsh7th/cmp-cmdline" }, -- cmdline completions
   { "hrsh7th/cmp-nvim-lsp" },
   { "hrsh7th/cmp-nvim-lua" },
   { "hrsh7th/cmp-path" },         -- path completions
