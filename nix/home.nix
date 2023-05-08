@@ -58,6 +58,7 @@
       st = "set-title";
       tf = "tmux-fzf";
       k = "kubectl";
+      tmux-new = "echo 'Enter session name:' && read name && tmux new -s $name";
     };
     plugins = [
       {
