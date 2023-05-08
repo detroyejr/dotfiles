@@ -1,0 +1,10 @@
+#!/bin/env bash
+
+NAME=$1
+
+if [[ -z "$NAME" ]]; then
+  echo "Enter a session name:"
+  read NAME
+fi
+
+tmux new -s $NAME
