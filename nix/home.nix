@@ -90,6 +90,8 @@
       if [ -d "$HOME/.local/bin/bash/" ] ; then
           PATH="$HOME/.local/bin/bash/:$PATH"
       fi
+
+      export $(cat ~/.local/.secrets)
       
       bindkey -v
       bindkey ^R history-incremental-search-backward 
@@ -158,6 +160,10 @@
     source = ../dotfiles/ranger;
     recursive = true;
   };
+
+  home.file.".digrc".text = ''
+  +noall +answer
+  '';
 
   home.stateVersion = "22.11";
 }
