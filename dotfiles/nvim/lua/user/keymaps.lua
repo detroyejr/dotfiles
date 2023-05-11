@@ -1,7 +1,5 @@
 local opts = { noremap = false, silent = true }
 
-local term_opts = { silent = true }
-
 -- Shorten function name
 local keymap = vim.api.nvim_set_keymap
 
@@ -25,6 +23,9 @@ if vim.fn.has('win32') == 1 then
 end
 
 -- Normal --
+-- Transparency
+keymap("n", "<A-t>", ":<C-U>TransparentToggle<cr>", { noremap = true, silent = true })
+
 -- TMUX window naviation
 vim.g.tmux_navigator_no_mappingsj = 1
 
@@ -33,12 +34,6 @@ keymap("n", "<C-j>", ":<C-U>TmuxNavigateDown<cr>", { noremap = true, silent = tr
 keymap("n", "<C-k>", ":<C-U>TmuxNavigateUp<cr>", { noremap = true, silent = true })
 keymap("n", "<C-l>", ":<C-U>TmuxNavigateRight<cr>", { noremap = true, silent = true })
 -- keymap("n", "{Previous-Mapping}", ":<C-U>TmuxNavigatePrevious<cr>", { noremap = true, silent = true })
-
--- Better window navigation
--- keymap("n", "<C-h>", "<C-w>h", opts)
--- keymap("n", "<C-j>", "<C-w>j", opts)
--- keymap("n", "<C-k>", "<C-w>k", opts)
--- keymap("n", "<C-l>", "<C-w>l", opts)
 
 keymap("n", "<leader>e", ":Lex 30<cr>", opts)
 
