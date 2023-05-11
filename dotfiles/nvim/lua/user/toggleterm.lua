@@ -38,52 +38,52 @@ end
 
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
-local Terminal = require("toggleterm.terminal").Terminal
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+local terminal = require("toggleterm.terminal").Terminal
+local lazygit = terminal:new({ cmd = "lazygit", hidden = true })
 
 function _LAZYGIT_TOGGLE()
   lazygit:toggle()
 end
 
-local node = Terminal:new({ cmd = "node", hidden = true })
+local node = terminal:new({ cmd = "node", hidden = true })
 
 function _NODE_TOGGLE()
   node:toggle()
 end
 
-local ncdu = Terminal:new({ cmd = "ncdu", hidden = true })
+local ncdu = terminal:new({ cmd = "ncdu", hidden = true })
 
 function _NCDU_TOGGLE()
   ncdu:toggle()
 end
 
-local htop = Terminal:new({ cmd = "htop", hidden = true })
+local htop = terminal:new({ cmd = "htop", hidden = true })
 
 function _HTOP_TOGGLE()
   htop:toggle()
 end
 
-local python = Terminal:new({ cmd = "ipython", hidden = true })
+local python = terminal:new({ cmd = "ipython", hidden = true })
 
 function _PYTHON_TOGGLE()
   python:toggle()
 end
 
-local r = Terminal:new({ cmd = "R", hidden = true })
+local r = terminal:new({ cmd = "R", hidden = true })
 
-function _r_TOGGLE()
+function _R_TOGGLE()
   r:toggle()
 end
 
-local radian = Terminal:new({ cmd = "radian", hidden = true })
+local radian = terminal:new({ cmd = "radian", hidden = true })
 
 function _RADIAN_TOGGLE()
   radian:toggle()
 end
 
-function split_terminal_right()
-  local Terminal = require('toggleterm.terminal').Terminal
-  Terminal:new({ direction = 'horizontal' }):open()
+local function split_terminal_right()
+  terminal = require('toggleterm.terminal').Terminal
+  terminal:new({ direction = 'horizontal' }):open()
 end
 
 vim.api.nvim_create_user_command('SplitTerminal', split_terminal_right, {})
