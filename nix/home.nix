@@ -91,7 +91,7 @@
           PATH="$HOME/.local/bin/bash/:$PATH"
       fi
 
-      export $(cat ~/.local/.secrets)
+      [[ -f $HOME/.local/.secrets ]] && export $(cat ~/.local/.secrets)
       
       bindkey -v
       bindkey ^R history-incremental-search-backward 
