@@ -68,7 +68,6 @@ local opts = {
 }
 
 local mappings = {
-  ["/"] = { "<cmd>lua require(\"Comment.api\").toggle_current_linewise()<CR>", "Comment" },
   ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
   ["b"] = {
     "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
@@ -127,9 +126,9 @@ local mappings = {
   n = {
     name = "Noice",
     d = { "<cmd>NoiceDismiss<cr>", "Dismiss" },
-    t = { "<cmd>NoiceTelescope<cr>", "Dismiss" },
-    l = { "<cmd>NoiceLog<cr>", "Dismiss" },
-    s = { "<cmd>NoiceStats<cr>", "Dismiss" },
+    t = { "<cmd>NoiceTelescope<cr>", "Telescope" },
+    l = { "<cmd>NoiceLog<cr>", "Log" },
+    s = { "<cmd>NoiceStats<cr>", "Statistics" },
   },
   s = {
     name = "Search",
