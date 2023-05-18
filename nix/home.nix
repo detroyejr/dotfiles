@@ -58,6 +58,7 @@
       st = "set-title";
       tf = "tmux-fzf";
       k = "kubectl";
+      pwsh = "pwsh.exe";
     };
     plugins = [
       {
@@ -109,6 +110,7 @@
       set -g default-terminal "screen-256color"
       set-option -ga terminal-overrides ',*-256color*:Tc'
       set -g mouse
+      set-window-option -g mode-keys vi
      
       # Fix weird character issue.
       set -g escape-time 10 
