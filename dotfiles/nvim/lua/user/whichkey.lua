@@ -127,6 +127,9 @@ local mappings = {
   n = {
     name = "Noice",
     d = { "<cmd>NoiceDismiss<cr>", "Dismiss" },
+    t = { "<cmd>NoiceTelescope<cr>", "Dismiss" },
+    l = { "<cmd>NoiceLog<cr>", "Dismiss" },
+    s = { "<cmd>NoiceStats<cr>", "Dismiss" },
   },
   s = {
     name = "Search",
