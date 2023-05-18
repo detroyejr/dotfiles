@@ -3,8 +3,7 @@
 NAME=$1
 
 if [[ -z "$NAME" ]]; then
-  echo "Enter a session name:"
-  read NAME
+  NAME=$(pwd | sed 's/.*\///g')
 fi
 
 tmux new -s $NAME
