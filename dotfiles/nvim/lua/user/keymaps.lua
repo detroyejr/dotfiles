@@ -35,7 +35,8 @@ keymap("n", "<C-k>", ":<C-U>TmuxNavigateUp<cr>", { noremap = true, silent = true
 keymap("n", "<C-l>", ":<C-U>TmuxNavigateRight<cr>", { noremap = true, silent = true })
 -- keymap("n", "{Previous-Mapping}", ":<C-U>TmuxNavigatePrevious<cr>", { noremap = true, silent = true })
 
-keymap("n", "<leader>e", ":Lex 30<cr>", opts)
+-- keymap("n", "<leader>e", ":Lex 30<cr>", opts)
+keymap("n", "<leader>e", ":Sex 30<cr>", opts)
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
@@ -76,9 +77,8 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 keymap("n", "<C-A-x>", ":ToggleTermSendCurrentLine<CR>", opts)
 keymap("v", "<C-A-x>", ":ToggleTermSendVisualSelection<CR>", opts)
 
--- Nvimtree
-keymap("n", "<leader>e", ":NeoTreeRevealToggle<CR>", opts)
-keymap("n", "<leader>o", ":NeoTreeFocus<CR>", opts)
+-- Explore
+keymap("n", "<leader>e", ":Sexplore<CR>", opts)
 
 -- Zenmode
 keymap("n", "<C-z>", ":ZenMode<cr>", opts)

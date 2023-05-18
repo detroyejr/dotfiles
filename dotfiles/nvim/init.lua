@@ -1,4 +1,3 @@
-
 -- Plugins need to be loaded first.
 require("user.plugins")
 
@@ -11,7 +10,6 @@ require("user.gitsigns")
 require("user.keymaps")
 require("user.lsp")
 require("user.luasnip")
-require("user.neotree")
 require("user.noice")
 require("user.options")
 require("user.snippets")
