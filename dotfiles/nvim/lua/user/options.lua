@@ -65,3 +65,19 @@ vim.opt.shortmess:append "c"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd "autocmd filetype r set colorcolumn=80"
+
+-- NetRW Options
+vim.g.netrw_liststyle = 3
+vim.g.netrw_browse_split = 4
+vim.g.netrw_winsize = 20
+
+vim.cmd [[
+  augroup netrw_mapping
+    autocmd!
+    autocmd filetype netrw call NetrwMapping()
+  augroup END
+  
+  function! NetrwMapping()
+    nnoremap <silent> <buffer> <c-l> :TmuxNavigateRight<CR>
+  endfunction
+]]
