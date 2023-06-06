@@ -59,6 +59,7 @@
       tf = "tmux-fzf";
       k = "kubectl";
       pwsh = "pwsh.exe";
+      ranger = "ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd \"$LASTDIR\"";
     };
     plugins = [
       {
