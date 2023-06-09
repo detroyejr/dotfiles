@@ -31,11 +31,12 @@
     mitmproxy
     mp4v2
     neofetch
-    nitch
     nil
+    nitch
     openssh
     ranger
     ripgrep
+    tiny
     unzip
     wget
     yt-dlp
@@ -166,6 +167,20 @@
 
   home.file.".digrc".text = ''
   +noall +answer
+  '';
+  
+  home.file.".config/tiny/config.yml".text = ''
+    defaults:
+      nicks: ["detroyejr"]
+      realname: "Jon"
+    servers:
+      - addr: irc.libera.chat
+        port: 6667
+        realname: "Jon"
+        nicks: ["detroyejr", "detroyejr510"]
+        join:
+          - "#neovim"
+          - "#python"
   '';
 
   home.stateVersion = "22.11";
