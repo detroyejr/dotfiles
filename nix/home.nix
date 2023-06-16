@@ -20,6 +20,7 @@
     ffmpeg
     fzf
     gcc
+    gh
     gnumake
     jq
     kubectl
