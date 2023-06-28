@@ -89,7 +89,7 @@
       
 
       export EDITOR=nvim
-      export ZK_NOTEBOOK_DIR=/mnt/c/Users/detro/OneDrive/Documents/zk-notes/
+      export ZK_NOTEBOOK_DIR=/mnt/c/Users/detro/OneDrive/Documents/obsidian/zk-notes/
       
       if [ -d "$HOME/.local/bin/bash/" ] ; then
           PATH="$HOME/.local/bin/bash/:$PATH"
