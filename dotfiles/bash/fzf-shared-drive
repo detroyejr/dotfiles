@@ -1,0 +1,6 @@
+#!/bin/env bash
+
+find $(shared-drive)/Shared/Projects -maxdepth 1 -type d > /tmp/shared-drive
+cd "$(cat /tmp/shared-drive | fzf)"
+SESSION_NAME=$(pwd | sed 's/.*\///g')
+exec tmux new-session -t "$SESSION_NAME"

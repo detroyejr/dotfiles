@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-NAME=$1
+SESSION_NAME=$1
 
-if [[ -z "$NAME" ]]; then
-  NAME=$(pwd | sed 's/.*\///g')
+if [[ -z "$SESSION_NAME" ]]; then
+  SESSION_NAME=$(pwd | sed 's/.*\///g')
 fi
 
-tmux new -s $NAME
+tmux new -s "$SESSION_NAME"
