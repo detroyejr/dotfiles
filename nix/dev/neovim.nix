@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   home.file.".config/nvim" = {
     source = ../../dotfiles/nvim;
@@ -10,6 +10,7 @@
   };
   
   home.packages = with pkgs; [
+    nixd
     xclip
   ];
 }

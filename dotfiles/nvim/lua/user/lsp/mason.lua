@@ -3,7 +3,8 @@ local servers = {
   "rust_analyzer",
   "r_language_server",
   "lua_ls",
-  "nil_ls"
+  "nixd",
+  -- "nil_ls"
 }
 
 
@@ -51,3 +52,4 @@ end
 
 
 require 'lspconfig'.zk.setup {}
+require'lspconfig'.nixd.setup{}
