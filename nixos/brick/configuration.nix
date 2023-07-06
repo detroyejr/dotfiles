@@ -71,7 +71,7 @@
 
   services.openssh = {
     enable = true;
-    settings.passwordAuthentication = false;
+    settings.PasswordAuthentication = false;
   };
 
   services.logind.lidSwitch = "ignore";
