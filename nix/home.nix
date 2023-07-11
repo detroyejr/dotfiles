@@ -13,6 +13,7 @@
     awscli2
     bat
     bc
+    cachix
     cmake
     curl
     devenv.packages.x86_64-linux.devenv
