@@ -23,6 +23,7 @@
     gcc
     gh
     gnumake
+    joplin
     jq
     kubectl
     lame
@@ -42,7 +43,6 @@
     unzip
     wget
     yt-dlp
-    zk
     zsh-powerlevel10k
   ];
   
@@ -90,7 +90,6 @@
       
 
       export EDITOR=nvim
-      export ZK_NOTEBOOK_DIR=/mnt/c/Users/detro/OneDrive/Documents/obsidian/zk-notes/
       
       if [ -d "$HOME/.local/bin/bash/" ] ; then
           PATH="$HOME/.local/bin/bash/:$PATH"
@@ -173,6 +172,40 @@
   +noall +answer
   '';
   
+  home.file.".config/joplin/settings.json".text = ''
+    {
+      "$schema": "https://joplinapp.org/schema/settings.json",
+      "sync.target": 2,
+      "sync.2.path": "/mnt/c/Users/detro/OneDrive/Apps/Joplin"
+    }
+  '';
+
+  home.file.".config/joplin/keymap.json".text = ''
+    [
+    { "keys": [":"], "type": "function", "command": "enter_command_line_mode" },
+          { "keys": ["TAB", "l"], "type": "function", "command": "focus_next" },
+          { "keys": ["SHIFT_TAB", "h"], "type": "function", "command": "focus_previous" },
+          { "keys": ["UP", "k"], "type": "function", "command": "move_up" },
+          { "keys": ["DOWN", "j"], "type": "function", "command": "move_down" },
+          { "keys": ["PAGE_UP", "CTRL_U", "g"], "type": "function", "command": "page_up" },
+          { "keys": ["PAGE_DOWN", "CTRL_D", "SHIFT_G"], "type": "function", "command": "page_down" },
+          { "keys": ["ENTER"], "type": "function", "command": "activate" },
+          { "keys": ["DELETE", "BACKSPACE"], "type": "function", "command": "delete" },
+          { "keys": [" "], "command": "todo toggle $n" },
+          { "keys": ["n"], "type": "function", "command": "next_link" },
+          { "keys": ["b"], "type": "function", "command": "previous_link" },
+          { "keys": ["o"], "type": "function", "command": "open_link" },
+          { "keys": ["tc"], "type": "function", "command": "toggle_console" },
+          { "keys": ["tm"], "type": "function", "command": "toggle_metadata" },
+          { "keys": ["/"], "type": "prompt", "command": "search \"\"", "cursorPosition": -2 },
+          { "keys": ["mn"], "type": "prompt", "command": "mknote \"\"", "cursorPosition": -2 },
+          { "keys": ["mt"], "type": "prompt", "command": "mktodo \"\"", "cursorPosition": -2 },
+          { "keys": ["mb"], "type": "prompt", "command": "mkbook \"\"", "cursorPosition": -2 },
+          { "keys": ["yn"], "type": "prompt", "command": "cp $n \"\"", "cursorPosition": -2 },
+          { "keys": ["dn"], "type": "prompt", "command": "mv $n \"\"", "cursorPosition": -2 }
+  ]
+  '';
+
   home.file.".config/tiny/config.yml".text = ''
     defaults:
       nicks: ["detroyejr"]
@@ -186,6 +219,7 @@
           - "#neovim"
           - "#python"
   '';
+
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
