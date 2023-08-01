@@ -20,6 +20,8 @@ local plugins = {
   { "nvim-lua/popup.nvim" },   -- An implementation of the Popup API from vim in Neovim
   { 'echasnovski/mini.nvim',              version = '*' },
   { "lukas-reineke/indent-blankline.nvim" },
+  { "jmbuhr/otter.nvim" },
+  { "quarto-dev/quarto-nvim" },
   {
     "mickael-menu/zk-nvim",
     config = function()
