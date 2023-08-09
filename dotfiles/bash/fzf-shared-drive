@@ -1,6 +1,23 @@
 #!/bin/env bash
 
-find $(shared-drive)/Shared/Projects -maxdepth 1 -type d > /tmp/shared-drive
+REFRESH=
+while true; do
+  case "$1" in
+    -r | --refresh ) REFRESH=true; shift ;;
+    -h | --help ) 
+      echo "Usage
+  fzf-shared-drive [-r|--refresh]
+      "; 
+      exit 0; 
+      ;;
+    -- ) shift; break ;;
+    * ) break ;;
+  esac
+done
+
+if $REFRESH; then 
+  find $(shared-drive)/Shared/Projects -maxdepth 1 -type d > /tmp/shared-drive
+fi;
 cd "$(cat /tmp/shared-drive | fzf)"
 SESSION_NAME=$(pwd | sed 's/.*\///g')
 exec tmux new-session -t "$SESSION_NAME"
