@@ -175,8 +175,7 @@
   home.file.".config/joplin/settings.json".text = ''
     {
       "$schema": "https://joplinapp.org/schema/settings.json",
-      "sync.target": 2,
-      "sync.2.path": "/mnt/c/Users/detro/OneDrive/Apps/Joplin"
+      "sync.target": 3,
     }
   '';
 
