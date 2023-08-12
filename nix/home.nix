@@ -172,13 +172,6 @@
   +noall +answer
   '';
   
-  home.file.".config/joplin/settings.json".text = ''
-    {
-      "$schema": "https://joplinapp.org/schema/settings.json",
-      "sync.target": 3,
-    }
-  '';
-
   home.file.".config/joplin/keymap.json".text = ''
     [
     { "keys": [":"], "type": "function", "command": "enter_command_line_mode" },
