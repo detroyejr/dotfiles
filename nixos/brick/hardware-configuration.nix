@@ -32,7 +32,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s20f0u2.useDHCP = lib.mkDefault true;
+  networking.interfaces."enp0s20f0u2".wakeOnLan = { enable = true; };
   # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
