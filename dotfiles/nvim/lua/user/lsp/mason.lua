@@ -4,7 +4,6 @@ local servers = {
   "r_language_server",
   "lua_ls",
   "nixd",
-  -- "nil_ls"
 }
 
 
@@ -50,6 +49,4 @@ for _, server in pairs(servers) do
   lspconfig[server].setup(opts)
 end
 
-
-require 'lspconfig'.zk.setup {}
 require'lspconfig'.nixd.setup{}
