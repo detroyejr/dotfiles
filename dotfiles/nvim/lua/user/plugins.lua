@@ -22,37 +22,10 @@ local plugins = {
   { "lukas-reineke/indent-blankline.nvim" },
   { "jmbuhr/otter.nvim" },
   { "quarto-dev/quarto-nvim" },
-  {
-    "mickael-menu/zk-nvim",
-    config = function()
-      require("zk").setup({
-        -- can be "telescope", "fzf" or "select" (`vim.ui.select`)
-        -- it's recommended to use "telescope" or "fzf"
-        picker = "telescope",
-        lsp = {
-          -- `config` is passed to `vim.lsp.start_client(config)`
-          config = {
-            cmd = { "zk", "lsp" },
-            name = "zk",
-            -- on_attach = ...
-            -- etc, see `:h vim.lsp.start_client()`
-          },
-          -- automatically attach buffers in a zk notebook that match the given filetypes
-          auto_attach = {
-            enabled = true,
-            filetypes = { "markdown", "pandoc", "md" },
-          },
-        },
-      })
-    end
-  },
 
   -- UI
   { "folke/tokyonight.nvim" },
   { "EdenEast/nightfox.nvim" },
-  { 'navarasu/onedark.nvim' },
-  { "NLKNguyen/papercolor-theme" },
-  { "rebelot/heirline.nvim" },
   { "goolord/alpha-nvim" },
   { "xiyaowong/transparent.nvim" },
   {
@@ -63,7 +36,6 @@ local plugins = {
     }
   },
   { "folke/which-key.nvim" },
-  { "folke/zen-mode.nvim" },
   { "famiu/bufdelete.nvim" },
 
   -- cmp plugins
@@ -94,18 +66,6 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
   },
-  { "nvim-treesitter/playground" },
-
-  -- NeoTree
-  -- {
-  --   "nvim-neo-tree/neo-tree.nvim",
-  --   branch = "v2.x",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-  --     "MunifTanjim/nui.nvim",
-  --   }
-  -- },
 
   -- Gitsigns
   { "lewis6991/gitsigns.nvim" },

@@ -75,10 +75,10 @@ function _R_TOGGLE()
   r:toggle()
 end
 
-local radian = terminal:new({ cmd = "radian", hidden = true })
+local rterm = terminal:new({ cmd = "r", hidden = true })
 
-function _RADIAN_TOGGLE()
-  radian:toggle()
+function _R_TOGGLE()
+  rterm:toggle()
 end
 
 local function split_terminal_right()
