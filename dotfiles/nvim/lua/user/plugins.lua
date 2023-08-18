@@ -14,20 +14,11 @@ vim.opt.rtp:prepend(Lazypath)
 
 -- Install your plugins here
 local plugins = {
-  { "folke/lazy.nvim" },       -- Have lazy manage itself
+  { "folke/lazy.nvim" }, -- Have lazy manage itself
   { "christoomey/vim-tmux-navigator" },
-  { "nvim-lua/plenary.nvim" }, -- Useful lua functions used in lots of plugins
-  { "nvim-lua/popup.nvim" },   -- An implementation of the Popup API from vim in Neovim
-  { 'echasnovski/mini.nvim',              version = '*' },
   { "lukas-reineke/indent-blankline.nvim" },
-  { "jmbuhr/otter.nvim" },
-  { "quarto-dev/quarto-nvim" },
 
-  -- UI
-  { "folke/tokyonight.nvim" },
-  { "EdenEast/nightfox.nvim" },
-  { "goolord/alpha-nvim" },
-  { "xiyaowong/transparent.nvim" },
+  -- Utilities
   {
     "folke/noice.nvim",
     dependencies = {
@@ -35,27 +26,38 @@ local plugins = {
       "rcarriga/nvim-notify",
     }
   },
-  { "folke/which-key.nvim" },
   { "famiu/bufdelete.nvim" },
+  { "folke/which-key.nvim" },
+  { "nvim-lua/plenary.nvim" }, -- Useful lua functions used in lots of plugins
+  { "nvim-lua/popup.nvim" },   -- An implementation of the Popup API from vim in Neovim
+  { 'echasnovski/mini.nvim',     version = '*' },
+
+  -- UI
+  { "EdenEast/nightfox.nvim" },
+  { "folke/tokyonight.nvim" },
+  { "xiyaowong/transparent.nvim" },
 
   -- cmp plugins
-  { "hrsh7th/cmp-buffer" },  -- buffer completions
-  { "hrsh7th/cmp-cmdline" }, -- cmdline completions
+  { "hrsh7th/cmp-buffer" },
+  { "hrsh7th/cmp-cmdline" },
   { "hrsh7th/cmp-nvim-lsp" },
   { "hrsh7th/cmp-nvim-lua" },
-  { "hrsh7th/cmp-path" },         -- path completions
-  { "hrsh7th/nvim-cmp" },         -- The completion plugin
-  { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
+  { "hrsh7th/cmp-path" },
+  { "hrsh7th/nvim-cmp" },
 
-  -- snippets
-  { "L3MON4D3/LuaSnip" },             --snippet engine
-  { "rafamadriz/friendly-snippets" }, -- a bunch of snippets to use
+  -- Snippets
+  {
+    "L3MON4D3/LuaSnip",
+    dependencies = { "rafamadriz/friendly-snippets" },
+  },
+  { "rafamadriz/friendly-snippets" },
+  { "saadparwaiz1/cmp_luasnip" },
 
   -- LSP
-  { "jose-elias-alvarez/null-ls.nvim" },   -- LSP diagnostics and code actions
-  { "neovim/nvim-lspconfig" },             -- enable LSP
-  { "williamboman/mason-lspconfig.nvim" }, -- simple to use language server installer
-  { "williamboman/mason.nvim" },           -- simple to use language server installer
+  { "jose-elias-alvarez/null-ls.nvim" },
+  { "neovim/nvim-lspconfig" },
+  { "williamboman/mason-lspconfig.nvim" },
+  { "williamboman/mason.nvim" },
 
   -- Telescope
   { "nvim-telescope/telescope.nvim" },
@@ -71,7 +73,11 @@ local plugins = {
   { "lewis6991/gitsigns.nvim" },
 
   -- Toggle Term
-  { "akinsho/toggleterm.nvim",   version = "*" }
+  { "akinsho/toggleterm.nvim", version = "*" },
+
+  -- Quarto
+  { "jmbuhr/otter.nvim" },
+  { "quarto-dev/quarto-nvim" },
 
 }
 require("lazy").setup(plugins)
