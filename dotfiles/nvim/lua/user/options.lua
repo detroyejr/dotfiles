@@ -18,42 +18,42 @@ end
 
 -- :help options
 local options = {
-  backup = false,                          -- creates a backup file
-  clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
-  cmdheight = 0,                           -- more space in the neovim command line for displaying messages
+  backup = false,
+  clipboard = "unnamedplus", -- Use the system clipboard.
+  cmdheight = 0,
   colorcolumn = "88",
-  completeopt = { "menuone", "noselect" }, -- mostly just for cmp
-  conceallevel = 0,                        -- so that `` is visible in markdown files
-  cursorline = false,                      -- highlight the current line
-  expandtab = true,                        -- convert tabs to spaces
-  fileencoding = "utf-8",                  -- the encoding written to a file
+  completeopt = { "menuone", "noselect" },
+  conceallevel = 0,
+  cursorline = false,
+  expandtab = true, -- tabs to spaces.
+  fileencoding = "utf-8",
   fileformat = "unix",
-  guifont = "monospace:h17",               -- the font used in graphical neovim applications
-  hlsearch = true,                         -- highlight all matches on previous search pattern
-  ignorecase = true,                       -- ignore case in search patterns
-  mouse = "a",                             -- allow the mouse to be used in neovim
-  number = true,                           -- set numbered lines
-  numberwidth = 4,                         -- set number column width to 2 {default 4}
-  pumheight = 10,                          -- pop up menu height
-  relativenumber = true,                   -- set relative numbered lines
-  scrolloff = 8,                           -- is one of my fav
-  shiftwidth = 2,                          -- the number of spaces inserted for each indentation
-  showmode = false,                        -- we don't need to see things like -- INSERT -- anymore
-  showtabline = 2,                         -- always show tabs
+  guifont = "monospace:h17",
+  hlsearch = true,
+  ignorecase = true,
+  mouse = "a",
+  number = true,
+  numberwidth = 4,
+  pumheight = 10,
+  relativenumber = true,
+  scrolloff = 8,
+  shiftwidth = 2,
+  showmode = false,
+  showtabline = 2,
   sidescrolloff = 8,
-  signcolumn = "yes",                      -- always show the sign column, otherwise it would shift the text each time
-  smartcase = true,                        -- smart case
-  smartindent = true,                      -- make indenting smarter again
-  splitbelow = true,                       -- force all horizontal splits to go below current window
-  splitright = true,                       -- force all vertical splits to go to the right of current window
-  swapfile = false,                        -- creates a swapfile
-  tabstop = 2,                             -- insert 2 spaces for a tab
-  termguicolors = true,                    -- set term gui colors (most terminals support this)
-  timeoutlen = 200,                        -- time to wait for a mapped sequence to complete (in milliseconds)
-  undofile = true,                         -- enable persistent undo
-  updatetime = 50,                        -- faster completion (4000ms default)
-  wrap = false,                            -- display lines as one long line
-  writebackup = false,                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
+  signcolumn = "yes",
+  smartcase = true,
+  smartindent = true,
+  splitbelow = true,
+  splitright = true,
+  swapfile = false,
+  tabstop = 2,
+  termguicolors = true,
+  timeoutlen = 200,
+  undofile = true,
+  updatetime = 50,
+  wrap = false,
+  writebackup = false,
 }
 
 for k, v in pairs(options) do
@@ -62,21 +62,27 @@ end
 
 vim.opt.shortmess:append "c"
 
-vim.cmd "set whichwrap+=<,>,[,],h,l"
-vim.cmd [[set iskeyword+=-]]
-vim.cmd "autocmd filetype r set colorcolumn=80"
-
 -- NetRW Options
+vim.g.netrw_banner = 0
+vim.g.netrw_altv = 1
 vim.g.netrw_liststyle = 3
 vim.g.netrw_browse_split = 4
 vim.g.netrw_winsize = 20
 
 vim.cmd [[
+  " generic
+  autocmd filetype r set colorcolumn=80
+  set iskeyword+=-
+  set path+=**
+  set whichwrap+=<,>,[,],h,l
+  set wildmenu
+
+  " netrw
   augroup netrw_mapping
     autocmd!
     autocmd filetype netrw call NetrwMapping()
   augroup END
-  
+
   function! NetrwMapping()
     nnoremap <silent> <buffer> <c-l> :TmuxNavigateRight<CR>
   endfunction
