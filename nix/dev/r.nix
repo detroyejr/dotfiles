@@ -34,6 +34,7 @@ let
         };
         buildInputs = with rPackages; [ 
           flextable
+          googledrive
           haven
           huxtable
           knitr
@@ -52,6 +53,7 @@ let
       dplyr
       flextable
       ggplot2
+      googledrive
       haven
       httr
       huxtable
