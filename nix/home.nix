@@ -17,7 +17,7 @@
     cmake
     curl
     devenv.packages.x86_64-linux.devenv
-    exa
+    fd
     ffmpeg
     fzf
     gcc
@@ -27,6 +27,7 @@
     jq
     kubectl
     lame
+    lsd
     lua
     lua-language-server
     luaformatter
@@ -56,8 +57,8 @@
     enableCompletion = true;
     enableAutosuggestions = true;
     shellAliases = {
-      ls = "exa";
-      ll = "exa -l";
+      ls = "lsd";
+      ll = "lsd -l";
       st = "set-title";
       tf = "tmux-fzf";
       k = "kubectl";
