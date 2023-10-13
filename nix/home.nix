@@ -57,8 +57,8 @@
     enableCompletion = true;
     enableAutosuggestions = true;
     shellAliases = {
-      ls = "lsd";
-      ll = "lsd -l";
+      ls = "lsd --color=never";
+      ll = "lsd --color=never -l";
       st = "set-title";
       tf = "tmux-fzf";
       k = "kubectl";
