@@ -103,6 +103,8 @@
       bindkey ^S history-incremental-search-forward
 
       eval "$(direnv hook zsh)"
+      
+      nitch
       '';
   };
 
@@ -134,7 +136,7 @@
       bind % split-window -h -c "#{pane_current_path}"
 
       # List of plugins.
-      set -g @plugin "janoamaral/tokyo-night-tmux" 
+      set -g @plugin 'jimeh/tmux-themepack'
       set -g @plugin 'christoomey/vim-tmux-navigator'
       set -g @plugin 'tmux-plugins/tmux-resurrect'
       set -g @plugin 'tmux-plugins/tmux-sensible'
@@ -143,7 +145,8 @@
 
       # Set status color manually for tokyo night theme.
       # set -g status-bg "#1a1b26"
-      set -g status-style bg=default
+      # set -g status-style bg=default
+      set -g @themepack 'basic'
 
       run '$HOME/.tmux/plugins/tpm/tpm'
     '';
