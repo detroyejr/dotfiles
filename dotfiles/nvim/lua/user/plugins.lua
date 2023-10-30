@@ -54,7 +54,10 @@ local plugins = {
   { "saadparwaiz1/cmp_luasnip" },
 
   -- LSP
-  { "jose-elias-alvarez/null-ls.nvim" },
+  {
+    'stevearc/conform.nvim',
+    opts = {},
+  },
   { "neovim/nvim-lspconfig" },
   { "williamboman/mason-lspconfig.nvim" },
   { "williamboman/mason.nvim" },

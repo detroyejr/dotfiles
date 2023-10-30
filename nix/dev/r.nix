@@ -30,7 +30,7 @@ let
         name = "Topline";
         src = builtins.fetchGit {
           url = "git@github.com:echeloninsights/topline.git";
-          rev = "b48352c954c7d33754d985e911d6f640c175283a";
+          rev = "5060b772d1df378e7aa637e09da0101415062108";
         };
         buildInputs = with rPackages; [ 
           flextable
