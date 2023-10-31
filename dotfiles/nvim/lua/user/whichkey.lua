@@ -142,14 +142,17 @@ local mappings = {
   },
   t = {
     name = "Terminal",
-    u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
-    t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
-    p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
-    r = { "<cmd>lua _R_TOGGLE()<cr>", "R" },
-    f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-    h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
-    v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
-    x = { "<cmd>ToggleTermSendCurrentLine<cr>", "Execute Line" }
+    f = {
+      "<cmd>!tmux display-popup -h 75\\% -w 75\\% -E " ..
+        "\"tmux new-session -A " ..
+        "-s $(tmux display-message " ..
+        "-p '\\#{session_name}')-shell\" " ..
+        "</dev/null >/dev/null 2>&1 & <CR>" ..
+        ":NoiceDismiss<CR>",
+      "Float"
+    },
+    h = { "<cmd>!tmux split-window<CR>:NoiceDismiss<CR>", "Horizontal" },
+    v = { "<cmd>!tmux split-window -h<CR>:NoiceDismiss<CR>", "Vertical" }
   },
 }
 
