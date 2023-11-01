@@ -1,0 +1,5 @@
+#!/bin/env bash
+
+cd "$(find "$1" -maxdepth 1 -type d | fzf)"
+SESSION_NAME=$(pwd | sed 's/.*\///g')
+exec tmux new-session -t "$SESSION_NAME"

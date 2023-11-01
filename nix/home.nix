@@ -142,10 +142,6 @@
       set -g @plugin 'tmux-plugins/tmux-sensible'
       set -g @plugin 'tmux-plugins/tmux-yank'
       set -g @plugin 'tmux-plugins/tpm'
-
-      # Set status color manually for tokyo night theme.
-      # set -g status-bg "#1a1b26"
-      # set -g status-style bg=default
       set -g @themepack 'basic'
 
       run '$HOME/.tmux/plugins/tpm/tpm'
