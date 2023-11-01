@@ -136,7 +136,7 @@ local mappings = {
     d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Document Diagnostics" },
     k = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Document Diagnostics" },
     j = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Document Diagnostics" },
-    f = { "<cmd>lua require('conform').format()<cr>", "Format" },
+    f = { "<cmd>lua require('conform').format({ lsp_fallback = 'always' })<cr>", "Format" },
     i = { "<cmd>LspInfo<cr>", "Info" },
     I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
     l = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
