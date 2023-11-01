@@ -76,7 +76,7 @@ local plugins = {
   { "lewis6991/gitsigns.nvim" },
 
   -- Toggle Term
-  -- { "akinsho/toggleterm.nvim", version = "*" },
+  { "akinsho/toggleterm.nvim", version = "*" },
 
   -- Quarto
   { "jmbuhr/otter.nvim" },

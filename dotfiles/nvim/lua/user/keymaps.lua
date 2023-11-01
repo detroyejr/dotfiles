@@ -74,30 +74,34 @@ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Terminal --
---
--- keymap("n", "<C-A-x>", ":ToggleTermSendCurrentLine<CR>", opts)
--- keymap("v", "<C-A-x>", ":ToggleTermSendVisualSelection<CR>", opts)
-keymap(
-  "n",
-  "<C-A-x>",
-  "yy:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'" ..
-  "| win32yank.exe -o" ..
-  "| tmux load-buffer - ;" ..
-  "tmux paste-buffer<CR>" ..
-  ":NoiceDismiss<CR>",
-  opts
-)
+local tmux = os.getenv("TMUX")
+if tmux then
+  keymap(
+    "n",
+    "<C-A-x>",
+    "yy:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'" ..
+    "| win32yank.exe -o" ..
+    "| tmux load-buffer - ;" ..
+    "tmux paste-buffer<CR>" ..
+    ":NoiceDismiss<CR>",
+    opts
+  )
 
-keymap(
-  "v",
-  "<C-A-x>",
-  "y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'" ..
-  "| win32yank.exe -o" ..
-  "| tmux load-buffer - ;" ..
-  "tmux paste-buffer<CR>" ..
-  ":NoiceDismiss<CR>",
-  opts
-)
+  keymap(
+    "v",
+    "<C-A-x>",
+    "y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'" ..
+    "| win32yank.exe -o" ..
+    "| tmux load-buffer - ;" ..
+    "tmux paste-buffer<CR>" ..
+    ":NoiceDismiss<CR>",
+    opts
+  )
+else
+  keymap("n", "<C-A-x>", ":ToggleTermSendCurrentLine<CR>", opts)
+  keymap("v", "<C-A-x>", ":ToggleTermSendVisualSelection<CR>", opts)
+end
+
 
 -- Explore
 keymap("n", "<leader>e", ":Sexplore<CR>", opts)

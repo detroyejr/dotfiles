@@ -67,6 +67,30 @@ local opts = {
   nowait = true,  -- use `nowait` when creating keymaps
 }
 
+local tmux = os.getenv("TMUX")
+if tmux then
+  TERM =  {
+    name = "Terminal",
+    f = {
+      "<cmd>!tmux display-popup -h 75\\% -w 75\\% -E " ..
+      "\"tmux new-session -A " ..
+      "-s $(tmux display-message " ..
+      "-p '\\#{session_name}')-shell\" " ..
+      "</dev/null >/dev/null 2>&1 & <CR>" ..
+      ":NoiceDismiss<CR>",
+      "Float"
+      },
+    h = { "<cmd>!tmux split-window<CR>:NoiceDismiss<CR>", "Horizontal" },
+    v = { "<cmd>!tmux split-window -h<CR>:NoiceDismiss<CR>", "Vertical" },
+  } else
+  TERM = {
+    name = "Terminal",
+    f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
+    h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
+    v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+  }
+end
+
 local mappings = {
   ["b"] = {
     "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
@@ -140,20 +164,7 @@ local mappings = {
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     C = { "<cmd>Telescope commands<cr>", "Commands" },
   },
-  t = {
-    name = "Terminal",
-    f = {
-      "<cmd>!tmux display-popup -h 75\\% -w 75\\% -E " ..
-        "\"tmux new-session -A " ..
-        "-s $(tmux display-message " ..
-        "-p '\\#{session_name}')-shell\" " ..
-        "</dev/null >/dev/null 2>&1 & <CR>" ..
-        ":NoiceDismiss<CR>",
-      "Float"
-    },
-    h = { "<cmd>!tmux split-window<CR>:NoiceDismiss<CR>", "Horizontal" },
-    v = { "<cmd>!tmux split-window -h<CR>:NoiceDismiss<CR>", "Vertical" }
-  },
+  t = TERM,
 }
 
 local vopts = {
