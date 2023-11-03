@@ -1,5 +1,5 @@
 require("luasnip.loaders.from_vscode").lazy_load()
-local ls = require 'luasnip'
+local ls = require("luasnip")
 
 -- This is a snippets creator
 -- s('<trigger>', <nodes>)
@@ -15,19 +15,21 @@ local rep = require("luasnip.extras").rep
 
 -- Lua specific snippets go here.
 ls.add_snippets("lua", {
-  s("req", fmt("local {} = require('{}')", { i(1), i(2) }))
+	s("req", fmt("local {} = require('{}')", { i(1), i(2) })),
 })
 
-
 ls.add_snippets("markdown", {
-  s("header", fmt(
-    [[
+	s(
+		"header",
+		fmt(
+			[[
       ---
       title: {}
       date: {}
       {}
       ---
     ]],
-    { i(1), os.date("%Y-%m-%d"), c(2, { fmt("keywords: [{}]", i(1)), t "" }) }
-  ))
+			{ i(1), os.date("%Y-%m-%d"), c(2, { fmt("keywords: [{}]", i(1)), t("") }) }
+		)
+	),
 })
