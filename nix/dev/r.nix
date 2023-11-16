@@ -30,10 +30,11 @@ let
         name = "Topline";
         src = builtins.fetchGit {
           url = "git@github.com:echeloninsights/topline.git";
-          rev = "5060b772d1df378e7aa637e09da0101415062108";
+          rev = "0a63229abb53cd720d1af23d1b1496f102204f70";
         };
         buildInputs = with rPackages; [ 
           flextable
+          ftExtra
           googledrive
           haven
           huxtable
@@ -52,6 +53,7 @@ let
       data_table
       dplyr
       flextable
+      ftExtra
       ggplot2
       googledrive
       haven
@@ -64,6 +66,7 @@ let
       quarto
       readxl
       relaimpo
+      reticulate
       rmarkdown
       sf
       sjlabelled
