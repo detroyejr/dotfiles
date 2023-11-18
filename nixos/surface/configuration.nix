@@ -8,7 +8,6 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./iptsd.nix
       ../default.nix
       ../../modules/fonts
       ../../modules/brightness
