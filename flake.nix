@@ -53,7 +53,10 @@
             home-manager.users.detroyejr = {
               imports = [
                 ./nix/home.nix
-                ./nix/dev
+                ./nix/dev/git.nix
+                ./nix/dev/kitty.nix
+                ./nix/dev/neovim.nix
+                ./nix/dev/python.nix
                 ./nix/window/hyprland
                 ./nix/window/kitty.nix
                 ./nix/apps/firefox.nix
@@ -66,9 +69,8 @@
               enable = true;
               xwayland = {
                 enable = true;
-                hidpi = true;
               };
-              nvidiaPatches = false;
+              enableNvidiaPatches = false;
             };
           }
         ];

@@ -4,14 +4,14 @@
     enableDefaultFonts = true;
       fonts = with pkgs; [ 
         ubuntu_font_family
-        (nerdfonts.override { fonts = [ "CascadiaCode" "Ubuntu" ]; })
+        (nerdfonts.override { fonts = [ "IBMPlexMono" "Ubuntu" ]; })
        ];
 
     fontconfig = {
       defaultFonts = {
-        serif = [ "CaskaydiaCove NF Serif" "Ubuntu" ];
-        sansSerif = [ "CaskaydiaCove NF" "Ubuntu" ];
-        monospace = [ "CaskaydiaCove NF Mono" "Ubuntu" ];
+        serif = [ "BlexMono NF Serif" "Ubuntu" ];
+        sansSerif = [ "BlexMono NF" "Ubuntu" ];
+        monospace = [ "BlexMono NF Mono" "Ubuntu" ];
       };
     };
   };

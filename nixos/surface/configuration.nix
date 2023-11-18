@@ -14,8 +14,6 @@
       ../../modules/brightness
     ];
 
-  # Set kernel version
-  microsoft-surface.kernelVersion = "6.1.6";
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -37,14 +35,14 @@
           naturalScrolling = false;
         };
       };
-      dpi = 267;
+      #dpi = 267;
     };
     gnome.gnome-keyring.enable = true;
   };
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
+  #nixpkgs.config.packageOverrides = pkgs: {
+  #  vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  #};
 
   sound.enable = true;
   hardware = {

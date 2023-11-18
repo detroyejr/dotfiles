@@ -4,7 +4,7 @@
   programs.kitty = {
     enable = true;
     font = {
-      name= "CaskaydiaCove NF";
+      name= "BlexMono Nerd Font Mono";
       size = 14;
     };
     settings = with colorScheme.colors; {

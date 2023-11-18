@@ -2,7 +2,6 @@
 {
   programs.waybar = {
     enable = true;
-    package = hyprland.packages.x86_64-linux.waybar-hyprland;
   };
 
   home.file.".config/waybar" = {
