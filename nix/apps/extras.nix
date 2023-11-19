@@ -5,7 +5,9 @@
     aircrack-ng
     discord
     hyperion-ng
-    keepass
+    joplin
+    joplin-desktop
+    keepassxc
     keeweb
     plex-media-player
     plexamp

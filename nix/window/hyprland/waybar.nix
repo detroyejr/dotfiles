@@ -35,8 +35,9 @@
           "on-click": "activate"
       },
       "custom/clock": {
-          "exec": "TZ='America/New_York' date +' %H:%M   %Y-%m-%d'",
-          "interval": 30
+          "exec": "TZ='America/New_York' date +' %I:%M %p   %Y-%m-%d'",
+          "interval": 30,
+          "tooltip": false
       },
       "battery": {
         "tooltip": true,
