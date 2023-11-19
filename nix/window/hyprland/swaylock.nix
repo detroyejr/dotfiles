@@ -21,7 +21,7 @@
   image=~/.local/share/eog-wallpaper.jpg
 
   # Fade in time
-  fade-in=0.01
+  fade-in=0.001
 
   # Effect for background
   # effect-blur=20x6
