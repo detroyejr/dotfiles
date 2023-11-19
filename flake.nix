@@ -19,10 +19,35 @@
       # System
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      
-      # Customization
-      colorSchemeName = "tokyodark-terminal";
-      colorScheme = nix-colors.colorSchemes.${colorSchemeName};
+
+      # Customize colors with nix-colors or use a custom set.
+      # colorSchemeName = "tokyodark-terminal";
+      # colorScheme = nix-colors.colorSchemes.${colorSchemeName};
+
+      colorSchemeName = "nightfox";
+      colorScheme = {
+        author = "Jonathan De Troye";
+        name = "Nightfox";
+        slug = "nightfox";
+        colors = { 
+          base00 = "192330";
+          base01 = "212e3f";
+          base02 = "29394f";
+          base03 = "575860";
+          base04 = "71839b";
+          base05 = "cdcecf";
+          base06 = "aeafb0";
+          base07 = "e4e4e5";
+          base08 = "c94f6d";
+          base09 = "f4a261";
+          base0A = "dbc074";
+          base0B = "81b29a";
+          base0C = "63cdcf";
+          base0D = "719cd6";
+          base0E = "9d79d6";
+          base0F = "d67ad2";
+        };
+      };
     in {
       # A default configuration that should work on non-NixOS machines.
       homeConfigurations.detroyejr = home-manager.lib.homeManagerConfiguration {
@@ -42,7 +67,7 @@
 
       nixosConfigurations.surface = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ 
+        modules = [
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
           ./nixos/surface/configuration.nix
           hyprland.nixosModules.default
@@ -78,7 +103,7 @@
 
       nixosConfigurations.tower = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ 
+        modules = [
           ./nixos/tower/configuration.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
@@ -98,7 +123,7 @@
 
       nixosConfigurations.brick = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ 
+        modules = [
           ./nixos/brick/configuration.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;

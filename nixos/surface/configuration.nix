@@ -75,6 +75,7 @@
     rclone
     sbctl
     wget
+    wl-clipboard
   ];
 
   # For sway.
