@@ -1,4 +1,4 @@
-{ config, pkgs, lib, fetchFromGitHub, ... }:
+{ config, pkgs, lib, fetchFromGitHub, colorScheme, ... }:
 {
   imports = [
     ./gtk.nix
@@ -20,52 +20,224 @@
     MOZ_ENABLE_WAYLAND = "1";
   };
 
+  home.file.".config/hypr/hyprland.conf".text = with colorScheme.colors; ''
+
+  monitor=DP-4,2560x1440@60,auto,1
+  monitor=eDP-1,preferred,auto,2,mirror,DP-4
+
+  # trigger when the switch is turning off
+  bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"
+  bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "DP-4,2560x1440@60,auto,1"
+  # trigger when the switch is turning on
+  bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1,preferred,auto,1.25,mirror,DP-4"
+  bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "DP-4,disable"
+
+  bindm=ALT,mouse:272,resizewindow
+
+  exec-once = swaylock & hyprpaper & dunst & waybar
+  exec-once = hyprctl set-cursor Numix-Cursor 24
+
+  windowrule = float,^(pavucontrol)$
+  windowrule = move 79.8% 3.6%,^(pavucontrol)$
+  windowrule = size 20% 30%,^(pavucontrol)$
+  windowrule = animation slide,^(pavucontrol)$ # sets the animation style for kitty
+
+  windowrule = float,^(Plexamp)$
+  windowrule = move 79.8% 3.6%,^(Plexamp)$
+  windowrule = size 20% 30%,^(Plexamp)$
+  windowrule = animation slide,^(Plexamp)$ # sets the animation style for kitty
+
+  # Some default env vars.
+  env = XCURSOR_SIZE,24
+
+
+  # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
+  input {
+      kb_layout = us
+      kb_variant =
+      kb_model =
+      kb_options =
+      kb_rules =
+
+      follow_mouse = 1
+
+      touchpad {
+          natural_scroll = yes
+          scroll_factor = 0.5
+      }
+
+      sensitivity = -0.5 # -1.0 - 1.0, 0 means no modification.
+  }
+
+  general {
+      gaps_in = 4
+      gaps_out = 8 
+      border_size = 2
+      col.active_border = rgba(${base04}66)
+      col.inactive_border = rgb(${base00})
+      layout = dwindle
+  }
+
+  decoration {
+      # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
+      rounding = 5 
+      drop_shadow = yes
+      shadow_range = 4
+      shadow_render_power = 3
+      col.shadow = rgba(${base04}ee)
+      dim_inactive = false
+  }
+
+  animations {
+      enabled = yes
+
+      # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
+
+      bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+
+      animation = windows, 1, 7, myBezier
+      animation = windowsOut, 1, 7, default, popin 80%
+      animation = border, 1, 10, default
+      animation = borderangle, 1, 8, default
+      animation = fade, 1, 7, default
+      animation = workspaces, 1, 6, default
+  }
+
+  binds {
+      allow_workspace_cycles = true
+  }
+
+  dwindle {
+      # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
+      pseudotile = yes # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+      preserve_split = yes # you probably want this
+  }
+
+  master {
+      # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
+      new_is_master = true
+  }
+
+  gestures {
+      # See https://wiki.hyprland.org/Configuring/Variables/ for more
+      workspace_swipe = off
+  }
+
+  misc {
+    disable_hyprland_logo = true
+  }
+
+  # Example per-device config
+  # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
+  device:epic-mouse-v1 {
+      sensitivity = -0.5
+  }
+
+  # Example windowrule v1
+  # windowrule = float, ^(kitty)$
+  # Example windowrule v2
+  # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
+  # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
+
+  windowrule = float, ^(Rofi)$
+  windowrule = float, ^(org.gnome.Nautilus)$
+
+  # See https://wiki.hyprland.org/Configuring/Keywords/ for more
+  $mainMod = SUPER
+
+  # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
+  bind = $mainMod, Q, exec, kitty
+  bind = $mainMod, C, killactive, 
+  bind = CTRL ALT, Delete, exit
+  bind = $mainMod, E, exec, kitty -e ranger
+  bind = $mainMod, F, togglefloating, 
+  bind = $mainMod, G, fullscreen
+  bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else rofi -show drun; fi"
+  bind = $mainMod, P, pseudo, # dwindle
+  bind = $mainMod, J, togglesplit, # dwindle
+  bind = $mainMod CTRL, S, exec, grim -g "$(slurp)"
+  bind = $mainMod, L, exec, . $HOME/.config/swaylock/lock.sh
+
+  # Move focus with mainMod + arrow keys
+  bind = $mainMod, left, movefocus, l
+  bind = $mainMod, right, movefocus, r
+  bind = $mainMod, up, movefocus, u
+  bind = $mainMod, down, movefocus, d
+
+  bind = $mainMod CTRL, h, movefocus, l
+  bind = $mainMod CTRL, l, movefocus, r
+  bind = $mainMod CTRL, k, movefocus, u
+  bind = $mainMod CTRL, j, movefocus, d
+  # Switch workspaces with mainMod + [0-9]
+  bind = $mainMod, 1, workspace, 1
+  bind = $mainMod, 2, workspace, 2
+  bind = $mainMod, 3, workspace, 3
+  bind = $mainMod, 4, workspace, 4
+  bind = $mainMod, 5, workspace, 5
+  bind = $mainMod, 6, workspace, 6
+  bind = $mainMod, 7, workspace, 7
+  bind = $mainMod, 8, workspace, 8
+  bind = $mainMod, 9, workspace, 9
+  bind = $mainMod, 0, workspace, 10
+
+  # Window
+  binde = $mainMod CTRL, up,    resizeactive, 0 -20
+  binde = $mainMod CTRL, down,  resizeactive, 0 20
+  binde = $mainMod CTRL, right, resizeactive, 20 0
+  binde = $mainMod CTRL, left,  resizeactive, -20 0
+  binde = $mainMod ALT,  up,    moveactive, 0 -20
+  binde = $mainMod ALT,  down,  moveactive, 0 20
+  binde = $mainMod ALT,  right, moveactive, 20 0
+  binde = $mainMod ALT,  left,  moveactive, -20 0
+  # Move active window to a workspace with mainMod + SHIFT + [0-9]
+  bind = $mainMod SHIFT, 1, movetoworkspace, 1
+  bind = $mainMod SHIFT, 2, movetoworkspace, 2
+  bind = $mainMod SHIFT, 3, movetoworkspace, 3
+  bind = $mainMod SHIFT, 4, movetoworkspace, 4
+  bind = $mainMod SHIFT, 5, movetoworkspace, 5
+  bind = $mainMod SHIFT, 6, movetoworkspace, 6
+  bind = $mainMod SHIFT, 7, movetoworkspace, 7
+  bind = $mainMod SHIFT, 8, movetoworkspace, 8
+  bind = $mainMod SHIFT, 9, movetoworkspace, 9
+  bind = $mainMod SHIFT, 0, movetoworkspace, 10
+
+  # Scroll through existing workspaces with mainMod + scroll
+  bind = $mainMod, mouse_down, workspace, e+1
+  bind = $mainMod, mouse_up, workspace, e-1
+
+  # Move/resize windows with mainMod + LMB/RMB and dragging
+  bindm = $mainMod, mouse:272, movewindow
+  bindm = $mainMod, mouse:273, resizewindow
+
+  # Laptop
+  bindl = , XF86MonBrightnessUp,     exec, brightnessctl set "10%+"
+  bindl = , XF86MonBrightnessDown,   exec, brightnessctl set "10%-"
+  bindl = , XF86AudioRaiseVolume,    exec, pamixer --increase 10 --set-limit 100
+  bindl = , XF86AudioLowerVolume,    exec, pamixer --decrease 10
+  bindl  = , XF86AudioStop,           exec, playerctl stop
+  bindl  = , XF86AudioPause,          exec, playerctl pause
+  bindl  = , XF86AudioPrev,           exec, playerctl previous
+  bindl  = , XF86AudioNext,           exec, playerctl next
+  bindl  = , XF86AudioPlay,           exec, playerctl play-pause
+
+
+  '';
+
+  home.file.".config/hypr/hyprpaper.conf".text = ''
+    preload = /home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
+    wallpaper = eDP-1,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
+    wallpaper = DP-4,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
+  '';
+
   home.packages = with pkgs; [
     acpi
-    hyprpaper
+    dunst
     grim
-    slurp
+    hyprpaper
     pamixer
+    pavucontrol
     playerctl
-    # acpi
-    # bash
-    # bc
-    # blueberry
-    # bluez
-    # brightnessctl
-    # coreutils
-    # dbus
-    # dunst
-    # dunst
-    # findutils
-    # gawk
-    # gnome.gnome-control-center
-    # gnused
-    # gojq
-    # imagemagick
-    # jaq
-    # light
-    # material-icons
-    # pavucontrol
-    # pipewire
-    # playerctl
-    # procps
-    # pulseaudio
-    # ripgrep
-    # socat
-    # udev
-    # upower
-    # util-linux
-    # wget
-    # wireplumber
-    # wl-clipboard
-    # wlogout
-    # wlsunset
-    # xdg-desktop-portal-wlr
+    slurp
   ];
-
-  home.file.".config/hypr" = {
-    source = ../../../dotfiles/hypr;
-    recursive = true;
-  };
 }

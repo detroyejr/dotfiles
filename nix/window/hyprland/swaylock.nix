@@ -5,9 +5,6 @@
     wlogout
   ];
 
-  home.file.".config/swaylock/lock.sh".text = with colorScheme.colors; ''
-    swaylock   
-  '';
   home.file.".config/swaylock/config".text = with colorScheme.colors; ''
   ignore-empty-password
   font="BlexMono Nerd Font Mono"

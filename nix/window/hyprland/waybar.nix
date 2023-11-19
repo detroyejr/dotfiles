@@ -18,11 +18,13 @@
           "custom/clock",
           "hyprland/workspaces"
       ],
+      "modules-center": [
+          "hyprland/window"
+      ],
       "modules-right": [
           "battery",
           "network",
           "pulseaudio",
-          "pulseaudio#microphone",
           "custom/power"
       ],
       "hyprland/window": {
@@ -35,7 +37,7 @@
           "on-click": "activate"
       },
       "custom/clock": {
-          "exec": "TZ='America/New_York' date +' %I:%M %p   %Y-%m-%d'",
+          "exec": "TZ='America/New_York' date +'%I:%M %p'",
           "interval": 30,
           "tooltip": false
       },
@@ -67,7 +69,7 @@
           "tooltip": true,
           "tooltip-format": "{volume}%",
           "format-muted": "󰝟",
-          "on-click": "pamixer -t",
+          "on-click": "if pgrep -x .pavucontrol-wr > /dev/null; then kill $(pgrep -x '.pavucontrol-wr'); else pavucontrol; fi",
           "on-scroll-up": "pamixer -i 5",
           "on-scroll-down": "pamixer -d 5",
           "scroll-step": 5,
@@ -103,45 +105,41 @@
     * {
         border: none;
         border-radius: 0;
-        font-family: Ubuntu Nerd Font, monospace;
+        font-family: "BlexMono Nerd Font", monospace;
         font-weight: bold;
-        font-size: 18px;
-        min-height: 0;
+        font-size: 14px;
     }
 
-    window#waybar {
+    /* window#waybar {
         background: rgba(21, 18, 27, 0);
         color: #ffffff;
-    }
+    } */
 
     tooltip {
-        background: #${base01};
-        border-radius: 10px;
+        background: #${base00};
         border-width: 2px;
         border-style: solid;
-        border-color: #11111b;
+        border-color: #${base00};
     }
 
     #workspaces button {
         padding: 5px;
-        color: #313244;
+        color: #${base06};
         margin-right: 5px;
     }
 
     #workspaces button.active {
-        color: #a6adc8;
+        color: #${base05};
     }
 
     #workspaces button.focused {
-        color: #a6adc8;
-        background: #eba0ac;
-        border-radius: 10px;
+        color: #${base06};
+        background: #${base00};
     }
 
     #workspaces button.urgent {
         color: #11111b;
         background: #a6e3a1;
-        border-radius: 10px;
     }
 
     #custom-language,
@@ -156,58 +154,50 @@
         background: #${base00};
         padding: 0px 10px;
         margin: 3px 0px;
-        margin-top: 10px;
-        border: 1px solid #181825;
     }
 
 
     #workspaces {
         background: #${base00};
-        border-radius: 10px;
         margin-left: 10px;
         padding-right: 0px;
         padding-left: 5px;
     }
 
     #window {
-        border-radius: 10px;
         margin-left: 60px;
         margin-right: 60px;
     }
 
     #custom-clock {
-        color: #fab387;
-        color: #fab387;
-        border-radius: 10px;
+        color: #${base0A};
         margin-left: 5px;
         margin-right: 5px;
     }
 
     #battery {
-        color: #a6e3a1;
-        border-radius: 10px 0px 0px 10px;
+        color: #${base0B};
         border-left: 0px;
         border-right: 0px;
     }
 
     #network {
-        color: #f9e2af;
+        color: #${base0C};
         border-left: 0px;
         border-right: 0px;
     }
 
     #pulseaudio {
-        color: #89b4fa;
+        color: #${base0D};
         border-left: 0px;
         border-right: 0px;
     }
     #pulseaudio.microphone {
-        color: #cba6f7;
+        color: #${base0E};
         margin-right: 5px;
-        border-radius: 0 10px 10px 0;
     }
     #custom-power {
-        color: #ffffff;
+        color: #${base07};
         border-left: 0px;
         border-right: 0px;
         border-radius: 10px;
