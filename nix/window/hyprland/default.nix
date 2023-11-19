@@ -22,13 +22,13 @@
 
   home.file.".config/hypr/hyprland.conf".text = with colorScheme.colors; ''
     monitor=DP-4,2560x1440@60,auto,1
-    monitor=eDP-1,preferred,auto,1,mirror,DP-4
+    monitor=eDP-1,preferred,auto,1.75,mirror,DP-4
 
     # trigger when the switch is turning off
     bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"
-    bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "DP-4,2560x1440@60,auto,1"
+    bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "DP-4,2560x1440@60,auto,1.75"
     # trigger when the switch is turning on
-    bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1,preferred,auto,1.25,mirror,DP-4"
+    bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1,preferred,auto,1.5,mirror,DP-4"
     bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "DP-4,disable"
 
     bindm=ALT,mouse:272,resizewindow
@@ -65,7 +65,7 @@
             scroll_factor = 0.5
         }
 
-        sensitivity = -0.5 # -1.0 - 1.0, 0 means no modification.
+        sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
     }
 
     general {
