@@ -99,10 +99,10 @@
   systemd.services.sbctl_sign = {
     path = [ pkgs.sbctl pkgs.gawk pkgs.util-linux ];
     script = ''
+      sbctl verify | grep nixos | awk '{print $2}' | xargs -L1 sbctl sign
       sbctl verify | grep Microsoft/Boot/b | awk '{print $2}' | xargs -L1 sbctl sign
       sbctl verify | grep Microsoft/Boot/en-US/b | awk '{print $2}' | xargs -L1 sbctl sign
       sbctl verify | grep Microsoft/Boot/systemd | awk '{print $2}' | xargs -L1 sbctl sign
-      ls /boot/EFI/nixos | xargs -n1 -I {} sbctl sign /boot/EFI/nixos/{} | exit 0
     '';
     serviceConfig = {
       User = "root";
