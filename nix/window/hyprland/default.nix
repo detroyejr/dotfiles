@@ -6,8 +6,7 @@
     ./swaylock.nix
     ./waybar.nix
   ];
-  
- 
+
  home.sessionVariables = {
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
@@ -21,14 +20,26 @@
   };
 
   home.file.".config/hypr/hyprland.conf".text = with colorScheme.colors; ''
+    # change monitor to high resolution, the last argument is the scale factor
+    monitor=,highres,auto,2
+
+    # unscale XWayland
+    xwayland {
+      force_zero_scaling = true
+    }
+
+    # toolkit-specific scale
+    env = GDK_SCALE,2
+    env = XCURSOR_SIZE,32
+    
     monitor=DP-4,2560x1440@60,auto,1
-    monitor=eDP-1,preferred,auto,1.75,mirror,DP-4
+    monitor=eDP-1,preferred,auto,2,mirror,DP-4
 
     # trigger when the switch is turning off
     bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"
-    bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "DP-4,2560x1440@60,auto,1.75"
+    bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "DP-4,2560x1440@60,auto,2"
     # trigger when the switch is turning on
-    bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1,preferred,auto,1.5,mirror,DP-4"
+    bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1,preferred,auto,2,mirror,DP-4"
     bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "DP-4,disable"
 
     bindm=ALT,mouse:272,resizewindow
@@ -37,14 +48,19 @@
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(pavucontrol)$
-    windowrule = move 79.8% 3.6%,^(pavucontrol)$
-    windowrule = size 20% 30%,^(pavucontrol)$
+    windowrule = move 76% 6%,^(pavucontrol)$
+    windowrule = size 316 550,^(pavucontrol)$
     windowrule = animation slide,^(pavucontrol)$ # sets the animation style for kitty
 
     windowrule = float,^(Plexamp)$
-    windowrule = move 79.8% 3.6%,^(Plexamp)$
-    windowrule = size 20% 30%,^(Plexamp)$
+    windowrule = move 58% 6%,title:^(Plexamp)$
+    windowrule = size 570 550,title:^(Plexamp)$
     windowrule = animation slide,^(Plexamp)$ # sets the animation style for kitty
+    
+    windowrule = float,title:^(nmtui-connect)$
+    windowrule = move 58% 6%,title:^(nmtui-connect)$
+    windowrule = size 570 550,title:^(nmtui-connect)$
+    windowrule = animation slide,title:^(nmtui-connect)$ # sets the animation style for kitty
 
     # Some default env vars.
     env = XCURSOR_SIZE,24
@@ -70,7 +86,7 @@
 
     general {
         gaps_in = 4
-        gaps_out = 8 
+        gaps_out = 8
         border_size = 2
         col.active_border = rgba(${base04}66)
         col.inactive_border = rgb(${base00})
@@ -80,7 +96,7 @@
     decoration {
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
-        rounding = 5 
+        rounding = 5
         drop_shadow = yes
         shadow_range = 4
         shadow_render_power = 3
@@ -146,17 +162,19 @@
     $mainMod = SUPER
 
     # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-    bind = $mainMod, Q, exec, kitty
-    bind = $mainMod, C, killactive, 
-    bind = CTRL ALT, Delete, exit
-    bind = $mainMod, E, exec, kitty -e ranger
-    bind = $mainMod, F, togglefloating, 
-    bind = $mainMod, G, fullscreen
-    bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else rofi -show drun; fi"
-    bind = $mainMod, P, pseudo, # dwindle
-    bind = $mainMod, J, togglesplit, # dwindle
     bind = $mainMod CTRL, S, exec, grim -g "$(slurp)"
+    bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @joplinapp-desk > /dev/null; then kill $(pgrep -x  @joplinapp-desk | paste -sd ' '); else joplin-desktop; fi"
+    bind = $mainMod SHIFT, K, exec, bash -c "if pgrep -x .keepassxc-wrap > /dev/null; then kill $(pgrep -x .keepassxc-wrap); else keepassxc; fi"
+    bind = $mainMod, C, killactive,
+    bind = $mainMod, E, exec, kitty -e ranger
+    bind = $mainMod, F, togglefloating,
+    bind = $mainMod, G, fullscreen
+    bind = $mainMod, J, togglesplit, # dwindle
     bind = $mainMod, L, exec, bash -c "swaylock"
+    bind = $mainMod, P, pseudo, # dwindle
+    bind = $mainMod, Q, exec, kitty
+    bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else rofi -show drun; fi"
+    bind = CTRL ALT, Delete, exit
 
     # Move focus with mainMod + arrow keys
     bind = $mainMod, left, movefocus, l
@@ -214,6 +232,7 @@
     bindl = , XF86MonBrightnessDown,   exec, brightnessctl set "10%-"
     bindl = , XF86AudioRaiseVolume,    exec, pamixer --increase 10 --set-limit 100
     bindl = , XF86AudioLowerVolume,    exec, pamixer --decrease 10
+    bindl = , XF86AudioMute,           exec, pamixer --toggle-mute
     bindl  = , XF86AudioStop,           exec, playerctl stop
     bindl  = , XF86AudioPause,          exec, playerctl pause
     bindl  = , XF86AudioPrev,           exec, playerctl previous

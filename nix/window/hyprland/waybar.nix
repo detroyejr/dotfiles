@@ -22,6 +22,7 @@
           "hyprland/window"
       ],
       "modules-right": [
+          "custom/playerctl",
           "battery",
           "network",
           "pulseaudio",
@@ -56,7 +57,8 @@
         "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
         "tooltip-format-ethernet": "{ifname} ",
         "tooltip-format-disconnected": "Disconnected",
-        "max-length": 50
+        "max-length": 50,
+        "on-click": "if pgrep -x nmtui-connect > /dev/null; then kill $(pgrep -x nmtui-connect); else kitty -e nmtui-connect; fi"
       },
       "clock": {
           "format": "{: %X   %Y-%m-%d}",
@@ -97,6 +99,16 @@
         "format": "",
         "on-click": "wlogout",
         "tooltip": false
+      },
+      "custom/playerctl": {
+        "format": "{}",
+        "return-type": "json",
+        "max-length": 40,
+        "exec": "$HOME/.local/bin/playerctl-waybar 2> /dev/null",
+        "on-click": "export WINDOW=$(playerctl metadata | head -n1 | awk '{ print $1 }') && hyprctl dispatch focuswindow $WINDOW",
+        "on-right-click": "sys-notif media",
+        "on-scroll-up": "playerctl position 3+",
+        "on-scroll-down": "playerctl position 3-"
       }
   }
   '';
@@ -148,8 +160,9 @@
     #battery,
     #pulseaudio,
     #network,
-    #workspaces,  
-    #custom-power, 
+    #workspaces,
+    #custom-power,
+    #custom-playerctl,
     #backlight {
         background: #${base00};
         padding: 0px 10px;
@@ -204,5 +217,69 @@
         margin-right: 5px;
         margin-left: 5px;
     }
+
+    #custom-playerctl {
+        color: #FFFFFF;
+        border-left: 0px;
+        border-right: 0px;
+        border-radius: 10px;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
   '';
+  
+  home.file.".local/bin/playerctl-waybar".text = with colorScheme.colors; ''
+    #!/usr/bin/env bash
+    exec 2>"$XDG_RUNTIME_DIR/waybar-playerctl.log"
+    IFS=$'\n\t'
+
+    while true; do
+
+      while read -r playing position length name artist title arturl hpos hlen; do
+        # remove leaders
+        playing=''${playing:1} position=''${position:1} length=''${length:1} name=''${name:1}
+        artist=''${artist:1} title=''${title:1} arturl=''${arturl:1} hpos=''${hpos:1} hlen=''${hlen:1}
+
+        # build line
+        line="''${artist:+$artist ''${title:+- }}''${title:+$title }''${hpos:+$hpos''${hlen:+|}}$hlen"
+
+        # json escaping
+        line="''${line//\"/\\\"}"
+        ((percentage = length ? (100 * (position % length)) / length : 0))
+        case $playing in
+        ⏸️ | Paused) text='<span foreground=\"#${base0C}\" size=\"smaller\">'"$line"'</span>' ;;
+        ▶️ | Playing) text="<small>$line</small>" ;;
+        *) text='<span foreground=\"#${base0D}\"></span>' ;;
+        esac
+
+        # integrations for other services (nwg-wrapper)
+        if [[ $title != "$ptitle" || $artist != "$partist" || $parturl != "$arturl" ]]; then
+          typeset -p playing length name artist title arturl >"$XDG_RUNTIME_DIR/waybar-playerctl.info"
+          pkill -8 nwg-wrapper
+          ptitle=$title partist=$artist parturl=$arturl
+        fi
+
+        # exit if print fails
+        printf '{"text":"%s","tooltip":"%s","class":"%s","percentage":%s}\n' \
+          "$text" "$playing $name | $line" "$percentage" "$percentage" || break 2
+
+      done < <(
+        # requires playerctl>=2.0
+        # Add non-space character ":" before each parameter to prevent 'read' from skipping over them
+        playerctl --follow metadata --player playerctld --format \
+          $':{{emoji(status)}}\t:{{position}}\t:{{mpris:length}}\t:{{playerName}}\t:{{markup_escape(artist)}}\t:{{markup_escape(title)}}\t:{{mpris:artUrl}}\t:{{duration(position)}}\t:{{duration(mpris:length)}}' &
+        echo $! >"$XDG_RUNTIME_DIR/waybar-playerctl.pid"
+      )
+
+      # no current players
+      # exit if print fails
+      echo '<span foreground=#dc322f>⏹</span>' || break
+      sleep 15
+
+    done
+
+    kill "$(<"$XDG_RUNTIME_DIR/waybar-playerctl.pid")"
+  '';
+  home.file.".local/bin/playerctl-waybar".executable = true;
 }
+

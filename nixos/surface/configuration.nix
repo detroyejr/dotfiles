@@ -18,7 +18,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
-  # networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "Surface-NixOS"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
  
   services = {
@@ -61,10 +61,11 @@
   programs.zsh.enable = true;
   users.users.detroyejr = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     packages = with pkgs; [
       docker
+      virtiofsd
     ];
   }; 
 
@@ -99,10 +100,7 @@
   systemd.services.sbctl_sign = {
     path = [ pkgs.sbctl pkgs.gawk pkgs.util-linux ];
     script = ''
-      sbctl verify | grep nixos | awk '{print $2}' | xargs -L1 sbctl sign
-      sbctl verify | grep Microsoft/Boot/b | awk '{print $2}' | xargs -L1 sbctl sign
-      sbctl verify | grep Microsoft/Boot/en-US/b | awk '{print $2}' | xargs -L1 sbctl sign
-      sbctl verify | grep Microsoft/Boot/systemd | awk '{print $2}' | xargs -L1 sbctl sign
+      sbctl verify | awk '{print $2}' | xargs -L1 sbctl sign
     '';
     serviceConfig = {
       User = "root";
@@ -110,61 +108,49 @@
     wantedBy = [ "multi-user.target" ];
   };
 
-  # systemd.services.dislocker = {
-  #   path = [ pkgs.dislocker ];
-  #   script = ''
-  #     dislocker /dev/nvme0n1p3 -- /mnt/bitlocker
-  #     /run/current-system/sw/bin/mount -o loop,rw,umask=0 /mnt/bitlocker/dislocker-file /mnt/c
-  #   '';
-  #   serviceConfig = {
-  #       Type = "forking";
-  #   };
-  #   wantedBy = [ "multi-user.target" ];
-  # };
-
   systemd.services.onedrive = {
     path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
     script = ''
-      FILE=home/detroyejr/.config/rclone/rclone.conf
+      FILE=/root/.config/rclone/rclone.conf
       mkdir -p /home/detroyejr/OneDrive/
       if test -f $FILE; then
         ${pkgs.rclone}/bin/rclone mount \
-          "onedrive": "/home/detroyejr/OneDrive/" \
-          --vfs-cache-mode writes \
+          --vfs-cache-mode full \
           --vfs-cache-max-size 4G \
           --log-level INFO \
           --log-file /tmp/rclone-onedrive.log \
           --umask 022 \
           --allow-other \
-          --config=$FILE
+          --config=$FILE \
+          "OneDrive:" "/home/detroyejr/OneDrive/"
       fi
     '';
     wantedBy = [ "multi-user.target" ];
-
+  };
+  
+  systemd.services.google_drive = {
+    path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
+    script = ''
+      FILE=/root/.config/rclone/rclone.conf
+      mkdir -p "/home/detroyejr/Google Drive"
+      if test -f $FILE; then
+        ${pkgs.rclone}/bin/rclone mount \
+          --vfs-cache-mode full \
+          --vfs-cache-max-size 20G \
+          --log-level INFO \
+          --log-file /tmp/rclone-google.log \
+          --umask 022 \
+          --allow-other \
+          --config=$FILE \
+          "Google Drive:" "/home/detroyejr/Google Drive/"
+      fi
+    '';
+    wantedBy = [ "multi-user.target" ];
   };
 
-  # systemd.services.google_drive = {
-  #   path = [ pkgs.rclone ];
-  #   script = ''
-  #     FILE=home/detroyejr/.config/rclone/rclone.conf
-  #     mkdir -p home/detroyejr/Google Drive/
-  #     if test -f $FILE; then
-  #       rclone \
-  #         --vfs-cache-mode writes \
-  #         --vfs-cache-max-size 4G \
-  #         --log-level INFO \
-  #         --log-file /tmp/rclone-google.log \
-  #         --umask 022 \
-  #         --allow-other \
-  #         --config=$FILE mount \
-  #         "Google Drive": "/home/detroyejr/Google Drive/"
-  #     fi
-  #   '';
-  #   wantedBy = [ "multi-user.target" ];
-  # };
-  
-
   virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

@@ -78,10 +78,7 @@
             home-manager.users.detroyejr = {
               imports = [
                 ./nix/home.nix
-                ./nix/dev/git.nix
-                ./nix/dev/kitty.nix
-                ./nix/dev/neovim.nix
-                ./nix/dev/python.nix
+                ./nix/dev
                 ./nix/window/hyprland
                 ./nix/window/kitty.nix
                 ./nix/apps/firefox.nix
