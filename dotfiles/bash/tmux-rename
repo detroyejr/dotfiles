@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 SESSION_NAME=$(pwd | sed 's/.*\///g')
 tmux rename-session $SESSION_NAME
