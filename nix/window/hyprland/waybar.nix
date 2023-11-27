@@ -23,6 +23,7 @@
       ],
       "modules-right": [
           "custom/playerctl",
+          "custom/notification",
           "battery",
           "network",
           "pulseaudio",
@@ -109,6 +110,26 @@
         "on-right-click": "sys-notif media",
         "on-scroll-up": "playerctl position 3+",
         "on-scroll-down": "playerctl position 3-"
+      },
+      "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+          "notification": "<span foreground='red'><sup></sup></span>",
+          "none": "",
+          "dnd-notification": "<span foreground='red'><sup></sup></span>",
+          "dnd-none": "",
+          "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+          "inhibited-none": "",
+          "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+          "dnd-inhibited-none": ""
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
       }
   }
   '';
@@ -155,6 +176,7 @@
     }
 
     #custom-language,
+    #custom-notifcation,
     #window,
     #custom-clock,
     #battery,
@@ -186,6 +208,12 @@
         color: #${base0A};
         margin-left: 5px;
         margin-right: 5px;
+    }
+    
+    #custom-notifcation {
+        color: #${base0A};
+        border-left: 0px;
+        border-right: 0px;
     }
 
     #battery {
@@ -227,7 +255,7 @@
         margin-left: 5px;
     }
   '';
-  
+
   home.file.".local/bin/playerctl-waybar".text = with colorScheme.colors; ''
     #!/usr/bin/env bash
     exec 2>"$XDG_RUNTIME_DIR/waybar-playerctl.log"

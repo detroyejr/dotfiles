@@ -16,8 +16,8 @@
         fg-col2: #e78284;
         grey: #737994;
 
-        width: 600;
-        font: "Ubuntu 14";
+        width: 1000;
+        font: "Ubuntu 24";
     }
 
     element-text, element-icon , mode-switcher {

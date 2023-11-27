@@ -44,7 +44,7 @@
 
     bindm=ALT,mouse:272,resizewindow
 
-    exec-once = swaylock & hyprpaper & swaync & waybar
+    exec-once = swaylock & hyprpaper & dunst & waybar
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(thunar)$
@@ -178,7 +178,6 @@
     bind = $mainMod, P, pseudo, # dwindle
     bind = $mainMod, Q, exec, kitty
     bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else rofi -show drun; fi"
-    bind = $mainMod, R, exec, hyprctl dispatch focuswindow ^(Rofi)$
     bind = CTRL ALT, Delete, exit
 
     # Move focus with mainMod + arrow keys
@@ -253,6 +252,7 @@
 
   home.packages = with pkgs; [
     acpi
+    dunst
     grim
     hyprpaper
     pamixer

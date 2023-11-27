@@ -11,10 +11,9 @@
     nix-colors.url = "github:misterio77/nix-colors";
     hyprland.url = "github:hyprwm/Hyprland";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    devenv.url = "github:cachix/devenv/latest";
   };
 
-  outputs = { nixpkgs, home-manager, nixos-hardware, devenv, hyprland, nix-colors, ... }:
+  outputs = { nixpkgs, home-manager, nixos-hardware, hyprland, nix-colors, ... }:
     let
       # System
       system = "x86_64-linux";
@@ -59,10 +58,6 @@
           ./nix/home.nix
           ./nix/dev
         ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-        extraSpecialArgs = { inherit devenv; };
       };
 
       nixosConfigurations.surface = nixpkgs.lib.nixosSystem {
@@ -74,7 +69,7 @@
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit nix-colors colorSchemeName colorScheme hyprland devenv; };
+            home-manager.extraSpecialArgs = { inherit nix-colors colorSchemeName colorScheme hyprland; };
             home-manager.users.detroyejr = {
               imports = [
                 ./nix/home.nix
@@ -105,7 +100,6 @@
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit devenv; };
             home-manager.users.detroyejr = {
               imports = [
                 ./nix/home.nix
@@ -125,7 +119,6 @@
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit devenv; };
             home-manager.users.detroyejr = {
               imports = [
                 ./nix/home.nix

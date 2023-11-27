@@ -1,4 +1,4 @@
-{ pkgs, devenv, ... }:
+{ pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -16,7 +16,6 @@
     cachix
     cmake
     curl
-    devenv.packages.x86_64-linux.devenv
     fd
     ffmpeg
     fzf
