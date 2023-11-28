@@ -21,7 +21,12 @@
 
   home.file.".config/hypr/hyprland.conf".text = with colorScheme.colors; ''
     # change monitor to high resolution, the last argument is the scale factor
-    monitor=,highres,auto,2
+    monitor=,highres,auto,1
+    monitor=eDP-1,preferred,auto,2
+
+    # Lid actions
+    bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"
+    bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1,preferred,auto,2,mirror,"
 
     # unscale XWayland
     xwayland {
@@ -31,18 +36,6 @@
     # toolkit-specific scale
     env = GDK_SCALE,2
     env = XCURSOR_SIZE,32
-    
-    monitor=DP-4,2560x1440@60,auto,1
-    monitor=eDP-1,preferred,auto,2,mirror,DP-4
-
-    # trigger when the switch is turning off
-    bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"
-    bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "DP-4,2560x1440@60,auto,2"
-    # trigger when the switch is turning on
-    bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1,preferred,auto,2,mirror,DP-4"
-    bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "DP-4,disable"
-
-    bindm=ALT,mouse:272,resizewindow
 
     exec-once = swaylock & hyprpaper & swaync & waybar
     exec-once = hyprctl set-cursor Numix-Cursor 24
@@ -249,6 +242,7 @@
     preload = /home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
     wallpaper = eDP-1,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
     wallpaper = DP-4,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
+    wallpaper = DP-5,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
   '';
 
   home.packages = with pkgs; [

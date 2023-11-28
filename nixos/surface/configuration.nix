@@ -116,10 +116,13 @@
       if test -f $FILE; then
         ${pkgs.rclone}/bin/rclone mount \
           --vfs-cache-mode full \
-          --vfs-cache-max-size 4G \
+          --vfs-cache-max-size 10G \
+          --default-permissions \
           --log-level INFO \
           --log-file /tmp/rclone-onedrive.log \
           --umask 022 \
+          --uid 1000 \
+          --gid 1000 \
           --allow-other \
           --config=$FILE \
           "OneDrive:" "/home/detroyejr/OneDrive/"
@@ -137,9 +140,12 @@
         ${pkgs.rclone}/bin/rclone mount \
           --vfs-cache-mode full \
           --vfs-cache-max-size 20G \
+          --default-permissions \
           --log-level INFO \
           --log-file /tmp/rclone-google.log \
           --umask 022 \
+          --uid 1000 \
+          --gid 1000 \
           --allow-other \
           --config=$FILE \
           "Google Drive:" "/home/detroyejr/Google Drive/"

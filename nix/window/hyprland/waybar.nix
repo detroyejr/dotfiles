@@ -175,16 +175,16 @@
         background: #a6e3a1;
     }
 
-    #custom-language,
-    #custom-notifcation,
-    #window,
-    #custom-clock,
     #battery,
-    #pulseaudio,
-    #network,
-    #workspaces,
-    #custom-power,
+    #custom-clock,
+    #custom-language,
+    #custom-notification,
     #custom-playerctl,
+    #custom-power,
+    #network,
+    #pulseaudio,
+    #window,
+    #workspaces,
     #backlight {
         background: #${base00};
         padding: 0px 10px;
