@@ -4,4 +4,8 @@
     enable = true;
     package = pkgs.firefox;
   };
+
+  programs.chromium = {
+    enable = true;
+  };
 }

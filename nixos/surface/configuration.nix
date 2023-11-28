@@ -20,7 +20,7 @@
 
   networking.hostName = "Surface-NixOS"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
- 
+
   services = {
     xserver = {
       enable = true;
@@ -34,14 +34,9 @@
           naturalScrolling = false;
         };
       };
-      #dpi = 267;
     };
     gnome.gnome-keyring.enable = true;
   };
-
-  #nixpkgs.config.packageOverrides = pkgs: {
-  #  vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  #};
 
   sound.enable = true;
   hardware = {
@@ -49,8 +44,8 @@
     opengl = {
       enable = true;
       extraPackages = with pkgs; [
-        intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+        intel-media-driver
+        vaapiIntel
         vaapiVdpau
         libvdpau-va-gl
       ];
@@ -67,7 +62,7 @@
       docker
       virtiofsd
     ];
-  }; 
+  };
 
   environment.systemPackages = with pkgs; [
     dislocker
@@ -114,6 +109,7 @@
       FILE=/root/.config/rclone/rclone.conf
       mkdir -p /home/detroyejr/OneDrive/
       if test -f $FILE; then
+        sleep 20
         ${pkgs.rclone}/bin/rclone mount \
           --vfs-cache-mode full \
           --vfs-cache-max-size 10G \
@@ -130,13 +126,14 @@
     '';
     wantedBy = [ "multi-user.target" ];
   };
-  
+
   systemd.services.google_drive = {
     path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
     script = ''
       FILE=/root/.config/rclone/rclone.conf
       mkdir -p "/home/detroyejr/Google Drive"
       if test -f $FILE; then
+        sleep 20
         ${pkgs.rclone}/bin/rclone mount \
           --vfs-cache-mode full \
           --vfs-cache-max-size 20G \

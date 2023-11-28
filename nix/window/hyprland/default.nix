@@ -12,9 +12,7 @@
     XDG_SESSION_TYPE = "wayland";
     XDG_SESSION_DESKTOP = "Hyprland";
     GDK_BACKEND = "wayland";
-    QT_AUTO_SCREEN_SCALE_FACTOR = "2";
     QT_QPA_PLATFORM = "wayland;xcb";
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "2";
     QT_QPA_PLATFORMTHEME = "qt5ct";
     MOZ_ENABLE_WAYLAND = "1";
   };
@@ -26,16 +24,20 @@
 
     # Lid actions
     bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"
+    bindl = , switch:on:Lid Switch,exec,env=GDK_SCALE,2
     bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1,preferred,auto,2,mirror,"
-
+    bindl = , switch:off:Lid Switch,exec,env=GDK_SCALE,1
+,
     # unscale XWayland
     xwayland {
       force_zero_scaling = true
     }
 
     # toolkit-specific scale
-    env = GDK_SCALE,2
-    env = XCURSOR_SIZE,32
+    # env = GDK_SCALE,2
+    # env = XCURSOR_SIZE,32
+    # env = QT_AUTO_SCREEN_SCALE_FACTOR,2
+    # env = QT_WAYLAND_DISABLE_WINDOWDECORATION,2
 
     exec-once = swaylock & hyprpaper & swaync & waybar
     exec-once = hyprctl set-cursor Numix-Cursor 24
@@ -43,18 +45,18 @@
     windowrule = float,^(thunar)$
 
     windowrule = float,^(pavucontrol)$
-    windowrule = move 76% 6%,^(pavucontrol)$
-    windowrule = size 316 550,^(pavucontrol)$
+    windowrule = move 100%-412 52,^(pavucontrol)$
+    windowrule = size 400 560,^(pavucontrol)$
     windowrule = animation slide,^(pavucontrol)$ # sets the animation style for kitty
 
     windowrule = float,^(Plexamp)$
-    windowrule = move 58% 6%,title:^(Plexamp)$
-    windowrule = size 570 550,title:^(Plexamp)$
+    windowrule = move 100%-412 52,title:^(Plexamp)$
+    windowrule = size 400 560,title:^(Plexamp)$
     windowrule = animation slide,^(Plexamp)$ # sets the animation style for kitty
     
     windowrule = float,title:^(nmtui-connect)$
-    windowrule = move 58% 6%,title:^(nmtui-connect)$
-    windowrule = size 570 550,title:^(nmtui-connect)$
+    windowrule = move 100%-412 52,title:^(nmtui-connect)$
+    windowrule = size 400 560,^(nmtui-connect)$
     windowrule = animation slide,title:^(nmtui-connect)$ # sets the animation style for kitty
 
     # Some default env vars.
@@ -253,6 +255,7 @@
     pavucontrol
     swaynotificationcenter
     playerctl
+    slack
     slurp
     viewnior
     xfce.thunar
