@@ -24,9 +24,7 @@
 
     # Lid actions
     bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"
-    bindl = , switch:on:Lid Switch,exec,env=GDK_SCALE,2
     bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1,preferred,auto,2,mirror,"
-    bindl = , switch:off:Lid Switch,exec,env=GDK_SCALE,1
 ,
     # unscale XWayland
     xwayland {
@@ -34,11 +32,12 @@
     }
 
     # toolkit-specific scale
-    # env = GDK_SCALE,2
-    # env = XCURSOR_SIZE,32
-    # env = QT_AUTO_SCREEN_SCALE_FACTOR,2
-    # env = QT_WAYLAND_DISABLE_WINDOWDECORATION,2
+    env = GDK_SCALE,1
+    env = XCURSOR_SIZE,32
+    env = QT_AUTO_SCREEN_SCALE_FACTOR,1
+    env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
 
+    exec-once = if [[ $(hyprctl monitors all | grep DP-5) > /dev/null ]]; then export GDK_SCALE=1; fi
     exec-once = swaylock & hyprpaper & swaync & waybar
     exec-once = hyprctl set-cursor Numix-Cursor 24
 

@@ -14,14 +14,13 @@
   datestr=%a, %e of %B
 
   # Add current screenshot as wallpaper
-  # screenshots
+  #screenshots
 
   # Add an image as a background 
   # In my setup the current wallpaper (requires wallpaper scripts in /scripts)
-  image=~/.local/share/eog-wallpaper.jpg
-
+  image=$HOME/.config/dotfiles/assets/wallpaper.jpg
   # Fade in time
-  fade-in=0.001
+  fade-in=0.01
 
   # Effect for background
   # effect-blur=20x6

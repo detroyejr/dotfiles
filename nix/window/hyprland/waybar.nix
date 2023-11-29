@@ -16,14 +16,13 @@
       "height": 0,
       "modules-left": [
           "custom/clock",
-          "hyprland/workspaces"
+          "hyprland/workspaces",
       ],
       "modules-center": [
           "hyprland/window"
       ],
       "modules-right": [
           "custom/playerctl",
-          "custom/notification",
           "battery",
           "network",
           "pulseaudio",
@@ -128,8 +127,7 @@
         "exec-if": "which swaync-client",
         "exec": "swaync-client -swb",
         "on-click": "swaync-client -t -sw",
-        "on-click-right": "swaync-client -d -sw",
-        "escape": true
+        "on-click-right": "swaync-client -d -sw"
       }
   }
   '';
