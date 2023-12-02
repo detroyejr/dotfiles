@@ -90,7 +90,11 @@
       
 
       export EDITOR=nvim
-      export TERM=xterm-256color
+      export TERM=screen-256color
+      
+      if [ -d "$HOME/.local/bin/" ] ; then
+          PATH="$HOME/.local/bin/:$PATH"
+      fi
       
       if [ -d "$HOME/.local/bin/bash/" ] ; then
           PATH="$HOME/.local/bin/bash/:$PATH"
