@@ -63,6 +63,7 @@
       k = "kubectl";
       pwsh = "pwsh.exe";
       ranger = "ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd \"$LASTDIR\"";
+      ssh = "TERM=xterm-256color ssh";
     };
     plugins = [
       {
@@ -88,9 +89,7 @@
       source $HOME/.zsh/plugins/powerlevel10k/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       source $HOME/.p10k.zsh
       
-
       export EDITOR=nvim
-      export TERM=screen-256color
       
       if [ -d "$HOME/.local/bin/" ] ; then
           PATH="$HOME/.local/bin/:$PATH"

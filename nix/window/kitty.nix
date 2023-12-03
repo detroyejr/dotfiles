@@ -11,6 +11,7 @@
       bold_font = "auto";
       disable_liagures = "never";
       enable_audio_bell = false;
+      cursor_shape = "beam";
       # Based on https://github.com/kdrag0n/base16-kitty/
       active_border_color = "#${base03}";
       active_tab_background = "#${base00}";
