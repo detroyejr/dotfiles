@@ -75,7 +75,7 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Terminal --
 local tmux = os.getenv("TMUX")
-if tmux then
+if tmux and vim.fn.has("win32") == 1 then
 	keymap(
 		"n",
 		"<C-A-x>",
@@ -92,6 +92,28 @@ if tmux then
 		"<C-A-x>",
 		"y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
 			.. "| win32yank.exe -o"
+			.. "| tmux load-buffer - ;"
+			.. "tmux paste-buffer<CR>"
+			.. ":NoiceDismiss<CR>",
+		opts
+	)
+elseif tmux then
+	keymap(
+		"n",
+		"<C-A-x>",
+		"yy:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
+			.. "| wl-paste"
+			.. "| tmux load-buffer - ;"
+			.. "tmux paste-buffer<CR>"
+			.. ":NoiceDismiss<CR>",
+		opts
+	)
+
+	keymap(
+		"v",
+		"<C-A-x>",
+		"y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
+			.. "| wl-paste"
 			.. "| tmux load-buffer - ;"
 			.. "tmux paste-buffer<CR>"
 			.. ":NoiceDismiss<CR>",

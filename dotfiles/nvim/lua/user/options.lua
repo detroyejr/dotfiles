@@ -82,6 +82,8 @@ vim.g.netrw_winsize = 30
 vim.cmd([[
   " generic
   autocmd filetype r set colorcolumn=80
+  autocmd VimLeave * set guicursor=a:ver20
+  
   set iskeyword+=-
   set path+=**
   set whichwrap+=<,>,[,],h,l
