@@ -19,8 +19,8 @@
 
   home.file.".config/hypr/hyprland.conf".text = with colorScheme.colors; ''
     # change monitor to high resolution, the last argument is the scale factor
-    monitor=,highres,auto,1
     monitor=eDP-1,preferred,auto,2
+    monitor=DP-4,highres,auto,1
 
     # Lid actions
     bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"
@@ -32,16 +32,17 @@
     }
 
     # toolkit-specific scale
-    env = GDK_SCALE,1
+    env = GDK_SCALE,2
     env = XCURSOR_SIZE,32
     env = QT_AUTO_SCREEN_SCALE_FACTOR,1
     env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
 
-    exec-once = if [[ $(hyprctl monitors all | grep DP-5) > /dev/null ]]; then export GDK_SCALE=1; fi
-    exec-once = swaylock & hyprpaper & swaync & waybar
+    exec-once = hyprctl dispatch dpms on
+    exec-once = disable-laptop & swaylock & hyprpaper & swaync & waybar
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(thunar)$
+    windowrule = size 40% 40%,^(thunar)$
 
     windowrule = float,^(pavucontrol)$
     windowrule = move 100%-412 52,^(pavucontrol)$
@@ -52,7 +53,7 @@
     windowrule = move 100%-412 52,title:^(Plexamp)$
     windowrule = size 400 560,title:^(Plexamp)$
     windowrule = animation slide,^(Plexamp)$ # sets the animation style for kitty
-    
+
     windowrule = float,title:^(nmtui-connect)$
     windowrule = move 100%-412 52,title:^(nmtui-connect)$
     windowrule = size 400 560,^(nmtui-connect)$
@@ -241,10 +242,25 @@
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
     preload = /home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
-    wallpaper = eDP-1,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
+    wallpaper = DP-3,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
     wallpaper = DP-4,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
     wallpaper = DP-5,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
+    wallpaper = eDP-1,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
   '';
+
+  home.file.".local/bin/disable-laptop" = {
+    text = ''
+      for display in `ps aux | grep -oE "/usr/bin/X\s[^ ]+" | cut -d " " -f 2`; do
+          xset -display $display dpms force on;
+      done
+      
+      if [[ `hyprctl monitors | grep "Monitor" | wc -l` != 1 ]]; then
+          export GDK_SCALE=1
+          hyprctl keyword monitor "eDP-1, disable"  
+      fi
+    '';
+    executable = true;
+  };
 
   home.packages = with pkgs; [
     acpi
