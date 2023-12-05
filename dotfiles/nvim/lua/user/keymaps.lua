@@ -19,7 +19,7 @@ vim.g.maplocalleader = " "
 -- avoid freezing the vim process forever, see
 -- https://github.com/neovim/neovim/issues/6660
 if vim.fn.has("win32") == 1 then
-	keymap("n", "<C-z>", "<Nop>", opts)
+  keymap("n", "<C-z>", "<Nop>", opts)
 end
 
 -- Normal --
@@ -75,53 +75,55 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Terminal --
 local tmux = os.getenv("TMUX")
-if tmux and vim.fn.has("win32") == 1 then
-	keymap(
-		"n",
-		"<C-A-x>",
-		"yy:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
-			.. "| win32yank.exe -o"
-			.. "| tmux load-buffer - ;"
-			.. "tmux paste-buffer<CR>"
-			.. ":NoiceDismiss<CR>",
-		opts
-	)
+local wsl = os.getenv("WSL_DISTRO_NAME")
 
-	keymap(
-		"v",
-		"<C-A-x>",
-		"y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
-			.. "| win32yank.exe -o"
-			.. "| tmux load-buffer - ;"
-			.. "tmux paste-buffer<CR>"
-			.. ":NoiceDismiss<CR>",
-		opts
-	)
+if tmux and wsl then
+  keymap(
+    "n",
+    "<C-A-x>",
+    "yy:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
+    .. "| win32yank.exe -o"
+    .. "| tmux load-buffer - ;"
+    .. "tmux paste-buffer<CR>"
+    .. ":NoiceDismiss<CR>",
+    opts
+  )
+
+  keymap(
+    "v",
+    "<C-A-x>",
+    "y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
+    .. "| win32yank.exe -o"
+    .. "| tmux load-buffer - ;"
+    .. "tmux paste-buffer<CR>"
+    .. ":NoiceDismiss<CR>",
+    opts
+  )
 elseif tmux then
-	keymap(
-		"n",
-		"<C-A-x>",
-		"yy:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
-			.. "| wl-paste"
-			.. "| tmux load-buffer - ;"
-			.. "tmux paste-buffer<CR>"
-			.. ":NoiceDismiss<CR>",
-		opts
-	)
+  keymap(
+    "n",
+    "<C-A-x>",
+    "yy:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
+    .. "| wl-paste"
+    .. "| tmux load-buffer - ;"
+    .. "tmux paste-buffer<CR>"
+    .. ":NoiceDismiss<CR>",
+    opts
+  )
 
-	keymap(
-		"v",
-		"<C-A-x>",
-		"y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
-			.. "| wl-paste"
-			.. "| tmux load-buffer - ;"
-			.. "tmux paste-buffer<CR>"
-			.. ":NoiceDismiss<CR>",
-		opts
-	)
+  keymap(
+    "v",
+    "<C-A-x>",
+    "y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
+    .. "| wl-paste"
+    .. "| tmux load-buffer - ;"
+    .. "tmux paste-buffer<CR>"
+    .. ":NoiceDismiss<CR>",
+    opts
+  )
 else
-	keymap("n", "<C-A-x>", ":ToggleTermSendCurrentLine<CR>", opts)
-	keymap("v", "<C-A-x>", ":ToggleTermSendVisualSelection<CR>", opts)
+  keymap("n", "<C-A-x>", ":ToggleTermSendCurrentLine<CR>", opts)
+  keymap("v", "<C-A-x>", ":ToggleTermSendVisualSelection<CR>", opts)
 end
 
 -- Explore
