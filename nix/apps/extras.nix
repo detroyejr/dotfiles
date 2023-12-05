@@ -9,8 +9,6 @@
     joplin-desktop
     keepassxc
     keeweb
-    plex-media-player
-    plexamp
     wireshark
   ];
 }
