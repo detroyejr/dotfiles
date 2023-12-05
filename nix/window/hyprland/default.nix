@@ -36,6 +36,7 @@
     env = XCURSOR_SIZE,32
     env = QT_AUTO_SCREEN_SCALE_FACTOR,1
     env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
+    env = NIXOS_OZONE_WL,1
 
     exec-once = hyprctl dispatch dpms on
     exec-once = disable-laptop & swaylock & hyprpaper & swaync & waybar
@@ -56,7 +57,7 @@
 
     windowrule = float,title:^(nmtui-connect)$
     windowrule = move 100%-412 52,title:^(nmtui-connect)$
-    windowrule = size 400 560,^(nmtui-connect)$
+    windowrule = size 200 360,^(nmtui-connect)$
     windowrule = animation slide,title:^(nmtui-connect)$ # sets the animation style for kitty
 
     # Some default env vars.
@@ -253,10 +254,10 @@
       for display in `ps aux | grep -oE "/usr/bin/X\s[^ ]+" | cut -d " " -f 2`; do
           xset -display $display dpms force on;
       done
-      
+
       if [[ `hyprctl monitors | grep "Monitor" | wc -l` != 1 ]]; then
           export GDK_SCALE=1
-          hyprctl keyword monitor "eDP-1, disable"  
+          hyprctl keyword monitor "eDP-1, disable"
       fi
     '';
     executable = true;
@@ -268,11 +269,11 @@
     hyprpaper
     pamixer
     pavucontrol
-    swaynotificationcenter
     playerctl
-    slack
     slurp
+    swaynotificationcenter
     viewnior
     xfce.thunar
+    xsel
   ];
 }
