@@ -41,6 +41,9 @@ in
     QT_QPA_PLATFORM = "wayland;xcb";
     QT_QPA_PLATFORMTHEME = "qt5ct";
     MOZ_ENABLE_WAYLAND = "1";
+    EDITOR = "nvim";
+    BROWSER = "firefox";
+    TERMINAL = "kitty";
   };
 
   home.file.".config/hypr/hyprland.conf".text = with colorScheme.colors; ''
