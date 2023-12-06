@@ -75,19 +75,7 @@
                 ./nix/home.nix
                 ./nix/dev
                 ./nix/window/hyprland
-                ./nix/window/kitty.nix
-                ./nix/apps/firefox.nix
-                ./nix/apps/extras.nix
               ];
-            };
-          }
-          {
-            programs.hyprland = {
-              enable = true;
-              xwayland = {
-                enable = true;
-              };
-              enableNvidiaPatches = false;
             };
           }
         ];

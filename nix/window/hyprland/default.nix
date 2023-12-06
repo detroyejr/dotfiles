@@ -1,7 +1,33 @@
 { config, pkgs, lib, fetchFromGitHub, colorScheme, ... }:
+let
+    chromium = pkgs.makeDesktopItem {
+      name = "chromium";
+      desktopName = "Chromium (web browser)";
+      exec = "${pkgs.chromium}/bin/chromium --ozone-platform-hint=auto";
+    };
+
+    slack = pkgs.makeDesktopItem {
+      name = "slack";
+      desktopName = "slack";
+      exec = "${pkgs.slack}/bin/slack --enable-features=WaylandWindowDecorations,WebRTCPipeWireCapturer --ozone-platform-hint=auto --ozone-platform=wayland -s %U";
+    };
+
+    plex-media-player = pkgs.makeDesktopItem {
+      name = "plex";
+      desktopName = "Plex Media Player (Media Player)";
+      exec = "${pkgs.plex-media-player}/bin/plexmediaplayer --ozone-platform-hint=auto";
+    };
+
+    plexamp = pkgs.makeDesktopItem {
+      name = "plexamp";
+      desktopName = "plexamp";
+      exec = "${pkgs.plexamp}/bin/plexamp --ozone-platform-hint=auto";
+    };
+in
 {
   imports = [
     ./gtk.nix
+    ./kitty.nix
     ./rofi.nix
     ./swaylock.nix
     ./waybar.nix
@@ -25,7 +51,7 @@
     # Lid actions
     bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"
     bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1,preferred,auto,2,mirror,"
-,
+
     # unscale XWayland
     xwayland {
       force_zero_scaling = true
@@ -263,17 +289,46 @@
     executable = true;
   };
 
+
+  programs.firefox = {
+    enable = true;
+    package = pkgs.firefox;
+  };
+
+  programs.chromium = {
+    enable = true;
+    package = chromium;
+  };
+
+  programs.thunderbird = {
+    enable = true;
+    profiles."Personal" = {
+      isDefault = true;
+    };
+    profiles."Work" = {};
+  };
+
   home.packages = with pkgs; [
     acpi
+    aircrack-ng
+    discord
     grim
+    hyperion-ng
     hyprpaper
+    joplin
+    joplin-desktop
+    keepassxc
+    keeweb
     pamixer
     pavucontrol
     playerctl
+    plex-media-player
+    plexamp
+    slack
     slurp
     swaynotificationcenter
     viewnior
-    xfce.thunar
+    wireshark
     xsel
   ];
 }

@@ -64,6 +64,21 @@
     ];
   };
 
+  programs.hyprland = {
+    enable = true;
+    xwayland = {
+      enable = true;
+    };
+    enableNvidiaPatches = false;
+  };
+
+  programs.thunar = {
+    enable = true;
+  };
+
+  services.gvfs.enable = true;
+  services.tumbler.enable = true;
+
   environment.systemPackages = with pkgs; [
     dislocker
     efibootmgr
@@ -95,7 +110,7 @@
   systemd.services.sbctl_sign = {
     path = [ pkgs.sbctl pkgs.gawk pkgs.util-linux ];
     script = ''
-      sbctl verify | awk '{print $2}' | xargs -L1 sbctl sign
+      sbctl verify | awk 'NR>1{print $2}' | xargs -L1 sbctl sign
     '';
     serviceConfig = {
       User = "root";
