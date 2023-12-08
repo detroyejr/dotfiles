@@ -42,7 +42,6 @@
     tiny
     unzip
     wget
-    xsel
     yt-dlp
     zsh-powerlevel10k
   ];

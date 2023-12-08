@@ -332,6 +332,5 @@ in
     swaynotificationcenter
     viewnior
     wireshark
-    xsel
   ];
 }
