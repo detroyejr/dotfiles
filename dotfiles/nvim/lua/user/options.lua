@@ -80,6 +80,8 @@ vim.g.netrw_preview = 1
 vim.g.netrw_winsize = 30
 
 vim.cmd([[
+  colorscheme nightfox
+
   " generic
   autocmd filetype r set colorcolumn=80
   autocmd VimLeave * set guicursor=a:ver20
