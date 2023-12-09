@@ -1,4 +1,4 @@
-{ config, pkgs, lib, fetchFromGitHub, colorScheme, ... }:
+{ config, pkgs, lib, fetchFromGitHub, colorScheme, wallpaper, ... }:
 let
     chromium = pkgs.makeDesktopItem {
       name = "chromium";
@@ -272,10 +272,12 @@ in
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
     preload = /home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
-    wallpaper = DP-3,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
-    wallpaper = DP-4,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
-    wallpaper = DP-5,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
-    wallpaper = eDP-1,/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
+    preload = /home/detroyejr/.config/dotfiles/assets/light-wallpaper.png
+
+    wallpaper = DP-3,${wallpaper}    
+    wallpaper = DP-4,${wallpaper}
+    wallpaper = DP-5,${wallpaper}
+    wallpaper = eDP-1,${wallpaper}
   '';
 
   home.file.".local/bin/disable-laptop" = {

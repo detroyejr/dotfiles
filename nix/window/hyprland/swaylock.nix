@@ -19,24 +19,17 @@
   # Add an image as a background 
   # In my setup the current wallpaper (requires wallpaper scripts in /scripts)
   image=$HOME/.config/dotfiles/assets/wallpaper.jpg
-  # Fade in time
-  fade-in=0.01
-
-  # Effect for background
-  # effect-blur=20x6
-  # effect-greyscale
-  effect-pixelate=5
 
   # Show/Hide indicator circle
   indicator
 
   # smaller indicator
-  indicator-radius=200
+  indicator-radius=100
 
   # bigger indicator
   # indicator-radius=300
 
-  indicator-thickness=20
+  indicator-thickness=5
   indicator-caps-lock
 
   # Define all colors

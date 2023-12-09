@@ -142,7 +142,7 @@
     }
 
     /* window#waybar {
-        background: rgba(21, 18, 27, 0);
+        background: #${base00};
         color: #ffffff;
     } */
 
@@ -156,6 +156,7 @@
     #workspaces button {
         padding: 5px;
         color: #${base06};
+        background: #${base00};
         margin-right: 5px;
     }
 
@@ -169,8 +170,8 @@
     }
 
     #workspaces button.urgent {
-        color: #11111b;
-        background: #a6e3a1;
+        color: #${base06};
+        background: #${base00};
     }
 
     #battery,
