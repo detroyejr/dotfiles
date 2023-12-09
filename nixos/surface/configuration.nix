@@ -21,6 +21,7 @@
   networking.hostName = "Surface-NixOS"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
+  xdg.portal.config.common.default = "*";
   services = {
     xserver = {
       enable = true;
@@ -69,7 +70,6 @@
     xwayland = {
       enable = true;
     };
-    enableNvidiaPatches = false;
   };
 
   programs.thunar = {
