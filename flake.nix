@@ -88,8 +88,9 @@
       # A default configuration that should work on non-NixOS machines.
       homeConfigurations.detroyejr = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        inherit colorSchemeName;
 
+
+        home-manager.extraSpecialArgs = { inherit colorSchemeName; };
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
         modules = [
