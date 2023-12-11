@@ -90,7 +90,7 @@
         inherit pkgs;
 
 
-        home-manager.extraSpecialArgs = { inherit colorSchemeName; };
+        extraSpecialArgs = { inherit colorSchemeName; };
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
         modules = [
