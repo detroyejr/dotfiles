@@ -80,7 +80,7 @@
       # colorSchemeName = "tokyodark-terminal";
       # colorScheme = nix-colors.colorSchemes.${colorSchemeName};
 
-      colorSchemeName = "dayfox";
+      colorSchemeName = "nightfox";
       colorScheme = custom-colors.${colorSchemeName}.colorScheme;
       wallpaper = custom-colors.${colorSchemeName}.wallpaper;
 
