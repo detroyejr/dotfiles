@@ -84,8 +84,7 @@ if tmux and wsl then
     "yy:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
     .. "| win32yank.exe -o"
     .. "| tmux load-buffer - ;"
-    .. "tmux paste-buffer<CR>"
-    .. ":NoiceDismiss<CR>",
+    .. "tmux paste-buffer<CR>",
     opts
   )
 
@@ -95,8 +94,7 @@ if tmux and wsl then
     "y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
     .. "| win32yank.exe -o"
     .. "| tmux load-buffer - ;"
-    .. "tmux paste-buffer<CR>"
-    .. ":NoiceDismiss<CR>",
+    .. "tmux paste-buffer<CR>",
     opts
   )
 elseif tmux then
@@ -106,8 +104,7 @@ elseif tmux then
     "yy:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
     .. "| wl-paste"
     .. "| tmux load-buffer - ;"
-    .. "tmux paste-buffer<CR>"
-    .. ":NoiceDismiss<CR>",
+    .. "tmux paste-buffer<CR>",
     opts
   )
 
@@ -117,13 +114,12 @@ elseif tmux then
     "y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
     .. "| wl-paste"
     .. "| tmux load-buffer - ;"
-    .. "tmux paste-buffer<CR>"
-    .. ":NoiceDismiss<CR>",
+    .. "tmux paste-buffer<CR>",
     opts
   )
 else
-  keymap("n", "<C-A-x>", ":ToggleTermSendCurrentLine<CR>", opts)
-  keymap("v", "<C-A-x>", ":ToggleTermSendVisualSelection<CR>", opts)
+  keymap("n", "<C-A-x>", "Vy<C-w>wpa<CR><C-\\><C-n><C-w>pj", opts)
+  keymap("v", "<C-A-x>", "y<C-w>wpa<CR><C-\\><C-n><C-w>p", opts)
 end
 
 -- Explore

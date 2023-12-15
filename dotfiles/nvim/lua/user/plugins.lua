@@ -19,13 +19,6 @@ local plugins = {
 	{ "lukas-reineke/indent-blankline.nvim" },
 
 	-- Utilities
-	{
-		"folke/noice.nvim",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify",
-		},
-	},
 	{ "famiu/bufdelete.nvim" },
 	{ "folke/which-key.nvim" },
 	{ "nvim-lua/plenary.nvim" }, -- Useful lua functions used in lots of plugins
@@ -74,9 +67,6 @@ local plugins = {
 
 	-- Gitsigns
 	{ "lewis6991/gitsigns.nvim" },
-
-	-- Toggle Term
-	{ "akinsho/toggleterm.nvim", version = "*" },
 
 	-- Quarto
 	{ "jmbuhr/otter.nvim" },

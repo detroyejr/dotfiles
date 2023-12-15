@@ -76,19 +76,18 @@ if tmux then
 				.. '"tmux new-session -A '
 				.. "-s $(tmux display-message "
 				.. "-p '\\#{session_name}')-shell\" "
-				.. "</dev/null >/dev/null 2>&1 & <CR>"
-				.. ":NoiceDismiss<CR>",
+				.. "</dev/null >/dev/null 2>&1 & <CR>",
 			"Float",
 		},
-		h = { "<cmd>!tmux split-window<CR>:NoiceDismiss<CR>", "Horizontal" },
-		v = { "<cmd>!tmux split-window -h<CR>:NoiceDismiss<CR>", "Vertical" },
+		h = { "<cmd>!tmux split-window<CR>", "Horizontal" },
+		v = { "<cmd>!tmux split-window -h<CR>", "Vertical" },
 	}
 else
 	TERM = {
 		name = "Terminal",
-		f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-		h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
-		v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+		f = { "<cmd>terminal<cr>", "Float" },
+		h = { "<cmd>new term://${SHELL}<cr>", "Horizontal" },
+		v = { "<cmd>vnew term://${SHELL}<cr>", "Vertical" },
 	}
 end
 
@@ -110,7 +109,6 @@ local mappings = {
 	["F"] = { "<cmd>Telescope live_grep<cr>", "Find Text" },
 	g = {
 		name = "Git",
-		g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
 		j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
 		k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
 		l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
@@ -147,13 +145,6 @@ local mappings = {
 		s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
 		S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
 	},
-	n = {
-		name = "Noice",
-		d = { "<cmd>NoiceDismiss<cr>", "Dismiss" },
-		t = { "<cmd>NoiceTelescope<cr>", "Telescope" },
-		l = { "<cmd>NoiceLog<cr>", "Log" },
-		s = { "<cmd>NoiceStats<cr>", "Statistics" },
-	},
 	s = {
 		name = "Search",
 		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
@@ -177,11 +168,7 @@ local vopts = {
 	nowait = true, -- use `nowait` when creating keymaps
 }
 local vmappings = {
-	["/"] = { '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>', "Comment" },
-	t = {
-		name = "Terminal",
-		x = { "<cmd>ToggleTermSendVisualLines<cr>", "Execute Selection" },
-	},
+	["/"] = { '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>', "Comment" }
 }
 
 which_key.setup(setup)

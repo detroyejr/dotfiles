@@ -1,21 +1,3 @@
--- Toggleterm specific settings for powershell.
-
-if vim.fn.has("win32") == 1 then
-  local powershell_options = {
-    shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell",
-    shellcmdflag =
-    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
-    shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
-    shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
-    shellquote = "",
-    shellxquote = "",
-  }
-
-  for option, value in pairs(powershell_options) do
-    vim.opt[option] = value
-  end
-end
-
 -- Location of the spellfile.
 SpellFile = os.getenv("HOME") .. "/.config/dotfiles/dotfiles/nvim/spell/en.utf-8.add"
 if not os.rename(SpellFile, SpellFile) then
@@ -85,6 +67,9 @@ vim.cmd([[
   " generic
   autocmd filetype r set colorcolumn=80
   autocmd VimLeave * set guicursor=a:ver20
+
+  " terminal
+  " autocmd BufWinEnter,WinEnter term://* startinsert
   
   set iskeyword+=-
   set path+=**
