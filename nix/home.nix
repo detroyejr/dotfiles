@@ -106,8 +106,6 @@
       bindkey ^S history-incremental-search-forward
 
       eval "$(direnv hook zsh)"
-      
-      nitch
       '';
   };
 
