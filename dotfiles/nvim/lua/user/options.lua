@@ -1,7 +1,12 @@
 -- Location of the spellfile.
-SpellFile = os.getenv("HOME") .. "/.config/dotfiles/dotfiles/nvim/spell/en.utf-8.add"
-if not os.rename(SpellFile, SpellFile) then
-  SpellFile = vim.opt.spellfile
+if vim.fn.has("win32") ~= 1 then
+  -- Set colorscheme for unix.
+  require("user.colorscheme")
+  
+  SpellFile = "/.config/dotfiles/dotfiles/nvim/spell/en.utf-8.add"
+  if not os.rename(SpellFile, SpellFile) then
+    SpellFile = vim.opt.spellfile
+  end
 end
 
 -- :help options
