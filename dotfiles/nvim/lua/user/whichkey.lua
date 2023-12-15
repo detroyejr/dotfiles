@@ -76,11 +76,12 @@ if tmux then
 				.. '"tmux new-session -A '
 				.. "-s $(tmux display-message "
 				.. "-p '\\#{session_name}')-shell\" "
-				.. "</dev/null >/dev/null 2>&1 & <CR>",
+				.. "</dev/null >/dev/null 2>&1 & <CR>"
+        .. "<CR>",
 			"Float",
 		},
-		h = { "<cmd>!tmux split-window<CR>", "Horizontal" },
-		v = { "<cmd>!tmux split-window -h<CR>", "Vertical" },
+		h = { "<cmd>!tmux split-window<CR><CR>", "Horizontal" },
+		v = { "<cmd>!tmux split-window -h<CR><CR>", "Vertical" },
 	}
 else
 	TERM = {

@@ -94,7 +94,7 @@ if tmux and wsl then
     "y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
     .. "| win32yank.exe -o"
     .. "| tmux load-buffer - ;"
-    .. "tmux paste-buffer<CR>",
+    .. "tmux paste-buffer<CR><CR>",
     opts
   )
 elseif tmux then
@@ -104,7 +104,7 @@ elseif tmux then
     "yy:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
     .. "| wl-paste"
     .. "| tmux load-buffer - ;"
-    .. "tmux paste-buffer<CR>",
+    .. "tmux paste-buffer<CR><CR>",
     opts
   )
 
@@ -114,7 +114,7 @@ elseif tmux then
     "y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
     .. "| wl-paste"
     .. "| tmux load-buffer - ;"
-    .. "tmux paste-buffer<CR>",
+    .. "tmux paste-buffer<CR><CR>",
     opts
   )
 else
