@@ -1,4 +1,4 @@
-{config, pkgs, ...}:  
+{config, pkgs, colorScheme, ...}:  
 {
   home.file.".config/eww/eww.yuck".text = ''
     (defwindow bar
@@ -44,7 +44,7 @@
       )
 
     (defwidget time []
-      (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+      (box :class "time" :orientation "h" :space-evenly false :halign "end"
         time))
 
     ;; Middle.
@@ -59,22 +59,23 @@
     (defwidget info []
       (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ''${current_workspace}" :class "workspaces-widget"
         (box :space-evenly true
-             :class "workspaces"
+             :class "info"
              :orientation "h"
              :space-evenly false
              :halign "end"
-             :spacing 15 
+             :spacing 10 
           (battery :status {EWW_BATTERY.BAT1.status}
                  :battery {EWW_BATTERY.BAT1.capacity}
                  :charge "" :one "" :two "" :three "" :four ""
                  :five "" :six "" :seven "")
-          (time)
+          (net :class "net")
+          (power :class "power")
           )
         )
       )
     (defwidget battery [battery status one two three
                         four five six seven charge]
-      (box :class "battery" :space-evenly false :spacing 20 :halign "end"
+      (box :class "battery" :spacing 10 
         (label :text {status == 'Charging' ? charge :
           battery < 15 ? one :
             battery < 30 ? two :
@@ -86,23 +87,29 @@
         )
       )
 
-    (defwidget net [net]
-      (box :class "net" :space-evenly false :spacing 20 :halign "end"
-        (label :text {EWW_NET})
-        )
+    (defwidget net []
+      (box :class "net" :spacing 20
+        (label :text {wifi_status == '1' ? "" : "󰤭"} :tooltip {wifi_name})
       )
+    )
+
+    (defwidget power []
+      (button :class "power" :onclick "bash -c 'wlogout'" :timeout 3000 "")
+    )
 
     ;; Workspace
     (deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
     (deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
     (deflisten window :initial "..." "sh ~/.config/eww/scripts/get-window-title")
+    (defpoll wifi_name :interval "5s" `nmcli -g "CONNECTION" device status | awk 'NR<2'`)
+    (defpoll wifi_status :interval "5s" `nmcli -g "STATE" device status | grep -E "^connected$" | wc -l`)
 
     ;; Time
     (defpoll time :interval "1s"
       "date '+%I:%M %p'")
   '';
 
-  home.file.".config/eww/eww.scss".text = ''
+  home.file.".config/eww/eww.scss".text = with colorScheme.colors; ''
     * {
       all: unset; //Unsets everything so you can style everything from scratch
     }
@@ -113,19 +120,34 @@
       font-weight: bold;
       font-size: 14px;
       padding-top: 5px;
+      background: #${base00};
+      color: #${base06};
     }
 
     .workspaces {
       color: #d9d9d9;
-      margin-left: 15;
+      margin-left: 15px;
     }
 
-    .workspaces .current {
-      color: #ffffff;
+    .info {
+      margin-right: 15px;
+    }
+
+    .current {
+      color: #${base05};
+    }
+
+    .time {
+      color: #${base0A};
     }
 
     .battery {
-      margin-right: 20;
+      margin-right: 20px;
+      color: #${base0B};
+    }
+
+    .net {
+      color: #${base0C};
     }
   '';
 
