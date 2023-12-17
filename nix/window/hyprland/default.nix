@@ -31,7 +31,6 @@ in
     ./kitty.nix
     ./rofi.nix
     ./swaylock.nix
-    ./waybar.nix
     ./eww.nix
   ];
 
@@ -70,7 +69,7 @@ in
     env = NIXOS_OZONE_WL,1
 
     exec-once = hyprctl dispatch dpms on
-    exec-once = disable-laptop & swaylock & hyprpaper & swaync & waybar
+    exec-once = disable-laptop & swaylock & hyprpaper & swaync & eww open bar
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(thunar)$
@@ -319,13 +318,16 @@ in
     acpi
     aircrack-ng
     discord
+    eww-wayland
     grim
     hyperion-ng
     hyprpaper
     joplin
     joplin-desktop
+    jq
     keepassxc
     keeweb
+    libnotify
     pamixer
     pavucontrol
     playerctl
@@ -333,14 +335,9 @@ in
     plexamp
     slack
     slurp
+    socat
     swaynotificationcenter
     viewnior
     wireshark
-
-    # Eww testing
-    libnotify
-    eww-wayland
-    socat
-    jq
   ];
 }

@@ -7,7 +7,7 @@
       :geometry (geometry :x "0%"
                           :y "0%"
                           :width "100%"
-                          :height "30px"
+                          :height "40px"
                           :anchor "top center")
       :exclusive true
       (bar))
@@ -29,6 +29,7 @@
              :orientation "h"
              :space-evenly false
              :halign "start"
+             :valign "center"
              :spacing 20
           (label :text "''${workspaces}''${current_workspace}" :visible false)
           (for workspace in workspaces
@@ -49,9 +50,8 @@
 
     ;; Middle.
     (defwidget window_name []
-      (box
-        (label :text "''${window}"
-        )
+      (box :class "window"
+        (label :text "''${window}" :valign "center")
       ))
 
     ;; Right Side.
@@ -61,40 +61,71 @@
         (box :space-evenly true
              :class "info"
              :orientation "h"
-             :space-evenly false
+             :space-evenly true
              :halign "end"
-             :spacing 10 
+             :valign "center"
+             :spacing 20 
           (battery :status {EWW_BATTERY.BAT1.status}
                  :battery {EWW_BATTERY.BAT1.capacity}
-                 :charge "" :one "" :two "" :three "" :four ""
-                 :five "" :six "" :seven "")
+                 :charge "" :one "" :two "" :three "" :four "" :five "" 
+                 :six "" :seven "" :eight "" :nine "" :ten "")
+          (volume :mute "󰖁" :low "󰕿" :medium "󰖀" :high "󰕾")
           (net :class "net")
           (power :class "power")
           )
         )
       )
+
+  (defwidget metric [label value onchange]
+    (box :orientation "h"
+         :class "metric"
+         :space-evenly false
+      (box :class "label" label)
+      (scale :min 0
+             :max 101
+             :active {onchange != ""}
+             :value value
+             :onchange onchange)))
+
     (defwidget battery [battery status one two three
-                        four five six seven charge]
-      (box :class "battery" :spacing 10 
+                        four five six seven eight nine ten charge]
+      (box :class "battery"
         (label :text {status == 'Charging' ? charge :
-          battery < 15 ? one :
-            battery < 30 ? two :
-              battery < 45 ? three :
-                battery < 60 ? four :
-                  battery < 75 ? five :
-                    battery < 95 ? six : seven}
+          battery < 10 ? one :
+            battery < 20 ? two :
+              battery < 30 ? three :
+                battery < 40 ? four : 
+                  battery < 50 ? five : 
+                    battery < 60 ? six : 
+                      battery < 70 ? seven : 
+                        battery < 80 ? eight : 
+                          battery < 90 ? nine : ten}
           :tooltip "''${battery}%")
         )
       )
+    
+    (defwidget volume [mute low medium high]
+      (button :class "volume" :onclick "if pgrep -x .pavucontrol-wr > /dev/null; then kill $(pgrep -x '.pavucontrol-wr'); else pavucontrol; fi"
+        (label :text {
+          volume < 1 ? mute :
+            volume < 40 ? low :
+              volume < 70 ? medium : high
+        }
+          :tooltip "''${volume}%")
+        )
+      )
+
 
     (defwidget net []
-      (box :class "net" :spacing 20
+      (box :class "net"
         (label :text {wifi_status == '1' ? "" : "󰤭"} :tooltip {wifi_name})
       )
     )
 
     (defwidget power []
-      (button :class "power" :onclick "bash -c 'wlogout'" :timeout 3000 "")
+      (box :class "power"
+        (button :onclick "wlogout" :timeout 100000 "")
+      )
     )
 
     ;; Workspace
@@ -103,6 +134,7 @@
     (deflisten window :initial "..." "sh ~/.config/eww/scripts/get-window-title")
     (defpoll wifi_name :interval "5s" `nmcli -g "CONNECTION" device status | awk 'NR<2'`)
     (defpoll wifi_status :interval "5s" `nmcli -g "STATE" device status | grep -E "^connected$" | wc -l`)
+    (defpoll volume :interval "1s" "scripts/getvol")
 
     ;; Time
     (defpoll time :interval "1s"
@@ -118,8 +150,7 @@
     .bar {
       font-family: "BlexMono Nerd Font, monospace";
       font-weight: bold;
-      font-size: 14px;
-      padding-top: 5px;
+      font-size: 16px;
       background: #${base00};
       color: #${base06};
     }
@@ -127,6 +158,11 @@
     .workspaces {
       color: #d9d9d9;
       margin-left: 15px;
+    }
+
+    .window {
+      padding-right: 100px;
+      padding-left: 100px;
     }
 
     .info {
@@ -141,8 +177,11 @@
       color: #${base0A};
     }
 
+    .volume {
+      color: #${base0D};
+    }
+
     .battery {
-      margin-right: 20px;
       color: #${base0B};
     }
 
@@ -192,7 +231,7 @@
   home.file.".config/eww/scripts/get-window-title" = {
     text = ''
       #!/bin/sh
-      hyprctl activewindow -j | jq --raw-output .title
+      hyprctl activewindow -j | jq --raw-output .title | cut -c 1-60
       socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | stdbuf -o0 awk -F '>>|,' '/^activewindow>>/{print $3}'
     '';
     executable = true;
@@ -212,6 +251,24 @@
     socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read -r line; do
       spaces
     done
+    '';
+    executable = true;
+  };
+
+  home.file.".config/eww/scripts/getvol" = {
+    text = ''
+      #!/bin/sh
+
+      if command -v pamixer &>/dev/null; then
+          if [ true == $(pamixer --get-mute) ]; then
+              echo 0
+              exit
+          else
+              pamixer --get-volume
+          fi
+      else
+          amixer -D pulse sget Master | awk -F '[^0-9]+' '/Left:/{print $3}'
+      fi
     '';
     executable = true;
   };
