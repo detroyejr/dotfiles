@@ -32,7 +32,7 @@
              :space-evenly false
              :halign "start"
              :valign "center"
-             :spacing 5 
+             :spacing 20
           (label :text "''${workspaces}''${current_workspace}" :visible false)
           (for workspace in workspaces
             (eventbox :class "current" :onclick "hyprctl dispatch workspace ''${workspace.id}"
@@ -53,15 +53,13 @@
     ;; Middle.
     (defwidget window_name []
       (box :class "window"
-        (label :text window :valign "center")
+        (label :text "''${window}" :valign "center")
       ))
 
     ;; Right Side.
 
     (defwidget info []
-      (eventbox 
-        :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ''${current_workspace}" 
-        :class "workspaces-widget"
+      (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ''${current_workspace}" :class "workspaces-widget"
         (box :space-evenly true
              :class "info"
              :orientation "h"
@@ -113,6 +111,7 @@
       (button 
         :class "volume" 
         :onclick "if pgrep -x .pavucontrol-wr > /dev/null; then kill $(pgrep -x '.pavucontrol-wr'); else pavucontrol; fi"
+        :timeout 3000
         (label :text {
           volume < 1 ? mute :
             volume < 40 ? low :
@@ -191,7 +190,7 @@
 
     .battery {
       color: #${base0B};
-      font-size: 15px;
+      font-size: 16px;
     }
 
     .net {
@@ -240,9 +239,8 @@
   home.file.".config/eww/scripts/get-window-title" = {
     text = ''
       #!/bin/sh
-      hyprctl activewindow -j | jq --raw-output .title 
-      socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | \
-        stdbuf -o0 awk -F '>>|,' '/^activewindow>>/{print substr($3, 1, 60) }'
+      hyprctl activewindow -j | jq --raw-output .title | cut -c 1-60
+      socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | stdbuf -o0 awk -F '>>|,' '/^activewindow>>/{print $3}'
     '';
     executable = true;
   };

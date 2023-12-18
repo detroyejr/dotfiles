@@ -16,8 +16,9 @@
         fg-col2: #e78284;
         grey: #737994;
 
-        width: 1000;
-        font: "Ubuntu 24";
+        width: 1200;
+        height: 1200;
+        font: "Ubuntu Mono 30";
     }
 
     element-text, element-icon , mode-switcher {
@@ -26,9 +27,10 @@
     }
 
     window {
-        height: 360px;
-        border: 3px;
+        height: 650px;
+        border: 1px;
         border-color: @border-col;
+        border-radius: 40px;
         background-color: @bg-col;
     }
 
@@ -67,8 +69,8 @@
         border: 0px 0px 0px;
         padding: 6px 0px 0px;
         margin: 10px 0px 0px 20px;
-        columns: 2;
-        lines: 5;
+        columns: 1;
+        lines: 10;
         background-color: @bg-col;
     }
 
