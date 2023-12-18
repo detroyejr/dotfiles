@@ -38,10 +38,10 @@
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  #hardware.opengl = {
-  #  enable = true;
-  #  driSupport32Bit = true;
-  #};
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+  };
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.nvidia.prime = {
     sync.enable = true;
@@ -83,5 +83,5 @@
   
   networking.firewall.enable = false;
 
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 }

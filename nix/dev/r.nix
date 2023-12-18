@@ -11,6 +11,7 @@ let
         src = builtins.fetchGit {
           url = "git@github.com:echeloninsights/EchelonSurveyTools.git";
           rev = "f54ea92a1828d82c2eb4a9b18f37119060ff71e6";
+          allRefs = true;
         };
         buildInputs = [ 
           RMariaDB 
