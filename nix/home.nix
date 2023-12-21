@@ -14,6 +14,7 @@
     bat
     bc
     cachix
+    cataclysm-dda
     cmake
     curl
     fd

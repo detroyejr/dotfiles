@@ -32,11 +32,11 @@
              :space-evenly false
              :halign "start"
              :valign "center"
-             :spacing 5 
+             :spacing 15 
           (label :text "''${workspaces}''${current_workspace}" :visible false)
           (for workspace in workspaces
             (eventbox :class "current" :onclick "hyprctl dispatch workspace ''${workspace.id}"
-              (box ''${workspace.id == current_workspace ? "current" : ""} ''${workspace.windows > 0 ? "occupied" : "empty"}"
+              (box :class "workspace-entry ''${workspace.id == current_workspace ? "current" : ""} ''${workspace.windows > 0 ? "occupied" : "empty"}"
                 (label :text "''${workspace.id}")
                 )
               )
