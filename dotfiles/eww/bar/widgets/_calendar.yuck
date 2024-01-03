@@ -1,0 +1,14 @@
+(defwindow calendar
+  :monitor 0
+  :geometry (geometry :x "70%"
+                      :y "6%" 
+                      :width "300px" 
+                      :height "80px")
+                      :anchor "top center"
+  (cal))
+
+(defwidget cal []
+  (box :class "cal-box" :orientation "v"
+    (calendar :class "cal" :day calendar_day :month calendar_month :year calendar_year)
+  )
+)

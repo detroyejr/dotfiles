@@ -37,22 +37,24 @@
     neofetch
     nil
     nitch
+    nixpkgs-fmt
     openssh
     ranger
     ripgrep
     tiny
     unzip
     wget
-    yt-dlp
+    wl-clipboard
     xclip
+    yt-dlp
     zsh-powerlevel10k
   ];
-  
+
   programs.bash.enable = true;
 
   # Theme for Powerlevel10k.
   home.file.".p10k.zsh".source = ../dotfiles/zsh/.p10k.zsh;
-  
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -108,11 +110,11 @@
       bindkey ^S history-incremental-search-forward
 
       eval "$(direnv hook zsh)"
-      '';
+    '';
   };
 
   programs.tmux = {
-    enable = true;    
+    enable = true;
     shortcut = "a";
     newSession = true;
     clock24 = true;
@@ -157,7 +159,7 @@
     rev = "master";
     sha256 = "sha256-hW8mfwB8F9ZkTQ72WQp/1fy8KL1IIYMZBtZYIwZdMQc=";
   };
-  
+
 
   home.file.".local/bin/bash".source = ../dotfiles/bash;
 
@@ -172,33 +174,33 @@
   };
 
   home.file.".digrc".text = ''
-  +noall +answer
+    +noall +answer
   '';
-  
+
   home.file.".config/joplin/keymap.json".text = ''
-    [
-    { "keys": [":"], "type": "function", "command": "enter_command_line_mode" },
-          { "keys": ["TAB", "l"], "type": "function", "command": "focus_next" },
-          { "keys": ["SHIFT_TAB", "h"], "type": "function", "command": "focus_previous" },
-          { "keys": ["UP", "k"], "type": "function", "command": "move_up" },
-          { "keys": ["DOWN", "j"], "type": "function", "command": "move_down" },
-          { "keys": ["PAGE_UP", "CTRL_U", "g"], "type": "function", "command": "page_up" },
-          { "keys": ["PAGE_DOWN", "CTRL_D", "SHIFT_G"], "type": "function", "command": "page_down" },
-          { "keys": ["ENTER"], "type": "function", "command": "activate" },
-          { "keys": ["DELETE", "BACKSPACE"], "type": "function", "command": "delete" },
-          { "keys": [" "], "command": "todo toggle $n" },
-          { "keys": ["n"], "type": "function", "command": "next_link" },
-          { "keys": ["b"], "type": "function", "command": "previous_link" },
-          { "keys": ["o"], "type": "function", "command": "open_link" },
-          { "keys": ["tc"], "type": "function", "command": "toggle_console" },
-          { "keys": ["tm"], "type": "function", "command": "toggle_metadata" },
-          { "keys": ["/"], "type": "prompt", "command": "search \"\"", "cursorPosition": -2 },
-          { "keys": ["mn"], "type": "prompt", "command": "mknote \"\"", "cursorPosition": -2 },
-          { "keys": ["mt"], "type": "prompt", "command": "mktodo \"\"", "cursorPosition": -2 },
-          { "keys": ["mb"], "type": "prompt", "command": "mkbook \"\"", "cursorPosition": -2 },
-          { "keys": ["yn"], "type": "prompt", "command": "cp $n \"\"", "cursorPosition": -2 },
-          { "keys": ["dn"], "type": "prompt", "command": "mv $n \"\"", "cursorPosition": -2 }
-  ]
+      [
+      { "keys": [":"], "type": "function", "command": "enter_command_line_mode" },
+            { "keys": ["TAB", "l"], "type": "function", "command": "focus_next" },
+            { "keys": ["SHIFT_TAB", "h"], "type": "function", "command": "focus_previous" },
+            { "keys": ["UP", "k"], "type": "function", "command": "move_up" },
+            { "keys": ["DOWN", "j"], "type": "function", "command": "move_down" },
+            { "keys": ["PAGE_UP", "CTRL_U", "g"], "type": "function", "command": "page_up" },
+            { "keys": ["PAGE_DOWN", "CTRL_D", "SHIFT_G"], "type": "function", "command": "page_down" },
+            { "keys": ["ENTER"], "type": "function", "command": "activate" },
+            { "keys": ["DELETE", "BACKSPACE"], "type": "function", "command": "delete" },
+            { "keys": [" "], "command": "todo toggle $n" },
+            { "keys": ["n"], "type": "function", "command": "next_link" },
+            { "keys": ["b"], "type": "function", "command": "previous_link" },
+            { "keys": ["o"], "type": "function", "command": "open_link" },
+            { "keys": ["tc"], "type": "function", "command": "toggle_console" },
+            { "keys": ["tm"], "type": "function", "command": "toggle_metadata" },
+            { "keys": ["/"], "type": "prompt", "command": "search \"\"", "cursorPosition": -2 },
+            { "keys": ["mn"], "type": "prompt", "command": "mknote \"\"", "cursorPosition": -2 },
+            { "keys": ["mt"], "type": "prompt", "command": "mktodo \"\"", "cursorPosition": -2 },
+            { "keys": ["mb"], "type": "prompt", "command": "mkbook \"\"", "cursorPosition": -2 },
+            { "keys": ["yn"], "type": "prompt", "command": "cp $n \"\"", "cursorPosition": -2 },
+            { "keys": ["dn"], "type": "prompt", "command": "mv $n \"\"", "cursorPosition": -2 }
+    ]
   '';
 
   home.file.".config/tiny/config.yml".text = ''

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+SEND_TO=$(hyprctl activeworkspace | grep -e 'ID ' | awk '{ print $3 }')
+if [ $SEND_TO = "10" ]; then
+    hyprctl dispatch movetoworkspace 1
+else
+    hyprctl dispatch movetoworkspace 10
+fi
+

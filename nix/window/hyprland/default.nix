@@ -27,24 +27,25 @@ let
 in
 {
   imports = [
+    # ./dunst.nix
+    ./eww.nix
     ./gtk.nix
     ./kitty.nix
     ./rofi.nix
     ./swaylock.nix
-    ./eww.nix
   ];
 
  home.sessionVariables = {
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_TYPE = "wayland";
-    XDG_SESSION_DESKTOP = "Hyprland";
+    BROWSER = "firefox";
+    EDITOR = "nvim";
     GDK_BACKEND = "wayland";
+    MOZ_ENABLE_WAYLAND = "1";
     QT_QPA_PLATFORM = "wayland;xcb";
     QT_QPA_PLATFORMTHEME = "qt5ct";
-    MOZ_ENABLE_WAYLAND = "1";
-    EDITOR = "nvim";
-    BROWSER = "firefox";
     TERMINAL = "kitty";
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    XDG_SESSION_TYPE = "wayland";
   };
 
   home.file.".config/hypr/hyprland.conf".text = with colorScheme.colors; ''
@@ -69,7 +70,7 @@ in
     env = NIXOS_OZONE_WL,1
 
     exec-once = hyprctl dispatch dpms on
-    exec-once = disable-laptop & swaylock & hyprpaper & swaync & eww open bar
+    exec-once = disable-laptop & swaylock & hyprpaper & dunst & eww open bar
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(thunar)$
@@ -78,16 +79,16 @@ in
     windowrule = float,^(pavucontrol)$
     windowrule = move 100%-412 52,^(pavucontrol)$
     windowrule = size 400 560,^(pavucontrol)$
-    windowrule = animation slide,^(pavucontrol)$ # sets the animation style for kitty
+    windowrule = animation slide,^(pavucontrol)$
 
     windowrule = float,^(Plexamp)$
     windowrule = move 100%-412 52,title:^(Plexamp)$
     windowrule = size 400 560,title:^(Plexamp)$
-    windowrule = animation slide,^(Plexamp)$ # sets the animation style for kitty
+    windowrule = animation slide,^(Plexamp)$
 
     windowrule = float,title:^(nmtui-connect)$
     windowrule = move 100%-412 52,title:^(nmtui-connect)$
-    windowrule = size 200 360,^(nmtui-connect)$
+    windowrule = size 100 160,^(nmtui-connect)$
     windowrule = animation slide,title:^(nmtui-connect)$ # sets the animation style for kitty
 
     # Some default env vars.
@@ -122,8 +123,6 @@ in
     }
 
     decoration {
-        # See https://wiki.hyprland.org/Configuring/Variables/ for more
-
         rounding = 5
         drop_shadow = yes
         shadow_range = 4
@@ -174,7 +173,7 @@ in
     # Example per-device config
     # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
     device:epic-mouse-v1 {
-        sensitivity = -0.5
+        sensitivity = 0
     }
 
     # Example windowrule v1
@@ -203,6 +202,7 @@ in
     bind = $mainMod, L, exec, bash -c "swaylock"
     bind = $mainMod, P, pseudo, # dwindle
     bind = $mainMod, Q, exec, kitty
+    bind = $mainMod SHIFT, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else rofi -show run; fi"
     bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else rofi -show drun; fi"
     bind = $mainMod, R, exec, hyprctl dispatch focuswindow ^(Rofi)$
     bind = CTRL ALT, Delete, exit
@@ -250,6 +250,9 @@ in
     bind = $mainMod SHIFT, 9, movetoworkspace, 9
     bind = $mainMod SHIFT, 0, movetoworkspace, 10
 
+    # Minimize
+    bind = $mainMod, m, exec, $HOME/.local/bin/bash/minimize
+
     # Scroll through existing workspaces with mainMod + scroll
     bind = $mainMod, mouse_down, workspace, e+1
     bind = $mainMod, mouse_up, workspace, e-1
@@ -295,7 +298,6 @@ in
     executable = true;
   };
 
-
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
@@ -314,10 +316,16 @@ in
     profiles."Work" = {};
   };
 
+  services = {
+    dunst.enable = true;
+  };
+
   home.packages = with pkgs; [
     acpi
     aircrack-ng
+    bluez
     discord
+    dmenu
     eww-wayland
     grim
     hyperion-ng
@@ -327,17 +335,22 @@ in
     jq
     keepassxc
     keeweb
-    libnotify
+    networkmanager_dmenu
     pamixer
     pavucontrol
     playerctl
     plex-media-player
     plexamp
+    redshift
     slack
     slurp
     socat
     swaynotificationcenter
     viewnior
     wireshark
+    wlsunset
+    wpgtk
+    xdo
+    xdotool
   ];
 }

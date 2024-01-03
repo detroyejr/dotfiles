@@ -1,0 +1,258 @@
+(defwidget user []
+  (box :class "userinfobox"
+       :orientation "h"
+       :space-evenly true
+    (box :class "info"
+         :space-evenly false
+         :orientation "h"
+         :halign "start"
+         :valign "center"
+         :spacing 10
+      (label :text "${username}" :class "username")
+    )
+    (box :class "useractions"
+         :space-evenly false
+         :orientation "h"
+         :halign "end"
+         :valign "center"
+      (button :class "logout" :onclick "hyprctl dispatch exit"
+        "󰍃"
+      )
+    )
+  )
+)
+
+(defwidget sysbuttons []
+  (box :class "sysbuttonsbox"
+       :orientation "v"
+       :space-evenly false
+       :spacing 8
+    (box :class "firstrow"
+         :orientation "h"
+         :space-evenly true
+         :spacing 8
+      (box :halign "start"
+           :orientation "h"
+           :space-evenly true
+        (sysblock
+        :icon "${network_icon}"
+        :onclick "~/.config/eww/scripts/network.sh toggle-radio"
+        :onrightclick "kitty --name nmtui-connect --detatch nmtui-connect"
+        :active "${network_status == 'Connected' ? true : false}"
+        :label "${network_ssid}"
+        )
+      )
+      (box :halign "end"
+           :orientation "h"
+           :space-evenly true
+        (sysblock :icon "${bluetooth_state == 'on' ? '' : '󰂲'}"
+                  :onclick "~/.config/eww/scripts/bluetooth toggle"
+                  :active "${bluetooth_state == 'on' ? true : false}"
+                  :label "Bluetooth")
+      )
+    )
+    (box :class "lastrow"
+         :orientation "h"
+         :space-evenly true
+      (box :halign "start"
+           :orientation "h"
+           :space-evenly true
+        (sysblock :icon "${sunset_state == 'on' ? '' : sunset_state == 'scheduled' ? '' : ''}"
+                  :onclick "~/.config/eww/scripts/sunset toggle"
+                  :active "${sunset_state}"
+                  :label "Night Light")
+      )
+      (box :halign "end"
+           :orientation "h"
+           :space-evenly true
+        (sysblock :icon "${mic_status == 'yes' ? '󰍬' : ''}"
+                  :label "Micro"
+                  :onclick "~/.config/eww/scripts/mic toggle"
+                  :active "${mic_status == 'yes' ? true : false}"
+                  )
+      )
+    )
+  )
+)
+
+(defwidget sysblock [icon onclick active label]
+  (box :class "block-container"
+       :orientation "h"
+       :space-evenly true
+       :spacing 1
+    (button :class "block ${
+        active == 'on' ? 'active' :
+          active == 'scheduled' ? 'active' :
+            active == 'off' ? '' :
+              active ? 'active' : ''
+            }" :onclick "${onclick}"
+      (box :orientation "h"
+            :spacing 1
+           :valign "start"
+           :space-evenly false
+            (box :class "iconbox"
+                 :halign "start"
+                 :valign "center"
+                 :space-evenly true
+                 :orientation "h"
+              (label :text "${icon}" :class "icon")
+            )
+            (box :class "labelbox"
+                 :halign "start"
+                 :valign "start"
+                 :orientation "v"
+              (label :halign "center" :text "${label}" :class "label")
+              (label :halign "start"
+                :text "${
+                  active == 'scheduled' ? "Scheduled" :
+                    active == 'on' ? 'On' :
+                      active == 'off' ? 'Off' :
+                        active ? 'On' : 'Off'}"
+                :class "label__status")
+           )
+        (box :class "chevronbox"
+             :halign "end"
+             :hexpand true
+             :valign "center"
+             :space-evenly false
+             :orientation "h"
+          (label :halign "end" :text "")
+        )
+      )
+    )
+  )
+)
+
+(defwidget music [album title image_accent button_accent button_text cover artist player]
+  (box :class "musicbox"
+       :orientation "v"
+       :style "background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 30%, ${image_accent}), url(\"${cover}\"); background-size: contain; background-repeat: no-repeat; background-position: center;"
+  (box :class "musicbox__top"
+       :halign "start"
+       :valign "start"
+       :style "color: ${button_accent};"
+       "${player == 'plexamp' ? '󰚺' : '' }")
+  (box :class "musicbox__center"
+       :orientation "h"
+       :space-evenly false
+       (box :class "musicbox__center--metadata"
+            :orientation "v"
+            :halign "start"
+            :valign "center"
+            :hexpand true
+            (label :limit-width 25 :halign "start" :text title :class "title")
+            (label :limit-width 25 :halign "start" :text artist :class "artist"))
+       (button :class "pausebutton ${music_status == 'Playing' ? 'playing' : 'paused'}"
+               :halign "end"
+               :style "background-color: ${button_accent}; color: ${button_text};"
+               :onclick "~/.config/eww/scripts/music/control.sh play-pause"
+               "${music_status == 'Playing' ? '' : ''}")
+       )
+  (box :class "musicbox__bottom"
+               :style "color: ${button_accent};"
+       (button :valign "end"
+               :halign "start"
+               :onclick "~/.config/eww/scripts/music/control.sh prev"
+               :class "previousbutton"
+               "󰒮"
+       )
+       (button :valign "end"
+               :halign "end"
+               :onclick "~/.config/eww/scripts/music/control.sh next"
+               :class "nextbutton"
+               "󰒭"))))
+
+(defwidget controls []
+  (box :class "controlsbox"
+       :orientation "v"
+       :space-evenly false
+       :spacing 16
+    (box :orientation "h"
+         :space-evenly "false"
+         :class "slider active"
+      (box :class "label"
+            volume_icon
+      )
+      (scale :value volume_value
+             :hexpand true
+             :onchange "~/.config/eww/scripts/volume.sh set {}"
+             :min 0
+             :max 101)
+      (box :class "scale-label"
+           "${volume_value}%")
+    )
+    (box :orientation "h"
+         :space-evenly "false"
+         :class "slider active"
+      (box :class "label"
+            br_icon
+      )
+      (scale
+             :hexpand true
+             :value br
+             :onchange "brightnessctl set {}%"
+             :min 0
+             :max 101)
+      (box :class "scale-label"
+             :halign "start"
+           "${br}%")
+    )
+    (box :class "slider"
+         :orientation "h"
+         :space-evenly "false"
+      (box :class "label"
+            "")
+      (scale :value ram
+             :hexpand true
+             :active false
+             :min 0
+             :max 101)
+      (box :class "scale-label "
+           "${ram}%"
+           )
+    )
+    (box :class "slider"
+         :orientation "h"
+         :space-evenly "false"
+      (box :class "label"
+           "")
+      (scale :value cpu
+             :hexpand true
+             :active false
+             :min 0
+             :max 101)
+      (box :class "scale-label"
+           "${cpu}%")
+    )
+  )
+)
+
+
+(defwidget actions []
+  (box :class "actions"
+       :orientation "v"
+       :space-evenly false
+       :spacing 10
+    (user)
+    (sysbuttons)
+    (music :album { music_album }
+           :title { music_title }
+           :image_accent { image_accent }
+           :button_accent { button_accent }
+           :button_text { button_text }
+           :cover { music_cover }
+           :artist { music_artist }
+           :player { music_player })
+    (controls)
+  )
+)
+
+(defwindow actions
+  :monitor 0
+  :geometry (geometry :x "5%"
+                      :y "0%"
+                      :width "30%"
+                      :anchor "top right")
+  :type "dock"
+  :stacking "fg"
+  (actions))

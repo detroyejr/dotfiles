@@ -1,0 +1,144 @@
+(include "./bar/widgets/_powermenu.yuck")
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0px"
+                      :y "10px"
+                      :width "90%"
+                      :height "45px"
+                      :anchor "top center")
+  :stacking "bg"
+  :reserve (struts :distance "52px" :side "top")
+  :exclusive true
+  (bar))
+
+(defwidget bar []
+  (box :class "bar"
+       :orientation "h"
+    (left)
+    (center)
+    (right)
+  )
+)
+
+(defwidget left []
+  (box :orientation "h"
+       :space-evenly "false"
+       :spacing 10
+       :halign "start"
+       :class "left"
+    (launcher)
+    (workspaces)
+    {xdo}
+  )
+)
+
+(defwidget center []
+  (box :class "center-widgets"
+       :space-evenly "false"
+       :halign "center"
+       :orientation "h"
+    (window_name)
+  )
+)
+
+(defwidget right []
+  (box :class "right-modules"
+       :space-evenly "false"
+       :halign "end"
+       :spacing 15
+       :orientation "h"
+    (actionsbox)
+    (battery)
+    (datebox)
+    (powermenu)
+  )
+)
+
+(defwidget workspaces []
+(eventbox
+  :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}"
+  :class "workspaces"
+  (box :space-evenly true
+       :class "workspaces"
+       :orientation "h"
+       :space-evenly false
+       :halign "start"
+       :valign "center"
+       :spacing 15
+    (label :text "${workspaces}${current_workspace}" :visible false)
+    (for workspace in workspaces
+      (eventbox :class "workspaces" :onclick "hyprctl dispatch workspace ${workspace.id}"
+        (box :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+          (label :text "")
+          )
+        )
+      )
+    )
+  )
+)
+
+(defwidget launcher[]
+  (box :orientation "h"
+       :class "launcher"
+       :tooltip "Launch apps"
+    (button :class "dispatcher" :onclick "bash ~/.config/eww/scripts/launcher" "󰍜")
+  )
+)
+
+(defwidget window_name []
+  (box :class "window"
+    (label :text window :valign "center")
+  ))
+
+
+(defwidget sep []
+  (label :class "sep" :text "")
+)
+
+(defwidget datebox []
+  (box :orientation "h"
+       :class "date-box"
+       :space-evenly "false"
+    (label :text dateval :class "content")
+    (sep)
+  )
+)
+
+(defpoll dateval :interval "1s" "scripts/getDate")
+
+(defwidget powermenu []
+  (box :orientation "h"
+       :space-evenly "false"
+       :class "powermenu-box"
+    (button :class "dispatcher"
+            :tooltip "Toggle Power Menu"
+            :onclick "bash -c 'hyprctl dispatch exec \"rofi -show p -modi p:rofi-power-menu\"'"
+            "⏻")
+  )
+)
+
+(defwidget actionsbox []
+    (button :class "actionsbox" 
+            :onclick "sleep 0.1; eww -c ~/.config/eww open --toggle actions"
+      (box  :orientation "h"
+            :space-evenly false
+            :spacing 10
+        (label :text "${network_icon}" :style "margin-right: ${network_status == 'Connected' ? '3px' : '0px'};")
+        (label :text "${network_radio == 'on' ? '' : ''}")
+        (label :text "${volume_icon}" :style "margin-right: 3px;")
+        (label :text "${bluetooth_state == 'on' ? '' : ''}")
+        (label :text "${mic_status == 'yes' ? '󰍮' : ''}" :style "margin-left: -2px;")
+    )
+  )
+)
+
+(defwidget battery []
+  (box :class "battery__box"
+       :spacing 6
+  (label :class "battery__box_icon" :text "${battery_icon}")
+  (label :valign "center" :class "battery__box_percent" :text "${battery}%"))
+)
+
+
