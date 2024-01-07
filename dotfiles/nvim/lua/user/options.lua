@@ -1,8 +1,8 @@
 -- Location of the spellfile.
 if vim.fn.has("win32") ~= 1 then
-  -- Set colorscheme for unix.
+  -- Set colorscheme for linux.
   require("user.colorscheme")
-  
+
   SpellFile = "/.config/dotfiles/dotfiles/nvim/spell/en.utf-8.add"
   if not os.rename(SpellFile, SpellFile) then
     SpellFile = vim.opt.spellfile
@@ -75,7 +75,7 @@ vim.cmd([[
 
   " terminal
   " autocmd BufWinEnter,WinEnter term://* startinsert
-  
+
   set iskeyword+=-
   set path+=**
   set whichwrap+=<,>,[,],h,l

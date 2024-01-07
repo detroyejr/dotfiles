@@ -20,6 +20,7 @@
 
   networking.hostName = "Surface-NixOS"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.firewall.checkReversePath = false; 
 
   xdg.portal.config.common.default = "*";
   services = {
@@ -47,6 +48,7 @@
     pulseaudio.enable = true;
     opengl = {
       enable = true;
+      driSupport32Bit = true;
       extraPackages = with pkgs; [
         intel-media-driver
         vaapiIntel

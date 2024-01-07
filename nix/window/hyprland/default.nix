@@ -1,29 +1,28 @@
 { config, pkgs, lib, fetchFromGitHub, colorScheme, wallpaper, ... }:
 let
-    chromium = pkgs.makeDesktopItem {
-      name = "chromium";
-      desktopName = "Chromium (web browser)";
-      exec = "${pkgs.chromium}/bin/chromium --ozone-platform-hint=auto";
-    };
+  chromium = pkgs.makeDesktopItem {
+    name = "chromium";
+    desktopName = "Chromium (web browser)";
+    exec = "${pkgs.chromium}/bin/chromium --ozone-platform-hint=auto";
+  };
 
-    slack = pkgs.makeDesktopItem {
-      name = "slack";
-      desktopName = "slack";
-      exec = "${pkgs.slack}/bin/slack --enable-features=WaylandWindowDecorations,WebRTCPipeWireCapturer --ozone-platform-hint=auto --ozone-platform=wayland -s %U";
-    };
+  slack = pkgs.makeDesktopItem {
+    name = "slack";
+    desktopName = "slack";
+    exec = "${pkgs.slack}/bin/slack --enable-features=WaylandWindowDecorations,WebRTCPipeWireCapturer --ozone-platform-hint=auto --ozone-platform=wayland -s %U";
+  };
 
-    plexamp = pkgs.makeDesktopItem {
-      name = "plexamp";
-      desktopName = "plexamp";
-      exec = "${pkgs.plexamp}/bin/plexamp --ozone-platform-hint=auto";
-    };
+  plexamp = pkgs.makeDesktopItem {
+    name = "plexamp";
+    desktopName = "plexamp";
+    exec = "${pkgs.plexamp}/bin/plexamp --ozone-platform-hint=auto";
+  };
 
-    plex-media-player = pkgs.makeDesktopItem {
-      name = "plex";
-      desktopName = "Plex Media Player (Media Player)";
-      exec = "${pkgs.plex-media-player}/bin/plexmediaplayer --ozone-platform-hint=auto";
-    };
-
+  plex-media-player = pkgs.makeDesktopItem {
+    name = "plex";
+    desktopName = "Plex Media Player (Media Player)";
+    exec = "${pkgs.plex-media-player}/bin/plexmediaplayer --ozone-platform-hint=auto";
+  };
 in
 {
   imports = [
@@ -35,14 +34,8 @@ in
     ./swaylock.nix
   ];
 
- home.sessionVariables = {
-    BROWSER = "firefox";
-    EDITOR = "nvim";
+  home.sessionVariables = {
     GDK_BACKEND = "wayland";
-    MOZ_ENABLE_WAYLAND = "1";
-    QT_QPA_PLATFORM = "wayland;xcb";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
-    TERMINAL = "kitty";
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
@@ -63,11 +56,17 @@ in
     }
 
     # toolkit-specific scale
+    env = BROWSER,firefox;
+    env = EDITOR,nvim;
     env = GDK_SCALE,2
-    env = XCURSOR_SIZE,32
-    env = QT_AUTO_SCREEN_SCALE_FACTOR,1
-    env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
+    env = MOZ_ENABLE_WAYLAND,1;
     env = NIXOS_OZONE_WL,1
+    env = QT_QPA_PLATFORM,wayland;xcb;
+    env = QT_QPA_PLATFORMTHEME,qt5ct;
+    env = QT_AUTO_SCALE_SCREEN_FACTOR,1
+    env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
+    env = TERMINAL,kitty;
+    env = XCURSOR_SIZE,32
 
     exec-once = hyprctl dispatch dpms on
     exec-once = disable-laptop & swaylock & hyprpaper & dunst & eww open bar
@@ -91,10 +90,6 @@ in
     windowrule = size 100 160,^(nmtui-connect)$
     windowrule = animation slide,title:^(nmtui-connect)$ # sets the animation style for kitty
 
-    # Some default env vars.
-    env = XCURSOR_SIZE,24
-
-
     # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
     input {
         kb_layout = us
@@ -117,8 +112,8 @@ in
         gaps_in = 4
         gaps_out = 8
         border_size = 2
-        col.active_border = rgba(${base04}66)
-        col.inactive_border = rgb(${base00})
+        col.active_border = rgba(${color7}66)
+        col.inactive_border = rgb(${color0})
         layout = dwindle
     }
 
@@ -127,7 +122,7 @@ in
         drop_shadow = yes
         shadow_range = 4
         shadow_render_power = 3
-        col.shadow = rgba(${base04}ee)
+        col.shadow = rgba(${color7}ee)
         dim_inactive = false
     }
 
@@ -275,10 +270,9 @@ in
   '';
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
-    preload = /home/detroyejr/.config/dotfiles/assets/wallpaper.jpg
-    preload = /home/detroyejr/.config/dotfiles/assets/light-wallpaper.png
+    preload = ${wallpaper}
 
-    wallpaper = DP-3,${wallpaper}    
+    wallpaper = DP-3,${wallpaper}
     wallpaper = DP-4,${wallpaper}
     wallpaper = DP-5,${wallpaper}
     wallpaper = eDP-1,${wallpaper}
@@ -313,7 +307,7 @@ in
     profiles."Personal" = {
       isDefault = true;
     };
-    profiles."Work" = {};
+    profiles."Work" = { };
   };
 
   services = {
@@ -336,6 +330,7 @@ in
     keepassxc
     keeweb
     networkmanager_dmenu
+    nomacs
     pamixer
     pavucontrol
     playerctl
@@ -347,6 +342,7 @@ in
     socat
     swaynotificationcenter
     viewnior
+    vlc
     wireshark
     wlsunset
     wpgtk

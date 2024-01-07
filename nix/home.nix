@@ -39,6 +39,7 @@
     nitch
     nixpkgs-fmt
     openssh
+    pywal
     ranger
     ripgrep
     tiny

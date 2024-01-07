@@ -24,6 +24,7 @@ local plugins = {
 	{ "nvim-lua/plenary.nvim" }, -- Useful lua functions used in lots of plugins
 	{ "nvim-lua/popup.nvim" }, -- An implementation of the Popup API from vim in Neovim
 	-- { "echasnovski/mini.nvim",     version = "*" },
+	{ 'echasnovski/mini.base16', version = false },
 	{
 		"numToStr/Comment.nvim",
 		opts = {

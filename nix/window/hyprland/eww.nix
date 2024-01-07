@@ -26,28 +26,36 @@
   '';
 
   home.file.".config/eww/colors.scss".text = with colorScheme.colors; ''
-    $bg: rgba($color: #${base00}, $alpha: 0.6);
-    $contrastbg: #${base00};
-    $bgSecondary: #${base00};
-    $bgCal: rgba($color: #${base00}, $alpha: 0.6);
-    $fg: #${base06};
-    $fgDim: #${base06};
+    $bg: rgba($color: #${color0}, $alpha: 0.6);
+    $contrastbg: #${color0};
+    $bgSecondary: #${color0};
+    $bgCal: rgba($color: #${color0}, $alpha: 0.6);
+    $fg: #${color7};
+    $fgDim: #${color7};
 
     // Aliases
     $background: $bg;
     $backgroundSecondary: $bgSecondary;
     $foreground: $fg;
     $foregroundDim: $fgDim;
-    $accent: #${base08};
+    $accent: #${color1};
 
-    $yellow: #${base0A};
-    $green: #${base0B};
-    $cyan: #${base0C};
-    $blue: #${base0D};
-    $magenta: #${base0E};
-    $purple: #${base0F};
-    $black: #${base03};
-    $red: #${base08};
+    $yellow: #${color3};
+    $green: #${color2};
+    $cyan: #${color4};
+    $blue: #${color12};
+    $magenta: #${color14};
+    $purple: #${color5};
+    $black: #${color0};
+    $red: #${color1};
+  '';
+
+  home.file.".config/eww/default_colors.json".text = with colorScheme.colors; ''
+    { 
+      "image_accent": "#${color1}",
+      "button_accent": "#${color1}",
+      "button_text": "#${color1}",
+    }
   '';
 }
 

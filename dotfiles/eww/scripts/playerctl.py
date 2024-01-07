@@ -19,11 +19,10 @@ def get_material_you_colors(image_path: str, element: str) -> dict:
     Returns:
         A dict of image accent color, button accent color and button text color eg: {'image_accent': '#292929', 'button_accent': '#BEBFC1', 'button_text': '#292929'}
     """
-    defaults = {
-        "image_accent": "#292929",
-        "button_accent": "#BEBFC1",
-        "button_text": "#292929",
-    }
+
+    defaults = json.load(
+        open("/home/detroyejr/.config/eww/default_colors.json")
+    )
 
     if image_path == "No players found":
         return defaults[element]
