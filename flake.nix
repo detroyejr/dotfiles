@@ -37,6 +37,28 @@
           ./nix/dev
         ];
       };
+      
+      nixosConfigurations.xps = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          nixos-hardware.nixosModules.dell-xps-15-9520
+          ./nixos/xps/configuration.nix
+          hyprland.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit nix-colors colorSchemeName colorScheme wallpaper hyprland; };
+            home-manager.users.detroyejr = {
+              imports = [
+                ./nix/home.nix
+                #./nix/dev
+                ./nix/window/hyprland
+              ];
+            };
+          }
+        ];
+      };
 
       nixosConfigurations.surface = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
