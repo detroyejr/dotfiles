@@ -44,11 +44,8 @@ in
   home.file.".config/hypr/hyprland.conf".text = with colorScheme.colors; ''
     # change monitor to high resolution, the last argument is the scale factor
     monitor=eDP-1,preferred,auto,2
-    monitor=DP-4,highres,auto,1
+    monitor=,highres,auto,1
 
-    # Lid actions
-    bindl = , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"
-    bindl = , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1,preferred,auto,2,mirror,"
 
     # unscale XWayland
     xwayland {
@@ -68,8 +65,8 @@ in
     env = TERMINAL,kitty;
     env = XCURSOR_SIZE,32
 
-    exec-once = hyprctl dispatch dpms on
-    exec-once = disable-laptop & swaylock & hyprpaper & dunst & eww open bar
+    exec-once = hyprctl dispatch dpms on &
+    exec-once = kanshi & swaylock & hyprpaper & dunst & eww open bar &
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(thunar)$
@@ -185,6 +182,7 @@ in
 
     # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
     bind = $mainMod CTRL, S, exec, grim -g "$(slurp)"
+    bind = $mainMod CTRL, P, exec, hyprpicker | wl-copy
     bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @joplinapp-desk > /dev/null; then kill $(pgrep -x  @joplinapp-desk | paste -sd ' '); else joplin-desktop; fi"
     bind = $mainMod SHIFT, K, exec, bash -c "if pgrep -x .keepassxc-wrap > /dev/null; then kill $(pgrep -x .keepassxc-wrap); else keepassxc; fi"
     bind = $mainMod, C, killactive,
@@ -312,6 +310,33 @@ in
 
   services = {
     dunst.enable = true;
+    kanshi = {
+      enable = true;
+      systemdTarget = "hyprland-session.target";
+      profiles = {
+        undocked = {
+          outputs = [
+            {
+              criteria = "eDP-1";
+              status = "enable";
+            }
+          ];
+        };
+        docked = {
+          outputs = [
+            {
+              criteria = "Samsung Electric Company S24F350 H4ZM900001";
+              mode = "1920x1080@59.96";
+              status = "enable";
+            }
+            {
+              criteria = "eDP-1";
+              status = "disable";
+            }
+          ];
+        };
+      };
+    };
   };
 
   home.packages = with pkgs; [
@@ -324,9 +349,11 @@ in
     grim
     hyperion-ng
     hyprpaper
+    hyprpicker
     joplin
     joplin-desktop
     jq
+    kanshi
     keepassxc
     keeweb
     networkmanager_dmenu
@@ -345,7 +372,9 @@ in
     vlc
     wireshark
     wlsunset
+    wlr-randr
     wpgtk
+    colorz
     xdo
     xdotool
   ];

@@ -38,7 +38,7 @@
     $backgroundSecondary: $bgSecondary;
     $foreground: $fg;
     $foregroundDim: $fgDim;
-    $accent: #${color1};
+    $accent: #${color4};
 
     $yellow: #${color3};
     $green: #${color2};
@@ -52,9 +52,9 @@
 
   home.file.".config/eww/default_colors.json".text = with colorScheme.colors; ''
     { 
-      "image_accent": "#${color1}",
-      "button_accent": "#${color1}",
-      "button_text": "#${color1}",
+      "image_accent": "#${color13}",
+      "button_accent": "#${color13}",
+      "button_text": "#${color13}",
     }
   '';
 }
