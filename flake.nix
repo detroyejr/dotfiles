@@ -42,6 +42,7 @@
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.dell-xps-15-9520
+          nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
           ./nixos/xps/configuration.nix
           hyprland.nixosModules.default
           home-manager.nixosModules.home-manager
@@ -52,7 +53,7 @@
             home-manager.users.detroyejr = {
               imports = [
                 ./nix/home.nix
-                #./nix/dev
+                ./nix/dev
                 ./nix/window/hyprland
               ];
             };

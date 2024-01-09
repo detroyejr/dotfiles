@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-bat=/sys/class/power_supply/BAT1/
+folder=/sys/class/power_supply
+[ -d "${folder}/BAT0" ] && bat="${folder}/BAT0" || bat="${folder}/BAT1"
 per="$(cat "$bat/capacity")"
 
 icon() {

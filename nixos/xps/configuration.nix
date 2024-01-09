@@ -6,23 +6,24 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../default.nix
+      ../../modules/fonts
+      ../../modules/brightness
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  
+
   nixpkgs.config.allowUnfree = true;
 
   networking.hostName = "XPS-Nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-  # Set your time zone.
-  time.timeZone = "US/New_York";
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -40,7 +41,7 @@
   # services.xserver.enable = true;
 
 
-  
+
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -76,12 +77,6 @@
     pulseaudio.enable = true;
     nvidia = {
       modesetting.enable = true;
-      prime = {
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
-      };
-      open = false;
-      nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
     opengl = {
@@ -97,6 +92,7 @@
     extraGroups = [ "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     packages = with pkgs; [
+      git
       docker
       virtiofsd
     ];
@@ -173,6 +169,56 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  systemd.services.onedrive = {
+    path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
+    script = ''
+      FILE=/root/.config/rclone/rclone.conf
+      mkdir -p /home/detroyejr/OneDrive/
+      if test -f $FILE; then
+        sleep 20
+        ${pkgs.rclone}/bin/rclone mount \
+          --vfs-cache-mode full \
+          --vfs-cache-max-size 20G \
+          --dir-cache-time 48h0m0s \
+          --default-permissions \
+          --log-level INFO \
+          --log-file /tmp/rclone-onedrive.log \
+          --umask 022 \
+          --uid 1000 \
+          --gid 1000 \
+          --allow-other \
+          --config=$FILE \
+          "OneDrive:" "/home/detroyejr/OneDrive/"
+      fi
+    '';
+    wantedBy = [ "multi-user.target" ];
+  };
+
+  systemd.services.google_drive = {
+    path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
+    script = ''
+      FILE=/root/.config/rclone/rclone.conf
+      mkdir -p "/home/detroyejr/Google Drive"
+      if test -f $FILE; then
+        sleep 20
+        ${pkgs.rclone}/bin/rclone mount \
+          --vfs-cache-mode full \
+          --vfs-cache-max-size 30G \
+          --dir-cache-time 48h0m0s \
+          --default-permissions \
+          --log-level INFO \
+          --log-file /tmp/rclone-google.log \
+          --umask 022 \
+          --uid 1000 \
+          --gid 1000 \
+          --allow-other \
+          --config=$FILE \
+          "Google Drive:" "/home/detroyejr/Google Drive/"
+      fi
+    '';
+    wantedBy = [ "multi-user.target" ];
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

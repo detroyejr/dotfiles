@@ -46,7 +46,6 @@ in
     monitor=eDP-1,preferred,auto,2
     monitor=,highres,auto,1
 
-
     # unscale XWayland
     xwayland {
       force_zero_scaling = true
@@ -273,6 +272,7 @@ in
     wallpaper = DP-3,${wallpaper}
     wallpaper = DP-4,${wallpaper}
     wallpaper = DP-5,${wallpaper}
+    wallpaper = DP-7,${wallpaper}
     wallpaper = eDP-1,${wallpaper}
   '';
 
@@ -370,6 +370,7 @@ in
     swaynotificationcenter
     viewnior
     vlc
+    steam
     wireshark
     wlsunset
     wlr-randr
