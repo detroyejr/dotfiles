@@ -89,8 +89,10 @@
     dislocker
     efibootmgr
     gcc
+    parted
     rclone
     sbctl
+    usbutils
     wget
     wl-clipboard
   ];
