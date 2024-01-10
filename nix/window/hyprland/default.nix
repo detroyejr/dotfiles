@@ -356,6 +356,7 @@ in
     kanshi
     keepassxc
     keeweb
+    lutris
     networkmanager_dmenu
     nomacs
     pamixer
@@ -370,7 +371,8 @@ in
     swaynotificationcenter
     viewnior
     vlc
-    steam
+    winetricks
+    wineWowPackages.waylandFull
     wireshark
     wlsunset
     wlr-randr
