@@ -61,14 +61,15 @@
     enableCompletion = true;
     enableAutosuggestions = true;
     shellAliases = {
-      ls = "lsd --color=never";
-      ll = "lsd --color=never -l";
-      st = "set-title";
-      tf = "tmux-fzf";
       k = "kubectl";
+      ll = "lsd --color=never -l";
+      ls = "lsd --color=never";
       pwsh = "pwsh.exe";
       ranger = "ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd \"$LASTDIR\"";
       ssh = "TERM=xterm-256color ssh";
+      st = "set-title";
+      tf = "tmux-fzf";
+      vim = "nvim";
     };
     plugins = [
       {
