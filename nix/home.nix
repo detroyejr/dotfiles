@@ -7,6 +7,13 @@
   home.username = "detroyejr";
   home.homeDirectory = "/home/detroyejr";
 
+  # Disable during Source Hut outage.
+  manual = {
+    manpages.enable = false;
+    html.enable = false;
+    json.enable = false;
+  };
+
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     audible-cli
