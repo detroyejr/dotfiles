@@ -64,6 +64,8 @@ in
     env = TERMINAL,kitty;
     env = XCURSOR_SIZE,32
 
+    exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+
     exec-once = hyprctl dispatch dpms on &
     exec-once = swaylock & hyprpaper & dunst & eww open bar &
     exec-once = kanshi &
@@ -362,6 +364,7 @@ in
     lutris
     networkmanager_dmenu
     nomacs
+    obs-studio
     pamixer
     pavucontrol
     pcmanfm
@@ -377,6 +380,7 @@ in
     vlc
     wineWowPackages.waylandFull
     winetricks
+    wireplumber
     wireshark
     wlr-randr
     wlsunset

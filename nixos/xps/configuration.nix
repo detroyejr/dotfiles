@@ -55,6 +55,15 @@
     gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
     tumbler.enable = true;
+    pipewire = {
+      enable = true;
+      alsa = { 
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+      jack.enable = true;
+    };
     xserver = {
       enable = true;
       displayManager.autoLogin.enable = true;
@@ -71,10 +80,10 @@
     };
   };
 
-  sound.enable = true;
+  sound.enable = false;
   hardware = {
     bluetooth.enable = true;
-    pulseaudio.enable = true;
+    pulseaudio.enable = false;
     nvidia = {
       modesetting.enable = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -95,6 +104,8 @@
       git
       docker
       virtiofsd
+      pulseaudioFull
+      alsa-utils
     ];
   };
 
@@ -115,8 +126,10 @@
     dislocker
     efibootmgr
     gcc
+    parted
     rclone
     sbctl
+    usbutils
     wget
     wl-clipboard
   ];

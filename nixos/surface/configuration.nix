@@ -27,6 +27,15 @@
     gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
     tumbler.enable = true;
+    pipewire = {
+      enable = true;
+      alsa = { 
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+      jack.enable = true;
+    };
     xserver = {
       enable = true;
       displayManager.autoLogin.enable = true;
@@ -42,10 +51,10 @@
     };
   };
 
-  sound.enable = true;
+  sound.enable = false;
   hardware = {
     bluetooth.enable = true;
-    pulseaudio.enable = true;
+    pulseaudio.enable = false;
     opengl = {
       enable = true;
       driSupport32Bit = true;
@@ -66,6 +75,8 @@
     packages = with pkgs; [
       docker
       virtiofsd
+      pulseaudioFull
+      alsa-utils
     ];
   };
 
