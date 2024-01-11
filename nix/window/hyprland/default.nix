@@ -69,8 +69,9 @@ in
     exec-once = kanshi &
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
-    windowrule = float,^(thunar)$
-    windowrule = size 40% 40%,^(thunar)$
+    windowrule = float,^(pcmanfm)$
+    windowrule = center,^(pcmanfm)$
+    windowrule = size 70% 70%,^(pcmanfm)$
 
     windowrule = float,^(pavucontrol)$
     windowrule = move 100%-412 52,^(pavucontrol)$
@@ -186,7 +187,7 @@ in
     bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @joplinapp-desk > /dev/null; then kill $(pgrep -x  @joplinapp-desk | paste -sd ' '); else joplin-desktop; fi"
     bind = $mainMod SHIFT, K, exec, bash -c "if pgrep -x .keepassxc-wrap > /dev/null; then kill $(pgrep -x .keepassxc-wrap); else keepassxc; fi"
     bind = $mainMod, C, killactive,
-    bind = $mainMod, E, exec, thunar
+    bind = $mainMod, E, exec, pcmanfm
     bind = $mainMod, F, togglefloating,
     bind = $mainMod, F, centerwindow
     bind = $mainMod, F, resizeactive, exact 1000 800
@@ -344,6 +345,7 @@ in
     acpi
     aircrack-ng
     bluez
+    colorz
     discord
     dmenu
     eww-wayland
@@ -362,6 +364,7 @@ in
     nomacs
     pamixer
     pavucontrol
+    pcmanfm
     playerctl
     plex-media-player
     plexamp
@@ -372,13 +375,12 @@ in
     swaynotificationcenter
     viewnior
     vlc
-    winetricks
     wineWowPackages.waylandFull
+    winetricks
     wireshark
-    wlsunset
     wlr-randr
+    wlsunset
     wpgtk
-    colorz
     xdo
     xdotool
   ];

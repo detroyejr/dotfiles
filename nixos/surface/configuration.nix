@@ -71,10 +71,6 @@
 
   # Recent change. Adding this prevents errors.
   programs = {
-    thunar = {
-      enable = true;
-      plugins = with pkgs; [ xfce.exo ];
-    };
     virt-manager.enable = true;
     zsh.enable = true;
     hyprland = {
