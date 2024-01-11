@@ -53,6 +53,7 @@
     unzip
     wget
     yt-dlp
+    xclip
     zsh-powerlevel10k
   ];
 
