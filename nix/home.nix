@@ -52,8 +52,6 @@
     tiny
     unzip
     wget
-    wl-clipboard
-    xclip
     yt-dlp
     zsh-powerlevel10k
   ];
