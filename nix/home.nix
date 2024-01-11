@@ -145,7 +145,6 @@
       # List of plugins.
       set -g @plugin 'jimeh/tmux-themepack'
       set -g @plugin 'christoomey/vim-tmux-navigator'
-      set -g @plugin 'tmux-plugins/tmux-resurrect'
       set -g @plugin 'tmux-plugins/tmux-sensible'
       set -g @plugin 'tmux-plugins/tmux-yank'
       set -g @plugin 'tmux-plugins/tpm'

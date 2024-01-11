@@ -1,112 +1,28 @@
 {
   nightfox-custom = {
     colorSchemeName = "nightfox-custom";
-    wallpaper = "/home/detroyejr/.config/dotfiles/assets/wallpaper.jpg";
+    wallpaper = "/home/detroyejr/walls/architecture/ix4i6vjcsok91.png";
     colorScheme = {
       author = "Jonathan De Troye";
       name = "Nightfox";
       slug = "nightfox-custom";
       colors = {
-        color0 = "192330";
-        color1 = "c94f6d";
-        color2 = "29394f";
-        color3 = "575860";
-        color4 = "71839b";
-        color5 = "cdcecf";
-        color6 = "aeafb0";
-        color7 = "e4e4e5";
-        color8 = "212e3f";
-        color9 = "f4a261";
-        color10 = "dbc074";
-        color11 = "81b29a";
-        color12 = "63cdcf";
-        color13 = "719cd6";
-        color14 = "9d79d6";
-        color15 = "d67ad2";
-      };
-    };
-  };
-
-  calm-1 = {
-    colorSchemeName = "nightfox-custom";
-    wallpaper = "/home/detroyejr/.config/dotfiles/assets/walls/calm/3 - DhGgOp7.jpg";
-    colorScheme = {
-      author = "Jonathan De Troye";
-      name = "Nightfox";
-      slug = "nightfox-custom";
-      colors = {
-        color0 = "242a2c";
-        color1 = "C69D62";
-        color2 = "8D918B";
-        color3 = "9DA39A";
-        color4 = "B6BBB9";
-        color5 = "C1BEBA";
-        color6 = "BDC1BE";
-        color7 = "d6d8d7";
-        color8 = "959796";
-        color9 = "C69D62";
-        color10 = "8D918B";
-        color11 = "9DA39A";
-        color12 = "B6BBB9";
-        color13 = "C1BEBA";
-        color14 = "BDC1BE";
-        color15 = "d6d8d7";
-      };
-    };
-  };
-
-  nature-death-valley = {
-    colorSchemeName = "Nature Death Valley";
-    wallpaper = "/home/detroyejr/walls/nature/death_valley_jeremy_bishop.jpg";
-    colorScheme = {
-      author = "Jonathan De Troye";
-      name = "Nature Death Valley";
-      slug = "nature-death-valley";
-      colors = {
-        color0 = "111316";
-        color1 = "82593F";
-        color2 = "8D6752";
-        color3 = "916A56";
-        color4 = "9F8277";
-        color5 = "A9A6AD";
-        color6 = "C8B7B6";
-        color7 = "d3dee2";
-        color8 = "939b9e";
-        color9 = "82593F";
-        color10 = "8D6752";
-        color11 = "916A56";
-        color12 = "9F8277";
-        color13 = "A9A6AD";
-        color14 = "C8B7B6";
-        color15 = "d3dee2";
-      };
-    };
-  };
-
-  nature-lakeside = {
-    colorSchemeName = "Nature Death Valley";
-    wallpaper = "/home/detroyejr/walls/nature/wallhaven-rrpp6m.png";
-    colorScheme = {
-      author = "Jonathan De Troye";
-      name = "Nature Lakeside";
-      slug = "nature-lake-side";
-      colors = {
-        color0 = "100f0a";
-        color1 = "4E662E";
-        color2 = "546A58";
-        color3 = "7F7F77";
-        color4 = "678E4C";
-        color5 = "94A559";
-        color6 = "9EA7A9";
-        color7 = "d4d7d8";
-        color8 = "949697";
-        color9 = "4E662E";
-        color10 = "546A58";
-        color11 = "7F7F77";
-        color12 = "678E4C";
-        color13 = "94A559";
-        color14 = "9EA7A9";
-        color15 = "d4d7d8";
+        base00 = "192330";
+        base01 = "212e3f";
+        base02 = "29394f";
+        base03 = "575860";
+        base04 = "71839b";
+        base05 = "cdcecf";
+        base06 = "aeafb0";
+        base07 = "e4e4e5";
+        base08 = "c94f6d";
+        base09 = "f4a261";
+        base0A = "dbc074";
+        base0B = "81b29a";
+        base0C = "63cdcf";
+        base0D = "719cd6";
+        base0E = "9d79d6";
+        base0F = "d67ad2";
       };
     };
   };
@@ -119,22 +35,22 @@
       name = "NYC Sunset";
       slug = "nyc-sunset";
       colors = {
-        color0 = "0E0822";
-        color1 = "F56E4E";
-        color2 = "DF6566";
-        color3 = "FE8D3E";
-        color4 = "B36195";
-        color5 = "D27197";
-        color6 = "FE9160";
-        color7 = "f2bbbe";
-        color8 = "1e104b";
-        color9 = "ff8250";
-        color10 = "ff7e6f";
-        color11 = "ffb33b";
-        color12 = "fa6cc6";
-        color13 = "ff7dbf";
-        color14 = "ffb366";
-        color15 = "ffdee1";
+        base00 = "192330";
+        base01 = "212e3f";
+        base02 = "29394f";
+        base03 = "575860";
+        base04 = "71839b";
+        base05 = "cdcecf";
+        base06 = "aeafb0";
+        base07 = "e4e4e5";
+        base08 = "c94f6d";
+        base09 = "f4a261";
+        base0A = "dbc074";
+        base0B = "81b29a";
+        base0C = "63cdcf";
+        base0D = "719cd6";
+        base0E = "9d79d6";
+        base0F = "d67ad2";
       };
     };
   };
@@ -147,22 +63,22 @@
       name = "NYC Sunrise";
       slug = "nyc-sunrise";
       colors = {
-        color0 = "d5c0c0";
-        color1 = "cc7a76";
-        color2 = "b58d8d";
-        color3 = "cb8756";
-        color4 = "857481";
-        color5 = "a99999";
-        color6 = "c6957d";
-        color7 = "0d0d1d";
-        color8 = "bfabab";
-        color9 = "a13f29";
-        color10 = "913939";
-        color11 = "a85322";
-        color12 = "713559";
-        color13 = "88425c";
-        color14 = "b05842";
-        color15 = "010101";
+        base00 = "faf4ed";
+        base01 = "ebe0df";
+        base02 = "ebdfe4";
+        base03 = "5f5695";
+        base04 = "a8a3b3";
+        base05 = "575279";
+        base06 = "625c87";
+        base07 = "e6ebf3";
+        base08 = "b4637a";
+        base09 = "d7827e";
+        base0A = "ea9d34";
+        base0B = "618774";
+        base0C = "56949f";
+        base0D = "286983";
+        base0E = "907aa9";
+        base0F = "d685af";
       };
     };
   };

@@ -142,36 +142,36 @@
     }
 
     /* window#waybar {
-        background: #${color0};
+        background: #${base00};
         color: #ffffff;
     } */
 
     tooltip {
-        background: #${color0};
+        background: #${base00};
         border-width: 2px;
         border-style: solid;
-        border-color: #${color0};
+        border-color: #${base00};
     }
 
     #workspaces button {
         padding: 5px;
-        color: #${color6};
-        background: #${color0};
+        color: #${base06};
+        background: #${base00};
         margin-right: 5px;
     }
 
     #workspaces button.active {
-        color: #${color5};
+        color: #${base05};
     }
 
     #workspaces button.focused {
-        color: #${color6};
-        background: #${color0};
+        color: #${base06};
+        background: #${base00};
     }
 
     #workspaces button.urgent {
-        color: #${color6};
-        background: #${color0};
+        color: #${base06};
+        background: #${base00};
     }
 
     #battery,
@@ -185,14 +185,14 @@
     #window,
     #workspaces,
     #backlight {
-        background: #${color0};
+        background: #${base00};
         padding: 0px 10px;
         margin: 3px 0px;
     }
 
 
     #workspaces {
-        background: #${color0};
+        background: #${base00};
         margin-left: 10px;
         padding-right: 0px;
         padding-left: 5px;
@@ -204,40 +204,40 @@
     }
 
     #custom-clock {
-        color: #${color10};
+        color: #${base0A};
         margin-left: 5px;
         margin-right: 5px;
     }
     
     #custom-notifcation {
-        color: #${color10};
+        color: #${base0A};
         border-left: 0px;
         border-right: 0px;
     }
 
     #battery {
-        color: #${color11};
+        color: #${base0B};
         border-left: 0px;
         border-right: 0px;
     }
 
     #network {
-        color: #${color12};
+        color: #${base0C};
         border-left: 0px;
         border-right: 0px;
     }
 
     #pulseaudio {
-        color: #${color13};
+        color: #${base0D};
         border-left: 0px;
         border-right: 0px;
     }
     #pulseaudio.microphone {
-        color: #${color14};
+        color: #${base0E};
         margin-right: 5px;
     }
     #custom-power {
-        color: #${color7};
+        color: #${base0F};
         border-left: 0px;
         border-right: 0px;
         border-radius: 10px;
@@ -274,9 +274,9 @@
         line="''${line//\"/\\\"}"
         ((percentage = length ? (100 * (position % length)) / length : 0))
         case $playing in
-        ⏸️ | Paused) text='<span foreground=\"#${color13}\" size=\"smaller\">'"$line"'</span>' ;;
+        ⏸️ | Paused) text='<span foreground=\"#${base0D}\" size=\"smaller\">'"$line"'</span>' ;;
         ▶️ | Playing) text="<small>$line</small>" ;;
-        *) text='<span foreground=\"#${color14}\"></span>' ;;
+        *) text='<span foreground=\"#${base0E}\"></span>' ;;
         esac
 
         # integrations for other services (nwg-wrapper)

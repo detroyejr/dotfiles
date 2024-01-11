@@ -11,32 +11,32 @@
     -- stylua: ignore
     local palettes = {
       nightfox = {
-        black   = Shade.new("#${color0}", 0.15, -0.15),
-        red     = Shade.new("#${color1}", 0.15, -0.15),
-        green   = Shade.new("#${color2}", 0.10, -0.15),
-        yellow  = Shade.new("#${color3}", 0.15, -0.15),
-        blue    = Shade.new("#${color4}", 0.15, -0.15),
-        magenta = Shade.new("#${color5}", 0.30, -0.15),
-        cyan    = Shade.new("#${color6}", 0.15, -0.15),
-        white   = Shade.new("#${color7}", 0.15, -0.15),
-        orange  = Shade.new("#${color9}", 0.15, -0.15),
-        pink    = Shade.new("#${color13}", 0.15, -0.15),
+        black   = Shade.new("#${base00}", 0.15, -0.15),
+        red     = Shade.new("#${base08}", 0.15, -0.15),
+        green   = Shade.new("#${base0B}", 0.10, -0.15),
+        yellow  = Shade.new("#${base0A}", 0.15, -0.15),
+        blue    = Shade.new("#${base0D}", 0.15, -0.15),
+        magenta = Shade.new("#${base0E}", 0.30, -0.15),
+        cyan    = Shade.new("#${base0C}", 0.15, -0.15),
+        white   = Shade.new("#${base07}", 0.15, -0.15),
+        orange  = Shade.new("#${base09}", 0.15, -0.15),
+        pink    = Shade.new("#${base0F}", 0.15, -0.15),
 
-        bg0     = "#${color0}", -- Dark bg (status line and float)
-        bg1     = "#${color0}", -- Default bg
-        bg2     = "#${color8}", -- Lighter bg (colorcolm folds)
-        bg3     = "#${color8}", -- Lighter bg (cursor line)
-        bg4     = "#${color15}", -- Conceal, border fg
+        bg0     = "#${base01}", -- Dark bg (status line and float)
+        bg1     = "#${base00}", -- Default bg
+        bg2     = "#${base02}", -- Lighter bg (colorcolm folds)
+        bg3     = "#${base03}", -- Lighter bg (cursor line)
+        bg4     = "#${base04}", -- Conceal, border fg
 
-        fg0     = "#${color15}", -- Lighter fg
-        fg1     = "#${color7}", -- Default fg
-        fg2     = "#${color7}", -- Darker fg (status line)
-        fg3     = "#${color7}", -- Darker fg (line numbers, fold colums)
+        fg0     = "#${base05}", -- Lighter fg
+        fg1     = "#${base07}", -- Default fg
+        fg2     = "#${base06}", -- Darker fg (status line)
+        fg3     = "#${base06}", -- Darker fg (line numbers, fold colums)
 
-        sel0    = "#${color8}", -- Popup bg, visual selection bg
-        sel1    = "#${color8}", -- Popup sel bg, search bg
+        sel0    = "#${base06}", -- Popup bg, visual selection bg
+        sel1    = "#${base06}", -- Popup sel bg, search bg
 
-        comment = "#${color7}",
+        comment = "#${base04}",
       }
     }
 

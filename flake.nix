@@ -18,7 +18,7 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       nix-colors = import ./colors.nix;
-      colorSchemeName = "asteroid-city";
+      colorSchemeName = "nightfox-custom";
       colorScheme = nix-colors.${colorSchemeName}.colorScheme;
       wallpaper = nix-colors.${colorSchemeName}.wallpaper;
 

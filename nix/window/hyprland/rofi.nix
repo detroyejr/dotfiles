@@ -12,16 +12,16 @@
  
   home.file.".config/rofi/colors.rasi".text = with colorScheme.colors; ''
     * {
-        bg-col:  #${color0};
-        bg-col-light: #${color8};
-        border-col: #${color8};
-        selected-col: #${color7};
-        blue: #${color4};
-        accent: #${color6};
-        fg-col: #${color7};
-        separatorcolor: #${color8};
-        fg-col2: #${color8};
-        grey: #${color8};
+        accent: #${base06};
+        bg-col-light: #${base09};
+        bg-col:  #${base00};
+        blue: #${base0D};
+        border-col: #${base04};
+        fg-col2: #e78284;
+        fg-col: #c6d0f5;
+        grey: #737994;
+        selected-col: #${base02};
+        separatorcolor: #e78284;
         width: 1200;
         height: 1200;
         font: "BlexMono Nerd Font Mono, monospace 30";
@@ -227,7 +227,7 @@
         cycle:                          true;
         dynamic:                        true;
         layout:                         vertical;
-        text-color:		#${color6};
+        text-color:		#${base06};
     }
     element {
       border:			0;

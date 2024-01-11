@@ -65,7 +65,8 @@ in
     env = XCURSOR_SIZE,32
 
     exec-once = hyprctl dispatch dpms on &
-    exec-once = kanshi & swaylock & hyprpaper & dunst & eww open bar &
+    exec-once = swaylock & hyprpaper & dunst & eww open bar &
+    exec-once = kanshi &
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(thunar)$
@@ -108,8 +109,8 @@ in
         gaps_in = 4
         gaps_out = 8
         border_size = 2
-        col.active_border = rgba(${color7}66)
-        col.inactive_border = rgb(${color0})
+        col.active_border = rgba(${base07}66)
+        col.inactive_border = rgb(${base00})
         layout = dwindle
     }
 
@@ -118,7 +119,7 @@ in
         drop_shadow = yes
         shadow_range = 4
         shadow_render_power = 3
-        col.shadow = rgba(${color7}ee)
+        col.shadow = rgba(${base07}ee)
         dim_inactive = false
     }
 

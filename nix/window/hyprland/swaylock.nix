@@ -34,15 +34,15 @@
   # Define all colors
 
   key-hl-color=00000066
-  separator-color=#${color3}
+  separator-color=#${base03}
 
-  inside-color#${color3}=
+  inside-color=#${base03}
   inside-clear-color=ffffff00
   inside-caps-lock-color=ffffff00
   inside-ver-color=ffffff00
   inside-wrong-color=ffffff00
 
-  ring-color=#${color7}
+  ring-color=#${base07}
   ring-clear-color=ffffff
   ring-caps-lock-color=ffffff
   ring-ver-color=ffffff
