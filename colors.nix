@@ -1,7 +1,7 @@
 {
   nightfox-custom = {
     colorSchemeName = "nightfox-custom";
-    wallpaper = "/home/detroyejr/walls/architecture/ix4i6vjcsok91.png";
+    wallpaper = "/home/detroyejr/.config/dotfiles/assets/walls/architecture/ix4i6vjcsok91.png";
     colorScheme = {
       author = "Jonathan De Troye";
       name = "Nightfox";
@@ -29,7 +29,7 @@
 
   nyc-sunset = {
     colorSchemeName = "nyc-sunrise ";
-    wallpaper = "/home/detroyejr/walls/architecture/ix4i6vjcsok91.png";
+    wallpaper = "/home/detroyejr/.config/dotfiles/assets/walls/architecture/ix4i6vjcsok91.png";
     colorScheme = {
       author = "Jonathan De Troye";
       name = "NYC Sunset";
@@ -57,7 +57,7 @@
 
   nyc-sunrise = {
     colorSchemeName = "nyc-sunrise ";
-    wallpaper = "/home/detroyejr/walls/architecture/ix4i6vjcsok91.png";
+    wallpaper = "/home/detroyejr/.config/dotfiles/assets/walls/architecture/ix4i6vjcsok91.png";
     colorScheme = {
       author = "Jonathan De Troye";
       name = "NYC Sunrise";
