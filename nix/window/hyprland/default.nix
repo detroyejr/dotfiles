@@ -375,7 +375,6 @@ in
     playerctl
     plex-media-player
     plexamp
-    redshift
     slack
     slurp
     socat
