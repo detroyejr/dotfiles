@@ -71,9 +71,9 @@ in
     exec-once = kanshi &
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
-    windowrule = float,^(pcmanfm)$
-    windowrule = center,^(pcmanfm)$
-    windowrule = size 70% 70%,^(pcmanfm)$
+    windowrule = float,^(thunar)$
+    windowrule = center,^(thunar)$
+    windowrule = size 70% 70%,^(thunar)$
 
     windowrule = float,^(pavucontrol)$
     windowrule = move 100%-412 52,^(pavucontrol)$
@@ -189,7 +189,7 @@ in
     bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @joplinapp-desk > /dev/null; then kill $(pgrep -x  @joplinapp-desk | paste -sd ' '); else joplin-desktop; fi"
     bind = $mainMod SHIFT, K, exec, bash -c "if pgrep -x .keepassxc-wrap > /dev/null; then kill $(pgrep -x .keepassxc-wrap); else keepassxc; fi"
     bind = $mainMod, C, killactive,
-    bind = $mainMod, E, exec, pcmanfm
+    bind = $mainMod, E, exec, thunar
     bind = $mainMod, F, togglefloating,
     bind = $mainMod, F, centerwindow
     bind = $mainMod, F, resizeactive, exact 1000 800
@@ -346,6 +346,7 @@ in
   home.packages = with pkgs; [
     acpi
     aircrack-ng
+    anki
     bluez
     colorz
     discord
@@ -367,7 +368,6 @@ in
     obs-studio
     pamixer
     pavucontrol
-    pcmanfm
     playerctl
     plex-media-player
     plexamp

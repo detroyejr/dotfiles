@@ -114,6 +114,10 @@
     steam.enable = true;
     virt-manager.enable = true;
     zsh.enable = true;
+    thunar = {
+      enable = true;
+      plugins = with pkgs; [ xfce.exo ];
+    };
     hyprland = {
       enable = true;
       xwayland = {
