@@ -76,20 +76,25 @@ in
     windowrule = size 70% 70%,^(thunar)$
 
     windowrule = float,^(pavucontrol)$
-    windowrule = move 100%-412 52,^(pavucontrol)$
+    windowrule = move 100%-488 6%,^(pavucontrol)$
     windowrule = size 400 560,^(pavucontrol)$
     windowrule = animation slide,^(pavucontrol)$
 
     windowrule = float,^(Plexamp)$
-    windowrule = move 100%-412 52,title:^(Plexamp)$
+    windowrule = move 100%-488 6%,title:^(Plexamp)$
     windowrule = size 400 560,title:^(Plexamp)$
     windowrule = animation slide,^(Plexamp)$
 
     windowrule = float,title:^(nmtui-connect)$
-    windowrule = move 100%-412 52,title:^(nmtui-connect)$
+    windowrule = move 100%-488 6%,title:^(nmtui-connect)$
     windowrule = size 100 160,^(nmtui-connect)$
-    windowrule = animation slide,title:^(nmtui-connect)$ # sets the animation style for kitty
-
+    windowrule = animation slide,title:^(nmtui-connect)$
+    
+    windowrule = float,title:(.*)(- KeePassXC)$
+    windowrule = center,title:(.*)(- KeePassXC)$
+    windowrule = animation popin,title:(.*)(- KeePassXC)$
+    windowrule = size 70% 70%,title:(.*)(- KeePassXC)$
+,
     # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
     input {
         kb_layout = us
