@@ -52,6 +52,7 @@
 
   xdg.portal.config.common.default = "*";
   services = {
+    fprintd.enable = true;
     gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
     tumbler.enable = true;
@@ -98,7 +99,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.detroyejr = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "libvirtd" "input" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     packages = with pkgs; [
       git
@@ -141,21 +142,8 @@
   # For sway.
   security = {
     polkit.enable = true;
-    pam.services.swaylock.text = ''
-      # Account management.
-      account required pam_unix.so
-
-      # Authentication management.
-      auth sufficient pam_unix.so   likeauth try_first_pass
-      auth required pam_deny.so
-
-      # Password management.
-      password sufficient pam_unix.so nullok sha512
-
-      # Session management.
-      session required pam_env.so conffile=/etc/pam/environment readenv=0
-      session required pam_unix.so
-    '';
+    pam.services.swaylock = {};
+    pam.services.swaylock.fprintAuth = true;
   };
 
   # List packages installed in system profile. To search, run:

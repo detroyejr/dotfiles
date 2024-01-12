@@ -6,7 +6,6 @@
   ];
 
   home.file.".config/swaylock/config".text = with colorScheme.colors; ''
-  ignore-empty-password
   font="BlexMono Nerd Font Mono"
 
   clock
