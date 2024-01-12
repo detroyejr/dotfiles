@@ -44,7 +44,7 @@
 (defpoll music_artist :interval "2s" "~/.config/eww/scripts/songdata.sh artist")
 (defpoll music_album :interval "2s" "~/.config/eww/scripts/songdata.sh album")
 (defpoll music_cover :interval "2s" "~/.config/eww/scripts/songdata.sh cover")
-(defpoll music_status :interval "2s" "~/.config/eww/scripts/songdata.sh status")
+(defpoll music_status :interval "2s" "/usr/bin/env playerctl status")
 (defpoll button_text :interval "2s" "~/.config/eww/scripts/playerctl.py $(~/.config/eww/scripts/songdata.sh cover) --element button_text")
 (defpoll button_accent :interval "2s" "~/.config/eww/scripts/playerctl.py $(~/.config/eww/scripts/songdata.sh cover) --element button_accent")
 (defpoll image_accent :interval "2s" "~/.config/eww/scripts/playerctl.py $(~/.config/eww/scripts/songdata.sh cover) --element image_accent")

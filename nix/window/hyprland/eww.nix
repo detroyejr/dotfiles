@@ -54,7 +54,7 @@
     { 
       "image_accent": "#${base0D}",
       "button_accent": "#${base0D}",
-      "button_text": "#${base0D}",
+      "button_text": "#${base0D}"
     }
   '';
 }

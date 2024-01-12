@@ -67,8 +67,7 @@ in
     exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
     exec-once = hyprctl dispatch dpms on &
-    exec-once = swaylock & hyprpaper & dunst & eww open bar &
-    exec-once = kanshi &
+    exec-once = swaylock & hyprpaper & dunst & eww open bar & kanshi &
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(thunar)$

@@ -145,20 +145,20 @@
        (button :class "pausebutton ${music_status == 'Playing' ? 'playing' : 'paused'}"
                :halign "end"
                :style "background-color: ${button_accent}; color: ${button_text};"
-               :onclick "~/.config/eww/scripts/music/control.sh play-pause"
+               :onclick "hyprctl dispatch exec playerctl play-pause"
                "${music_status == 'Playing' ? '' : ''}")
        )
   (box :class "musicbox__bottom"
                :style "color: ${button_accent};"
        (button :valign "end"
                :halign "start"
-               :onclick "~/.config/eww/scripts/music/control.sh prev"
+               :onclick "hyprctl dispatch exec playerctl previous"
                :class "previousbutton"
                "󰒮"
        )
        (button :valign "end"
                :halign "end"
-               :onclick "~/.config/eww/scripts/music/control.sh next"
+               :onclick "hyprctl dispatch exec playerctl next"
                :class "nextbutton"
                "󰒭"))))
 
