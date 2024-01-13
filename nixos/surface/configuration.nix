@@ -116,7 +116,7 @@
       account required pam_unix.so
 
       # Authentication management.
-      auth sufficient pam_unix.so   likeauth try_first_pass
+      auth sufficient pam_unix.so   likeauth try_first_pass nullok
       auth required pam_deny.so
 
       # Password management.
