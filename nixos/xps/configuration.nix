@@ -19,6 +19,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
 
   networking.hostName = "XPS-Nixos"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -55,6 +56,7 @@
     fprintd.enable = true;
     gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
+    tlp.enable = true;
     tumbler.enable = true;
     pipewire = {
       enable = true;
@@ -117,7 +119,18 @@
 
   # Recent change. Adding this prevents errors.
   programs = {
-    steam.enable = true;
+    steam = {
+      enable = true;
+      package = pkgs.steam-small.override
+        {
+          extraEnv = {
+            __NV_PRIME_RENDER_OFFLOAD = 1;
+            __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+            __VK_LAYER_NV_optimus = "NVIDIA_only";
+          };
+        };
+    };
     virt-manager.enable = true;
     zsh.enable = true;
     thunar = {
@@ -136,7 +149,9 @@
     dislocker
     efibootmgr
     gcc
+    heroic
     parted
+    mangohud
     rclone
     sbctl
     usbutils
