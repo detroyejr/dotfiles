@@ -13,14 +13,17 @@
       ../../modules/brightness
     ];
 
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "Surface-NixOS"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-  networking.firewall.checkReversePath = false; 
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.firewall.checkReversePath = false;
 
   xdg.portal.config.common.default = "*";
   services = {
@@ -29,7 +32,7 @@
     tumbler.enable = true;
     pipewire = {
       enable = true;
-      alsa = { 
+      alsa = {
         enable = true;
         support32Bit = true;
       };
