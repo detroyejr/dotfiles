@@ -47,7 +47,6 @@
     nixpkgs-fmt
     openssh
     pywal
-    ranger
     ripgrep
     tiny
     unzip
@@ -71,7 +70,6 @@
       ll = "lsd --color=never -l";
       ls = "lsd --color=never";
       pwsh = "pwsh.exe";
-      ranger = "ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd \"$LASTDIR\"";
       ssh = "TERM=xterm-256color ssh";
       st = "set-title";
       tf = "tmux-fzf";
@@ -173,11 +171,6 @@
   programs.mcfly = {
     enable = true;
     enableZshIntegration = true;
-  };
-
-  home.file.".config/ranger" = {
-    source = ../dotfiles/ranger;
-    recursive = true;
   };
 
   home.file.".digrc".text = ''
