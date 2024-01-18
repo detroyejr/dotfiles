@@ -65,7 +65,6 @@ in
 
     windowrule = float,^(Rofi)$
     windowrule = center,^(Rofi)$
-    windowrule = animation popin 0,^(Rofi)$
 
     windowrule = float,^(thunar)$
     windowrule = center,^(thunar)$

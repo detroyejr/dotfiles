@@ -1,4 +1,4 @@
-{config, pkgs, colorScheme, ...}:
+{ config, pkgs, colorScheme, ... }:
 {
   programs.rofi = {
     enable = true;
@@ -9,7 +9,7 @@
   home.packages = with pkgs; [
     rofi-power-menu
   ];
- 
+
   home.file.".config/rofi/colors.rasi".text = with colorScheme.colors; ''
     * {
         accent: #${base06};
@@ -22,9 +22,9 @@
         grey: #737994;
         selected-col: #${base02};
         separatorcolor: #e78284;
-        width: 1200;
-        height: 1200;
-        font: "BlexMono Nerd Font Mono, monospace 30";
+        width: 600;
+        height: 400;
+        font: "BlexMono Nerd Font Mono, monospace 16";
     }
 
     element-text, element-icon , mode-switcher {
@@ -33,7 +33,7 @@
     }
 
     window {
-        height: 650px;
+        height: @width;
         border: 1px;
         border-color: @border-col;
         border-radius: 40px;
@@ -103,7 +103,7 @@
         padding: 10px;
         background-color: @bg-col-light;
         text-color: @grey;
-        vertical-align: 0.5; 
+        vertical-align: 0.5;
         horizontal-align: 0.5;
     }
 
@@ -161,9 +161,9 @@
     gui_if_available = True
     # terminal = <name of terminal program>
     # gui_if_available = <True or False>
-    '';
+  '';
 
-    home.file.".config/rofi/wifi.rasi".text = with colorScheme.colors; ''
+  home.file.".config/rofi/wifi.rasi".text = with colorScheme.colors; ''
 
     @import "colors.rasi"
 
@@ -182,102 +182,119 @@
       foreground-selection:@fg-col; 	//Selection_fg
       background-selection: @selected; 		//Selection_bg
 
-      transparent:					#ffffff00;
-      background-color:				@transparent;
-      text-color:						@fg-col;
-      selected-normal-foreground:		@fg-col-light;
-      normal-foreground:       		@fg-col;
-      alternate-normal-background:	@transparent;
-      selected-urgent-foreground:  	@fg-col;
-      urgent-foreground:           	@fg-col;
-      alternate-urgent-background: 	@bg-col;
-      active-foreground:           	@accent;
-      selected-active-foreground:  	@bg-col-light;
-      alternate-normal-foreground: 	@fg-col;
-      alternate-active-background: 	@bg-col;
-      bordercolor:                 	@bg-col;
-      normal-background:           	@transparent;
-      selected-normal-background:  	@bg-col-light;
-      separatorcolor:              	@accent;
-      urgent-background:           	@accent;
-      alternate-urgent-foreground: 	@fg-col;
-      selected-urgent-background:  	@accent;
-      alternate-active-foreground: 	@fg-col;
-      selected-active-background:  	@transparent;
-      active-background:           	@transparent;
+      transparent: #ffffff00;
+      background-color:	@transparent;
+      text-color: @fg-col;
+      selected-normal-foreground: @fg-col-light;
+      normal-foreground: @fg-col;
+      alternate-normal-background: @transparent;
+      selected-urgent-foreground: @fg-col;
+      urgent-foreground: @fg-col;
+      alternate-urgent-background: @bg-col;
+      active-foreground: @accent;
+      selected-active-foreground: @bg-col-light;
+      alternate-normal-foreground: @fg-col;
+      alternate-active-background: @bg-col;
+      bordercolor: @bg-col;
+      normal-background: @transparent;
+      selected-normal-background:	@bg-col-light;
+      separatorcolor: @accent;
+      urgent-background: @accent;
+      alternate-urgent-foreground: @fg-col;
+      selected-urgent-background: @accent;
+      alternate-active-foreground: @fg-col;
+      selected-active-background: @transparent;
+      active-background: @transparent;
     }
+
     window {
-        width:                          400px;
-      text-color:			@fg-col;
+      width: 400px;
+      text-color: @fg-col;
       background-color:	@bg-col;
-      border-radius: 		20px;
-      padding: 			18;
+      border-radius: 20px;
+      padding: 18;
     }
+
     mainbox {
-      border:		0;
-      padding: 	0;
+      border:	0;
+      padding: 0;
     }
+
     textbox {
       text-color: @fg-col;
     }
+
     listview {
-        columns:                        1;
-        lines:							15;
-        spacing:                        4px;
-        cycle:                          true;
-        dynamic:                        true;
-        layout:                         vertical;
-        text-color:		#${base06};
+        columns: 1;
+        lines: 15;
+        spacing: 4px;
+        cycle: true;
+        dynamic: true;
+        layout: vertical;
+        text-color: #${base06};
     }
+
     element {
-      border:			0;
-      padding:		18px 18px;
-      border-radius:	100%;
+      border: 0;
+      padding: 18px 18px;
+      border-radius: 100%;
     }
+
     element-text {
-      padding:		0;
+      padding: 0;
       background-color: none;
-      text-color:       inherit;
+      text-color: inherit;
     }
+
     element.normal.normal {
-      text-color:			@normal-foreground;
-      background-color:	@normal-background;
+      text-color: @normal-foreground;
+      background-color: @normal-background;
     }
+
     element.normal.urgent {
-      text-color:			@urgent-foreground;
-      background-color:	@urgent-background;
+      text-color: @urgent-foreground;
+      background-color: @urgent-background;
     }
+
     element.normal.active {
-      text-color:			@active-foreground;
+      text-color: @active-foreground;
       background-color:	@backgroundAdditional;
     }
+
     element.selected.normal {
-      text-color:			@selected-normal-foreground;
+      text-color: @selected-normal-foreground;
       background-color:	@selected-normal-background;
     }
+
     element.selected.urgent {
-      text-color:			@selected-urgent-foreground;
-      background-color:	@selected-urgent-background;
+      text-color: @selected-urgent-foreground;
+      background-color: @selected-urgent-background;
     }
+
     element.selected.active {
-      text-color:			@fg-col;
+      text-color: @fg-col;
       background-color:	@accent;
     }
+
     element.alternate.normal {
-      text-color:			@alternate-normal-foreground;
+      text-color: @alternate-normal-foreground;
       background-color:	@alternate-normal-background;
     }
+
     element.alternate.urgent {
-      text-color:			@alternate-urgent-foreground;
-      background-color:	@alternate-urgent-background;
+      text-color: @alternate-urgent-foreground;
+      background-color: @alternate-urgent-background;
     }
+
     element.alternate.active {
-      text-color:			@alternate-active-foreground;
-      background-color:	@alternate-active-background;
+      text-color: @alternate-active-foreground;
+      background-color: @alternate-active-background;
     }
+
     mode-switcher {
       border:	0;
     }
+
     button selected {
       text-color:			@selected-normal-foreground;
       background-color:	@selected-normal-background;
