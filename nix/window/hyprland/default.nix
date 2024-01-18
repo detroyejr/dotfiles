@@ -49,7 +49,7 @@ in
     # toolkit-specific scale
     env = BROWSER,firefox;
     env = EDITOR,nvim;
-    env = GDK_SCALE,2
+    env = GDK_SCALE,1
     env = MOZ_ENABLE_WAYLAND,1;
     env = NIXOS_OZONE_WL,1
     env = QT_QPA_PLATFORM,wayland;xcb;
@@ -63,7 +63,7 @@ in
     exec-once = kanshi & swaylock & hyprpaper & dunst & eww open bar &
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
-    windowrule = float, ^(Rofi)$
+    windowrule = float,^(Rofi)$
     windowrule = center,^(Rofi)$
     windowrule = animation popin 0,^(Rofi)$
 
