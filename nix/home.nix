@@ -39,7 +39,7 @@
     lua-language-server
     luaformatter
     mediainfo
-    mitmproxy
+    # mitmproxy
     mp4v2
     neofetch
     nil
