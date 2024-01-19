@@ -21,7 +21,7 @@
     bat
     bc
     cachix
-    cataclysm-dda
+    # cataclysm-dda
     cmake
     curl
     fd
@@ -39,7 +39,7 @@
     lua-language-server
     luaformatter
     mediainfo
-    # mitmproxy
+    mitmproxy
     mp4v2
     neofetch
     nil
