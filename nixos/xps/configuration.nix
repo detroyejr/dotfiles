@@ -131,6 +131,7 @@
           };
         };
     };
+    gamemode.enable = true;
     virt-manager.enable = true;
     zsh.enable = true;
     thunar = {

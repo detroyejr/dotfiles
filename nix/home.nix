@@ -21,7 +21,7 @@
     bat
     bc
     cachix
-    # cataclysm-dda
+    cataclysm-dda
     cmake
     curl
     fd

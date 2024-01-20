@@ -163,6 +163,7 @@ in
 
     misc {
       disable_hyprland_logo = true
+      disable_splash_rendering = true
     }
 
     device:steelseries-steelseries-sensei-310-esports-mouse {
@@ -261,6 +262,7 @@ in
   '';
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
+    splash = false
     preload = ${wallpaper}
 
     wallpaper = DP-3,${wallpaper}

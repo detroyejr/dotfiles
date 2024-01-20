@@ -1,7 +1,7 @@
 {
   nightfox-custom = {
     colorSchemeName = "nightfox-custom";
-    wallpaper = "/home/detroyejr/.config/dotfiles/assets/walls/architecture/ix4i6vjcsok91.png";
+    wallpaper = "/home/detroyejr/.config/dotfiles/assets/walls/minimal/minimal-12.jpg";
     colorScheme = {
       author = "Jonathan De Troye";
       name = "Nightfox";
