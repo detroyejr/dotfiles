@@ -94,25 +94,25 @@
       ZSH_TMUX_AUTOCONNECT=true
 
       export PATH=$PATH:/home/detroyejr/.nix-profile/bin
-      [[ -f $HOME/.nix-profile/etc/profile.d/nix.sh ]] && . $HOME/.nix-profile/etc/profile.d/nix.sh 
+      [[ -f $HOME/.nix-profile/etc/profile.d/nix.sh ]] && . $HOME/.nix-profile/etc/profile.d/nix.sh
       [[ -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]] && . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
       source $HOME/.zsh/plugins/powerlevel10k/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       source $HOME/.p10k.zsh
-      
+
       export EDITOR=nvim
-      
+
       if [ -d "$HOME/.local/bin/" ] ; then
           PATH="$HOME/.local/bin/:$PATH"
       fi
-      
+
       if [ -d "$HOME/.local/bin/bash/" ] ; then
           PATH="$HOME/.local/bin/bash/:$PATH"
       fi
 
       [[ -f $HOME/.local/.secrets ]] && export $(cat ~/.local/.secrets)
-      
+
       bindkey -v
-      bindkey ^R history-incremental-search-backward 
+      bindkey ^R history-incremental-search-backward
       bindkey ^S history-incremental-search-forward
 
       eval "$(direnv hook zsh)"
@@ -130,10 +130,10 @@
       set-option -ga terminal-overrides ',*-256color*:Tc'
       set -g mouse
       set-window-option -g mode-keys vi
-     
+
       # Fix weird character issue.
-      set -g escape-time 10 
-      
+      set -g escape-time 10
+
       # We can use base index of 1 for everything but sessions.
       set -g base-index 1
       set -g pane-base-index 1
