@@ -1,5 +1,23 @@
 { pkgs, ... }:
 
+let
+  cataclysm-dda = pkgs.cataclysm-dda.overrideAttrs (oldAttrs: {
+    patches = oldAttrs.patches ++ [
+      (pkgs.fetchpatch {
+        url = "https://sources.debian.org/data/main/c/cataclysm-dda/0.G-4/debian/patches/gcc13-dangling-reference-warning.patch";
+        hash = "sha256-9nPbyz49IYBOVHqr7jzCIyS8z/SQgpK4EjEz1fruIPE=";
+      })
+      (pkgs.fetchpatch {
+        url = "https://sources.debian.org/data/main/c/cataclysm-dda/0.G-4/debian/patches/gcc13-cstdint.patch";
+        hash = "sha256-8IBW2OzAHVgEJZoViQ490n37sl31hA55ePuqDL/lil0=";
+      })
+      (pkgs.fetchpatch {
+        url = "https://sources.debian.org/data/main/c/cataclysm-dda/0.G-4/debian/patches/gcc13-keyword-requires.patch";
+        hash = "sha256-8yvHh0YKC7AC/qzia7AZAfMewMC0RiSepMXpOkMXRd8=";
+      })
+    ];
+  });
+in
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.

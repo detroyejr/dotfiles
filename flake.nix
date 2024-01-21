@@ -16,25 +16,12 @@
     let
       # System
       system = "x86_64-linux";
-      lpkgs = nixpkgs.legacyPackages.${system};
-
-      # Doing this for testing, but we'll switch back when this patch is applied.
-      nixpkgs-patched = (import nixpkgs { inherit system; }).applyPatches {
-        name = "nixpkgs-patched";
-        src = nixpkgs;
-
-        patches = [
-          (lpkgs.fetchpatch {
-            url = "https://github.com/detroyejr/nixpkgs/commit/eb3b9bc27d139a201abc81bf0c04c297a6684bab.patch";
-            hash = "sha256-rUCT3+P/aBJuk5vDO6/hbYnhSRvXkupgAftoHelG9z0=";
-          })
-        ];
-      };
-
-      pkgs = import nixpkgs-patched {
+      pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfree = true;
-        config.allowBroken = true;
+        config = {
+          allowUnfree = true;
+          allowBroken = true;
+        };
       };
 
       nix-colors = import ./colors.nix;
