@@ -63,6 +63,7 @@
                 ./nix/home.nix
                 ./nix/dev
                 ./nix/window/hyprland
+                ./nix/cataclysm-dda.nix
               ];
             };
           }
