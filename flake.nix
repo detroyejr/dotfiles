@@ -94,6 +94,7 @@
       };
 
       nixosConfigurations.tower = nixpkgs.lib.nixosSystem {
+        inherit pkgs;
         system = "x86_64-linux";
         modules = [
           ./nixos/tower/configuration.nix
@@ -114,6 +115,7 @@
       };
 
       nixosConfigurations.brick = nixpkgs.lib.nixosSystem {
+        inherit pkgs;
         system = "x86_64-linux";
         modules = [
           ./nixos/brick/configuration.nix
