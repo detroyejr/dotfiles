@@ -77,6 +77,8 @@
       virtiofsd
       pulseaudioFull
       alsa-utils
+      wineWowPackages.waylandFull
+      winetricks
     ];
   };
 
