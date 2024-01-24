@@ -12,22 +12,15 @@ let
       ;
   };
 
-  cdda-no-mod = pkgs.cataclysm-dda.overrideAttrs (super: {
+  base-cdda = pkgs.cataclysm-dda-git.override {
+    version = "2024-01-24";
+    rev = "926fcc766df812b8435c8782fc057c527535c1bc";
+    sha256 = "sha256-7c4jqsKXJ5CAhn7ZdRqKPXpOePWeGiUUGMIs47LBHrY=";
+  };
+
+  cdda-no-mod = base-cdda.overrideAttrs (super: {
     # patch doesn't cleanly apply anymore
-    patches = with pkgs; super.patches ++ [
-      (fetchpatch {
-        url = "https://sources.debian.org/data/main/c/cataclysm-dda/0.G-4/debian/patches/gcc13-dangling-reference-warning.patch";
-        hash = "sha256-9nPbyz49IYBOVHqr7jzCIyS8z/SQgpK4EjEz1fruIPE=";
-      })
-      (fetchpatch {
-        url = "https://sources.debian.org/data/main/c/cataclysm-dda/0.G-4/debian/patches/gcc13-cstdint.patch";
-        hash = "sha256-8IBW2OzAHVgEJZoViQ490n37sl31hA55ePuqDL/lil0=";
-      })
-      (fetchpatch {
-        url = "https://sources.debian.org/data/main/c/cataclysm-dda/0.G-4/debian/patches/gcc13-keyword-requires.patch";
-        hash = "sha256-8yvHh0YKC7AC/qzia7AZAfMewMC0RiSepMXpOkMXRd8=";
-      })
-    ];
+    patches = [ ];
 
     passthru =
       super.passthru
