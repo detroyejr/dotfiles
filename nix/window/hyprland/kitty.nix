@@ -17,7 +17,9 @@
       active_tab_background = "#${base00}";
       active_tab_foreground = "#${base05}";
       background = "#${base00}";
+      background_opacity = "0.8";
       cursor = "#${base05}";
+      dynamic_background_opacity = "yes";
       foreground = "#${base05}";
       inactive_border_color = "#${base01}";
       inactive_tab_background = "#${base01}";
