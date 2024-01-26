@@ -58,6 +58,7 @@ in
     env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
     env = TERMINAL,kitty;
     env = XCURSOR_SIZE,32
+    env = WLR_DRM_NO_ATOMIC,1
 
     exec-once = hyprctl dispatch dpms on &
     exec-once = kanshi & swaylock & hyprpaper & dunst & eww open bar &
@@ -89,6 +90,7 @@ in
     windowrule = center,title:(.*)(- KeePassXC)$
     windowrule = animation popin,title:(.*)(- KeePassXC)$
     windowrule = size 70% 70%,title:(.*)(- KeePassXC)$
+    windowrulev2 = immediate, class:^(Raft)$
 
     # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
     input {
@@ -115,6 +117,7 @@ in
         col.active_border = rgba(${base07}66)
         col.inactive_border = rgb(${base00})
         layout = dwindle
+        allow_tearing = true
     }
 
     decoration {
