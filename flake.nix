@@ -36,12 +36,13 @@
       homeConfigurations.detroyejr = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
-        extraSpecialArgs = { inherit colorSchemeName; };
+        extraSpecialArgs = { inherit colorSchemeName colorScheme; };
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
         modules = [
           ./nix/home.nix
           ./nix/dev
+          ./nix/cataclysm-dda.nix
         ];
       };
 
