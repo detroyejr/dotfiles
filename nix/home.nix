@@ -220,11 +220,10 @@
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
-  home.file.".config/ranger/rc.conf".source = ../dotfiles/ranger/rc.conf;
-  home.file.".config/ranger/commands.py".source = ../dotfiles/ranger/commands.py;
-  home.file.".config/ranger/commands_full.py".source = ../dotfiles/ranger/commands_full.py;
-  home.file.".config/ranger/file.conf".source = ../dotfiles/ranger/rifle.conf;
-  home.file.".config/ranger/scope.sh".source = ../dotfiles/ranger/scope.sh;
+  home.file.".config/ranger" = {
+    source = ../dotfiles/ranger;
+    recursive = true;
+  };
 
   home.stateVersion = "23.11";
 }
