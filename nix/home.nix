@@ -24,6 +24,7 @@
     curl
     fd
     ffmpeg
+    file
     fzf
     gcc
     gh
@@ -44,7 +45,7 @@
     nitch
     nixpkgs-fmt
     openssh
-    pywal
+    wallust
     ranger
     ripgrep
     tiny

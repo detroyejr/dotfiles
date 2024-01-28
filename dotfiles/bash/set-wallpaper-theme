@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+IMAGE=$1
+FULL=$(readlink -f $IMAGE)
+
+hyprctl hyprpaper preload $FULL
+hyprctl monitors -j | jq '.[].name' | xargs -I {} hyprctl hyprpaper wallpaper "{},$FULL"
+wallust "$IMAGE"

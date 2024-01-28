@@ -192,10 +192,11 @@ in
     bind = $mainMod, L, exec, bash -c "swaylock"
     bind = $mainMod, P, pseudo, # dwindle
     bind = $mainMod, Q, exec, kitty
-    bind = $mainMod SHIFT, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else rofi -show run; fi"
-    bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else rofi -show drun; fi"
+    bind = $mainMod SHIFT, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else rofi -show run --theme /home/detroyejr/.config/rofi/launchers/type-7/style-2.rasi; fi"
+    bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else rofi -show drun --theme /home/detroyejr/.config/rofi/launchers/type-7/style-2.rasi; fi"
     bind = $mainMod, R, exec, hyprctl dispatch focuswindow ^(Rofi)$
     bind = CTRL ALT, Delete, exit
+    bind = $mainMod SHIFT, W, exec, bash -c "/home/detroyejr/.local/bin/bash//random-wallpaper /home/detroyejr/OneDrive/Pictures/Wallpaper/walls/ && eww close-all && eww open bar"
 
     # Move focus with mainMod + arrow keys
     bind = $mainMod, left, movefocus, l

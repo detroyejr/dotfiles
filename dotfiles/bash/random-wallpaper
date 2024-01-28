@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Print if the mime type is an image and return a random image.
+IMAGE=$(find "$1" -type f -exec file --mime-type {} + | 
+    awk '$2 == "image/jpeg" {print $1}' | 
+    sed s/\:$//g|
+    xargs shuf -n1 -e)
+
+echo $IMAGE
+
+$HOME/.local/bin/bash/set-wallpaper-theme $IMAGE
