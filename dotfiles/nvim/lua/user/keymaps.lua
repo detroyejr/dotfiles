@@ -124,6 +124,3 @@ end
 
 -- Explore
 keymap("n", "<leader>e", ":Sexplore<CR>", opts)
-
--- Zenmode
-keymap("n", "<C-z>", ":ZenMode<cr>", opts)
