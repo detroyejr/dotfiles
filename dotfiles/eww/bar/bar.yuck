@@ -4,8 +4,8 @@
   :monitor 0
   :windowtype "dock"
   :geometry (geometry :x "0px"
-                      :y "10px"
-                      :width "90%"
+                      :y "0px"
+                      :width "100%"
                       :height "45px"
                       :anchor "top center")
   :stacking "bg"
@@ -28,9 +28,7 @@
        :spacing 10
        :halign "start"
        :class "left"
-    (launcher)
     (workspaces)
-    {xdo}
   )
 )
 
@@ -114,7 +112,7 @@
        :class "powermenu-box"
     (button :class "dispatcher"
             :tooltip "Toggle Power Menu"
-            :onclick "bash -c 'hyprctl dispatch exec \"rofi -show p -modi p:rofi-power-menu\"'"
+            :onclick "bash -c 'hyprctl dispatch exec \"$HOME/.config/rofi/powermenu/type-5/powermenu.sh\"'"
             "⏻")
   )
 )

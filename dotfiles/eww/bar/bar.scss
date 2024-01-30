@@ -1,12 +1,13 @@
 .bar {
   font-family: "BlexMono Nerd Font Mono, monospace";
-  border-radius: 12px;
+  border-radius: 0px;
   background-color: $bg;
   font-size: 16px;
   color: $fg;
 }
 
 .workspaces {
+  margin: 7px 0px 7px 25px;
   color: $fg;
 }
 
@@ -15,7 +16,7 @@
 }
 
 .launcher {
-  margin: 7px 0 7px 7px;
+  margin: 10px 0 7px 10px;
   font-size: 16px;
   .dispatcher {
     background-color: $accent;
