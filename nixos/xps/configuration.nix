@@ -84,6 +84,7 @@
   hardware = {
     bluetooth = {
       enable = true;
+      powerOnBoot = false;
       package = pkgs.bluez.overrideAttrs (oldAttrs: {
         configureFlags = oldAttrs.configureFlags ++ [ "--enable-sixaxis" ];
       });
@@ -253,6 +254,11 @@
       fi
     '';
     wantedBy = [ "multi-user.target" ];
+  };
+
+  virtualisation = {
+    docker.enable = true;
+    libvirtd.enable = true;
   };
 
   # Copy the NixOS configuration file and link it from the resulting system
