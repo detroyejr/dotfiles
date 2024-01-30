@@ -34,6 +34,7 @@
     kubectl
     lame
     lsd
+    lsof
     lua
     lua-language-server
     luaformatter
