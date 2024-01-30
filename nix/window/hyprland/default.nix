@@ -192,7 +192,7 @@ in
     bind = $mainMod, L, exec, bash -c "swaylock"
     bind = $mainMod, P, pseudo, # dwindle
     bind = $mainMod, Q, exec, kitty
-    bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else rofi-launcher; fi"
+    bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else $HOME/.local/bin/rofi-launcher; fi"
     bind = $mainMod, R, exec, hyprctl dispatch focuswindow ^(Rofi)$
     bind = CTRL ALT, Delete, exit
     bind = $mainMod SHIFT, W, exec, bash -c "/home/detroyejr/.local/bin/bash//random-wallpaper /home/detroyejr/OneDrive/Pictures/Wallpaper/walls/ && eww close-all && eww open bar"
@@ -388,6 +388,7 @@ in
     playerctl
     plex-media-player
     plexamp
+    procps # replace GNU uptime.
     slack
     slurp
     socat
