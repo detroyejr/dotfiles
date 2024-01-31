@@ -86,10 +86,6 @@ in
     windowrule = size 100 160,^(nmtui-connect)$
     windowrule = animation slide,title:^(nmtui-connect)$
 
-    windowrule = float,title:(.*)(- KeePassXC)$
-    windowrule = center,title:(.*)(- KeePassXC)$
-    windowrule = animation popin,title:(.*)(- KeePassXC)$
-    windowrule = size 70% 70%,title:(.*)(- KeePassXC)$
     windowrulev2 = immediate, class:^(Raft)$
 
     # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
