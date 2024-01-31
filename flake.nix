@@ -25,7 +25,7 @@
       };
 
       nix-colors = import ./colors.nix;
-      colorSchemeName = "nightfox-custom";
+      colorSchemeName = "gruvbox";
       colorScheme = nix-colors.${colorSchemeName}.colorScheme;
       wallpaper = nix-colors.${colorSchemeName}.wallpaper;
 
