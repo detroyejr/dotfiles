@@ -1,4 +1,4 @@
-{ config, pkgs, colorScheme, ... }:
+{ config, pkgs, colorScheme, wallpaper, ... }:
 let
   rofi-themes = pkgs.fetchFromGitHub {
     owner = "adi1090x";
@@ -19,12 +19,7 @@ let
   ];
   originalRofiThemes = pkgs.lib.listToAttrs (map (e: pkgs.lib.nameValuePair ".config/rofi/${e}" { source = rofi-themes + "/files/" + e; }) paths);
   customRofiTweaks = {
-    ".config/rofi/images/c.png" = {
-      source = builtins.fetchurl {
-        url = "https://raw.githubusercontent.com/detroyejr/dotfiles/main/assets/walls/minimal/minimal-12.jpg";
-        sha256 = "sha256:0p5k62dkxbwv90qdfnnmzxmsm3g6ix8b2dahdsvm46p8sa40abcb";
-      };
-    };
+    ".config/rofi/images/c.png".source = builtins.path { path = wallpaper; };
     ".local/bin/rofi-launcher" = {
       text = ''
         dir="$HOME/.config/rofi/launchers/type-7"

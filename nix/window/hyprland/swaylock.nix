@@ -16,7 +16,7 @@
   #screenshots
 
   # Add an image as a background 
-  image=${wallpaper}
+  image=${builtins.toString wallpaper}
 
   # Show/Hide indicator circle
   indicator

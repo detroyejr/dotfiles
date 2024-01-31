@@ -266,13 +266,13 @@ in
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
     splash = false
-    preload = ${wallpaper}
+    preload = ${builtins.toString wallpaper}
 
-    wallpaper = DP-3,${wallpaper}
-    wallpaper = DP-4,${wallpaper}
-    wallpaper = DP-5,${wallpaper}
-    wallpaper = DP-7,${wallpaper}
-    wallpaper = eDP-1,${wallpaper}
+    wallpaper = DP-3,${builtins.toString wallpaper}
+    wallpaper = DP-4,${builtins.toString wallpaper}
+    wallpaper = DP-5,${builtins.toString wallpaper}
+    wallpaper = DP-7,${builtins.toString wallpaper}
+    wallpaper = eDP-1,${builtins.toString wallpaper}
   '';
 
   home.file.".local/bin/disable-laptop" = {
