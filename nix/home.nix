@@ -50,11 +50,13 @@
     ranger
     ripgrep
     tiny
+    tree
     unzip
     wget
     yt-dlp
     xclip
     zsh-powerlevel10k
+    zoom-us
   ];
 
   programs.bash.enable = true;
