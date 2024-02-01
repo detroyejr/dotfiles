@@ -32,6 +32,7 @@ in
     ./kitty.nix
     ./rofi.nix
     ./swaylock.nix
+    ./yazi.nix
   ];
 
   home.sessionVariables = {

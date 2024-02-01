@@ -12,7 +12,7 @@
     html.enable = false;
     json.enable = false;
   };
-  
+
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     audible-cli
@@ -46,17 +46,18 @@
     nitch
     nixpkgs-fmt
     openssh
-    wallust
     ranger
     ripgrep
     tiny
     tree
     unzip
+    wallust
     wget
-    yt-dlp
     xclip
-    zsh-powerlevel10k
+    yazi
+    yt-dlp
     zoom-us
+    zsh-powerlevel10k
   ];
 
   programs.bash.enable = true;
@@ -119,6 +120,16 @@
       bindkey ^S history-incremental-search-forward
 
       eval "$(direnv hook zsh)"
+
+      # Yazi
+      function ya() {
+        local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+        yazi "$@" --cwd-file="$tmp"
+        if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+          cd -- "$cwd"
+        fi
+        rm -f -- "$tmp"
+      }
     '';
   };
 
