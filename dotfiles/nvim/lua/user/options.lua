@@ -12,18 +12,19 @@ end
 -- :help options
 local options = {
   backup = false,
-  clipboard = "unnamedplus", -- Use the system clipboard.
+  clipboard = "unnamedplus",
   cmdheight = 0,
   colorcolumn = "88",
   completeopt = { "menuone", "noselect" },
   conceallevel = 0,
   cursorline = false,
-  expandtab = true, -- tabs to spaces.
+  expandtab = true,
   fileencoding = "utf-8",
   fileformat = "unix",
   guifont = "monospace:h17",
   hlsearch = true,
   ignorecase = true,
+  linebreak = true,
   mouse = "a",
   number = true,
   numberwidth = 4,
