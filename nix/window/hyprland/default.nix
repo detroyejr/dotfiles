@@ -26,7 +26,7 @@ let
 in
 {
   imports = [
-    # ./dunst.nix
+    ./dunst.nix
     ./eww.nix
     ./gtk.nix
     ./kitty.nix
@@ -314,7 +314,6 @@ in
   };
 
   services = {
-    dunst.enable = true;
     kanshi = {
       enable = true;
       systemdTarget = "hyprland-session.target";
@@ -377,6 +376,7 @@ in
     kanshi
     keepassxc
     keeweb
+    libnotify
     lutris
     networkmanager_dmenu
     nomacs
