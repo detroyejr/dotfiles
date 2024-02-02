@@ -22,6 +22,7 @@
           allowUnfree = true;
           allowBroken = true;
         };
+        overlays = [ (import ./overlays.nix) ];
       };
 
       nix-colors = import ./colors.nix;
