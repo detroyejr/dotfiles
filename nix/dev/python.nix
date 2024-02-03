@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  python-with-packages = pkgs.python311.withPackages (ps: with ps; [
+  python-with-packages = pkgs.python3.withPackages (ps: with ps; [
     black
     boto3
     dask
