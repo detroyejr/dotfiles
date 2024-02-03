@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  python-with-packages = pkgs.python310.withPackages (ps: with ps; [
+  python-with-packages = pkgs.python311.withPackages (ps: with ps; [
     black
     boto3
     dask
@@ -25,5 +25,5 @@ let
   ]);
 in
 {
-  home.packages = [ python-with-packages pkgs.poetry pkgs.gtk3 pkgs.gobject-introspection pkgs.ruff ];
+  home.packages = [ python-with-packages pkgs.poetry pkgs.ruff ];
 }
