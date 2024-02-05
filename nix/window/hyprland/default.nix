@@ -378,6 +378,7 @@ in
     keeweb
     libnotify
     lutris
+    mkchromecast
     networkmanager_dmenu
     nomacs
     pamixer
