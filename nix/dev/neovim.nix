@@ -28,13 +28,13 @@
         bg3     = "#${base03}", -- Lighter bg (cursor line)
         bg4     = "#${base04}", -- Conceal, border fg
 
-        fg0     = "#${base05}", -- Lighter fg
-        fg1     = "#${base07}", -- Default fg
-        fg2     = "#${base06}", -- Darker fg (status line)
-        fg3     = "#${base06}", -- Darker fg (line numbers, fold colums)
+        fg0     = "#${base07}", -- Lighter fg
+        fg1     = "#${base06}", -- Default fg
+        fg2     = "#${base05}", -- Darker fg (status line)
+        fg3     = "#${base05}", -- Darker fg (line numbers, fold colums)
 
-        sel0    = "#${base06}", -- Popup bg, visual selection bg
-        sel1    = "#${base06}", -- Popup sel bg, search bg
+        sel0    = "#${base02}", -- Popup bg, visual selection bg
+        sel1    = "#${base03}", -- Popup sel bg, search bg
 
         comment = "#${base04}",
       }
