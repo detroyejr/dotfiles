@@ -227,8 +227,10 @@
         realname: "Jon"
         nicks: ["detroyejr", "detroyejr510"]
         join:
+          - "#linux"
           - "#neovim"
           - "#python"
+          - "#nixos"
   '';
 
 
