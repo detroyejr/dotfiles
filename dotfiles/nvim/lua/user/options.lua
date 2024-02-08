@@ -72,6 +72,7 @@ vim.cmd([[
 
   " generic
   autocmd filetype r set colorcolumn=80
+  autocmd filetype markdown set wrap
   autocmd VimLeave * set guicursor=a:ver20
 
   " terminal
