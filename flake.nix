@@ -9,10 +9,11 @@
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprlock.url = "github:hyprwm/Hyprlock";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = { nixpkgs, home-manager, nixos-hardware, hyprland, ... }:
+  outputs = { nixpkgs, home-manager, nixos-hardware, hyprland, hyprlock, ... }:
     let
       # System
       system = "x86_64-linux";
@@ -66,6 +67,7 @@
                 ./nix/dev
                 ./nix/window/hyprland
                 ./nix/cataclysm-dda.nix
+                hyprlock.homeManagerModules.hyprlock
               ];
             };
           }

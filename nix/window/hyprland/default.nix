@@ -166,8 +166,9 @@ in
       disable_splash_rendering = true
     }
 
-    device:steelseries-steelseries-sensei-310-esports-mouse {
-        sensitivity = -0.7
+    device {
+      name = "steelseries-steelseries-sensei-310-esports-mouse"
+      sensitivity = -0.7
     }
 
 
@@ -311,6 +312,10 @@ in
       obs-pipewire-audio-capture
       obs-hyperion
     ];
+  };
+
+  programs.hyprlock = {
+    enable = true;
   };
 
   services = {
