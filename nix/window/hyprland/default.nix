@@ -314,10 +314,6 @@ in
     ];
   };
 
-  programs.hyprlock = {
-    enable = true;
-  };
-
   services = {
     kanshi = {
       enable = true;

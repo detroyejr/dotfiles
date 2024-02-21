@@ -166,8 +166,9 @@
       bind % split-window -h -c "#{pane_current_path}"
 
       # List of plugins.
-      set -g @plugin 'jimeh/tmux-themepack'
       set -g @plugin 'christoomey/vim-tmux-navigator'
+      set -g @plugin 'jimeh/tmux-themepack'
+      set -g @plugin 'sainnhe/tmux-fzf'
       set -g @plugin 'tmux-plugins/tmux-sensible'
       set -g @plugin 'tmux-plugins/tmux-yank'
       set -g @plugin 'tmux-plugins/tpm'
