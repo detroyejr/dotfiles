@@ -28,7 +28,7 @@
   };
   gruvbox = {
     colorSchemeName = "gruvbox";
-    wallpaper = ./assets/walls/gruvbox/nathan-dumlao-tA90pRfL2gM-unsplash.jpg;
+    wallpaper = ./assets/walls/gruvbox/typewriter_armin_djuhic.jpg;
     colorScheme = {
       author = "Jonathan De Troye";
       name = "Gruvbox";
