@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+tmux new-session -d -s "tools"
+tmux new-window -t "tools" -n notes -c $HOME/.config/dotfiles/
+tmux send-keys -t "tools:2" 'joplin' Enter
+tmux new-window -t "tools" -n tiny -c $HOME/.config/dotfiles/
+tmux send-keys -t "tools:3" 'tiny' Enter
+tmux attach -t "tools:1"
