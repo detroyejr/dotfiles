@@ -62,6 +62,11 @@
 
   programs.bash.enable = true;
 
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   # Theme for Powerlevel10k.
   home.file.".p10k.zsh".source = ../dotfiles/zsh/.p10k.zsh;
 
