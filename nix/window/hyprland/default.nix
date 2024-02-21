@@ -380,6 +380,7 @@ in
     lutris
     mkchromecast
     networkmanager_dmenu
+    nfs-utils
     nomacs
     pamixer
     pavucontrol
