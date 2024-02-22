@@ -104,7 +104,9 @@ in
             scroll_factor = 0.5
         }
 
-        sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+        sensitivity = 0
+        repeat_rate = 50
+        repeat_delay = 400
     }
 
     general {
@@ -167,9 +169,10 @@ in
     }
 
     device {
-      name = "steelseries-steelseries-sensei-310-esports-mouse"
+      name = steelseries-steelseries-sensei-310-esports-mouse
       sensitivity = -0.7
     }
+    
 
 
     # See https://wiki.hyprland.org/Configuring/Keywords/ for more
