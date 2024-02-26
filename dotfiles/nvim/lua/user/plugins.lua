@@ -34,6 +34,7 @@ local plugins = {
   { "EdenEast/nightfox.nvim" },
   { "folke/tokyonight.nvim" },
   { "xiyaowong/transparent.nvim" },
+  { "folke/todo-comments.nvim",  dependencies = { "nvim-lua/plenary.nvim" }, opts = { signs = false } },
 
   -- lsp & cmp plugins
   { "hrsh7th/cmp-buffer" },
