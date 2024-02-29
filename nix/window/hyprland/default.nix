@@ -369,7 +369,7 @@ in
     colorz
     discord
     dmenu
-    eww-wayland
+    eww
     grim
     hyperion-ng
     hyprpaper
