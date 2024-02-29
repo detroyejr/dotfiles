@@ -17,7 +17,13 @@ local plugins = {
   { "folke/lazy.nvim" }, -- Have lazy manage itself
   { "christoomey/vim-tmux-navigator" },
   { "lukas-reineke/indent-blankline.nvim" },
-
+  {
+    "echasnovski/mini.nvim",
+    version = "*",
+    config = function()
+      require("mini.statusline").setup()
+    end,
+  },
   -- Utilities
   { "famiu/bufdelete.nvim" },
   { "folke/which-key.nvim" },
