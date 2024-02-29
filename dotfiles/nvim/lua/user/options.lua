@@ -13,7 +13,6 @@ end
 local options = {
   backup = false,
   clipboard = "unnamedplus",
-  cmdheight = 0,
   colorcolumn = "88",
   completeopt = { "menuone", "noselect" },
   conceallevel = 0,
