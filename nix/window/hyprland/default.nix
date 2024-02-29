@@ -62,7 +62,7 @@ in
     env = WLR_DRM_NO_ATOMIC,1
 
     exec-once = hyprctl dispatch dpms on &
-    exec-once = kanshi & swaylock & hyprpaper & dunst & eww open bar &
+    exec-once = kanshi & hyprpaper & dunst & eww open bar & swaylock
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(Rofi)$
@@ -399,7 +399,6 @@ in
     viewnior
     vlc
     wireplumber
-    wireshark
     wlr-randr
     wlsunset
     wpgtk

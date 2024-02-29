@@ -104,7 +104,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.detroyejr = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" "input" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "libvirtd" "input" "wireshark" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
       git
@@ -115,7 +115,6 @@
     ];
   };
 
-  # Recent change. Adding this prevents errors.
   programs = {
     steam = {
       enable = true;
@@ -143,6 +142,8 @@
       };
     };
   };
+  programs.wireshark.enable = true;
+  programs.wireshark.package = pkgs.wireshark;
 
   environment.systemPackages = with pkgs; [
     dislocker
@@ -201,8 +202,8 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  # networking.firewall.allowedTCPPorts = [ 80 443 51820 ];
+  # networking.firewall.allowedUDPPorts = [ 80 443 51820 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
