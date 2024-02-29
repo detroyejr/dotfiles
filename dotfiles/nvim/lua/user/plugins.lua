@@ -22,19 +22,13 @@ local plugins = {
     version = "*",
     config = function()
       require("mini.statusline").setup()
+      require("mini.comment").setup()
     end,
   },
   -- Utilities
   { "famiu/bufdelete.nvim" },
   { "folke/which-key.nvim" },
   { "nvim-lua/plenary.nvim" }, -- Useful lua functions used in lots of plugins
-  {
-    "numToStr/Comment.nvim",
-    opts = {
-      -- add any options here
-    },
-    lazy = false,
-  },
 
   -- UI
   { "EdenEast/nightfox.nvim" },
