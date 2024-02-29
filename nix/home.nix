@@ -95,6 +95,14 @@
       enable = true;
       plugins = [ "git" "tmux" ];
       theme = "robbyrussell";
+      package = pkgs.oh-my-zsh.overrideAttrs (old: {
+        src = pkgs.fetchFromGitHub {
+          owner = "ohmyzsh";
+          repo = "ohmyzsh";
+          rev = "9730915910c6cc7640f8af6063ffb93becf0414a";
+          sha256 = "sha256-vyp9bu9iS2UBbUi9dGjZoB76J5fT2NkS/TxVtFKT+EQ=";
+        };
+      });
     };
     initExtra = ''
       # ZSH Options
