@@ -47,8 +47,10 @@
   hardware.nvidia.modesetting.enable = true;
 
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb = {
+      layout = "us"; 
+      variant = "";
+    };
   };
 
   users.users.detroyejr = {
