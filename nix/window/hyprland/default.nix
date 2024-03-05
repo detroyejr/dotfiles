@@ -87,8 +87,6 @@ in
     windowrule = size 100 160,^(nmtui-connect)$
     windowrule = animation slide,title:^(nmtui-connect)$
 
-    windowrulev2 = immediate, class:^(Raft)$
-
     # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
     input {
         kb_layout = us
@@ -166,6 +164,7 @@ in
     misc {
       disable_hyprland_logo = true
       disable_splash_rendering = true
+      focus_on_activate = true
     }
 
     device {
@@ -194,7 +193,6 @@ in
     bind = $mainMod, P, pseudo, # dwindle
     bind = $mainMod, Q, exec, kitty
     bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else $HOME/.local/bin/rofi-launcher; fi"
-    bind = $mainMod, R, exec, hyprctl dispatch focuswindow ^(Rofi)$
     bind = CTRL ALT, Delete, exit
     bind = $mainMod SHIFT, W, exec, bash -c "/home/detroyejr/.local/bin/bash//random-wallpaper /home/detroyejr/OneDrive/Pictures/Wallpaper/walls/ && eww close-all && eww open bar"
 
