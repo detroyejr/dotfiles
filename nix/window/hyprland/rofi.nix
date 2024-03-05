@@ -28,7 +28,7 @@ in
 {
 
   home.packages = with pkgs; [
-    rofi
+    rofi-wayland
     rofi-power-menu
   ];
 
