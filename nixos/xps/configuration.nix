@@ -224,6 +224,7 @@
           --umask 022 \
           --uid 1000 \
           --gid 1000 \
+          --file-perms=0777 \
           --allow-other \
           --config=$FILE \
           "OneDrive:" "/home/detroyejr/OneDrive/"
@@ -247,6 +248,7 @@
           --log-level INFO \
           --log-file /tmp/rclone-google.log \
           --umask 022 \
+          --file-perms=0777 \
           --uid 1000 \
           --gid 1000 \
           --allow-other \
