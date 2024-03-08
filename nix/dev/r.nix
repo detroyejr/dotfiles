@@ -31,7 +31,7 @@ let
         name = "Topline";
         src = builtins.fetchGit {
           url = "git@github.com:echeloninsights/topline.git";
-          rev = "98175e8398fb4279c1e13c1b0773b1c1a50d651a";
+          rev = "751a269c990053c0b9f5f5ce72259f3e6934bf8a";
         };
         buildInputs = with rPackages; [ 
           flextable
@@ -73,7 +73,7 @@ let
       sjlabelled
       stringi
       surveytools
-      # topline
+      topline
       usethis
     ];
   };
