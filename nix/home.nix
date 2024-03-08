@@ -20,6 +20,8 @@
     bat
     bc
     cachix
+    cargo
+    clippy
     cmake
     curl
     fd
@@ -48,6 +50,9 @@
     openssh
     ranger
     ripgrep
+    rust-analyzer
+    rustc
+    rustfmt
     tiny
     tree
     unzip
