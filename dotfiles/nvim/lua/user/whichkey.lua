@@ -108,6 +108,14 @@ local mappings = {
 		"Find files",
 	},
 	["F"] = { "<cmd>Telescope live_grep<cr>", "Find Text" },
+  T = {
+    F = { "<cmd>Telescope live_grep<cr>", "Find Text" },
+    f = {
+      "<cmd>Telescope find_files<cr>",
+      "Find files",
+    },
+
+  },
 	g = {
 		name = "Git",
 		j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
