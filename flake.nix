@@ -21,6 +21,9 @@
         config = {
           allowUnfree = true;
           allowBroken = true;
+          permittedInsecurePackages = [
+            "nix-2.16.2"
+          ];
         };
         overlays = [ (import ./overlays.nix) ];
       };
