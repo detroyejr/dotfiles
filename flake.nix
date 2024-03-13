@@ -16,6 +16,16 @@
     let
       # System
       system = "x86_64-linux";
+      # nixpkgs-patched = (import nixpkgs { inherit system; }).applyPatches {
+      #  name = "nixpkgs-patched";
+      #  src = nixpkgs;
+
+      #  patches = [
+      #    ./curl-patch.patch
+      #    ./gdal-patch.patch
+      #  ];
+      #};
+
       pkgs = import nixpkgs {
         inherit system;
         config = {
@@ -25,7 +35,6 @@
             "nix-2.16.2"
           ];
         };
-        overlays = [ (import ./overlays.nix) ];
       };
 
       nix-colors = import ./colors.nix;
