@@ -379,6 +379,7 @@ in
     keepassxc
     keeweb
     libnotify
+    libreoffice
     lutris
     mkchromecast
     networkmanager_dmenu
