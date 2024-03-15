@@ -103,8 +103,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "ohmyzsh";
           repo = "ohmyzsh";
-          rev = "9730915910c6cc7640f8af6063ffb93becf0414a";
-          sha256 = "sha256-vyp9bu9iS2UBbUi9dGjZoB76J5fT2NkS/TxVtFKT+EQ=";
+          rev = "ab33a04e95054ed1e2b0fc17e6d5575e8c74e749";
+          sha256 = "sha256-6GlCJQkktgH64MToqtd9oTm8YOqguR9BYoxU1GmH57w=";
         };
       });
     };
