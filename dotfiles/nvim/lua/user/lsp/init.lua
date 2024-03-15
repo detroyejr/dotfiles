@@ -1,6 +1,7 @@
 -- LSP Config
 
 local servers = {
+  "clangd",
   "lua_ls",
   "nixd",
   "pylsp",
