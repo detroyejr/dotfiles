@@ -28,7 +28,7 @@
   };
   gruvbox = {
     colorSchemeName = "gruvbox";
-    wallpaper = ./assets/walls/gruvbox/typewriter_armin_djuhic.jpg;
+    wallpaper = ./assets/walls/gruvbox/travis-yewell-F-B7kWlkxDQ-unsplash.jpg;
     colorScheme = {
       author = "Jonathan De Troye";
       name = "Gruvbox";
