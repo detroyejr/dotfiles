@@ -36,7 +36,7 @@ in
   home.file.".local/bin/rofi-launcher" = {
     text = ''
       dir="$HOME/.config/rofi/launchers/type-7"
-      theme='style-8'
+      theme='style-3'
 
       ## Run
       rofi \
