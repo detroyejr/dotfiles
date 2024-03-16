@@ -162,7 +162,7 @@
   # For sway.
   security = {
     polkit.enable = true;
-    pam.services.swaylock.text = ''
+    pam.services.hyprlock.text = ''
       # Account management.
       account required pam_unix.so
 
@@ -178,7 +178,7 @@
       session required pam_env.so conffile=/etc/pam/environment readenv=0
       session required pam_unix.so
     '';
-    pam.services.swaylock.fprintAuth = true;
+    pam.services.hyprlock.fprintAuth = true;
   };
 
   # List packages installed in system profile. To search, run:
@@ -205,7 +205,7 @@
   # networking.firewall.allowedTCPPorts = [ 80 443 51820 ];
   # networking.firewall.allowedUDPPorts = [ 80 443 51820 ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   systemd.services.onedrive = {
     path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];

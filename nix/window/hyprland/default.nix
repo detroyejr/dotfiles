@@ -29,10 +29,11 @@ in
     ./dunst.nix
     ./eww.nix
     ./gtk.nix
+    ./hyprlock.nix
     ./kitty.nix
     ./rofi.nix
-    ./swaylock.nix
     ./yazi.nix
+    # ./swaylock.nix
   ];
 
   home.sessionVariables = {
@@ -62,7 +63,7 @@ in
     env = WLR_DRM_NO_ATOMIC,1
 
     exec-once = hyprctl dispatch dpms on &
-    exec-once = kanshi & hyprpaper & dunst & eww open bar & swaylock
+    exec-once = kanshi & hyprpaper & dunst & eww open bar & hyprlock
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(Rofi)$
@@ -171,7 +172,7 @@ in
       name = steelseries-steelseries-sensei-310-esports-mouse
       sensitivity = -0.7
     }
-    
+
 
 
     # See https://wiki.hyprland.org/Configuring/Keywords/ for more
@@ -189,7 +190,7 @@ in
     bind = $mainMod, F, resizeactive, exact 1000 1200
     bind = $mainMod, G, fullscreen
     bind = $mainMod, J, togglesplit, # dwindle
-    bind = $mainMod, L, exec, bash -c "swaylock"
+    bind = $mainMod, L, exec, bash -c "hyprlock"
     bind = $mainMod, P, pseudo, # dwindle
     bind = $mainMod, Q, exec, kitty
     bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else $HOME/.local/bin/rofi-launcher; fi"
