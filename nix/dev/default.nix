@@ -6,4 +6,8 @@
     ./python.nix
     ./r.nix
   ];
+
+  home.packages = with pkgs; [ 
+    clang-tools
+  ];
 }
