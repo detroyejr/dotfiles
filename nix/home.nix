@@ -77,7 +77,7 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     shellAliases = {
       k = "kubectl";
       ll = "lsd --color=never -l";
