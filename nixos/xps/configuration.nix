@@ -135,12 +135,6 @@
       enable = true;
       plugins = with pkgs; [ xfce.exo ];
     };
-    hyprland = {
-      enable = true;
-      xwayland = {
-        enable = true;
-      };
-    };
   };
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark;

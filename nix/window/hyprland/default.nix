@@ -164,7 +164,8 @@ in
 
     misc {
       disable_hyprland_logo = true
-      disable_splash_rendering = true
+      disable_splash_rendering = false
+      col.splash = rgb(${base0D})
       focus_on_activate = true
     }
 
@@ -265,7 +266,7 @@ in
   '';
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
-    splash = false
+    splash = true
     preload = ${builtins.toString wallpaper}
 
     wallpaper = DP-3,${builtins.toString wallpaper}

@@ -42,7 +42,6 @@
       colorSchemeName = "gruvbox";
       colorScheme = nix-colors.${colorSchemeName}.colorScheme;
       wallpaper = nix-colors.${colorSchemeName}.wallpaper;
-
     in
     {
 
@@ -67,7 +66,23 @@
           nixos-hardware.nixosModules.dell-xps-15-9520
           nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
           ./nixos/xps/configuration.nix
-          hyprland.nixosModules.default
+          # hyprland.nixosModules.default
+          # FIXME: Switching to this instead of using hyprland.nixosModules.default
+          # so that I can modify hyprland.packages.${system}.default without having
+          # to pass hyprland itself through.
+          ({
+            programs.hyprland = {
+              enable = true;
+              package = hyprland.packages.${system}.default.overrideAttrs (oldAttrs: {
+                prePatch =  ''
+                  cp ${./dotfiles/hyprland/Splashes.hpp} ./src/helpers/Splashes.hpp
+                '';
+              });
+              xwayland = {
+                enable = true;
+              };
+            };
+          })
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
