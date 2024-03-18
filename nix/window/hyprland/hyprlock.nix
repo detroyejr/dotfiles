@@ -21,7 +21,7 @@
         {
           monitor = "";
           path = builtins.toString ../../../assets/profile.png;
-          position = { x = 0; y = 300; };
+          position = { x = 0; y = 270; };
           halign = "center";
           valign = "center";
           size = 400;
@@ -38,7 +38,7 @@
           outer_color = entry_border_color;
           inner_color = entry_background_color;
           font_color = entry_color;
-          position = { x = 0; y = -100; };
+          position = { x = 0; y = -130; };
           halign = "center";
           valign = "center";
         }
@@ -50,15 +50,13 @@
           color = text_color;
           font_size = 65;
           font_family = "BlexMono Nerd Font";
-          position = { x = 0; y = 600; };
-          halign = "center";
-          valign = "center";
+          position = { x = 0; y = 550; };
         }
         {
           text = "Hi there, $USER";
           color = text_color;
           font_size = 35;
-          position = { x = 0; y = 50; };
+          position = { x = 0; y = 0; };
           font_family = "BlexMono Nerd Font";
         }
       ];
