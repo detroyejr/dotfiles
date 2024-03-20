@@ -19,7 +19,7 @@ inline const std::vector<std::string> SPLASHES = {
     "John 1:9 - The true light, which gives light to everyone, was coming into "
     "the world.",
     "John 1:10 - He was in the world, and the world was made through him, yet "
-    "the world did not know him."
+    "the world did not know him.",
     "John 1:11 - He came to his own, and his own people did not receive him.",
     "John 1:12 - But to all who did receive him, who believed in his name, he "
     "gave the right to become children of God,",
@@ -105,5 +105,4 @@ inline const std::vector<std::string> SPLASHES = {
     "the fig tree,’ do you believe? You will see greater things than these.”",
     "John 1:52 - And he said to him, “Truly, truly, I say to you, you will see "
     "heaven opened, and the angels of God ascending and descending on the Son "
-    "of Man.”"
-};
+    "of Man.”"};
