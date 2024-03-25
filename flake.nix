@@ -17,17 +17,18 @@
     let
       # System
       system = "x86_64-linux";
-      # nixpkgs-patched = (import nixpkgs { inherit system; }).applyPatches {
-      #  name = "nixpkgs-patched";
-      #  src = nixpkgs;
+      nixpkgs-patched = (import nixpkgs { inherit system; }).applyPatches {
+        name = "nixpkgs-patched";
+        src = nixpkgs;
 
-      #  patches = [
-      #    ./curl-patch.patch
-      #    ./gdal-patch.patch
-      #  ];
-      #};
+        patches = [
+          # ./curl-patch.patch
+          # ./gdal-patch.patch
+          ./awscli-pin.patch
+        ];
+      };
 
-      pkgs = import nixpkgs {
+      pkgs = import nixpkgs-patched {
         inherit system;
         config = {
           allowUnfree = true;
@@ -36,6 +37,7 @@
             "nix-2.16.2"
           ];
         };
+        overlays = [ (import ./overlays.nix) ];
       };
 
       nix-colors = import ./colors.nix;
@@ -74,7 +76,7 @@
             programs.hyprland = {
               enable = true;
               package = hyprland.packages.${system}.default.overrideAttrs (oldAttrs: {
-                prePatch =  ''
+                prePatch = ''
                   cp ${./dotfiles/hyprland/Splashes.hpp} ./src/helpers/Splashes.hpp
                 '';
               });
