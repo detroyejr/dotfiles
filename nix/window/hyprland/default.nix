@@ -104,8 +104,8 @@ in
         }
 
         sensitivity = 0
-        repeat_rate = 50
-        repeat_delay = 400
+        repeat_rate = 80
+        repeat_delay = 300
     }
 
     general {
