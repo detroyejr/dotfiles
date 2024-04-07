@@ -65,7 +65,8 @@ inline const std::vector<std::string> SPLASHES = {
     "like a dove, and it remained on him.",
     "John 1:33 - I myself did not know him, but he who sent me to baptize with "
     "water said to me, ‘He on whom you see the Spirit descend and remain, this "
-    "is he who baptizes with the Holy Spirit.’ 34 And I have seen and have "
+    "is he who baptizes with the Holy Spirit.’",
+    "34 And I have seen and have "
     "borne witness that this is the Son of God.”",
     "John 1:35 - The next day again John was standing with two of his "
     "disciples,",
