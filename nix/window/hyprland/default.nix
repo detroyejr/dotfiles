@@ -47,7 +47,7 @@ in
     # change monitor to high resolution, the last argument is the scale factor
     monitor=eDP-1,preferred,auto,2
     monitor=,highres,auto,1
-
+    debug:disable_logs = false
     # toolkit-specific scale
     env = BROWSER,firefox;
     env = EDITOR,nvim;
@@ -63,7 +63,7 @@ in
     env = WLR_DRM_NO_ATOMIC,1
 
     exec-once = hyprctl dispatch dpms on &
-    exec-once = kanshi & hyprpaper & dunst & eww open bar & hyprlock
+    exec-once = hyprpaper & dunst & eww open bar & hyprlock
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(Rofi)$
