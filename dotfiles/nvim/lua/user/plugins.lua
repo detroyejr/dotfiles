@@ -21,8 +21,9 @@ local plugins = {
     "echasnovski/mini.nvim",
     version = "*",
     config = function()
-      require("mini.statusline").setup()
       require("mini.comment").setup()
+      require("mini.statusline").setup()
+      require("mini.tabline").setup()
     end,
   },
   -- Utilities
