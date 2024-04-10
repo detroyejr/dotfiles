@@ -64,11 +64,16 @@
       pulse.enable = true;
       jack.enable = true;
     };
+
+    displayManager = {
+      autoLogin = {
+        enable = true;
+        user = "detroyejr";
+      };
+    };
     xserver = {
-      enable = true;
-      displayManager.autoLogin.enable = true;
-      displayManager.autoLogin.user = "detroyejr";
       displayManager.gdm.enable = true;
+      enable = true;
       videoDrivers = [ "nvidia" ];
       libinput = {
         enable = true;
