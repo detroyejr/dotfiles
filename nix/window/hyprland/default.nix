@@ -63,7 +63,7 @@ in
     env = WLR_DRM_NO_ATOMIC,1
 
     exec-once = hyprctl dispatch dpms on &
-    exec-once = hyprpaper & dunst & eww open bar & hyprlock
+    exec-once = hyprpaper & dunst & eww open bar & hyprlock & kanshi
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(Rofi)$
