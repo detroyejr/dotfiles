@@ -47,6 +47,7 @@
     nil
     nitch
     nixpkgs-fmt
+    obsidian
     openssh
     ranger
     ripgrep

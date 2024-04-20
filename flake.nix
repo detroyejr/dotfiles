@@ -26,7 +26,7 @@
       };
 
       nix-colors = import ./colors.nix;
-      colorSchemeName = "rose-pine-dawn";
+      colorSchemeName = "rose-pine";
       colorScheme = nix-colors.${colorSchemeName}.colorScheme;
       wallpaper = nix-colors.${colorSchemeName}.wallpaper;
     in
