@@ -34,6 +34,7 @@ local plugins = {
   -- UI
   { "EdenEast/nightfox.nvim" },
   { "folke/tokyonight.nvim" },
+  { "rose-pine/neovim", name = "rose-pine" },
   { "xiyaowong/transparent.nvim" },
   { "folke/todo-comments.nvim",  dependencies = { "nvim-lua/plenary.nvim" }, opts = { signs = false } },
 

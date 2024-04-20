@@ -152,7 +152,6 @@
 
   programs.tmux = {
     enable = true;
-    shortcut = "a";
     newSession = true;
     clock24 = true;
     extraConfig = ''
