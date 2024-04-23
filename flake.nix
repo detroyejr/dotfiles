@@ -42,7 +42,6 @@
         modules = [
           ./nix/home.nix
           ./nix/dev
-          ./nix/cataclysm-dda.nix
         ];
       };
 
