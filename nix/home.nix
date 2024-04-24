@@ -24,6 +24,7 @@
     clippy
     cmake
     curl
+    emojipick
     fd
     ffmpeg
     file
