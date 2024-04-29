@@ -24,7 +24,6 @@
     clippy
     cmake
     curl
-    emojipick
     fd
     ffmpeg
     file
@@ -60,6 +59,7 @@
     unzip
     wallust
     wget
+    wofi-emoji 
     xclip
     yazi
     yt-dlp
