@@ -52,5 +52,5 @@ let
   ]);
 in
 {
-  home.packages = [ python-with-packages pkgs.poetry pkgs.ruff ];
+  home.packages = [ python-with-packages pkgs.ruff ];
 }
