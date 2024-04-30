@@ -71,17 +71,17 @@
         user = "detroyejr";
       };
     };
+    libinput = {
+      enable = true;
+      touchpad = {
+        scrollMethod = "twofinger";
+        naturalScrolling = false;
+      };
+    };
     xserver = {
       displayManager.gdm.enable = true;
       enable = true;
       videoDrivers = [ "nvidia" ];
-      libinput = {
-        enable = true;
-        touchpad = {
-          scrollMethod = "twofinger";
-          naturalScrolling = false;
-        };
-      };
     };
   };
 
