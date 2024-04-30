@@ -31,7 +31,6 @@
     gcc
     gh
     gnumake
-    joplin
     jq
     kubectl
     lame
