@@ -5,7 +5,7 @@ final: prev: {
       "fprintd:TestPamFprintd"
     ];
   };
-  python3Packages.gdal = prev.python3Packages.gdal.overrideAttrs {
+  python3Packages.gdal = prev.python3Packages.gdal.overridePythonAttrs {
     doCheck = false;
   };
 
