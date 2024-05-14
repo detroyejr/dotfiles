@@ -323,17 +323,19 @@ in
     kanshi = {
       enable = true;
       systemdTarget = "hyprland-session.target";
-      profiles = {
-        undocked = {
-          outputs = [
+      settings = [
+        {
+          profile.name = "undocked";
+          profile.outputs = [
             {
               criteria = "eDP-1";
               status = "enable";
             }
           ];
-        };
-        docked = {
-          outputs = [
+        }
+        {
+          profile.name = "undocked";
+          profile.outputs = [
             {
               criteria = "Samsung Electric Company S24F350 H4ZM900001";
               mode = "1920x1080@59.96";
@@ -344,9 +346,10 @@ in
               status = "disable";
             }
           ];
-        };
-        docked2 = {
-          outputs = [
+        }
+        {
+          profile.name = "docked2";
+          profile.outputs = [
             {
               criteria = "Dell Inc. DELL S2721QS BVR9513";
               mode = "3840x2160@59.94";
@@ -358,8 +361,8 @@ in
               status = "disable";
             }
           ];
-        };
-      };
+        }
+      ];
     };
   };
 
