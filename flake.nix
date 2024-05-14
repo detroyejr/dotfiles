@@ -11,16 +11,12 @@
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprlock = {
-      url = "github:hyprwm/Hyprlock";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
     };
   };
 
-  outputs = { nixpkgs, home-manager, nixos-hardware, hyprland, hyprlock, ... }:
+  outputs = { nixpkgs, home-manager, nixos-hardware, hyprland, ... }:
     let
       # System
       system = "x86_64-linux";
@@ -80,10 +76,9 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit nix-colors colorSchemeName colorScheme wallpaper hyprland hyprlock; };
+            home-manager.extraSpecialArgs = { inherit nix-colors colorSchemeName colorScheme wallpaper hyprland; };
             home-manager.users.detroyejr = {
               imports = [
-                hyprlock.homeManagerModules.hyprlock
                 ./nix/home.nix
                 ./nix/dev
                 ./nix/window/hyprland
