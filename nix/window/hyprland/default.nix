@@ -190,7 +190,7 @@ in
     bind = $mainMod, E, exec, thunar
     bind = $mainMod, F, togglefloating,
     bind = $mainMod, F, centerwindow
-    bind = $mainMod, F, resizeactive, exact 1000 1200
+    bind = $mainMod, F, resizeactive, exact 1300 700
     bind = $mainMod, G, fullscreen
     bind = $mainMod, J, togglesplit, # dwindle
     bind = $mainMod, L, exec, bash -c "hyprlock"
@@ -370,6 +370,7 @@ in
     acpi
     aircrack-ng
     anki
+    audible-cli
     bluez
     colorz
     discord
@@ -392,6 +393,7 @@ in
     networkmanager_dmenu
     nfs-utils
     nomacs
+    obsidian
     pamixer
     pavucontrol
     playerctl
@@ -402,11 +404,14 @@ in
     slurp
     socat
     swaynotificationcenter
+    torrential
     viewnior
     vlc
+    wallust
     wireplumber
     wlr-randr
     wlsunset
+    wofi-emoji 
     wpgtk
     xdo
     xdotool

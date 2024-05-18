@@ -15,11 +15,9 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    audible-cli
     awscli2
     bat
     bc
-    cachix
     cargo
     clippy
     cmake
@@ -46,7 +44,6 @@
     nil
     nitch
     nixpkgs-fmt
-    obsidian
     openssh
     ranger
     ripgrep
@@ -56,9 +53,7 @@
     tiny
     tree
     unzip
-    wallust
     wget
-    wofi-emoji 
     xclip
     yazi
     yt-dlp
