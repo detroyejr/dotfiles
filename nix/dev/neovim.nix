@@ -53,5 +53,6 @@
   home.packages = with pkgs; [
     nixd
     stylua
+    lua52Packages.jsregexp
   ];
 }
