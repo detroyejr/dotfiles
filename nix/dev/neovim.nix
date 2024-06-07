@@ -1,4 +1,4 @@
-{ pkgs, colorScheme, ... }:
+{ pkgs, colorScheme, colorSchemeName, ... }:
 {
   home.file.".config/nvim" = {
     source = ../../dotfiles/nvim;
@@ -7,6 +7,8 @@
 
   home.file.".config/nvim/lua/user/colorscheme.lua".text = with colorScheme.colors; ''
     local Shade = require("nightfox.lib.shade")
+
+    COLORSCHEME = "${colorSchemeName}"
 
     -- stylua: ignore
     local palettes = {

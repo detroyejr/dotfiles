@@ -1,4 +1,5 @@
--- Location of the spellfile.
+-- Default colorscheme is overridden by user.colorscheme
+COLORSCHEME = "nightfox"
 if vim.fn.has("win32") ~= 1 then
   -- Set colorscheme for linux.
   require("user.colorscheme")
@@ -66,9 +67,11 @@ vim.g.netrw_liststyle = 3
 vim.g.netrw_preview = 1
 vim.g.netrw_winsize = 30
 
-vim.cmd([[
-  colorscheme nightfox
+-- Set nightfox first then custom
+pcall(vim.cmd("colorscheme nightfox"))
+pcall(vim.cmd("colorscheme " .. COLORSCHEME))
 
+vim.cmd([[
   " generic
   autocmd filetype r set colorcolumn=80
   autocmd filetype py set colorcolumn=88
