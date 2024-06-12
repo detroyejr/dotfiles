@@ -6,7 +6,7 @@ let
       owner = "adi1090x";
       repo = "rofi";
       rev = "master";
-      sha256 = "sha256-YjyrxappcLDoh3++mtZqCyxQV2qeoNhhUy2XGwlyTng=";
+      sha256 = "sha256-G3sAyIZbq1sOJxf+NBlXMOtTMiBCn6Sat8PHryxRS0w=";
     };
     installPhase = ''
       cp -r . $out;

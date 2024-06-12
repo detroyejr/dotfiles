@@ -275,6 +275,7 @@ in
     wallpaper = DP-4,${builtins.toString wallpaper}
     wallpaper = DP-5,${builtins.toString wallpaper}
     wallpaper = DP-7,${builtins.toString wallpaper}
+    wallpaper = HDMI-A-1,${builtins.toString wallpaper}
     wallpaper = eDP-1,${builtins.toString wallpaper}
   '';
 
@@ -359,6 +360,17 @@ in
             {
               criteria = "eDP-1";
               status = "disable";
+            }
+          ];
+        }
+        {
+          profile.name = "docked3";
+          profile.outputs = [
+            {
+              criteria = "Dell Inc. DELL S2721QS BVR9513";
+              mode = "2560x1440@59.95";
+              scale = 1.0;
+              status = "enable";
             }
           ];
         }

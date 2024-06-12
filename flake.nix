@@ -89,6 +89,45 @@
         ];
       };
 
+      nixosConfigurations.mini = nixpkgs.lib.nixosSystem {
+        inherit pkgs;
+        system = "x86_64-linux";
+        modules = [
+          ./nixos/mini/configuration.nix
+          # hyprland.nixosModules.default
+          # FIXME: Switching to this instead of using hyprland.nixosModules.default
+          # so that I can modify hyprland.packages.${system}.default without having
+          # to pass hyprland itself through.
+          ({
+            programs.hyprland = {
+              enable = true;
+              package = hyprland.packages.${system}.default.overrideAttrs (oldAttrs: {
+                prePatch = ''
+                  cp ${./dotfiles/hyprland/Splashes.hpp} ./src/helpers/Splashes.hpp
+                '';
+              });
+              xwayland = {
+                enable = true;
+              };
+            };
+          })
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit nix-colors colorSchemeName colorScheme wallpaper hyprland; };
+            home-manager.users.detroyejr = {
+              imports = [
+                ./nix/home.nix
+                ./nix/dev
+                ./nix/window/hyprland
+                ./nix/cataclysm-dda.nix
+              ];
+            };
+          }
+        ];
+      };
+
       nixosConfigurations.surface = nixpkgs.lib.nixosSystem {
         inherit pkgs;
         system = "x86_64-linux";
