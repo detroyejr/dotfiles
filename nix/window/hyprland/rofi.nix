@@ -1,4 +1,4 @@
-{ config, pkgs, colorScheme, wallpaper, ... }:
+{ pkgs, colorScheme, wallpaper, ... }:
 let
   rofi-themes = pkgs.stdenv.mkDerivation {
     name = "rofi-themes";
@@ -11,14 +11,14 @@ let
     installPhase = ''
       cp -r . $out;
     '';
-    patchPhase = with colorScheme.colors; ''
+    patchPhase = ''
       find files -type f -name "*.rasi" -exec sed -i 's/font:.*$/font: "BlexMono Nerd Font Mono 12";/g' {} ';';
-      find files -type f -name "*.rasi" -exec sed -i 's/background:.*$/background: #${base00};/g' {} ';';
-      find files -type f -name "*.rasi" -exec sed -i 's/background-alt:.*$/background-alt: #${base01};/g' {} ';';
-      find files -type f -name "*.rasi" -exec sed -i 's/foreground:.*$/foreground: #${base06};/g' {} ';';
-      find files -type f -name "*.rasi" -exec sed -i 's/selected:.*$/selected: #${base02};/g' {} ';';
-      find files -type f -name "*.rasi" -exec sed -i 's/active:.*$/active: #${base04};/g' {} ';';
-      find files -type f -name "*.rasi" -exec sed -i 's/urgent:.*$/urgent: #${base01};/g' {} ';';
+      find files -type f -name "*.rasi" -exec sed -i 's/background:.*$/background: #${colorScheme.colors.base00};/g' {} ';';
+      find files -type f -name "*.rasi" -exec sed -i 's/background-alt:.*$/background-alt: #${colorScheme.colors.base01};/g' {} ';';
+      find files -type f -name "*.rasi" -exec sed -i 's/foreground:.*$/foreground: #${colorScheme.colors.base06};/g' {} ';';
+      find files -type f -name "*.rasi" -exec sed -i 's/selected:.*$/selected: #${colorScheme.colors.base02};/g' {} ';';
+      find files -type f -name "*.rasi" -exec sed -i 's/active:.*$/active: #${colorScheme.colors.base04};/g' {} ';';
+      find files -type f -name "*.rasi" -exec sed -i 's/urgent:.*$/urgent: #${colorScheme.colors.base01};/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/[a-j].png/wallpaper.png/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/[a-j].jpg/wallpaper.png/g' {} ';';
       cp ${wallpaper} files/images/wallpaper.png

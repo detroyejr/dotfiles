@@ -96,27 +96,27 @@
     }
 
     #lock {
-        background-image: image(url("/home/detroyejr/.config/wlogout/icons/lock.png"));
+        background-image: image(url("/home/detroyejr/.config/dotfiles/dotfiles/wlogout/icons/lock.png"));
     }
 
     #logout {
-        background-image: image(url("/home/detroyejr/.config/wlogout/icons/logout.png"));
+        background-image: image(url("/home/detroyejr/.config/dotfiles/dotfiles/wlogout/icons/logout.png"));
     }
 
     #suspend {
-        background-image: image(url("/home/detroyejr/.config/wlogout/icons/suspend.png"));
+        background-image: image(url("/home/detroyejr/.config/dotfiles/dotfiles/wlogout/icons/suspend.png"));
     }
 
     #hibernate {
-        background-image: image(url("/home/detroyejr/.config/wlogout/icons/hibernate.png"));
+        background-image: image(url("/home/detroyejr/.config/dotfiles/dotfiles/wlogout/icons/hibernate.png"));
     }
 
     #shutdown {
-        background-image: image(url("/home/detroyejr/.config/wlogout/icons/shutdown.png"));
+        background-image: image(url("/home/detroyejr/.config/dotfiles/dotfiles/wlogout/icons/shutdown.png"));
     }
 
     #reboot {
-        background-image: image(url("/home/detroyejr/.config/wlogout/icons/reboot.png"));
+        background-image: image(url("/home/detroyejr/.config/dotfiles/dotfiles/wlogout/icons/reboot.png"));
     }
 
   '';
