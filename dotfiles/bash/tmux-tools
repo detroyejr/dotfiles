@@ -4,7 +4,6 @@ tmux new-session -d -s "tools"
 tmux new-window -t "tools" -n btop -c $HOME/.config/dotfiles/
 tmux send-keys -t "tools:2" 'btop' Enter
 tmux new-window -t "tools" -n notes -c $HOME/.config/dotfiles/
-tmux send-keys -t "tools:3" 'joplin' Enter
 tmux new-window -t "tools" -n tiny -c $HOME/.config/dotfiles/
 tmux send-keys -t "tools:4" 'tiny' Enter
 tmux attach -t "tools:1"
