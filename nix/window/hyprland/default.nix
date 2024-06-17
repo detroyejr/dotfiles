@@ -154,7 +154,7 @@ in
 
     master {
         # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-        new_is_master = true
+        new_status = "slave"
     }
 
     gestures {
@@ -182,7 +182,6 @@ in
     # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
     bind = $mainMod CTRL, S, exec, grim -g "$(slurp)"
     bind = $mainMod CTRL, P, exec, hyprpicker | wl-copy
-    # bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @joplinapp-desk > /dev/null; then kill $(pgrep -x  @joplinapp-desk | paste -sd ' '); else joplin-desktop; fi"
     bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @obsidian > /dev/null; then pkill obsidian; else obsidian; fi"
     bind = $mainMod SHIFT, K, exec, bash -c "if pgrep -x .keepassxc-wrap > /dev/null; then pkill keepassxc; else keepassxc; fi"
     bind = $mainMod SHIFT, E, exec, bash -c "if pgrep -x wofi-emoji > /dev/null; then pkill wofi-emoji; else wofi-emoji; fi"
@@ -392,8 +391,6 @@ in
     hyperion-ng
     hyprpaper
     hyprpicker
-    joplin
-    joplin-desktop
     jq
     kanshi
     keepassxc

@@ -48,8 +48,10 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  xdg.portal.config.common.default = "*";
+  xdg.portal.enable = true;
+  xdg.portal.config.common.default = [ "hyprland" ];
   services = {
+    flatpak.enable = true; 
     fprintd.enable = true;
     gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
@@ -109,7 +111,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.detroyejr = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" "input" "wireshark" ];
+    extraGroups = [ "wheel" "docker" "libvirtd" "input" "wireshark" "dialout" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
       git
