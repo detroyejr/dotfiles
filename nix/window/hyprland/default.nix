@@ -380,9 +380,7 @@ in
 
   home.packages = with pkgs; [
     acpi
-    aircrack-ng
     anki
-    audible-cli
     bluez
     colorz
     discord
@@ -395,7 +393,6 @@ in
     jq
     kanshi
     keepassxc
-    keeweb
     libnotify
     libreoffice
     lutris
@@ -417,7 +414,6 @@ in
     torrential
     viewnior
     vlc
-    wallust
     wireplumber
     wlr-randr
     wlsunset
