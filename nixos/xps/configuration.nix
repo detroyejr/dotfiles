@@ -48,10 +48,8 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  xdg.portal.enable = true;
-  xdg.portal.config.common.default = [ "hyprland" ];
+  xdg.portal.config.common.default = "*";
   services = {
-    flatpak.enable = true; 
     fprintd.enable = true;
     gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
