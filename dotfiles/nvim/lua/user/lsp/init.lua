@@ -29,7 +29,31 @@ for _, server in pairs(servers) do
     opts = vim.tbl_deep_extend("force", conf_opts, opts)
   end
 
-  lspconfig[server].setup(opts)
+  if server == "nixd" then
+    lspconfig[server].setup({
+      cmd = { "nixd" },
+      settings = {
+        nixd = {
+          nixpkgs = {
+            expr = "import <nixpkgs> { }",
+          },
+          formatting = {
+            command = { "alejandra" },
+          },
+          options = {
+            nixos = {
+              expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.k-on.options',
+            },
+            home_manager = {
+              expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."ruixi@k-on".options',
+            },
+          },
+        },
+      },
+    })
+  else
+    lspconfig[server].setup(opts)
+  end
 end
 
 -- Completion, snippets.
