@@ -95,7 +95,7 @@
 
   users.users.detroyejr = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" "input" "wireshark" "dialout" ];
+    extraGroups = ["wheel" "docker" "libvirtd" "input" "wireshark" "dialout"];
     shell = pkgs.zsh;
     packages = with pkgs; [
       git

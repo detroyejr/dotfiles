@@ -38,11 +38,32 @@
     wallpaper = nix-colors.${colorSchemeName}.wallpaper;
 
     # Add custom quotes.
-    hyprland-patched = hyprland.packages.${system}.default.overrideAttrs (oldAttrs: {
-      prePatch = ''
-        cp ${./dotfiles/hyprland/Splashes.hpp} ./src/helpers/Splashes.hpp
-      '';
-    });
+    hyprland-patched = {
+      programs.hyprland = {
+        enable = true;
+        package = hyprland.packages.${system}.default.overrideAttrs (oldAttrs: {
+          prePatch = ''
+            cp ${./dotfiles/hyprland/Splashes.hpp} ./src/helpers/Splashes.hpp
+          '';
+        });
+        xwayland = {
+          enable = true;
+        };
+      };
+    };
+    default-home-configuration = {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.extraSpecialArgs = {inherit nix-colors colorSchemeName colorScheme wallpaper hyprland;};
+      home-manager.users.detroyejr = {
+        imports = [
+          ./nix/home.nix
+          ./nix/dev
+          ./nix/window/hyprland
+          ./nix/cataclysm-dda.nix
+        ];
+      };
+    };
   in {
     formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
 
@@ -63,83 +84,20 @@
       "xps" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         modules = [
-          nixos-hardware.nixosModules.dell-xps-15-9520
-          nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
           ./nixos/xps/configuration.nix
-          {
-            programs.hyprland = {
-              enable = true;
-              package = hyprland-patched;
-              xwayland = {
-                enable = true;
-              };
-            };
-          }
+          nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
           home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit nix-colors colorSchemeName colorScheme wallpaper hyprland;};
-            home-manager.users.detroyejr = {
-              imports = [
-                ./nix/home.nix
-                ./nix/dev
-                ./nix/window/hyprland
-                ./nix/cataclysm-dda.nix
-              ];
-            };
-          }
+          default-home-configuration
+          hyprland-patched
         ];
       };
       "mini" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         modules = [
           ./nixos/mini/configuration.nix
-          {
-            programs.hyprland = {
-              enable = true;
-              package = hyprland-patched;
-              xwayland = {
-                enable = true;
-              };
-            };
-          }
           home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit nix-colors colorSchemeName colorScheme wallpaper hyprland;};
-            home-manager.users.detroyejr = {
-              imports = [
-                ./nix/home.nix
-                ./nix/dev
-                ./nix/window/hyprland
-                ./nix/cataclysm-dda.nix
-              ];
-            };
-          }
-        ];
-      };
-
-      "surface" = nixpkgs.lib.nixosSystem {
-        inherit system pkgs;
-        modules = [
-          nixos-hardware.nixosModules.microsoft-surface-pro-intel
-          ./nixos/surface/configuration.nix
-          hyprland.nixosModules.default
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit nix-colors colorSchemeName colorScheme wallpaper hyprland;};
-            home-manager.users.detroyejr = {
-              imports = [
-                ./nix/home.nix
-                ./nix/dev
-                ./nix/window/hyprland
-              ];
-            };
-          }
+          default-home-configuration
+          hyprland-patched
         ];
       };
 
