@@ -1,73 +1,78 @@
-{config, pkgs, colorScheme, wallpaper, ...}:
 {
+  config,
+  pkgs,
+  colorScheme,
+  wallpaper,
+  ...
+}: {
   home.packages = with pkgs; [
     swaylock-effects
     wlogout
   ];
 
   home.file.".config/swaylock/config".text = with colorScheme.colors; ''
-  font="BlexMono Nerd Font Mono"
+    font="BlexMono Nerd Font Mono"
 
-  clock
-  timestr=%R
-  datestr=%a, %e of %B
+    clock
+    timestr=%R
+    datestr=%a, %e of %B
 
-  # Add current screenshot as wallpaper
-  #screenshots
+    # Add current screenshot as wallpaper
+    #screenshots
 
-  # Add an image as a background 
-  image="${builtins.toString wallpaper}"
+    # Add an image as a background
+    image="${builtins.toString wallpaper}"
 
-  # Show/Hide indicator circle
-  indicator
+    # Show/Hide indicator circle
+    indicator
 
-  # smaller indicator
-  indicator-radius=100
+    # smaller indicator
+    indicator-radius=100
 
-  # bigger indicator
-  # indicator-radius=300
+    # bigger indicator
+    # indicator-radius=300
 
-  indicator-thickness=5
-  indicator-caps-lock
+    indicator-thickness=5
+    indicator-caps-lock
 
-  # Define all colors
+    # Define all colors
 
-  key-hl-color=00000066
-  separator-color=#${base03}
+    key-hl-color=00000066
+    separator-color=#${base03}
 
-  inside-color=#${base03}
-  inside-clear-color=ffffff00
-  inside-caps-lock-color=ffffff00
-  inside-ver-color=ffffff00
-  inside-wrong-color=ffffff00
+    inside-color=#${base03}
+    inside-clear-color=ffffff00
+    inside-caps-lock-color=ffffff00
+    inside-ver-color=ffffff00
+    inside-wrong-color=ffffff00
 
-  ring-color=#${base07}
-  ring-clear-color=ffffff
-  ring-caps-lock-color=ffffff
-  ring-ver-color=ffffff
-  ring-wrong-color=ffffff
+    ring-color=#${base07}
+    ring-clear-color=ffffff
+    ring-caps-lock-color=ffffff
+    ring-ver-color=ffffff
+    ring-wrong-color=ffffff
 
-  line-color=00000000
-  line-clear-color=ffffffFF
-  line-caps-lock-color=ffffffFF
-  line-ver-color=ffffffFF
-  line-wrong-color=ffffffFF
+    line-color=00000000
+    line-clear-color=ffffffFF
+    line-caps-lock-color=ffffffFF
+    line-ver-color=ffffffFF
+    line-wrong-color=ffffffFF
 
-  text-color=ffffff
-  text-clear-color=ffffff
-  text-ver-color=ffffff
-  text-wrong-color=ffffff
+    text-color=ffffff
+    text-clear-color=ffffff
+    text-ver-color=ffffff
+    text-wrong-color=ffffff
 
-  bs-hl-color=ffffff
-  caps-lock-key-hl-color=ffffffFF
-  caps-lock-bs-hl-color=ffffffFF
-  disable-caps-lock-text
-  text-caps-lock-color=ffffff
+    bs-hl-color=ffffff
+    caps-lock-key-hl-color=ffffffFF
+    caps-lock-bs-hl-color=ffffffFF
+    disable-caps-lock-text
+    text-caps-lock-color=ffffff
 
   '';
 
   home.file.".config/swaylock/swaylock.conf".text = ''
-  ignore-empty-password
+    ignore-empty-password
   '';
 
   home.file.".config/wlogout/icons".source = ../../../dotfiles/wlogout/icons;

@@ -1,5 +1,8 @@
-{config, pkgs, ...}:
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ./git.nix
     ./neovim.nix
@@ -7,7 +10,7 @@
     ./r.nix
   ];
 
-  home.packages = with pkgs; [ 
+  home.packages = with pkgs; [
     clang-tools
   ];
 }

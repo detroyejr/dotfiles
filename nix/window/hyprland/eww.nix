@@ -1,12 +1,16 @@
-{ config, pkgs, lib, colorScheme, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  colorScheme,
+  ...
+}: {
   home.file = {
     ".config/eww/bar".source = ../../../dotfiles/eww/bar;
     ".config/eww/actions".source = ../../../dotfiles/eww/actions;
     ".config/eww/definitions".source = ../../../dotfiles/eww/definitions;
     ".config/eww/scripts".source = ../../../dotfiles/eww/scripts;
   };
-
 
   home.file.".config/eww/eww.yuck".text = ''
     (include "./definitions/_variables.yuck")
@@ -47,16 +51,14 @@
     $magenta: #${base0E};
     $purple: #${base0F};
     $black: #${base03};
-    $red: #${base08};  
+    $red: #${base08};
   '';
 
   home.file.".config/eww/default_colors.json".text = with colorScheme.colors; ''
-    { 
+    {
       "image_accent": "#${base0D}",
       "button_accent": "#${base0D}",
       "button_text": "#${base0D}"
     }
   '';
 }
-
-

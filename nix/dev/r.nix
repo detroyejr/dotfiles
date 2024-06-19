@@ -1,8 +1,10 @@
-{ pkgs, lib, ... }:
-
-with pkgs;
-let
-  R-with-packages = rWrapper.override{ 
+{
+  pkgs,
+  lib,
+  ...
+}:
+with pkgs; let
+  R-with-packages = rWrapper.override {
     # Expose R packages when using radian.
     # wrapR = true;
     packages = with rPackages; let
@@ -13,18 +15,18 @@ let
           rev = "f54ea92a1828d82c2eb4a9b18f37119060ff71e6";
           allRefs = true;
         };
-        buildInputs = [ 
-          RMariaDB 
-          RPostgres 
-          huxtable 
-          knitr 
-          magick 
-          pkgs.R 
-          relaimpo 
-          rmarkdown 
-          scales 
-          sjlabelled 
-          tibble 
+        buildInputs = [
+          RMariaDB
+          RPostgres
+          huxtable
+          knitr
+          magick
+          pkgs.R
+          relaimpo
+          rmarkdown
+          scales
+          sjlabelled
+          tibble
         ];
       };
       topline = buildRPackage {
@@ -33,7 +35,7 @@ let
           url = "git@github.com:echeloninsights/topline.git";
           rev = "9087fdcf114889c3155cea715a84057184e87305";
         };
-        buildInputs = with rPackages; [ 
+        buildInputs = with rPackages; [
           flextable
           ftExtra
           googledrive
@@ -42,7 +44,7 @@ let
           knitr
           officer
           pkgs.R
-          rmarkdown 
+          rmarkdown
           sjlabelled
           stringi
         ];
@@ -77,9 +79,8 @@ let
       usethis
     ];
   };
-in
-{
-  home.packages = [ R-with-packages pandoc quarto ];
+in {
+  home.packages = [R-with-packages pandoc quarto];
 
   programs.zsh.shellAliases = {
     R = "R --no-save --no-restore";
@@ -88,4 +89,3 @@ in
   home.file.".radian_profile".source = ../../dotfiles/R/.radian_profile;
   home.file.".Rprofile".source = ../../dotfiles/R/.Rprofile;
 }
-

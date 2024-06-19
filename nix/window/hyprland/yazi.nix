@@ -1,11 +1,13 @@
-{ pkgs, colorScheme, ... }:
 {
-
-  home.packages = [ pkgs.yazi ];
+  pkgs,
+  colorScheme,
+  ...
+}: {
+  home.packages = [pkgs.yazi];
 
   home.file.".config/yazi/keymap.toml".source = ../../../dotfiles/yazi/keymap.toml;
   home.file.".config/yazi/yazi.toml".source = ../../../dotfiles/yazi/yazi.toml;
- 
+
   home.file.".config/yazi/theme.toml".text = with colorScheme.colors; ''
     # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to
     # validate your config. If you encounter any issues, please make an issue

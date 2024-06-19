@@ -1,5 +1,10 @@
-{ config, pkgs, lib, colorScheme, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  colorScheme,
+  ...
+}: {
   services = with colorScheme.colors; {
     dunst = {
       enable = true;
@@ -54,9 +59,9 @@
           ignore_dbusclose = false;
           force_xwayland = false;
           force_xinerama = false;
-          mouse_left_click = [ "close_current" ];
-          mouse_middle_click = [ "do_action" "close_current" ];
-          mouse_right_click = [ "close_all" ];
+          mouse_left_click = ["close_current"];
+          mouse_middle_click = ["do_action" "close_current"];
+          mouse_right_click = ["close_all"];
         };
         experimental = {
           per_monitor_dpi = false;

@@ -1,16 +1,19 @@
-{ config, pkgs, nix-colors, colorSchemeName, colorScheme, ... }:
-let
+{
+  config,
+  pkgs,
+  nix-colors,
+  colorSchemeName,
+  colorScheme,
+  ...
+}: let
   repo = builtins.fetchGit {
     url = "https://github.com/Misterio77/nix-colors";
     rev = "37227f274b34a3b51649166deb94ce7fec2c6a4c";
   };
   nix-colors-lib = {
-    gtkThemeFromScheme = import "${repo}/lib/contrib/gtk-theme.nix" { inherit pkgs; };
+    gtkThemeFromScheme = import "${repo}/lib/contrib/gtk-theme.nix" {inherit pkgs;};
   };
-in
-{
-
-
+in {
   home.pointerCursor = {
     name = "Numix-Cursor";
     package = pkgs.numix-cursor-theme;

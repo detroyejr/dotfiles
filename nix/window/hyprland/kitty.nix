@@ -1,10 +1,13 @@
-{ config, pkgs, colorScheme, ... }:
 {
-
+  config,
+  pkgs,
+  colorScheme,
+  ...
+}: {
   programs.kitty = {
     enable = true;
     font = {
-      name= "BlexMono Nerd Font Mono";
+      name = "BlexMono Nerd Font Mono";
       size = 14;
     };
     settings = with colorScheme.colors; {

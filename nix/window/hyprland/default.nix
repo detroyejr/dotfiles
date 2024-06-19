@@ -1,5 +1,12 @@
-{ config, pkgs, lib, fetchFromGitHub, colorScheme, wallpaper, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  fetchFromGitHub,
+  colorScheme,
+  wallpaper,
+  ...
+}: let
   chromium = pkgs.makeDesktopItem {
     name = "chromium";
     desktopName = "Chromium (web browser)";
@@ -11,7 +18,6 @@ let
     desktopName = "slack";
     exec = "${pkgs.slack}/bin/slack --enable-features=WaylandWindowDecorations,WebRTCPipeWireCapturer --ozone-platform-hint=auto --ozone-platform=wayland -s %U";
   };
-
   # plexamp = pkgs.makeDesktopItem {
   #   name = "plexamp";
   #   desktopName = "plexamp";
@@ -23,8 +29,7 @@ let
   #   desktopName = "Plex Media Player (Media Player)";
   #   exec = "${pkgs.plex-media-player}/bin/plexmediaplayer";
   # };
-in
-{
+in {
   imports = [
     ./dunst.nix
     ./eww.nix
@@ -308,7 +313,7 @@ in
     profiles."Personal" = {
       isDefault = true;
     };
-    profiles."Work" = { };
+    profiles."Work" = {};
   };
 
   programs.obs-studio = {
@@ -417,7 +422,7 @@ in
     wireplumber
     wlr-randr
     wlsunset
-    wofi-emoji 
+    wofi-emoji
     wpgtk
     xdo
     xdotool

@@ -1,135 +1,140 @@
-{pkgs, config, hyprland, colorScheme, ...}:
 {
+  pkgs,
+  config,
+  hyprland,
+  colorScheme,
+  ...
+}: {
   programs.waybar = {
     enable = true;
   };
 
   home.file.".config/waybar/config.jsonc".text = with colorScheme.colors; ''
 
-  {
-      "layer": "top",
-      "position": "top",
-      "mod": "dock",
-      "exclusive": true,
-      "passtrough": false,
-      "gtk-layer-shell": true,
-      "height": 0,
-      "modules-left": [
-          "custom/clock",
-          "hyprland/workspaces",
-      ],
-      "modules-center": [
-          "hyprland/window"
-      ],
-      "modules-right": [
-          "custom/playerctl",
-          "battery",
-          "network",
-          "pulseaudio",
-          "custom/power"
-      ],
-      "hyprland/window": {
-          "format": "{}"
-      },
-      "hyprland/workspaces": {
-          "on-scroll-up": "hyprctl dispatch workspace e+1",
-          "on-scroll-down": "hyprctl dispatch workspace e-1",
-          "all-outputs": true,
-          "on-click": "activate"
-      },
-      "custom/clock": {
-          "exec": "TZ='America/New_York' date +'%I:%M %p'",
-          "interval": 30,
-          "tooltip": false
-      },
-      "battery": {
-        "tooltip": true,
-        "format": "{icon}",
-        "format-icons": ["", "", "", "", ""]
-      },
-      "network": {
-        "interface": "wlp1s0",
-        "format": "{ifname}",
-        "format-wifi": "",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "format-disconnected": "", //An empty format will hide the module.
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
-        "tooltip-format-ethernet": "{ifname} ",
-        "tooltip-format-disconnected": "Disconnected",
-        "max-length": 50,
-        "on-click": "if pgrep -x nmtui-connect > /dev/null; then kill $(pgrep -x nmtui-connect); else kitty -e nmtui-connect; fi"
-      },
-      "clock": {
-          "format": "{: %X   %Y-%m-%d}",
-          "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-          "interval": 60
-
-      },
-      "pulseaudio": {
-          "format": "{icon}",
-          "tooltip": true,
-          "tooltip-format": "{volume}%",
-          "format-muted": "󰝟",
-          "on-click": "if pgrep -x .pavucontrol-wr > /dev/null; then kill $(pgrep -x '.pavucontrol-wr'); else pavucontrol; fi",
-          "on-scroll-up": "pamixer -i 5",
-          "on-scroll-down": "pamixer -d 5",
-          "scroll-step": 5,
-          "format-icons": {
-              "headphone": "",
-              "hands-free": "",
-              "headset": "",
-              "phone": "",
-              "portable": "",
-              "car": "",
-              "default": ["", "", ""]
-          }
-      },
-      "pulseaudio#microphone": {
-          "format": "",
-          "tooltip": true,
-          "tooltip-format": "{format_source} {volume}%",
-          "format-source-muted": " Muted",
-          "on-click": "pamixer --default-source -m",
-          "on-scroll-up": "pamixer --default-source -i 5",
-          "on-scroll-down": "pamixer --default-source -d 5",
-          "scroll-step": 5
-      },
-      "custom/power": {
-        "format": "",
-        "on-click": "wlogout",
-        "tooltip": false
-      },
-      "custom/playerctl": {
-        "format": "{}",
-        "return-type": "json",
-        "max-length": 40,
-        "exec": "$HOME/.local/bin/playerctl-waybar 2> /dev/null",
-        "on-click": "export WINDOW=$(playerctl metadata | head -n1 | awk '{ print $1 }') && hyprctl dispatch focuswindow $WINDOW",
-        "on-right-click": "sys-notif media",
-        "on-scroll-up": "playerctl position 3+",
-        "on-scroll-down": "playerctl position 3-"
-      },
-      "custom/notification": {
-        "tooltip": false,
-        "format": "{icon}",
-        "format-icons": {
-          "notification": "<span foreground='red'><sup></sup></span>",
-          "none": "",
-          "dnd-notification": "<span foreground='red'><sup></sup></span>",
-          "dnd-none": "",
-          "inhibited-notification": "<span foreground='red'><sup></sup></span>",
-          "inhibited-none": "",
-          "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
-          "dnd-inhibited-none": ""
+    {
+        "layer": "top",
+        "position": "top",
+        "mod": "dock",
+        "exclusive": true,
+        "passtrough": false,
+        "gtk-layer-shell": true,
+        "height": 0,
+        "modules-left": [
+            "custom/clock",
+            "hyprland/workspaces",
+        ],
+        "modules-center": [
+            "hyprland/window"
+        ],
+        "modules-right": [
+            "custom/playerctl",
+            "battery",
+            "network",
+            "pulseaudio",
+            "custom/power"
+        ],
+        "hyprland/window": {
+            "format": "{}"
         },
-        "return-type": "json",
-        "exec-if": "which swaync-client",
-        "exec": "swaync-client -swb",
-        "on-click": "swaync-client -t -sw",
-        "on-click-right": "swaync-client -d -sw"
-      }
-  }
+        "hyprland/workspaces": {
+            "on-scroll-up": "hyprctl dispatch workspace e+1",
+            "on-scroll-down": "hyprctl dispatch workspace e-1",
+            "all-outputs": true,
+            "on-click": "activate"
+        },
+        "custom/clock": {
+            "exec": "TZ='America/New_York' date +'%I:%M %p'",
+            "interval": 30,
+            "tooltip": false
+        },
+        "battery": {
+          "tooltip": true,
+          "format": "{icon}",
+          "format-icons": ["", "", "", "", ""]
+        },
+        "network": {
+          "interface": "wlp1s0",
+          "format": "{ifname}",
+          "format-wifi": "",
+          "format-ethernet": "{ipaddr}/{cidr} ",
+          "format-disconnected": "", //An empty format will hide the module.
+          "tooltip-format": "{ifname} via {gwaddr} ",
+          "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+          "tooltip-format-ethernet": "{ifname} ",
+          "tooltip-format-disconnected": "Disconnected",
+          "max-length": 50,
+          "on-click": "if pgrep -x nmtui-connect > /dev/null; then kill $(pgrep -x nmtui-connect); else kitty -e nmtui-connect; fi"
+        },
+        "clock": {
+            "format": "{: %X   %Y-%m-%d}",
+            "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+            "interval": 60
+
+        },
+        "pulseaudio": {
+            "format": "{icon}",
+            "tooltip": true,
+            "tooltip-format": "{volume}%",
+            "format-muted": "󰝟",
+            "on-click": "if pgrep -x .pavucontrol-wr > /dev/null; then kill $(pgrep -x '.pavucontrol-wr'); else pavucontrol; fi",
+            "on-scroll-up": "pamixer -i 5",
+            "on-scroll-down": "pamixer -d 5",
+            "scroll-step": 5,
+            "format-icons": {
+                "headphone": "",
+                "hands-free": "",
+                "headset": "",
+                "phone": "",
+                "portable": "",
+                "car": "",
+                "default": ["", "", ""]
+            }
+        },
+        "pulseaudio#microphone": {
+            "format": "",
+            "tooltip": true,
+            "tooltip-format": "{format_source} {volume}%",
+            "format-source-muted": " Muted",
+            "on-click": "pamixer --default-source -m",
+            "on-scroll-up": "pamixer --default-source -i 5",
+            "on-scroll-down": "pamixer --default-source -d 5",
+            "scroll-step": 5
+        },
+        "custom/power": {
+          "format": "",
+          "on-click": "wlogout",
+          "tooltip": false
+        },
+        "custom/playerctl": {
+          "format": "{}",
+          "return-type": "json",
+          "max-length": 40,
+          "exec": "$HOME/.local/bin/playerctl-waybar 2> /dev/null",
+          "on-click": "export WINDOW=$(playerctl metadata | head -n1 | awk '{ print $1 }') && hyprctl dispatch focuswindow $WINDOW",
+          "on-right-click": "sys-notif media",
+          "on-scroll-up": "playerctl position 3+",
+          "on-scroll-down": "playerctl position 3-"
+        },
+        "custom/notification": {
+          "tooltip": false,
+          "format": "{icon}",
+          "format-icons": {
+            "notification": "<span foreground='red'><sup></sup></span>",
+            "none": "",
+            "dnd-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-none": "",
+            "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "inhibited-none": "",
+            "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-inhibited-none": ""
+          },
+          "return-type": "json",
+          "exec-if": "which swaync-client",
+          "exec": "swaync-client -swb",
+          "on-click": "swaync-client -t -sw",
+          "on-click-right": "swaync-client -d -sw"
+        }
+    }
   '';
 
   home.file.".config/waybar/style.css".text = with colorScheme.colors; ''
@@ -208,7 +213,7 @@
         margin-left: 5px;
         margin-right: 5px;
     }
-    
+
     #custom-notifcation {
         color: #${base0A};
         border-left: 0px;
@@ -309,4 +314,3 @@
   '';
   home.file.".local/bin/playerctl-waybar".executable = true;
 }
-

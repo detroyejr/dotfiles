@@ -1,18 +1,18 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../default.nix
-      ../../modules/fonts
-      ../../modules/brightness
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../default.nix
+    ../../modules/fonts
+    ../../modules/brightness
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -93,7 +93,7 @@
 
   users.users.detroyejr = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" "input" "wireshark" ];
+    extraGroups = ["wheel" "docker" "libvirtd" "input" "wireshark"];
     shell = pkgs.zsh;
     packages = with pkgs; [
       git
@@ -113,7 +113,7 @@
     zsh.enable = true;
     thunar = {
       enable = true;
-      plugins = with pkgs; [ xfce.exo ];
+      plugins = with pkgs; [xfce.exo];
     };
   };
   programs.wireshark.enable = true;
@@ -132,7 +132,7 @@
   ];
 
   systemd.services.onedrive = {
-    path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
+    path = ["${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH"];
     script = ''
       FILE=/root/.config/rclone/rclone.conf
       mkdir -p /home/detroyejr/OneDrive/
@@ -154,11 +154,11 @@
           "OneDrive:" "/home/detroyejr/OneDrive/"
       fi
     '';
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
   };
 
   systemd.services.google_drive = {
-    path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
+    path = ["${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH"];
     script = ''
       FILE=/root/.config/rclone/rclone.conf
       mkdir -p "/home/detroyejr/Google Drive"
@@ -180,7 +180,7 @@
           "Google Drive:" "/home/detroyejr/Google Drive/"
       fi
     '';
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
   };
 
   virtualisation = {
@@ -214,5 +214,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }

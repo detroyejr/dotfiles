@@ -1,14 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -21,12 +22,12 @@
 
   networking.hostName = "NixOS"; # Define your hostname.
   # Pick only one of the below networking options.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Enable experimental features.
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    # Set your time zone.
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+  # Set your time zone.
   time.timeZone = "US/New_York";
 
   # Configure network proxy if necessary
@@ -38,18 +39,17 @@
   #console = {
   #  font = "CaskaydiaCove NF Mono";
   #  keyMap = "us";
-    # useXkbConfig = true; # use xkbOptions in tty.
+  # useXkbConfig = true; # use xkbOptions in tty.
   #};
 
   # Enable the X11 windowing system.
   #services.xserver.enable = true;
 
-
   # Enable the Plasma 5 Desktop Environment.
   #services.xserver.displayManager.sddm.enable = true;
   #services.xserver.desktopManager.plasma5.enable = true;
   #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.desktopManager.gnome.enable = true; 
+  #services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -72,7 +72,7 @@
   programs.zsh.enable = true;
   users.users.detroyejr = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "docker"]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     packages = with pkgs; [
       firefox
@@ -80,8 +80,7 @@
     ];
   };
 
-
-    # List packages installed in system profile. To search, run:
+  # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     wget
@@ -93,22 +92,22 @@
   #----=[ Fonts ]=----#
   fonts = {
     enableDefaultFonts = true;
-      fonts = with pkgs; [ 
-        ubuntu_font_family
-        (nerdfonts.override { fonts = [ "CascadiaCode" "Ubuntu" ]; })
-       ];
+    fonts = with pkgs; [
+      ubuntu_font_family
+      (nerdfonts.override {fonts = ["CascadiaCode" "Ubuntu"];})
+    ];
 
     fontconfig = {
       defaultFonts = {
-      serif = [ "CaskaydiaCove NF Serif" "Ubuntu" ];
-      sansSerif = [ "CaskaydiaCove NF" "Ubuntu" ];
-      monospace = [ "CaskaydiaCove NF Mono" "Ubuntu" ];
+        serif = ["CaskaydiaCove NF Serif" "Ubuntu"];
+        sansSerif = ["CaskaydiaCove NF" "Ubuntu"];
+        monospace = ["CaskaydiaCove NF Mono" "Ubuntu"];
       };
     };
   };
 
   virtualisation.docker.enable = true;
- 
+
   # services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
   services.samba = {
     enable = true;
@@ -117,7 +116,7 @@
       workgroup = WORKGROUP
       server string = smbnix
       netbios name = smbnix
-      security = user 
+      security = user
       #use sendfile = yes
       # max protocol = nt1
       client min protocol = NT1
@@ -141,17 +140,17 @@
       };
     };
   };
-# Some programs need SUID wrappers, can be configured further or are
-# started in user sessions.
-# programs.mtr.enable = true;
-# programs.gnupg.agent = {
-#   enable = true;
-#   enableSSHSupport = true;
-# };
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
 
-# List services that you want to enable:
+  # List services that you want to enable:
 
-# Enable the OpenSSH daemon.
+  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
   # Open ports in the firewall.
@@ -173,4 +172,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
 }
-

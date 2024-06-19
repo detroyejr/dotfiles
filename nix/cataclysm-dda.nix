@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   cddaLib = {
     inherit
       (pkgs.cataclysmDDA)
@@ -20,12 +23,12 @@ let
 
   cdda-no-mod = base-cdda.overrideAttrs (super: {
     # patch doesn't cleanly apply anymore
-    patches = [ ];
+    patches = [];
 
     passthru =
       super.passthru
       // {
-        pkgs = pkgs.override { build = cdda-no-mod; };
+        pkgs = pkgs.override {build = cdda-no-mod;};
         withMods = cddaLib.wrapCDDA cdda-no-mod;
       };
   });
@@ -62,7 +65,6 @@ let
     desktopName = "Cataclysm Dark Days Ahead (Post-apocalyptic survival game)";
     exec = "${cdda}/bin/cataclysm-tiles";
   };
-in
-{
-  home.packages = [ cdda-desktop ];
+in {
+  home.packages = [cdda-desktop];
 }

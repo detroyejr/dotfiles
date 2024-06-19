@@ -1,15 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
-  
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./hardware-configuration.nix
+  ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -32,7 +32,7 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true;
@@ -42,13 +42,13 @@
     sync.enable = true;
     nvidiaBusId = "PCI:1:0:0";
     intelBusId = "PCI:0:2:0";
-  };  
-  
+  };
+
   hardware.nvidia.modesetting.enable = true;
 
   services.xserver = {
     xkb = {
-      layout = "us"; 
+      layout = "us";
       variant = "";
     };
   };
@@ -56,9 +56,8 @@
   users.users.detroyejr = {
     isNormalUser = true;
     description = "Jonathan De Troye";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = ["networkmanager" "wheel" "docker"];
   };
-
 
   environment.systemPackages = with pkgs; [
     git
@@ -72,12 +71,12 @@
   };
 
   services.logind.lidSwitch = "ignore";
-  
+
   virtualisation.docker = {
     enable = true;
     enableNvidia = true;
   };
-  
+
   networking.firewall.enable = false;
 
   system.stateVersion = "23.11"; # Did you read the comment?

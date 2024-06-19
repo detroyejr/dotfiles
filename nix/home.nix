@@ -1,10 +1,9 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  programs.home-manager.enable = true;
   home.username = "detroyejr";
   home.homeDirectory = "/home/detroyejr";
+  programs.home-manager.enable = true;
 
   # NOTE: Disable during Source Hut outage.
   # manual = {
@@ -15,6 +14,7 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    alejandra
     awscli2
     bat
     bc
@@ -93,7 +93,7 @@
     ];
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "tmux" ];
+      plugins = ["git" "tmux"];
       theme = "robbyrussell";
       package = pkgs.oh-my-zsh.overrideAttrs (old: {
         src = pkgs.fetchFromGitHub {
@@ -192,7 +192,6 @@
     sha256 = "sha256-hW8mfwB8F9ZkTQ72WQp/1fy8KL1IIYMZBtZYIwZdMQc=";
   };
 
-
   home.file.".local/bin/bash".source = ../dotfiles/bash;
 
   programs.mcfly = {
@@ -253,7 +252,6 @@
           - "#python"
           - "#nixos"
   '';
-
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;

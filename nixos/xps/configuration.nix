@@ -1,18 +1,19 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, ... }:
-
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../default.nix
-      ../../modules/fonts
-      ../../modules/brightness
-    ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../default.nix
+    ../../modules/fonts
+    ../../modules/brightness
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -38,9 +39,6 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
-
-
-
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -51,6 +49,7 @@
   xdg.portal.config.common.default = "*";
   services = {
     fprintd.enable = true;
+    flatpak.enable = true;
     gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
     tlp.enable = true;
@@ -81,7 +80,7 @@
     xserver = {
       displayManager.gdm.enable = true;
       enable = true;
-      videoDrivers = [ "nvidia" ];
+      videoDrivers = ["nvidia"];
     };
   };
 
@@ -91,7 +90,7 @@
       enable = true;
       powerOnBoot = false;
       package = pkgs.bluez.overrideAttrs (oldAttrs: {
-        configureFlags = oldAttrs.configureFlags ++ [ "--enable-sixaxis" ];
+        configureFlags = oldAttrs.configureFlags ++ ["--enable-sixaxis"];
       });
     };
     pulseaudio.enable = false;
@@ -109,7 +108,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.detroyejr = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" "input" "wireshark" "dialout" ];
+    extraGroups = ["wheel" "docker" "libvirtd" "input" "wireshark" "dialout"];
     shell = pkgs.zsh;
     packages = with pkgs; [
       git
@@ -123,7 +122,8 @@
   programs = {
     steam = {
       enable = true;
-      package = pkgs.steam-small.override
+      package =
+        pkgs.steam-small.override
         {
           extraEnv = {
             __NV_PRIME_RENDER_OFFLOAD = 1;
@@ -138,7 +138,7 @@
     zsh.enable = true;
     thunar = {
       enable = true;
-      plugins = with pkgs; [ xfce.exo ];
+      plugins = with pkgs; [xfce.exo];
     };
   };
   programs.wireshark.enable = true;
@@ -207,7 +207,7 @@
   networking.firewall.enable = false;
 
   systemd.services.onedrive = {
-    path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
+    path = ["${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH"];
     script = ''
       FILE=/root/.config/rclone/rclone.conf
       mkdir -p /home/detroyejr/OneDrive/
@@ -229,11 +229,11 @@
           "OneDrive:" "/home/detroyejr/OneDrive/"
       fi
     '';
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
   };
 
   systemd.services.google_drive = {
-    path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
+    path = ["${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH"];
     script = ''
       FILE=/root/.config/rclone/rclone.conf
       mkdir -p "/home/detroyejr/Google Drive"
@@ -255,7 +255,7 @@
           "Google Drive:" "/home/detroyejr/Google Drive/"
       fi
     '';
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
   };
 
   virtualisation = {
@@ -285,6 +285,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
-

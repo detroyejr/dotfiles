@@ -1,5 +1,9 @@
-{ pkgs, colorScheme, wallpaper, ... }:
-let
+{
+  pkgs,
+  colorScheme,
+  wallpaper,
+  ...
+}: let
   rofi-themes = pkgs.stdenv.mkDerivation {
     name = "rofi-themes";
     src = pkgs.fetchFromGitHub {
@@ -24,9 +28,7 @@ let
       cp ${wallpaper} files/images/wallpaper.png
     '';
   };
-in
-{
-
+in {
   home.packages = with pkgs; [
     rofi-wayland
     rofi-power-menu

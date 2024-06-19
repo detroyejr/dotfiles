@@ -1,7 +1,4 @@
-{ pkgs, ... }:
-
-let
-
+{pkgs, ...}: let
   pyechelon = pkgs.python3Packages.buildPythonPackage {
     name = "echelon";
     src = builtins.fetchGit {
@@ -26,31 +23,31 @@ let
         --replace-warn "slackclient==2.9.2" ""
     '';
   };
-  python-with-packages = pkgs.python3.withPackages (ps: with ps; [
-    black
-    boto3
-    dask
-    dbus-python
-    flake8
-    ipython
-    isort
-    lxml
-    material-color-utilities
-    mpd2
-    pandas
-    pillow
-    pip
-    pyechelon
-    pygobject3
-    pytest
-    python-lsp-server
-    redshift-connector
-    requests
-    s3fs
-    sqlalchemy
-    wand
-  ]);
-in
-{
-  home.packages = [ python-with-packages pkgs.ruff ];
+  python-with-packages = pkgs.python3.withPackages (ps:
+    with ps; [
+      black
+      boto3
+      dask
+      dbus-python
+      flake8
+      ipython
+      isort
+      lxml
+      material-color-utilities
+      mpd2
+      pandas
+      pillow
+      pip
+      pyechelon
+      pygobject3
+      pytest
+      python-lsp-server
+      redshift-connector
+      requests
+      s3fs
+      sqlalchemy
+      wand
+    ]);
+in {
+  home.packages = [python-with-packages pkgs.ruff];
 }
