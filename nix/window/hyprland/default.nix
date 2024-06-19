@@ -1,8 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
-  fetchFromGitHub,
   colorScheme,
   wallpaper,
   ...
@@ -18,17 +15,6 @@
     desktopName = "slack";
     exec = "${pkgs.slack}/bin/slack --enable-features=WaylandWindowDecorations,WebRTCPipeWireCapturer --ozone-platform-hint=auto --ozone-platform=wayland -s %U";
   };
-  # plexamp = pkgs.makeDesktopItem {
-  #   name = "plexamp";
-  #   desktopName = "plexamp";
-  #   exec = "${pkgs.plexamp}/bin/plexamp --ozone-platform-hint=auto";
-  # };
-  #
-  # plex-media-player = pkgs.makeDesktopItem {
-  #   name = "plex";
-  #   desktopName = "Plex Media Player (Media Player)";
-  #   exec = "${pkgs.plex-media-player}/bin/plexmediaplayer";
-  # };
 in {
   imports = [
     ./dunst.nix
@@ -38,7 +24,6 @@ in {
     ./kitty.nix
     ./rofi.nix
     ./yazi.nix
-    # ./swaylock.nix
   ];
 
   home.sessionVariables = {

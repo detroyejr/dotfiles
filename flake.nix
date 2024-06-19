@@ -17,12 +17,14 @@
   };
 
   outputs = {
+    self,
     nixpkgs,
     home-manager,
     nixos-hardware,
     hyprland,
     ...
   } @ inputs: let
+    inherit (self) outputs;
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
@@ -37,20 +39,6 @@
     colorScheme = nix-colors.${colorSchemeName}.colorScheme;
     wallpaper = nix-colors.${colorSchemeName}.wallpaper;
 
-    # Add custom quotes.
-    hyprland-patched = {
-      programs.hyprland = {
-        enable = true;
-        package = hyprland.packages.${system}.default.overrideAttrs (oldAttrs: {
-          prePatch = ''
-            cp ${./dotfiles/hyprland/Splashes.hpp} ./src/helpers/Splashes.hpp
-          '';
-        });
-        xwayland = {
-          enable = true;
-        };
-      };
-    };
     default-home-configuration = {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
@@ -60,7 +48,6 @@
           ./nix/home.nix
           ./nix/dev
           ./nix/window/hyprland
-          ./nix/cataclysm-dda.nix
         ];
       };
     };
@@ -83,26 +70,38 @@
     nixosConfigurations = {
       "xps" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
+        specialArgs = {
+          inherit inputs outputs system;
+          isNvidia = true;
+          isFprint = true;
+        };
         modules = [
           ./nixos/xps/configuration.nix
           nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
           home-manager.nixosModules.home-manager
           default-home-configuration
-          hyprland-patched
         ];
       };
       "mini" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
+        specialArgs = {
+          inherit inputs outputs system;
+          isNvidia = false;
+          isFprint = true;
+        };
         modules = [
           ./nixos/mini/configuration.nix
           home-manager.nixosModules.home-manager
           default-home-configuration
-          hyprland-patched
         ];
       };
-
       "tower" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
+        specialArgs = {
+          inherit inputs outputs system;
+          isNvidia = false;
+          isFprint = true;
+        };
         modules = [
           ./nixos/tower/configuration.nix
           home-manager.nixosModules.home-manager
@@ -120,9 +119,13 @@
           }
         ];
       };
-
       "brick" = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
+        specialArgs = {
+          inherit inputs outputs system;
+          isNvidia = false;
+          isFprint = true;
+        };
         modules = [
           ./nixos/brick/configuration.nix
           home-manager.nixosModules.home-manager

@@ -66,5 +66,5 @@
     exec = "${cdda}/bin/cataclysm-tiles";
   };
 in {
-  home.packages = [cdda-desktop];
+  environment.systemPackages = [cdda-desktop];
 }

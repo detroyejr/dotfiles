@@ -1,16 +1,20 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
-  # Experimental
+{pkgs, ...}: {
+  i18n.defaultLocale = "en_US.UTF-8";
+  networking.networkmanager.enable = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
-
-  # Set time.
+  programs.zsh.enable = true;
   services.ntp.enable = true;
   time.timeZone = "America/New_York";
 
-  # Locale
-  i18n.defaultLocale = "en_US.UTF-8";
+  environment.systemPackages = with pkgs; [
+    usbutils
+    wget
+    wl-clipboard
+  ];
+
+  users.users.detroyejr = {
+    isNormalUser = true;
+    shell = pkgs.zsh;
+    extraGroups = ["wheel" "input" "dialout"];
+  };
 }
