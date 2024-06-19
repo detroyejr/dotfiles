@@ -11,8 +11,8 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../default.nix
-    ../../modules/fonts
-    ../../modules/brightness
+    ../../nix/fonts
+    ../../nix/brightness
   ];
 
   # Use the systemd-boot EFI boot loader.

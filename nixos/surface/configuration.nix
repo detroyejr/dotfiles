@@ -10,8 +10,8 @@
   imports = [
     ./hardware-configuration.nix
     ../default.nix
-    ../../modules/fonts
-    ../../modules/brightness
+    ../../nix/fonts
+    ../../nix/brightness
   ];
 
   # Use the systemd-boot EFI boot loader.

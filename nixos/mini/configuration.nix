@@ -10,8 +10,8 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../default.nix
-    ../../modules/fonts
-    ../../modules/brightness
+    ../../nix/fonts
+    ../../nix/brightness
   ];
 
   # Bootloader.
@@ -60,6 +60,8 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.udisks2.enable = true;
+  services.gvfs.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -93,7 +95,7 @@
 
   users.users.detroyejr = {
     isNormalUser = true;
-    extraGroups = ["wheel" "docker" "libvirtd" "input" "wireshark"];
+    extraGroups = [ "wheel" "docker" "libvirtd" "input" "wireshark" "dialout" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
       git
@@ -199,7 +201,8 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
+  services.openssh.settings.PasswordAuthentication = false;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
