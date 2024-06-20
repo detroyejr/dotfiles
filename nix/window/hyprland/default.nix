@@ -293,14 +293,6 @@ in {
     package = chromium;
   };
 
-  programs.thunderbird = {
-    enable = true;
-    profiles."Personal" = {
-      isDefault = true;
-    };
-    profiles."Work" = {};
-  };
-
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
