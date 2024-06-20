@@ -290,7 +290,7 @@ in {
 
   programs.chromium = {
     enable = true;
-    package = chromium;
+    package = pkgs.chromium;
   };
 
   programs.obs-studio = {
@@ -362,6 +362,7 @@ in {
 
   home.packages = with pkgs; [
     acpi
+    alsa-utils
     anki
     bluez
     colorz
@@ -378,7 +379,6 @@ in {
     libnotify
     libreoffice
     lutris
-    mkchromecast
     networkmanager_dmenu
     nfs-utils
     nomacs

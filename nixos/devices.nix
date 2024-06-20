@@ -19,8 +19,8 @@
       driSupport = true;
       driSupport32Bit = true;
       extraPackages = lib.mkIf (!isNvidia) [
-        pkgs.intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        pkgs.intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+        pkgs.intel-compute-runtime
+        pkgs.intel-media-driver
         pkgs.libvdpau-va-gl
       ];
     };
