@@ -2,24 +2,22 @@
   imports = [
     ./hardware-configuration.nix
     ../default.nix
+    ../brightness.nix
     ../cataclysm-dda.nix
     ../devices.nix
+    ../fonts.nix
     ../hyprland.nix
     ../rclone.nix
     ../steam.nix
     ../thunar.nix
     ../virtualization.nix
-    ../../nix/fonts
-    ../../nix/brightness
   ];
 
-  # Bootloader.
+  networking.hostName = "mini-1";
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "mini-1";
-  networking.firewall.enable = false;
-  
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
 

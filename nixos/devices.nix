@@ -32,7 +32,7 @@
   services = {
     libinput = {
       enable = true;
-      touchpad = {
+      touchpad = lib.mkIf isFprint {
         scrollMethod = "twofinger";
         naturalScrolling = false;
       };
