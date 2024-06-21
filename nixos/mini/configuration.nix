@@ -20,6 +20,9 @@
 
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
+  services.openssh.authorizedKeysFiles = [
+    "/home/detroyejr/.ssh/main_server.pub"
+  ];
 
   system.stateVersion = "23.11";
 }
