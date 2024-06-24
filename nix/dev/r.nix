@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
+{pkgs, ...}:
 with pkgs; let
   R-with-packages = rWrapper.override {
     # Expose R packages when using radian.
@@ -33,7 +29,7 @@ with pkgs; let
         name = "Topline";
         src = builtins.fetchGit {
           url = "git@github.com:echeloninsights/topline.git";
-          rev = "9087fdcf114889c3155cea715a84057184e87305";
+          rev = "6c5c39b36b1162072884213351c612176e558a52";
         };
         buildInputs = with rPackages; [
           flextable
