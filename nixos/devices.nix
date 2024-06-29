@@ -14,10 +14,8 @@
         configureFlags = oldAttrs.configureFlags ++ ["--enable-sixaxis"];
       });
     };
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
       extraPackages = lib.mkIf (!isNvidia) [
         pkgs.intel-compute-runtime
         pkgs.intel-media-driver
