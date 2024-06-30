@@ -87,7 +87,7 @@
         specialArgs = {
           inherit inputs outputs system;
           isNvidia = false;
-          isFprint = true;
+          isFprint = false;
         };
         modules = [
           ./nixos/mini/configuration.nix
@@ -100,7 +100,7 @@
         specialArgs = {
           inherit inputs outputs system;
           isNvidia = false;
-          isFprint = true;
+          isFprint = false;
         };
         modules = [
           ./nixos/tower/configuration.nix
@@ -124,7 +124,7 @@
         specialArgs = {
           inherit inputs outputs system;
           isNvidia = false;
-          isFprint = true;
+          isFprint = false;
         };
         modules = [
           ./nixos/brick/configuration.nix
