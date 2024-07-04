@@ -113,6 +113,8 @@ cmp.setup({
             return vim.fs.dirname(vim.fs.find(function(name)
               if name:match(".*%.[rR][pP]roj$") then
                 return name:match(".*%.[rR][pP]roj$")
+              elseif name:match(".[rR][eE]nviron") then
+                return name:match(".[rR][eE]nviron")
               else
                 return default_path
               end
