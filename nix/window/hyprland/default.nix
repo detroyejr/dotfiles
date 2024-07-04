@@ -14,6 +14,7 @@
     name = "slack";
     desktopName = "slack";
     exec = "${pkgs.slack}/bin/slack --enable-features=WaylandWindowDecorations,WebRTCPipeWireCapturer --ozone-platform-hint=auto --ozone-platform=wayland -s %U";
+    icon = "${pkgs.slack}/share/pixmaps/slack.png";
   };
 in {
   imports = [
