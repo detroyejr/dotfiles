@@ -64,6 +64,7 @@
     name = "cataclysm-dda";
     desktopName = "Cataclysm Dark Days Ahead (Post-apocalyptic survival game)";
     exec = "${cdda}/bin/cataclysm-tiles";
+    icon = "${cdda}/share/icons/hicolor/scalable/apps/org.cataclysmdda.CataclysmDDA.svg";
   };
 in {
   environment.systemPackages = [cdda-desktop];
