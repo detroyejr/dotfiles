@@ -4,12 +4,6 @@
   wallpaper,
   ...
 }: let
-  chromium = pkgs.makeDesktopItem {
-    name = "chromium";
-    desktopName = "Chromium (web browser)";
-    exec = "${pkgs.chromium}/bin/chromium --ozone-platform-hint=auto";
-  };
-
   slack = pkgs.makeDesktopItem {
     name = "slack";
     desktopName = "slack";
