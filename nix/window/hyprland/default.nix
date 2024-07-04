@@ -94,8 +94,8 @@ in {
     }
 
     general {
-        gaps_in = 4
-        gaps_out = 8
+        gaps_in = 2
+        gaps_out = 7
         border_size = 2
         col.active_border = rgba(${base07}66)
         col.inactive_border = rgb(${base00})
@@ -114,17 +114,12 @@ in {
 
     animations {
         enabled = yes
-
-        # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-
-        bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-
-        animation = windows, 1, 7, myBezier
-        animation = windowsOut, 1, 7, default, popin 80%
-        animation = border, 1, 10, default
-        animation = borderangle, 1, 8, default
-        animation = fade, 1, 7, default
-        animation = workspaces, 1, 6, default
+        animation = windows, 1, 4, default, slide down 
+        animation = windowsOut, 1, 4, default, slide 
+        animation = border, 1, 4, default
+        animation = borderangle, 1, 4, default
+        animation = fade, 1, 4, default
+        animation = workspaces, 1, 4, default
     }
 
     binds {
@@ -132,18 +127,15 @@ in {
     }
 
     dwindle {
-        # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-        pseudotile = yes # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-        preserve_split = yes # you probably want this
+        pseudotile = yes
+        preserve_split = yes
     }
 
     master {
-        # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
         new_status = "slave"
     }
 
     gestures {
-        # See https://wiki.hyprland.org/Configuring/Variables/ for more
         workspace_swipe = off
     }
 
