@@ -91,6 +91,8 @@
         };
         modules = [
           ./nixos/mini/configuration.nix
+          # Running the 3070, but I think this is close enough.
+          nixos-hardware.nixosModules.dell-optiplex-3050
           home-manager.nixosModules.home-manager
           default-home-configuration
         ];
