@@ -373,7 +373,6 @@ in {
     pamixer
     pavucontrol
     playerctl
-    plex-media-player
     plexamp
     procps # replace GNU uptime.
     slack
