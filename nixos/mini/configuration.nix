@@ -20,6 +20,7 @@
 
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
+  services.openssh.settings.X11Forwarding = true;
   services.openssh.authorizedKeysFiles = [
     "/home/detroyejr/.ssh/main_server.pub"
   ];
