@@ -16,6 +16,7 @@
     };
     graphics = {
       enable = true;
+      enable32Bit = true;
       extraPackages = lib.mkIf (!isNvidia) [
         pkgs.intel-compute-runtime
         pkgs.intel-media-driver
