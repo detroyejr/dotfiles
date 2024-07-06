@@ -8,6 +8,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ../plex.nix
   ];
 
   # Bootloader.
@@ -37,14 +38,14 @@
     enable = true;
     enable32Bit = true;
   };
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  hardware.nvidia.prime = {
-    sync.enable = true;
-    nvidiaBusId = "PCI:1:0:0";
-    intelBusId = "PCI:0:2:0";
-  };
+  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  # hardware.nvidia.prime = {
+  #   sync.enable = true;
+  #   nvidiaBusId = "PCI:1:0:0";
+  #   intelBusId = "PCI:0:2:0";
+  # };
 
-  hardware.nvidia.modesetting.enable = true;
+  #hardware.nvidia.modesetting.enable = true;
 
   services.xserver = {
     xkb = {
@@ -63,6 +64,7 @@
     git
     home-manager
     nfs-utils
+    nvtopPackages.full
   ];
 
   services.openssh = {

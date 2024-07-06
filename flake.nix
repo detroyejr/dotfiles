@@ -131,6 +131,7 @@
         modules = [
           ./nixos/brick/configuration.nix
           home-manager.nixosModules.home-manager
+          nixos-hardware.nixosModules.dell-xps-15-9570-nvidia
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
