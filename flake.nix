@@ -125,7 +125,7 @@
         inherit system pkgs;
         specialArgs = {
           inherit inputs outputs system;
-          isNvidia = false;
+          isNvidia = true;
           isFprint = false;
         };
         modules = [
