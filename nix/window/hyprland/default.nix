@@ -114,8 +114,8 @@ in {
 
     animations {
         enabled = yes
-        animation = windows, 1, 4, default, slide down 
-        animation = windowsOut, 1, 4, default, slide 
+        animation = windows, 1, 4, default, slide down
+        animation = windowsOut, 1, 4, default, slide
         animation = border, 1, 4, default
         animation = borderangle, 1, 4, default
         animation = fade, 1, 4, default

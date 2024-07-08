@@ -15,6 +15,7 @@
   users.users.detroyejr = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = ["wheel" "input" "dialout"];
+    # TODO: is gamemode needed?
+    extraGroups = ["wheel" "input" "dialout" "gamemode"];
   };
 }
