@@ -25,5 +25,15 @@
     "/home/detroyejr/.ssh/main_server.pub"
   ];
 
+  fileSystems."/run/mount/Media" = {
+    device = "192.168.1.107:/mnt/nas0/Media";
+    fsType = "nfs";
+    options = [
+      "rw"
+      "relatime"
+      "user"
+    ];
+  };
+
   system.stateVersion = "23.11";
 }
