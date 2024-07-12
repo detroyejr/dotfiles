@@ -38,11 +38,12 @@
     colorSchemeName = "rose-pine";
     colorScheme = nix-colors.${colorSchemeName}.colorScheme;
     wallpaper = nix-colors.${colorSchemeName}.wallpaper;
+    rofi-background = nix-colors.${colorSchemeName}.rofi;
 
     default-home-configuration = {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = {inherit nix-colors colorSchemeName colorScheme wallpaper hyprland;};
+      home-manager.extraSpecialArgs = {inherit nix-colors colorSchemeName colorScheme wallpaper hyprland rofi-background;};
       home-manager.users.detroyejr = {
         imports = [
           ./nix/home.nix
@@ -135,7 +136,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit nix-colors colorSchemeName colorScheme wallpaper;};
+            home-manager.extraSpecialArgs = {inherit nix-colors colorSchemeName colorScheme wallpaper rofi-background;};
             home-manager.users.detroyejr = {
               imports = [
                 ./nix/home.nix

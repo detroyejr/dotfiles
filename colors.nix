@@ -1,7 +1,8 @@
 {
   rose-pine = {
     colorSchemeName = "rose-pine";
-    wallpaper = ./assets/walls/minimal/pexels-drift-shutterbug-2085998.png;
+    wallpaper = ./assets/walls/wallpaper.jpg;
+    rofi = ./assets/walls/wallpaper.jpg;
     colorScheme = {
       author = "Jonathan De Troye";
       name = "Rose Pine";

@@ -1,7 +1,7 @@
 {
   pkgs,
   colorScheme,
-  wallpaper,
+  rofi-background,
   ...
 }: let
   rofi-themes = pkgs.stdenv.mkDerivation {
@@ -25,7 +25,7 @@
       find files -type f -name "*.rasi" -exec sed -i 's/urgent:.*$/urgent: #${colorScheme.colors.base01};/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/[a-j].png/wallpaper.png/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/[a-j].jpg/wallpaper.png/g' {} ';';
-      cp ${wallpaper} files/images/wallpaper.png
+      cp ${rofi-background} files/images/wallpaper.png
     '';
   };
 in {
