@@ -75,8 +75,8 @@
     autosuggestion.enable = true;
     shellAliases = {
       k = "kubectl";
-      ll = "lsd --color=never -l";
-      ls = "lsd --color=never";
+      ll = "lsd -l";
+      ls = "lsd";
       pwsh = "pwsh.exe";
       ssh = "TERM=xterm-256color ssh";
       st = "set-title";
