@@ -9,11 +9,12 @@
 }: {
   xdg.portal.config.common.default = "*";
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    xdgOpenUsePortal = true;
-  };
+  # Plex needs this to login/click on links.
+  # xdg.portal = {
+  #   enable = true;
+  #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  #   xdgOpenUsePortal = true;
+  # };
 
   programs.hyprland = {
     enable = true;
