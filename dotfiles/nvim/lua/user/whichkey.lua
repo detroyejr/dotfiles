@@ -8,26 +8,26 @@ wk.setup()
 -- Top level
 wk.add({
   { "<leader>e", "<cmd>Explore<cr>",              desc = "Explorer" },
-  { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
 })
 
 -- Telescope
 wk.add({
   { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
-  { "<leader>F",  "<cmd>Telescope find_files<cr>", desc = "Find Text", mode = "n" },
+  { "<leader>fF",  "<cmd>Telescope find_files<cr>", desc = "Find Text", mode = "n" },
 })
 
 -- LSP
 wk.add({
   { "<leader>l", group = "LSP" },
+  { "<leader>li", "<cmd>LspInfo<cr>", desc = "Info" },
   {
     "<leader>lf",
     "<cmd>lua require('conform').format({ lsp_fallback = 'always', async = true })<cr>",
     desc = "Format",
     mode = "n",
   },
-  { "<leader>l", "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
-  { "<leader>h", "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
+  { "<leader>ll", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next Diagnostic" },
+  { "<leader>lh", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev Diagnostic" },
 })
 
 -- Terminal
