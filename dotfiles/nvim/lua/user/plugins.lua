@@ -19,11 +19,12 @@ local plugins = {
   { "lukas-reineke/indent-blankline.nvim" },
   {
     "echasnovski/mini.nvim",
-    version = "*",
+    version = false,
     config = function()
       require("mini.comment").setup()
       require("mini.statusline").setup()
       require("mini.tabline").setup()
+      require("mini.icons").setup()
     end,
   },
   -- Utilities

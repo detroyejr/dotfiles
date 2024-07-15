@@ -7,18 +7,19 @@ wk.setup()
 
 -- Top level
 wk.add({
-  { "<leader>e", "<cmd>Explore<cr>",              desc = "Explorer" },
+  { "<leader>e", "<cmd>Explore<cr>", desc = "Explorer" },
 })
 
 -- Telescope
 wk.add({
+  { "<leader>f",  group = "Search" },
   { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
-  { "<leader>fF",  "<cmd>Telescope find_files<cr>", desc = "Find Text", mode = "n" },
+  { "<leader>fF", "<cmd>Telescope find_files<cr>", desc = "Find Text", mode = "n" },
 })
 
 -- LSP
 wk.add({
-  { "<leader>l", group = "LSP" },
+  { "<leader>l",  group = "LSP" },
   { "<leader>li", "<cmd>LspInfo<cr>", desc = "Info" },
   {
     "<leader>lf",
@@ -28,6 +29,20 @@ wk.add({
   },
   { "<leader>ll", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next Diagnostic" },
   { "<leader>lh", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev Diagnostic" },
+})
+
+-- Git
+wk.add({
+  { "<leader>g",  group = "Git" },
+  { "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>",       desc = "Next Hunk" },
+  { "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>",       desc = "Prev Hunk" },
+  { "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>",      desc = "Blame Line" },
+  { "<leader>gp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>",    desc = "Preview Hunk" },
+  { "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>",      desc = "Reset Hunk" },
+  { "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>",    desc = "Reset Buffer" },
+  { "<leader>gs", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>",      desc = "Stage Hunk" },
+  { "<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = "Undo Stage Hunk" },
+  { "<leader>gd", "<cmd>lua require 'gitsigns'.diffthis HEAD<cr>",     desc = "Checkout commits" },
 })
 
 -- Terminal
