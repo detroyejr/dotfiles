@@ -21,8 +21,8 @@
   services.syncthing = {
     enable = true;
     user = "detroyejr";
-    dataDir = "/home/detroyejr/Documents";    # Default folder for new synced folders
-    configDir = "/home/detroyejr/.config/syncthing";   # Folder for Syncthing's settings and keys
+    dataDir = "/home/detroyejr/Documents";
+    configDir = "/home/detroyejr/.config/syncthing";
   };
 
   system.stateVersion = "23.11";
