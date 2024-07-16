@@ -25,5 +25,8 @@
     configDir = "/home/detroyejr/.config/syncthing";
   };
 
+  networking.firewall.allowedTCPPorts = [ 22 80 22000 ];
+  networking.firewall.allowedUDPPorts = [ 53 22000 ];
+
   system.stateVersion = "23.11";
 }
