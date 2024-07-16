@@ -8,6 +8,7 @@ wk.setup()
 -- Top level
 wk.add({
   { "<leader>e", "<cmd>Explore<cr>", desc = "Explorer" },
+  { "<leader>h", "<cmd>noh<cr>",     desc = "Remove highlight" },
 })
 
 -- Telescope
@@ -29,6 +30,7 @@ wk.add({
   },
   { "<leader>ll", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next Diagnostic" },
   { "<leader>lh", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev Diagnostic" },
+  { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>",       desc = "Rename" },
 })
 
 -- Git
