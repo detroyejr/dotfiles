@@ -35,5 +35,12 @@
     ];
   };
 
+  services.syncthing = {
+    enable = true;
+    user = "detroyejr";
+    dataDir = "/home/detroyejr/Documents";
+    configDir = "/home/detroyejr/.config/syncthing";
+  };
+
   system.stateVersion = "23.11";
 }
