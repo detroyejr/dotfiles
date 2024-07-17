@@ -9,14 +9,14 @@ wk.setup()
 wk.add({
   { "<leader>e", "<cmd>Explore<cr>", desc = "Explorer" },
   { "<leader>h", "<cmd>noh<cr>",     desc = "Remove highlight" },
-  { "<leader>c", "<cmd>bd<cr>",     desc = "Close Buffer" },
+  { "<leader>c", "<cmd>bd<cr>",      desc = "Close Buffer" },
 })
 
 -- Telescope
 wk.add({
   { "<leader>f",  group = "Search" },
   { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
-  { "<leader>fF", "<cmd>Telescope find_files<cr>", desc = "Find Text", mode = "n" },
+  { "<leader>fF", "<cmd>Telescope live_grep<cr>",  desc = "Find Text", mode = "n" },
 })
 
 -- LSP
