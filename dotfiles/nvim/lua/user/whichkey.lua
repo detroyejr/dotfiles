@@ -9,6 +9,7 @@ wk.setup()
 wk.add({
   { "<leader>e", "<cmd>Explore<cr>", desc = "Explorer" },
   { "<leader>h", "<cmd>noh<cr>",     desc = "Remove highlight" },
+  { "<leader>c", "<cmd>bd<cr>",     desc = "Close Buffer" },
 })
 
 -- Telescope
