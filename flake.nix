@@ -32,6 +32,9 @@
         allowUnfree = true;
         allowBroken = true;
       };
+      overlays = [
+        (import ./overlays.nix)
+      ];
     };
 
     nix-colors = import ./colors.nix;
@@ -43,7 +46,7 @@
     default-home-configuration = {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = {inherit nix-colors colorSchemeName colorScheme wallpaper hyprland rofi-background;};
+      home-manager.extraSpecialArgs = {inherit nix-colors colorSchemeName colorScheme wallpaper hyprland rofi-background; isNvidia = false;};
       home-manager.users.detroyejr = {
         imports = [
           ./nix/home.nix
@@ -136,7 +139,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit nix-colors colorSchemeName colorScheme wallpaper rofi-background;};
+            home-manager.extraSpecialArgs = {inherit nix-colors colorSchemeName colorScheme wallpaper rofi-background; isNvidia = true;};
             home-manager.users.detroyejr = {
               imports = [
                 ./nix/home.nix
