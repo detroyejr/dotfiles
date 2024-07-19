@@ -167,7 +167,7 @@ in {
     bind = $mainMod, E, exec, thunar
     bind = $mainMod, F, togglefloating,
     bind = $mainMod, F, centerwindow
-    bind = $mainMod, F, resizeactive, exact 1300 700
+    bind = $mainMod, F, resizeactive, exact 1200 700
     bind = $mainMod, G, fullscreen
     bind = $mainMod, J, togglesplit, # dwindle
     bind = $mainMod, L, exec, bash -c "hyprlock"
