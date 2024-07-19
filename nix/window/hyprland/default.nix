@@ -2,6 +2,7 @@
   pkgs,
   colorScheme,
   wallpaper,
+  isNvidia,
   ...
 }: let
   slack = pkgs.makeDesktopItem {
@@ -12,7 +13,6 @@
   };
 in {
   imports = [
-    ./dunst.nix
     ./eww.nix
     ./gtk.nix
     ./hyprlock.nix
@@ -48,7 +48,7 @@ in {
     env = WLR_DRM_NO_ATOMIC,1
 
     exec-once = hyprctl dispatch dpms on &
-    exec-once = hyprpaper & dunst & eww open bar & hyprlock & kanshi
+    exec-once = hyprpaper & swayncc & eww open bar & hyprlock & kanshi
     exec-once = hyprctl set-cursor Numix-Cursor 24
 
     windowrule = float,^(Rofi)$
@@ -373,6 +373,14 @@ in {
     pamixer
     pavucontrol
     playerctl
+    (plex-desktop.override {
+      extraEnv = if isNvidia then { 
+        __NV_PRIME_RENDER_OFFLOAD = 1;
+        __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+        __VK_LAYER_NV_optimus = "NVIDIA_only";
+      } else {};
+    })
     plexamp
     procps # replace GNU uptime.
     slack
