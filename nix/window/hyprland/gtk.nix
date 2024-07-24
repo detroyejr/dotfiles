@@ -15,11 +15,12 @@
   };
 in {
   home.pointerCursor = {
-    name = "Numix-Cursor";
-    package = pkgs.numix-cursor-theme;
+    name = "Bibata-Modern-Ice";
+    # package = pkgs.numix-cursor-theme;
+    package = pkgs.bibata-cursors;
     gtk.enable = true;
     x11.enable = true;
-    size = 24;
+    size = 14;
   };
 
   gtk = {
@@ -34,9 +35,9 @@ in {
       };
     };
     cursorTheme = {
-      name = "Numix-Cursor";
-      size = 24;
-      package = pkgs.numix-cursor-theme;
+      name = "Bibata-Modern-Ice";
+      size = 14;
+      package = pkgs.bibata-cursors;
     };
   };
 }

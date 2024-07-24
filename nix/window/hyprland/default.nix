@@ -44,12 +44,11 @@ in {
     env = QT_AUTO_SCALE_SCREEN_FACTOR,1
     env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
     env = TERMINAL,kitty;
-    env = XCURSOR_SIZE,32
     env = WLR_DRM_NO_ATOMIC,1
 
     exec-once = hyprctl dispatch dpms on &
     exec-once = hyprpaper & swayncc & eww open bar & hyprlock & kanshi
-    exec-once = hyprctl set-cursor Numix-Cursor 24
+    exec-once = hyprctl setcursor Bibata-Modern-Ice 30
 
     windowrule = float,^(Rofi)$
     windowrule = center,^(Rofi)$
@@ -151,9 +150,6 @@ in {
       sensitivity = -0.7
     }
 
-
-
-    # See https://wiki.hyprland.org/Configuring/Keywords/ for more
     $mainMod = SUPER
 
     # bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @joplinapp-desk > /dev/null; then kill $(pgrep -x  @joplinapp-desk | paste -sd ' '); else joplin-desktop; fi"
