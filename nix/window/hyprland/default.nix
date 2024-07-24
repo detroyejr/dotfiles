@@ -158,8 +158,8 @@ in {
 
     # bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @joplinapp-desk > /dev/null; then kill $(pgrep -x  @joplinapp-desk | paste -sd ' '); else joplin-desktop; fi"
     bind = $mainMod CTRL, P, exec, hyprpicker | wl-copy
-    bind = $mainMod CTRL, S, exec, grim -g "$(slurp)"
-    bind = $mainMod CTRL SHIFT, S, exec, grim
+    bind = $mainMod, PRINT, exec, grim
+    bind = $mainMod SHIFT, PRINT, exec, grim -g "$(slurp)"
     bind = $mainMod SHIFT, E, exec, bash -c "if pgrep -x wofi-emoji > /dev/null; then pkill wofi-emoji; else wofi-emoji; fi"
     bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @obsidian > /dev/null; then pkill obsidian; else obsidian; fi"
     bind = $mainMod SHIFT, K, exec, bash -c "if pgrep -x .keepassxc-wrap > /dev/null; then pkill keepassxc; else keepassxc; fi"
