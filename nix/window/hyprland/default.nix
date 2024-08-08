@@ -366,6 +366,7 @@ in {
     nfs-utils
     nomacs
     obsidian
+    openai-whisper-cpp
     pamixer
     pavucontrol
     playerctl
