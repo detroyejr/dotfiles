@@ -18,6 +18,7 @@ in {
     ./hyprlock.nix
     ./kitty.nix
     ./rofi.nix
+    ./wezterm.nix
     ./yazi.nix
   ];
 
@@ -48,7 +49,7 @@ in {
 
     exec-once = hyprctl dispatch dpms on &
     exec-once = hyprpaper & swayncc & eww open bar & hyprlock & kanshi
-    exec-once = hyprctl setcursor Bibata-Modern-Ice 30
+    exec-once = hyprctl setcursor Bibata-Modern-Ice 14
 
     windowrule = float,^(Rofi)$
     windowrule = center,^(Rofi)$
@@ -57,10 +58,10 @@ in {
     windowrule = center,^(thunar)$
     windowrule = size 70% 70%,^(thunar)$
 
-    windowrule = float,^(pavucontrol)$
-    windowrule = move 100%-488 6%,^(pavucontrol)$
-    windowrule = size 400 560,^(pavucontrol)$
-    windowrule = animation slide,^(pavucontrol)$
+    windowrule = float,^(Volume Control)$
+    windowrule = move 100%-488 6%,^(Volume Control)$
+    windowrule = size 400 560,^(Volume Control)$
+    windowrule = animation slide,^(Volume Control)$
 
     windowrule = float,^(Plexamp)$
     windowrule = move 100%-488 6%,title:^(Plexamp)$
@@ -71,6 +72,9 @@ in {
     windowrule = move 100%-488 6%,title:^(nmtui-connect)$
     windowrule = size 100 160,^(nmtui-connect)$
     windowrule = animation slide,title:^(nmtui-connect)$
+
+    windowrulev2 = float,class:^(org.wezfurlong.wezterm)$
+    windowrulev2 = tile,class:^(org.wezfurlong.wezterm)$
 
     # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
     input {
