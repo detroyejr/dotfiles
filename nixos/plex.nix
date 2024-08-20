@@ -1,10 +1,10 @@
 { pkgs, ... }:
 let
   myPlex = pkgs.plex.overrideAttrs (_: rec {
-    version = "1.40.3.8555-fef15d30c";
+    version = "1.40.5.8854-f36c552fd";
     src = pkgs.fetchurl {
       url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
-      hash = "sha256-mJZHvK2dEaeDmmDwimBn606Ur89yPs/pitzuTFVPS1Q=";
+      hash = "sha256-34DHJQbGiXJndCWOplNE5aics82CcR33lj28AAQvI8Y=";
     };
   });
   in
