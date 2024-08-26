@@ -27,6 +27,7 @@ local options = {
 	backup = false,
 	clipboard = "unnamedplus",
 	colorcolumn = "88",
+	expandtab = true,
 	fileencoding = "utf-8",
 	fileformat = "unix",
 	ignorecase = true,
