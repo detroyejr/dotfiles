@@ -13,7 +13,6 @@
         ${pkgs.rclone}/bin/rclone mount \
           --vfs-cache-mode full \
           --vfs-cache-max-size 20G \
-          --dir-cache-time 48h0m0s \
           --default-permissions \
           --log-level INFO \
           --log-file /tmp/rclone-onedrive.log \
@@ -39,7 +38,6 @@
         ${pkgs.rclone}/bin/rclone mount \
           --vfs-cache-mode full \
           --vfs-cache-max-size 30G \
-          --dir-cache-time 48h0m0s \
           --default-permissions \
           --log-level INFO \
           --log-file /tmp/rclone-google.log \
