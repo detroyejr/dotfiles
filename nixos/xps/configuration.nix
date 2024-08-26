@@ -28,7 +28,7 @@
   networking.firewall.allowedTCPPorts = [22 80 22000 8000];
   networking.firewall.allowedUDPPorts = [53 22000 51820];
 
-  services.xserver.libinput.touchpad.disableWhileTyping = true;
+  services.libinput.touchpad.disableWhileTyping = true;
 
   system.stateVersion = "23.11";
 }
