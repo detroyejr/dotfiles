@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     ../default.nix
+    ../syncthing.nix
     ../brightness.nix
     ../cataclysm-dda.nix
     ../devices.nix
@@ -35,15 +36,8 @@
     ];
   };
 
-  services.syncthing = {
-    enable = true;
-    user = "detroyejr";
-    dataDir = "/home/detroyejr/Documents";
-    configDir = "/home/detroyejr/.config/syncthing";
-  };
-
-  networking.firewall.allowedTCPPorts = [22 80 22000];
-  networking.firewall.allowedUDPPorts = [53 22000];
+  networking.firewall.allowedTCPPorts = [22 80];
+  networking.firewall.allowedUDPPorts = [53];
 
   system.stateVersion = "23.11";
 }
