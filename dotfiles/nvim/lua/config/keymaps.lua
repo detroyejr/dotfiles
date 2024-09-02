@@ -1,5 +1,4 @@
-local tmux = os.getenv("TMUX")
-local wsl = os.getenv("WSL_DISTRO_NAME")
+-- Keymaps
 
 vim.keymap.set('i', 'jj', '<Esc>')
 
@@ -12,6 +11,9 @@ vim.keymap.set("n", "<S-l>", ":bnext<cr>", { silent = true })
 vim.keymap.set("n", "<leader>c", ":bdelete<cr>", { silent = true })
 
 -- Terminal
+local tmux = os.getenv("TMUX")
+local wsl = os.getenv("WSL_DISTRO_NAME")
+
 if tmux then
 	vim.keymap.set(
 		"n",

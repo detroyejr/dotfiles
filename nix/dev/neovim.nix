@@ -9,7 +9,7 @@
     recursive = true;
   };
 
-  home.file.".config/nvim/lua/user/colorscheme.lua".text = with colorScheme.colors; ''
+  home.file.".config/nvim/lua/config/colorscheme.lua".text = with colorScheme.colors; ''
     local Shade = require("nightfox.lib.shade")
 
     COLORSCHEME = "${colorSchemeName}"
