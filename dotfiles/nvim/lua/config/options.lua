@@ -42,6 +42,7 @@ local options = {
 	undofile = true,
 	updatetime = 100,
 	wrap = false,
+  writebackup = false,
 }
 
 for k, v in pairs(options) do
