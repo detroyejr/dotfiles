@@ -58,12 +58,12 @@ return {
   end,
   keys = {
     { "<leader>li", "<cmd>LspInfo<cr>", },
-    { "<leader>lf", ":lua vim.lsp.buf.format()<cr>",             silent = true },
-    { "<leader>gd", ":lua vim.lsp.buf.definition()<cr>",         silent = true },
-    { "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>",    silent = true },
-    { "<leader>gk", "<cmd>lua vim.lsp.buf.hover()<CR>",          silent = true },
-    { "<leader>gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", silent = true },
-    { "<leader>gj", "<cmd>lua vim.lsp.buf.signature_help()<CR>", silent = true },
-    { "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>",     silent = true },
+    { "<leader>lf", ":lua vim.lsp.buf.format({timeout_ms = 5000})<cr>", silent = true },
+    { "<leader>gd", ":lua vim.lsp.buf.definition()<cr>",                silent = true },
+    { "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>",           silent = true },
+    { "<leader>gk", "<cmd>lua vim.lsp.buf.hover()<CR>",                 silent = true },
+    { "<leader>gi", "<cmd>lua vim.lsp.buf.implementation()<CR>",        silent = true },
+    { "<leader>gj", "<cmd>lua vim.lsp.buf.signature_help()<CR>",        silent = true },
+    { "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>",            silent = true },
   }
 }
