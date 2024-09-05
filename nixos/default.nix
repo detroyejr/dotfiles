@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, isNvidia, ...}: {
   i18n.defaultLocale = "en_US.UTF-8";
   networking.networkmanager.enable = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -18,4 +18,6 @@
     # TODO: is gamemode needed?
     extraGroups = ["wheel" "input" "dialout" "gamemode"];
   };
+
+  hardware.nvidia.open = isNvidia;
 }
