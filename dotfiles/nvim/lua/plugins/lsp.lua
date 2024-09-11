@@ -2,7 +2,7 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   config = function()
-    local lspconfig = require('lspconfig')
+    lspconfig = require('lspconfig')
 
     local servers = {
       "clangd",
@@ -10,6 +10,7 @@ return {
       "nixd",
       "pylsp",
       "r_language_server",
+      "ruff",
     }
 
     local opts = {
