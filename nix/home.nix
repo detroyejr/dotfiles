@@ -28,6 +28,7 @@
     gcc
     gh
     gnumake
+    qsv
     jq
     kubectl
     lame
