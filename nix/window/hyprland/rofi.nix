@@ -9,8 +9,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "adi1090x";
       repo = "rofi";
-      rev = "master";
-      sha256 = "sha256-wowV9/TwkqKwEwxOVCRXOeCxW/hB/U8X26BNJcOg41U=";
+      rev = "3f2275ab8f9dbb697c7387a20a78a3da196c302a";
+      sha256 = "sha256-slq48vZlVLmFn4K+ET0uZeFQJYr7+lGxAzvvPHXj/NU=";
     };
     installPhase = ''
       cp -r . $out;
