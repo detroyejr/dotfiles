@@ -26,12 +26,24 @@
   } @ inputs: let
     inherit (self) outputs;
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
+    base = nixpkgs.legacyPackages.${system};
+    patched = (import nixpkgs { inherit system; }).applyPatches {
+      name = "patched";
+      src = nixpkgs;
+
+      patches = [
+        (base.fetchpatch {
+          url = "https://github.com/NixOS/nixpkgs/pull/341226.patch";
+          hash = "sha256-asnviq/pGFUg1iSbcH+IqfaocODRnMAcTfPyU48CImo=";
+        })
+      ];
+    };
+    pkgs = import patched {
       inherit system;
       config = {
         allowUnfree = true;
         allowBroken = true;
-        cudaSupport = true;
+        cudaSupport = false;
       };
       overlays = [
         (import ./overlays.nix)
