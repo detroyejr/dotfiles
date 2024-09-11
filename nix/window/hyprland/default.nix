@@ -352,6 +352,7 @@ in {
     alsa-utils
     anki
     bluez
+    calibre
     colorz
     discord
     dmenu
