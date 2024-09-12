@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     ../default.nix
+    ../binary-cache.nix
     ../syncthing.nix
     ../brightness.nix
     ../cataclysm-dda.nix
