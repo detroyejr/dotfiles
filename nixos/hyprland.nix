@@ -6,7 +6,8 @@
   isNvidia,
   isFprint,
   ...
-}: {
+}:
+{
   xdg.portal.config.common.default = "*";
 
   # Plex needs this to login/click on links.
@@ -38,7 +39,7 @@
     xserver = {
       displayManager.gdm.enable = true;
       enable = true;
-      videoDrivers = lib.mkIf isNvidia ["nvidia"];
+      videoDrivers = lib.mkIf isNvidia [ "nvidia" ];
     };
   };
   security.pam.services.hyprlock.fprintAuth = isFprint;

@@ -1,9 +1,6 @@
+{ pkgs, colorScheme, ... }:
 {
-  pkgs,
-  colorScheme,
-  ...
-}: {
-  home.packages = [pkgs.yazi];
+  home.packages = [ pkgs.yazi ];
 
   home.file.".config/yazi/keymap.toml".source = ../../../dotfiles/yazi/keymap.toml;
   home.file.".config/yazi/yazi.toml".source = ../../../dotfiles/yazi/yazi.toml;

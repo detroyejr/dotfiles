@@ -14,7 +14,5 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [
-    config.services.nginx.defaultHTTPListenPort
-  ];
+  networking.firewall.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort ];
 }

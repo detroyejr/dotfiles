@@ -1,10 +1,9 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    rclone
-  ];
+{ pkgs, ... }:
+{
+  environment.systemPackages = with pkgs; [ rclone ];
 
   systemd.services.onedrive = {
-    path = ["${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH"];
+    path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
     script = ''
       FILE=/root/.config/rclone/rclone.conf
       mkdir -p /home/detroyejr/OneDrive/
@@ -25,11 +24,11 @@
           "OneDrive:" "/home/detroyejr/OneDrive/"
       fi
     '';
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
   };
 
   systemd.services.google_drive = {
-    path = ["${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH"];
+    path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
     script = ''
       FILE=/root/.config/rclone/rclone.conf
       mkdir -p "/home/detroyejr/Google Drive"
@@ -50,6 +49,6 @@
           "Google Drive:" "/home/detroyejr/Google Drive/"
       fi
     '';
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
   };
 }

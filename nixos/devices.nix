@@ -5,13 +5,14 @@
   isNvidia,
   isFprint,
   ...
-}: {
+}:
+{
   hardware = {
     bluetooth = {
       enable = true;
       powerOnBoot = false;
       package = pkgs.bluez.overrideAttrs (oldAttrs: {
-        configureFlags = oldAttrs.configureFlags ++ ["--enable-sixaxis"];
+        configureFlags = oldAttrs.configureFlags ++ [ "--enable-sixaxis" ];
       });
     };
     graphics = {

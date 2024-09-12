@@ -1,12 +1,31 @@
-{colorScheme, ...}: {
+{ colorScheme, ... }:
+{
   programs.wezterm = {
     enable = true;
     enableZshIntegration = true;
     colorSchemes = {
       custom = with colorScheme.colors; {
-        ansi = [base00 base08 base0B base0A base0D base0E base0C base05];
+        ansi = [
+          base00
+          base08
+          base0B
+          base0A
+          base0D
+          base0E
+          base0C
+          base05
+        ];
         background = base00;
-        brights = [base03 base08 base0B base0A base0D base0E base0C base07];
+        brights = [
+          base03
+          base08
+          base0B
+          base0A
+          base0D
+          base0E
+          base0C
+          base07
+        ];
         compose_cursor = base06;
         cursor_bg = base05;
         cursor_fg = base00;

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "detroyejr";
@@ -93,7 +94,10 @@
     ];
     oh-my-zsh = {
       enable = true;
-      plugins = ["git" "tmux"];
+      plugins = [
+        "git"
+        "tmux"
+      ];
       theme = "robbyrussell";
       package = pkgs.oh-my-zsh.overrideAttrs (old: {
         src = pkgs.fetchFromGitHub {

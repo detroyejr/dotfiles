@@ -9,18 +9,21 @@ let
       };
     });
   };
-  in
+in
 {
   fileSystems."/run/media/Media" = {
     device = "191.168.1.107:/mnt/nas0/Media";
     fsType = "nfs";
-    options = ["nfsvers=4" "rw"];
+    options = [
+      "nfsvers=4"
+      "rw"
+    ];
   };
   services.plex = {
     package = myPlex;
     enable = true;
     openFirewall = true;
-    accelerationDevices = ["*"];
+    accelerationDevices = [ "*" ];
     user = "root";
   };
 }

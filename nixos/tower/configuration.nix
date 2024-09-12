@@ -1,11 +1,8 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
+{ config, pkgs, ... }:
 {
-  config,
-  pkgs,
-  ...
-}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -26,7 +23,10 @@
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Enable experimental features.
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   # Set your time zone.
   time.timeZone = "US/New_York";
 
@@ -72,7 +72,10 @@
   programs.zsh.enable = true;
   users.users.detroyejr = {
     isNormalUser = true;
-    extraGroups = ["wheel" "docker"]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "docker"
+    ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     packages = with pkgs; [
       firefox
@@ -94,14 +97,28 @@
     enableDefaultFonts = true;
     fonts = with pkgs; [
       ubuntu_font_family
-      (nerdfonts.override {fonts = ["CascadiaCode" "Ubuntu"];})
+      (nerdfonts.override {
+        fonts = [
+          "CascadiaCode"
+          "Ubuntu"
+        ];
+      })
     ];
 
     fontconfig = {
       defaultFonts = {
-        serif = ["CaskaydiaCove NF Serif" "Ubuntu"];
-        sansSerif = ["CaskaydiaCove NF" "Ubuntu"];
-        monospace = ["CaskaydiaCove NF Mono" "Ubuntu"];
+        serif = [
+          "CaskaydiaCove NF Serif"
+          "Ubuntu"
+        ];
+        sansSerif = [
+          "CaskaydiaCove NF"
+          "Ubuntu"
+        ];
+        monospace = [
+          "CaskaydiaCove NF Mono"
+          "Ubuntu"
+        ];
       };
     };
   };

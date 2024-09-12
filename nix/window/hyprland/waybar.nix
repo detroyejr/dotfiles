@@ -4,7 +4,8 @@
   hyprland,
   colorScheme,
   ...
-}: {
+}:
+{
   programs.waybar = {
     enable = true;
   };

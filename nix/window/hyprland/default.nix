@@ -4,14 +4,16 @@
   wallpaper,
   isNvidia,
   ...
-}: let
+}:
+let
   slack = pkgs.makeDesktopItem {
     name = "slack";
     desktopName = "slack";
     exec = "${pkgs.slack}/bin/slack --enable-features=WaylandWindowDecorations,WebRTCPipeWireCapturer --ozone-platform-hint=auto --ozone-platform=wayland -s %U";
     icon = "${pkgs.slack}/share/pixmaps/slack.png";
   };
-in {
+in
+{
   imports = [
     ./eww.nix
     ./gtk.nix
@@ -377,14 +379,15 @@ in {
     playerctl
     (plex-desktop.override {
       extraEnv =
-        if isNvidia
-        then {
-          __NV_PRIME_RENDER_OFFLOAD = 1;
-          __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
-          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-          __VK_LAYER_NV_optimus = "NVIDIA_only";
-        }
-        else {};
+        if isNvidia then
+          {
+            __NV_PRIME_RENDER_OFFLOAD = 1;
+            __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+            __VK_LAYER_NV_optimus = "NVIDIA_only";
+          }
+        else
+          { };
     })
     plexamp
     procps # replace GNU uptime.

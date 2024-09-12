@@ -1,11 +1,7 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
+{ pkgs, lib, ... }:
+let
   cddaLib = {
-    inherit
-      (pkgs.cataclysmDDA)
+    inherit (pkgs.cataclysmDDA)
       attachPkgs
       buildMod
       buildSoundPack
@@ -23,17 +19,16 @@
 
   cdda-no-mod = base-cdda.overrideAttrs (super: {
     # patch doesn't cleanly apply anymore
-    patches = [];
+    patches = [ ];
 
-    passthru =
-      super.passthru
-      // {
-        pkgs = pkgs.override {build = cdda-no-mod;};
-        withMods = cddaLib.wrapCDDA cdda-no-mod;
-      };
+    passthru = super.passthru // {
+      pkgs = pkgs.override { build = cdda-no-mod; };
+      withMods = cddaLib.wrapCDDA cdda-no-mod;
+    };
   });
 
-  customMods = self: super:
+  customMods =
+    self: super:
     lib.recursiveUpdate super {
       soundpack.CC-Sounds = cddaLib.buildSoundPack {
         modName = "CC-Sounds";
@@ -54,11 +49,12 @@
       };
     };
 
-  cdda = (cddaLib.attachPkgs cddaLib.pkgs cdda-no-mod).withMods (mods:
-    with mods.extend customMods; [
+  cdda = (cddaLib.attachPkgs cddaLib.pkgs cdda-no-mod).withMods (
+    mods: with mods.extend customMods; [
       soundpack.CC-Sounds
       tileset.UndeadPeopleCustom
-    ]);
+    ]
+  );
 
   cdda-desktop = pkgs.makeDesktopItem {
     name = "cataclysm-dda";
@@ -66,6 +62,7 @@
     exec = "${cdda}/bin/cataclysm-tiles";
     icon = "${cdda}/share/icons/hicolor/scalable/apps/org.cataclysmdda.CataclysmDDA.svg";
   };
-in {
-  environment.systemPackages = [cdda-desktop];
+in
+{
+  environment.systemPackages = [ cdda-desktop ];
 }

@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./hardware-configuration.nix
     ../default.nix
@@ -23,9 +24,7 @@
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
   services.openssh.settings.X11Forwarding = true;
-  services.openssh.authorizedKeysFiles = [
-    "/home/detroyejr/.ssh/main_server.pub"
-  ];
+  services.openssh.authorizedKeysFiles = [ "/home/detroyejr/.ssh/main_server.pub" ];
 
   fileSystems."/run/mount/Media" = {
     device = "192.168.1.107:/mnt/nas0/Media";
@@ -37,8 +36,11 @@
     ];
   };
 
-  networking.firewall.allowedTCPPorts = [22 80];
-  networking.firewall.allowedUDPPorts = [53];
+  networking.firewall.allowedTCPPorts = [
+    22
+    80
+  ];
+  networking.firewall.allowedUDPPorts = [ 53 ];
 
   system.stateVersion = "23.11";
 }

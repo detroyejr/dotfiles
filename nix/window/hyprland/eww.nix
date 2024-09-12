@@ -4,7 +4,8 @@
   lib,
   colorScheme,
   ...
-}: {
+}:
+{
   home.file = {
     ".config/eww/bar".source = ../../../dotfiles/eww/bar;
     ".config/eww/actions".source = ../../../dotfiles/eww/actions;

@@ -4,7 +4,8 @@
   colorScheme,
   wallpaper,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     swaylock-effects
     wlogout

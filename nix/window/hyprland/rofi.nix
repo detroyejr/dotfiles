@@ -3,7 +3,8 @@
   colorScheme,
   rofi-background,
   ...
-}: let
+}:
+let
   rofi-themes = pkgs.stdenv.mkDerivation {
     name = "rofi-themes";
     src = pkgs.fetchFromGitHub {
@@ -28,7 +29,8 @@
       cp ${rofi-background} files/images/wallpaper.png
     '';
   };
-in {
+in
+{
   home.packages = with pkgs; [
     rofi-wayland
     rofi-power-menu

@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   pyechelon = pkgs.python3Packages.buildPythonPackage {
     name = "echelon";
     src = builtins.fetchGit {
@@ -23,8 +24,8 @@
         --replace-warn "slackclient==2.9.2" ""
     '';
   };
-  python-with-packages = pkgs.python3.withPackages (ps:
-    with ps; [
+  python-with-packages = pkgs.python3.withPackages (
+    ps: with ps; [
       black
       boto3
       dask
@@ -47,7 +48,12 @@
       s3fs
       sqlalchemy
       wand
-    ]);
-in {
-  home.packages = [python-with-packages pkgs.ruff];
+    ]
+  );
+in
+{
+  home.packages = [
+    python-with-packages
+    pkgs.ruff
+  ];
 }

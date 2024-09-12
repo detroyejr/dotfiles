@@ -6,7 +6,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ../default.nix
@@ -17,7 +18,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = ["ntfs"];
+  boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "Surface-NixOS"; # Define your hostname.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
@@ -71,7 +72,11 @@
 
   users.users.detroyejr = {
     isNormalUser = true;
-    extraGroups = ["wheel" "docker" "libvirtd"]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "docker"
+      "libvirtd"
+    ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     packages = with pkgs; [
       docker
@@ -89,7 +94,7 @@
     zsh.enable = true;
     thunar = {
       enable = true;
-      plugins = with pkgs; [xfce.exo];
+      plugins = with pkgs; [ xfce.exo ];
     };
     hyprland = {
       enable = true;
@@ -132,18 +137,22 @@
   };
 
   systemd.services.sbctl_sign = {
-    path = [pkgs.sbctl pkgs.gawk pkgs.util-linux];
+    path = [
+      pkgs.sbctl
+      pkgs.gawk
+      pkgs.util-linux
+    ];
     script = ''
       sbctl verify | awk 'NR>1{print $2}' | xargs -L1 sbctl sign
     '';
     serviceConfig = {
       User = "root";
     };
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
   };
 
   systemd.services.onedrive = {
-    path = ["${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH"];
+    path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
     script = ''
       FILE=/root/.config/rclone/rclone.conf
       mkdir -p /home/detroyejr/OneDrive/
@@ -164,11 +173,11 @@
           "OneDrive:" "/home/detroyejr/OneDrive/"
       fi
     '';
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
   };
 
   systemd.services.google_drive = {
-    path = ["${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH"];
+    path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
     script = ''
       FILE=/root/.config/rclone/rclone.conf
       mkdir -p "/home/detroyejr/Google Drive"
@@ -189,7 +198,7 @@
           "Google Drive:" "/home/detroyejr/Google Drive/"
       fi
     '';
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
   };
 
   virtualisation = {

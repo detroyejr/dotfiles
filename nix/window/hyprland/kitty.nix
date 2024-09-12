@@ -3,7 +3,8 @@
   pkgs,
   colorScheme,
   ...
-}: {
+}:
+{
   programs.kitty = {
     enable = true;
     font = {

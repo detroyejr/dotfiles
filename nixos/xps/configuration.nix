@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./hardware-configuration.nix
     ../default.nix
@@ -20,8 +21,14 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.firewall.allowedTCPPorts = [80 8000];
-  networking.firewall.allowedUDPPorts = [53 51820];
+  networking.firewall.allowedTCPPorts = [
+    80
+    8000
+  ];
+  networking.firewall.allowedUDPPorts = [
+    53
+    51820
+  ];
 
   services.libinput.touchpad.disableWhileTyping = true;
 

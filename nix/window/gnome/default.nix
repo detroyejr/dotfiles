@@ -4,7 +4,8 @@
   lib,
   fetchFromGitHub,
   ...
-}: {
+}:
+{
   gtk = {
     enable = true;
 
@@ -16,9 +17,12 @@
     theme = {
       name = "Catppuccin-Macchiato-Compact-Blue-Dark";
       package = pkgs.catppuccin-gtk.override {
-        accents = ["blue"];
+        accents = [ "blue" ];
         size = "compact";
-        tweaks = ["rimless" "black"];
+        tweaks = [
+          "rimless"
+          "black"
+        ];
         variant = "macchiato";
       };
     };
@@ -47,10 +51,10 @@
       enable-hot-corners = false;
     };
     "org/gnome/desktop/wm/preferences" = {
-      workspace-names = ["Main"];
+      workspace-names = [ "Main" ];
     };
     "org/gnome/mutter" = {
-      experimental-features = ["scale-monitor-framebuffer"];
+      experimental-features = [ "scale-monitor-framebuffer" ];
     };
     "org/gnome/shell" = {
       disable-user-extensions = false;

@@ -1,11 +1,8 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
+{ config, pkgs, ... }:
 {
-  config,
-  pkgs,
-  ...
-}: {
   imports = [
     ./hardware-configuration.nix
     ../docker.nix
@@ -34,7 +31,7 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -50,7 +47,11 @@
   users.users.detroyejr = {
     isNormalUser = true;
     description = "Jonathan De Troye";
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
   };
 
   environment.systemPackages = with pkgs; [

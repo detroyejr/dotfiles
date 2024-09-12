@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   services.syncthing = {
     enable = true;
     user = "detroyejr";
@@ -6,6 +7,6 @@
     configDir = "/home/detroyejr/.config/syncthing";
   };
 
-  networking.firewall.allowedTCPPorts = [22000];
-  networking.firewall.allowedUDPPorts = [22000];
+  networking.firewall.allowedTCPPorts = [ 22000 ];
+  networking.firewall.allowedUDPPorts = [ 22000 ];
 }
