@@ -5,14 +5,6 @@
     enable = true;
     secretKeyFile = "/home/detroyejr/.ssh/cache-private-key.pem";
   };
-  nix = {
-    settings = {
-      trusted-users = [
-        "root"
-        "detroyejr"
-      ];
-    };
-  };
 
   services.nginx = {
     enable = true;
