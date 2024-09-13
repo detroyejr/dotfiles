@@ -24,6 +24,7 @@
     };
   };
   programs.zsh.enable = true;
+  programs.ssh.startAgent = true;
   services.ntp.enable = true;
   time.timeZone = "America/New_York";
 
