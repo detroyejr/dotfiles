@@ -28,8 +28,7 @@
     let
       inherit (self) outputs;
       system = "x86_64-linux";
-      patched = (import ./patched.nix) { inherit nixpkgs system; };
-      pkgs = import patched {
+      pkgs = import nixpkgs {
         inherit system;
         config = {
           allowUnfree = true;
