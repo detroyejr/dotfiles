@@ -172,6 +172,36 @@
             }
           ];
         };
+        "potato" = nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit inputs outputs system;
+            isNvidia = false;
+            isFprint = false;
+          };
+          modules = [
+            ./nixos/potato/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                inherit
+                  nix-colors
+                  colorSchemeName
+                  colorScheme
+                  ;
+              };
+              home-manager.users.detroyejr = {
+                imports = [
+                  ./nix/home.nix
+                  ./nix/dev
+                  ./nix/window/hyprland/wezterm.nix
+                ];
+              };
+            }
+          ];
+        };
       };
     };
 }
