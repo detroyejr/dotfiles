@@ -197,6 +197,7 @@
                   ./nix/home.nix
                   ./nix/dev
                   ./nix/window/hyprland/wezterm.nix
+                  ./nix/window/hyprland/kitty.nix
                 ];
               };
             }
