@@ -1,0 +1,20 @@
+name: update-flake-lock
+on:
+  workflow_dispatch: # allows manual triggering
+  schedule:
+    - cron: '0 0 */3 * *' # runs every 3 days
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v14
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@v24
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pr-title: "flake: bump flake.lock"
+          commit-msg: "flake: bump flake.lock"
