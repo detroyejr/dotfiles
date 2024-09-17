@@ -42,5 +42,14 @@
   ];
   networking.firewall.allowedUDPPorts = [ 53 ];
 
+  systemd = {
+    targets = {
+      sleep.enable = false;
+      suspend.enable = false;
+      hibernate.enable = false;
+      hybrid-sleep.enable = false;
+    };
+  };
+
   system.stateVersion = "23.11";
 }
