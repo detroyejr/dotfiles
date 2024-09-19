@@ -16,8 +16,8 @@ fi;
 
 # Merge
 git checkout main && \
-  git stash && \
-  git merge origin/update_flake_lock_action && \
-  git stash apply
+  git pull --rebase && \
+  git rebase origin/update_flake_lock_action && \
+  git push -u origin main
 rm -r result
 
