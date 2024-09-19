@@ -10,6 +10,7 @@
 {
   xdg.portal.config.common.default = "*";
 
+  # FIXME: Some app don't respect my desktop theme.
   # Plex needs this to login/click on links.
   # xdg.portal = {
   #   enable = true;
