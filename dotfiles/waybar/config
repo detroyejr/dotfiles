@@ -31,7 +31,7 @@
       "max-length": 50
     },
     "network": {
-        "interface": "wlp0s20f3",
+        "interface": ["wlp0s20f3", "wlp2s0"],
         "format": "{bandwidthTotalBits}",
         "format-wifi": "{bandwidthTotalBits} ",
         "format-ethernet": "{ipaddr}/{cidr} 󰊗",
