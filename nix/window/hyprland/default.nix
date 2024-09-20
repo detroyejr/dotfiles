@@ -50,7 +50,7 @@ in
     env = WLR_DRM_NO_ATOMIC,1
 
     exec-once = hyprctl dispatch dpms on &
-    exec-once = hyprpaper & swayncc & eww open bar & hyprlock & kanshi
+    exec-once = kanshi hyprpaper & swayncc & eww open bar & hyprlock & 
     exec-once = hyprctl setcursor Bibata-Modern-Ice 14
 
     windowrule = float,^(Rofi)$
