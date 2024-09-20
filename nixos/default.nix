@@ -15,9 +15,9 @@
         "nix-command"
         "flakes"
       ];
-      substituters = [ 
-        "http://mini-1.lan/?priority=10" 
-        "https://cache.nixos.org" 
+      substituters = [
+        "http://mini-1.lan/?priority=10"
+        "https://cache.nixos.org"
       ];
       trusted-public-keys = [ "mini-1.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI=" ];
       trusted-users = [
