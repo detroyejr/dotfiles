@@ -13,6 +13,18 @@
     json.enable = false;
   };
 
+  xdg = {
+    enable = true;
+
+    userDirs = {
+      enable = true;
+      download = "$HOME/Downloads";
+      documents = "$HOME/Documents";
+      pictures = "$HOME/Pictures";
+      videos = "$HOME/Videos";
+    };
+  };
+
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     awscli2
