@@ -16,6 +16,7 @@ in
 {
   imports = [
     ./eww.nix
+    ./waybar.nix
     ./gtk.nix
     ./hyprlock.nix
     ./kitty.nix
@@ -50,8 +51,12 @@ in
     env = WLR_DRM_NO_ATOMIC,1
 
     exec-once = hyprctl dispatch dpms on &
-    exec-once = kanshi hyprpaper & swayncc & eww open bar & hyprlock & 
+    exec-once = hyprpaper & swaync & waybar & hyprlock & kanshi &
     exec-once = hyprctl setcursor Bibata-Modern-Ice 14
+
+    workspace = 1, monitor:eDP-1, persistent:true
+    workspace = 2, monitor:eDP-1, persistent:true
+    workspace = 3, monitor:eDP-1, persistent:true
 
     windowrule = float,^(Rofi)$
     windowrule = center,^(Rofi)$
