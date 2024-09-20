@@ -45,40 +45,49 @@
       rofi-background = nix-colors.${colorSchemeName}.rofi;
 
       default-home-configuration = {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = {
-          inherit
-            nix-colors
-            colorSchemeName
-            colorScheme
-            wallpaper
-            hyprland
-            rofi-background
-            ;
+        inherit pkgs;
+        extraSpecialArgs = {
+          nix-colors = nix-colors;
+          colorSchemeName = colorSchemeName;
+          colorScheme = colorScheme;
+          wallpaper = wallpaper;
+          hyprland = hyprland;
+          rofi-background = rofi-background;
           isNvidia = false;
         };
+        modules = [
+          ./nix/home.nix
+          ./nix/dev
+          ./nix/window/hyprland
+        ];
+      };
+      default-nixos-home-configuration = {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs = default-home-configuration.extraSpecialArgs;
         home-manager.users.detroyejr = {
-          imports = [
-            ./nix/home.nix
-            ./nix/dev
-            ./nix/window/hyprland
-          ];
+          imports = default-home-configuration.modules;
         };
       };
     in
     {
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
 
-      # A default configuration that should work on non-NixOS machines.
-      homeConfigurations.detroyejr = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.detroyejr = home-manager.lib.homeManagerConfiguration default-home-configuration;
+      homeConfigurations.detroyejrNvidia =
+        home-manager.lib.homeManagerConfiguration default-home-configuration
+        // {
+          extraSpecialArgs = default-home-configuration.extraSpecialArgs // {
+            isNvidia = true;
+          };
+        };
+
+      homeConfigurations.minimal = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         extraSpecialArgs = {
           inherit colorSchemeName colorScheme;
         };
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
         modules = [
           ./nix/home.nix
           ./nix/dev
@@ -97,7 +106,7 @@
             ./nixos/xps/configuration.nix
             nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
             home-manager.nixosModules.home-manager
-            default-home-configuration
+            default-nixos-home-configuration
           ];
         };
         "mini" = nixpkgs.lib.nixosSystem {
@@ -112,7 +121,7 @@
             # Running the 3070, but I think this is close enough.
             nixos-hardware.nixosModules.dell-optiplex-3050
             home-manager.nixosModules.home-manager
-            default-home-configuration
+            default-nixos-home-configuration
           ];
         };
         "tower" = nixpkgs.lib.nixosSystem {
