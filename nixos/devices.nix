@@ -39,7 +39,6 @@
     };
     fprintd.enable = isFprint;
     gnome.gnome-keyring.enable = true;
-    tlp.enable = true;
     pipewire = {
       enable = true;
       alsa = {

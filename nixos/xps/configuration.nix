@@ -21,10 +21,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Wireguard needs these extra rules. See the nixos wiki
+  # for more details.
   networking.firewall = {
-    # if packets are still dropped, they will show up in dmesg
     logReversePathDrops = true;
-    # wireguard trips rpfilter up
     extraCommands = ''
       ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
       ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
@@ -47,6 +47,13 @@
   ];
 
   services.libinput.touchpad.disableWhileTyping = true;
+  services.tlp = {
+    enable = true;
+    settings = {
+      INTEL_GPU_MIN_FREQ_ON_AC = 500;
+      INTEL_GPU_MIN_FREQ_ON_BAT = 500;
+    };
+  };
 
   system.stateVersion = "23.11";
 }
