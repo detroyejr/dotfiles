@@ -96,6 +96,7 @@
       st = "set-title";
       tf = "tmux-fzf";
       vim = "nvim";
+      rm = "rm -I";
     };
     plugins = [
       {
