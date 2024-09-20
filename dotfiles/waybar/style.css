@@ -1,0 +1,46 @@
+@import "config.css";
+
+#waybar {
+  font-family: "BlexMono Nerd Font Mono, monospace";
+  min-height: 30px;
+  font-size: 14px;
+}
+
+#window {
+  font-family: "BlexMono Nerd Font Mono, monospace";
+  font-size: 14px;
+}
+
+#workspaces button.active {
+  color: @accent
+}
+
+#clock, #battery, #disk, #network, #pulseaudio, #memory, #custom-power {
+  font-family: "BlexMono Nerd Font Mono, monospace";
+  padding: 10px;
+  min-width: 20px;
+}
+
+#pulseaudio-slider trough {
+    min-width: 50px;
+    min-height: 10px;
+    border-radius: 5px;
+    background-color: black;
+}
+
+#pulseaudio-slider highlight {
+    min-width: 5px;
+    border-radius: 5px;
+}
+
+#backlight-slider trough {
+    min-width: 50px;
+    min-height: 10px;
+    border-radius: 5px;
+    background-color: black;
+}
+
+#backlight-slider highlight {
+    min-width: 5px;
+    border-radius: 5px;
+}
