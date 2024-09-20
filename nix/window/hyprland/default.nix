@@ -358,6 +358,7 @@ in
     colorz
     discord
     dmenu
+    en-croissant
     eww
     grim
     hyperion-ng
