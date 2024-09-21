@@ -57,6 +57,10 @@ in
     workspace = 1, monitor:eDP-1, persistent:true
     workspace = 2, monitor:eDP-1, persistent:true
     workspace = 3, monitor:eDP-1, persistent:true
+    
+    workspace = 1, monitor:HDMI-A-1, persistent:true
+    workspace = 2, monitor:HDMI-A-1, persistent:true
+    workspace = 3, monitor:HDMI-A-1, persistent:true
 
     windowrule = float,^(Rofi)$
     windowrule = center,^(Rofi)$
