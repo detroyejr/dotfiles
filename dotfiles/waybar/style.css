@@ -2,12 +2,14 @@
 
 #waybar {
   font-family: "BlexMono Nerd Font Mono, monospace";
+  font-weight: bold;
   min-height: 30px;
   font-size: 14px;
 }
 
 #window {
   font-family: "BlexMono Nerd Font Mono, monospace";
+  font-weight: bold;
   font-size: 14px;
 }
 
