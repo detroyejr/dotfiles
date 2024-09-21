@@ -47,13 +47,6 @@
   ];
 
   services.libinput.touchpad.disableWhileTyping = true;
-  services.tlp = {
-    enable = true;
-    settings = {
-      INTEL_GPU_MIN_FREQ_ON_AC = 500;
-      INTEL_GPU_MIN_FREQ_ON_BAT = 500;
-    };
-  };
-
+  services.tlp.enable = true;
   system.stateVersion = "23.11";
 }
