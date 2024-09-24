@@ -1,6 +1,6 @@
 -- Keymaps
 
-vim.keymap.set('i', 'jj', '<Esc>')
+vim.keymap.set('i', 'jj', '<Esc>', { nowait = true })
 
 vim.keymap.set("n", '<leader>e', ':Explore<cr>', { silent = true })
 vim.keymap.set("n", '<leader>h', ':noh<cr>')
