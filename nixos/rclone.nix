@@ -37,6 +37,7 @@
         ${pkgs.rclone}/bin/rclone mount \
           --vfs-cache-mode full \
           --vfs-cache-max-size 30G \
+          --dir-cache-time 5m0s \
           --default-permissions \
           --log-level INFO \
           --log-file /tmp/rclone-google.log \
