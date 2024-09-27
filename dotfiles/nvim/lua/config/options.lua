@@ -38,10 +38,12 @@ local options = {
 	splitbelow = true,
 	splitright = true,
 	tabstop = 2,
-	termguicolors = true,
-	undofile = true,
-	updatetime = 100,
 	wrap = false,
+  swapfile = false,
+  termguicolors = true,
+  timeoutlen = 200,
+  undofile = true,
+  updatetime = 50,
   writebackup = false,
 }
 
