@@ -5,6 +5,7 @@ eval $(ssh-agent)
 ssh-add ~/.ssh/github_rsa
 
 git checkout origin/update_flake_lock_action --detach
+git rebase origin/main
 
 if [[ $(git log --oneline | grep $(git log --pretty --oneline -n 1 | awk '{ print $1 }') | wc -l) -gt 0 ]]; then
   for system in xps mini potato; do
