@@ -32,6 +32,7 @@ let
       dbus-python
       flake8
       ipython
+      ipykernel
       isort
       lxml
       material-color-utilities
