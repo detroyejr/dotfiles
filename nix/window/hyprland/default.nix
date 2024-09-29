@@ -79,11 +79,6 @@ in
     windowrule = size 400 560,title:^(Plexamp)$
     windowrule = animation slide,^(Plexamp)$
 
-    windowrule = float,title:^(nmtui-connect)$
-    windowrule = move 100%-488 6%,title:^(nmtui-connect)$
-    windowrule = size 100 160,^(nmtui-connect)$
-    windowrule = animation slide,title:^(nmtui-connect)$
-
     windowrulev2 = float,class:^(org.wezfurlong.wezterm)$
     windowrulev2 = tile,class:^(org.wezfurlong.wezterm)$
 
@@ -167,7 +162,6 @@ in
 
     $mainMod = SUPER
 
-    # bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @joplinapp-desk > /dev/null; then kill $(pgrep -x  @joplinapp-desk | paste -sd ' '); else joplin-desktop; fi"
     bind = $mainMod CTRL, P, exec, hyprpicker | wl-copy
     bind = $mainMod, PRINT, exec, grim
     bind = $mainMod SHIFT, PRINT, exec, grim -g "$(slurp)"
