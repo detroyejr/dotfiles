@@ -21,7 +21,6 @@
       extraPackages = lib.mkIf (!isNvidia) [
         pkgs.intel-compute-runtime
         pkgs.intel-media-driver
-        pkgs.vaapiIntel
       ];
     };
     nvidia = lib.mkIf isNvidia {
