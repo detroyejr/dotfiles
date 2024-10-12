@@ -58,7 +58,6 @@
     nitch
     nixpkgs-fmt
     openssh
-    ranger
     ripgrep
     rust-analyzer
     rustc
@@ -272,11 +271,6 @@
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-
-  home.file.".config/ranger" = {
-    source = ../dotfiles/ranger;
-    recursive = true;
-  };
 
   home.stateVersion = "23.11";
 }
