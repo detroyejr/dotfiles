@@ -20,8 +20,8 @@
       enable = true;
       download = "$HOME/Downloads";
       documents = "$HOME/Documents";
-      pictures = "$HOME/Pictures";
-      videos = "$HOME/Videos";
+      pictures = "$HOME/Documents/Pictures";
+      videos = "$HOME/Documents/Videos";
     };
   };
 
