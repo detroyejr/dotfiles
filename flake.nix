@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration";
+  description = "Dotfiles";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
