@@ -58,12 +58,12 @@ return {
     end
   end,
   keys = {
-    { "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>",           silent = true },
-    { "<leader>gd", ":lua vim.lsp.buf.definition()<cr>",                silent = true },
-    { "<leader>gi", "<cmd>lua vim.lsp.buf.implementation()<CR>",        silent = true },
-    { "<leader>gj", "<cmd>lua vim.lsp.buf.signature_help()<CR>",        silent = true },
-    { "<leader>gk", "<cmd>lua vim.lsp.buf.hover()<CR>",                 silent = true },
-    { "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>",            silent = true },
+    { "gD",         "<cmd>lua vim.lsp.buf.declaration()<CR>",           silent = true },
+    { "gd",         ":lua vim.lsp.buf.definition()<cr>",                silent = true },
+    { "gi",         "<cmd>lua vim.lsp.buf.implementation()<CR>",        silent = true },
+    { "gj",         "<cmd>lua vim.lsp.buf.signature_help()<CR>",        silent = true },
+    { "gk",         "<cmd>lua vim.lsp.buf.hover()<CR>",                 silent = true },
+    { "gr",         "<cmd>lua vim.lsp.buf.references()<CR>",            silent = true },
     { "<leader>lf", ":lua vim.lsp.buf.format({timeout_ms = 5000})<cr>", silent = true },
     { "<leader>lh", "<cmd>lua vim.diagnostic.goto_prev()<CR>",          silent = true, noremap = true },
     { "<leader>li", "<cmd>LspInfo<cr>", },
