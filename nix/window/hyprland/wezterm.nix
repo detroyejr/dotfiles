@@ -67,6 +67,7 @@
         cursor_blink_rate = 0,
         font = wezterm.font("BlexMono Nerd Font Mono"),
         font_size = 14,
+        front_end = "WebGpu",
         use_fancy_tab_bar = false,
         window_background_opacity = 0.8,
         window_frame = {
