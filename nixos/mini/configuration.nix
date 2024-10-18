@@ -13,6 +13,7 @@
     ../rclone.nix
     ../steam.nix
     ../thunar.nix
+    ../veikk.nix
     ../virtualization.nix
   ];
 
