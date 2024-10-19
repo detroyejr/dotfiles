@@ -12,9 +12,8 @@ let
   };
 
   base-cdda = pkgs.cataclysm-dda-git.override {
-    version = "cdda-0.H-2024-07-03-2146";
-    rev = "e8b3208aed335d4bfd100392d1e2647b2d4f6a2b";
-    sha256 = "sha256-IuowwGmyx1RWYy4JRd2jZPXElUiEaayxtcxI4qraytk=";
+    version = "cdda-0.H-2024-10-14-1533";
+    sha256 = "sha256-IodXEA+pWfDdR9huRXieP3+J3WZJO19C8PUPT18dFBw=";
   };
 
   cdda-no-mod = base-cdda.overrideAttrs (super: {
