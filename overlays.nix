@@ -38,5 +38,9 @@ final: prev: {
       ];
     };
   };
+  # Disable while coredump during test.
+  calibre = prev.calibre.overrideAttrs {
+    doInstallCheck = false;
+  };
 }
     
