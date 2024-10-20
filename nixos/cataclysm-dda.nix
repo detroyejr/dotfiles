@@ -31,18 +31,18 @@ let
     lib.recursiveUpdate super {
       soundpack.CC-Sounds = cddaLib.buildSoundPack {
         modName = "CC-Sounds";
-        version = "2023-12-10";
+        version = "2024-01-17";
         src = pkgs.fetchzip {
-          url = "https://github.com/Fris0uman/CDDA-Soundpacks/releases/download/2023-12-10/CC-Sounds.zip";
-          hash = "sha256-X0da9cs60sr5jq4TPTMkNQAHAjcu1gPagJyLDJ7HOe0=";
+          url = "https://github.com/Fris0uman/CDDA-Soundpacks/releases/download/2024-01-17/CC-Sounds.zip";
+          hash = "sha256-i2b++XPcV1IJeDZF1TC9C325XTn55TVa57xTdtYNV8g=";
         };
       };
       tileset.UndeadPeopleCustom = cddaLib.buildTileSet {
         modName = "UndeadPeopleCustom";
-        version = "March Release 1";
+        version = "Tutti Frutti (August Release 2) Latest";
         src = pkgs.fetchzip {
-          url = "https://github.com/Theawesomeboophis/UndeadPeopleTileset/releases/download/3%2F4%2F24/Sprinkles.zip";
-          hash = "sha256-5X8jvxIe6FW/PG5k5TvuGenlUU66FFft6TyjAeCq7ts=";
+          url = "https://github.com/Theawesomeboophis/UndeadPeopleTileset/releases/download/8%2F16%2F24/Sprinkles.zip";
+          hash = "sha256-4PVliOuhow9KFd79bDqLdEpoKmbLK+5U4NzNnib+uRU=";
           stripRoot = false;
         };
       };
