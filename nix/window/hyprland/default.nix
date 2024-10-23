@@ -361,6 +361,7 @@ in
     colorz
     discord
     dmenu
+    element-desktop
     en-croissant
     eww
     grim
