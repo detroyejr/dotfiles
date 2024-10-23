@@ -10,6 +10,6 @@ return {
     require('mini.statusline').setup()
   end,
   keys = {
-    { "dt", "<cmd>lua MiniDiff.toggle_overlay()<CR>", silent = true },
+    { "<leader>dt", "<cmd>lua MiniDiff.toggle_overlay()<CR>", silent = true },
   }
 }
