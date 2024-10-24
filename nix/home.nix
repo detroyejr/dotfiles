@@ -41,7 +41,6 @@
     gcc
     gh
     gnumake
-    qsv
     jq
     kubectl
     lame
@@ -56,8 +55,9 @@
     neofetch
     nil
     nitch
-    nixpkgs-fmt
+    nixfmt-rfc-style
     openssh
+    qsv
     ripgrep
     rust-analyzer
     rustc
