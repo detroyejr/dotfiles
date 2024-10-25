@@ -17,7 +17,7 @@ let
       gcc
       glib
       libGL
-      libusb
+      libusb1
       libz
       makeShellWrapper
       stdenv.cc.cc
