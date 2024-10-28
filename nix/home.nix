@@ -15,7 +15,6 @@
 
   xdg = {
     enable = true;
-
     userDirs = {
       enable = true;
       download = "$HOME/Downloads";
