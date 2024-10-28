@@ -12,11 +12,11 @@
 
   # FIXME: Some app don't respect my desktop theme.
   # Plex needs this to login/click on links.
-  # xdg.portal = {
-  #   enable = true;
-  #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  #   xdgOpenUsePortal = true;
-  # };
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    xdgOpenUsePortal = true;
+  };
 
   programs.hyprland = {
     enable = true;
