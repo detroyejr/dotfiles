@@ -42,5 +42,41 @@ final: prev: {
   calibre = prev.calibre.overrideAttrs {
     doInstallCheck = false;
   };
+
+  R = prev.R.overrideAttrs (oldAttrs: {
+    postFixup = ''
+      echo ${prev.which} > $out/nix-support/undetected-runtime-dependencies
+      patchelf $out/lib/R/library/utils/libs/utils.so --add-rpath $out/lib/R/lib
+    '';
+  });
+
+  ark = prev.rustPlatform.buildRustPackage {
+
+    pname = "ark";
+    version = "0.5.1";
+    src = prev.fetchFromGitHub {
+      user = "posit-dev";
+      repo = "ark";
+      rev = "b8505c504eb10be0e9cb948e1631f151825facdb";
+      hash = "";
+
+    };
+
+    cargoLock = {
+      lockFile = ../dotfiles/dotfiles/R/Cargo.toml;
+      allowBuiltinFetchGit = true;
+    };
+
+    doCheck = false;
+
+    buildInputs = [
+      prev.libcxx
+      prev.libgcc
+    ];
+
+    nativeBuildInputs = [
+      prev.autoPatchelfHook
+      prev.rustPlatform.bindgenHook
+    ];
+  };
 }
-    
