@@ -9,7 +9,7 @@ return {
       "lua_ls",
       "nixd",
       "pylsp",
-      "r_language_server",
+      -- "r_language_server",
       "ruff",
     }
 
