@@ -55,15 +55,17 @@ final: prev: {
     pname = "ark";
     version = "0.5.1";
     src = prev.fetchFromGitHub {
-      user = "posit-dev";
+      owner = "posit-dev";
       repo = "ark";
       rev = "b8505c504eb10be0e9cb948e1631f151825facdb";
-      hash = "";
-
+      hash = "sha256-+0+UFiJsQKFT/DLeu3LF8RFik7Iqv873gzu+RP83GiA=";
     };
 
     cargoLock = {
-      lockFile = ../dotfiles/dotfiles/R/Cargo.toml;
+      lockFile = builtins.fetchurl {
+        url = "https://raw.githubusercontent.com/posit-dev/ark/b8505c504eb10be0e9cb948e1631f151825facdb/Cargo.lock";
+        sha256 = "sha256:1v5klikaib1cf6d9qggqa3cch4jscl5ixibi1bbfa9bhcky86fjh";
+      };
       allowBuiltinFetchGit = true;
     };
 

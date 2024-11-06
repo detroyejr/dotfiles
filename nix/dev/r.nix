@@ -2,8 +2,6 @@
 with pkgs;
 let
   R-with-packages = rWrapper.override {
-    # Expose R packages when using radian.
-    # wrapR = true;
     packages =
       with rPackages;
       let
@@ -85,6 +83,7 @@ in
     R-with-packages
     pandoc
     quarto
+    ark
   ];
 
   programs.zsh.shellAliases = {
