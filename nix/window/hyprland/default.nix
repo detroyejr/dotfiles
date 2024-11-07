@@ -114,10 +114,6 @@ in
 
     decoration {
         rounding = 5
-        drop_shadow = yes
-        shadow_range = 4
-        shadow_render_power = 3
-        col.shadow = rgba(${base07}ee)
         dim_inactive = false
     }
 
