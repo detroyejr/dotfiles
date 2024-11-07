@@ -50,35 +50,40 @@ final: prev: {
     '';
   });
 
-  ark_lsp = prev.rustPlatform.buildRustPackage {
-
-    pname = "ark";
-    version = "0.5.1";
-    src = prev.fetchFromGitHub {
-      owner = "posit-dev";
-      repo = "ark";
+  ark-lsp =
+    let
+      pname = "ark";
+      version = "0.5.1";
       rev = "b8505c504eb10be0e9cb948e1631f151825facdb";
-      hash = "sha256-+0+UFiJsQKFT/DLeu3LF8RFik7Iqv873gzu+RP83GiA=";
-    };
+    in
+    prev.rustPlatform.buildRustPackage {
 
-    cargoLock = {
-      lockFile = builtins.fetchurl {
-        url = "https://raw.githubusercontent.com/posit-dev/ark/b8505c504eb10be0e9cb948e1631f151825facdb/Cargo.lock";
-        sha256 = "sha256:1v5klikaib1cf6d9qggqa3cch4jscl5ixibi1bbfa9bhcky86fjh";
+      inherit pname version;
+      src = prev.fetchFromGitHub {
+        owner = "posit-dev";
+        repo = pname;
+        rev = rev;
+        hash = "sha256-+0+UFiJsQKFT/DLeu3LF8RFik7Iqv873gzu+RP83GiA=";
       };
-      allowBuiltinFetchGit = true;
+
+      cargoLock = {
+        lockFile = builtins.fetchurl {
+          url = "https://raw.githubusercontent.com/posit-dev/ark/${rev}/Cargo.lock";
+          sha256 = "sha256:1v5klikaib1cf6d9qggqa3cch4jscl5ixibi1bbfa9bhcky86fjh";
+        };
+        allowBuiltinFetchGit = true;
+      };
+
+      doCheck = false;
+
+      buildInputs = [
+        prev.libcxx
+        prev.libgcc
+      ];
+
+      nativeBuildInputs = [
+        prev.autoPatchelfHook
+        prev.rustPlatform.bindgenHook
+      ];
     };
-
-    doCheck = false;
-
-    buildInputs = [
-      prev.libcxx
-      prev.libgcc
-    ];
-
-    nativeBuildInputs = [
-      prev.autoPatchelfHook
-      prev.rustPlatform.bindgenHook
-    ];
-  };
 }
