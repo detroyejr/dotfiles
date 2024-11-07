@@ -5,9 +5,8 @@
 A wrapper to expose ark's lsp server.
 """
 
-import atexit
 import argparse
-import json
+import atexit
 import os
 import random
 import socket
@@ -19,7 +18,7 @@ import time
 import jupyter_client
 
 
-def get_open_ports(n):
+def get_open_ports(n=1):
     """Get an open port from a range."""
     result = set()
     while len(result) < n:
@@ -68,40 +67,16 @@ if __name__ == "__main__":
     if not args.cleanup:
         atexit.register(tempdir.cleanup)
 
-    connection_file = tempfile.mktemp(
-        suffix=".json",
-        prefix="ark-lsp-",
-        dir=tempdir.name,
+    connection_file, connection_meta = jupyter_client.write_connection_file(
+        fname=tempdir.name + "/connection.json",
+        ip="127.0.0.1",
+        name="ark-lsp",
     )
 
-    (
-        control_port,
-        shell_port,
-        stdin_port,
-        iopub_port,
-        hb_port,
-        lsp_port,
-    ) = get_open_ports(6)
-
-    connection_info = {
-        "control_port": control_port,
-        "shell_port": shell_port,
-        "stdin_port": stdin_port,
-        "iopub_port": iopub_port,
-        "hb_port": hb_port,
-        "signature_scheme": "hmac-sha256",
-        "ip": "127.0.0.1",
-        "transport": "tcp",
-        "key": "",
-    }
-
-    with open(connection_file, "w+") as tmp:
-        json.dump(connection_info, tmp)
-
-    # NOTE: NixOS uses R_LIBS_SITE extensively to catalogue the list of
-    # available R packages in your environment. If this isn't set ark will
-    # default to using R_HOME which doesn't have any information about the
-    # nix store or packages available in your environment.
+    # NOTE: Nix uses R_LIBS_SITE extensively to catalogue the list of available
+    # R packages in your environment. If this isn't set ark will default to
+    # using R_HOME which doesn't have any information about the nix store or
+    # packages available in your environment.
     rpaths = subprocess.run(
         [
             "Rscript",
@@ -110,7 +85,6 @@ if __name__ == "__main__":
             'paste(.libPaths(), collapse = ":")',
         ],
         stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
     )
 
     lsp = subprocess.Popen(
@@ -134,11 +108,13 @@ if __name__ == "__main__":
     km.load_connection_file()
     km.start_channels()
 
+    (lsp_port,) = get_open_ports()
+
     km.session.send(
         msg_or_type=km.session.msg("comm_open")
         | {
             "content": {
-                "comm_id": "positron-lsp-bridge",
+                "comm_id": "ark-lsp-server",
                 "target_name": "positron.lsp",
                 "data": {"client_address": "127.0.0.1:{}".format(lsp_port)},
             }

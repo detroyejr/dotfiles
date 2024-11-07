@@ -1,4 +1,4 @@
-# Use ark with nvim-lspconfig.
+-- Use ark with nvim-lspconfig.
 
 local lsp = require 'lspconfig'
 local configs = require 'lspconfig.configs'
