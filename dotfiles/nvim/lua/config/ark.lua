@@ -5,17 +5,11 @@ M = {}
 local lsp = require 'lspconfig'
 local configs = require 'lspconfig.configs'
 
-M.on_attach = function()
-  local f = assert(io.popen('ark-lsp.py', 'r'))
-  local lsp_port = assert(f:read('*a')); f:close()
-  return tonumber(lsp_port)
-end
-
 M.setup = function()
   if not configs.ark then
     configs.ark = {
       default_config = {
-        cmd = vim.lsp.rpc.connect('127.0.0.1', M.on_attach()),
+        cmd = { os.getenv("HOME") .. "/.config/dotfiles/dotfiles/bash/ark-lsp.py" },
         filetypes = { 'r', 'R' },
         single_file_support = true,
         root_dir = function(fname)
@@ -26,9 +20,7 @@ M.setup = function()
       },
     }
   end
-  lsp.ark.setup {
-    on_attach = M.on_attach
-  }
+  lsp.ark.setup {}
 end
 
 M.setup()
