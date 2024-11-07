@@ -1,16 +1,17 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i python --packages python3 python3Packages.jupyter-client
+#!/usr/bin/env python
 
 """Ark LSP
 
 A wrapper to expose ark's lsp server to other clients.
 """
 
+import os
 import json
 import random
 import socket
 import subprocess
 import tempfile
+import time
 
 import jupyter_client
 
@@ -59,6 +60,18 @@ connection_info = {
 with open(connection_file, "w+") as tmp:
     json.dump(connection_info, tmp)
 
+# NOTE: NixOS uses R_LIBS_SITE extensively to catalogue the list of available R
+# packages in your environment. If this isn't set ark will default to using
+# R_HOME which doesn't have any information about the nix store or packages
+# available in your environment.
+rpaths = subprocess.run(
+    ["Rscript", "--silent", "-e", 'paste(.libPaths(), collapse = ":")'],
+    stdout=subprocess.PIPE,
+    stderr=subprocess.STDOUT,
+)
+
+os.environ.update({"R_LIBS_SITE": rpaths.stdout[4:-1].decode()})
+
 subprocess.Popen(
     [
         "ark",
@@ -68,10 +81,12 @@ subprocess.Popen(
         "{}/kernel.log".format(tempdir.name),
     ],
     start_new_session=True,
+    env=os.environ.copy(),
 )
 
-cf = jupyter_client.find_connection_file(connection_file)
-km = jupyter_client.AsyncKernelClient(connection_file=cf)
+km = jupyter_client.AsyncKernelClient(
+    connection_file=jupyter_client.find_connection_file(connection_file)
+)
 km.load_connection_file()
 km.start_channels()
 data = km.session.msg("comm_open")
@@ -83,5 +98,7 @@ data.update({
     }
 })
 km.session.send(msg_or_type=data, stream=km.shell_channel.socket)
+
+time.sleep(2)
 
 print(lsp_port)

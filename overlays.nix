@@ -50,7 +50,7 @@ final: prev: {
     '';
   });
 
-  ark = prev.rustPlatform.buildRustPackage {
+  ark_lsp = prev.rustPlatform.buildRustPackage {
 
     pname = "ark";
     version = "0.5.1";

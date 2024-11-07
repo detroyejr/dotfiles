@@ -83,12 +83,19 @@ in
     R-with-packages
     pandoc
     quarto
-    ark
+    (ark_lsp.overrideAttrs (attrs: {
+      buildInputs = attrs.buildInputs ++ [ R-with-packages ];
+      runtimeInputs = [ R-with-packages ];
+    }))
   ];
 
-  programs.zsh.shellAliases = {
-    R = "R --no-save --no-restore";
+  # programs.zsh.shellAliases = {
+  #   R = "R --no-save --no-restore";
+  # };
+
+  programs.zsh.sessionVariables = {
   };
+
 
   home.file.".radian_profile".source = ../../dotfiles/R/.radian_profile;
   home.file.".Rprofile".source = ../../dotfiles/R/.Rprofile;
