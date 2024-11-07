@@ -5,11 +5,13 @@
 A wrapper to expose ark's lsp server to other clients.
 """
 
-import os
+import atexit
 import json
+import os
 import random
 import socket
 import subprocess
+import sys
 import tempfile
 import time
 
@@ -29,6 +31,7 @@ def get_open_ports(n):
     return result
 
 
+# Setup connection and logging information.
 tempdir = tempfile.TemporaryDirectory()
 connection_file = tempfile.mktemp(
     suffix=".json",
@@ -70,9 +73,7 @@ rpaths = subprocess.run(
     stderr=subprocess.STDOUT,
 )
 
-os.environ.update({"R_LIBS_SITE": rpaths.stdout[4:-1].decode()})
-
-subprocess.Popen(
+lsp = subprocess.Popen(
     [
         "ark",
         "--connection_file",
@@ -81,24 +82,34 @@ subprocess.Popen(
         "{}/kernel.log".format(tempdir.name),
     ],
     start_new_session=True,
-    env=os.environ.copy(),
+    env=os.environ.copy() | {"R_LIBS_SITE": rpaths.stdout[4:-1].decode()},
 )
+
+# Cleanup ark server when python exits.
+atexit.register(lsp.terminate)
 
 km = jupyter_client.AsyncKernelClient(
     connection_file=jupyter_client.find_connection_file(connection_file)
 )
 km.load_connection_file()
 km.start_channels()
-data = km.session.msg("comm_open")
-data.update({
-    "content": {
-        "comm_id": "positron-lsp-bridge",
-        "target_name": "positron.lsp",
-        "data": {"client_address": "127.0.0.1:{}".format(lsp_port)},
-    }
-})
-km.session.send(msg_or_type=data, stream=km.shell_channel.socket)
 
-time.sleep(2)
+km.session.send(
+    msg_or_type=km.session.msg("comm_open")
+    | {
+        "content": {
+            "comm_id": "positron-lsp-bridge",
+            "target_name": "positron.lsp",
+            "data": {"client_address": "127.0.0.1:{}".format(lsp_port)},
+        }
+    },
+    stream=km.shell_channel.socket,
+)
 
-print(lsp_port)
+time.sleep(1)
+
+subprocess.run(
+    ["nc", "-W", "100000", "127.0.0.1", str(lsp_port)],
+    stdout=sys.stdout,
+    stdin=sys.stdin,
+)
