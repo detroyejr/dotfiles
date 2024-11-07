@@ -46,7 +46,24 @@ final: prev: {
   R = prev.R.overrideAttrs (oldAttrs: {
     postFixup = ''
       echo ${prev.which} > $out/nix-support/undetected-runtime-dependencies
-      patchelf $out/lib/R/library/utils/libs/utils.so --add-rpath $out/lib/R/lib
+      paths=(
+        "$out/lib/R/library/grDevices/libs/cairo.so"
+        "$out/lib/R/library/grDevices/libs/grDevices.so"
+        "$out/lib/R/library/graphics/libs/graphics.so"
+        "$out/lib/R/library/grid/libs/grid.so"
+        "$out/lib/R/library/methods/libs/methods.so"
+        "$out/lib/R/library/parallel/libs/parallel.so"
+        "$out/lib/R/library/splines/libs/splines.so"
+        "$out/lib/R/library/stats/libs/stats.so"
+        "$out/lib/R/library/tcltk/libs/tcltk.so"
+        "$out/lib/R/library/tools/libs/tools.so"
+        "$out/lib/R/library/utils/libs/utils.so"
+        "$out/lib/R/modules/R_X11.so"
+        "$out/lib/R/modules/R_de.so"
+        "$out/lib/R/modules/internet.so"
+        "$out/lib/R/modules/lapack.so"
+      )
+      patchelf ''${paths[@]} --add-rpath $out/lib/R/lib
     '';
   });
 
