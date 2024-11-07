@@ -89,9 +89,9 @@ in
     }))
   ];
 
-  # programs.zsh.shellAliases = {
-  #   R = "R --no-save --no-restore";
-  # };
+  programs.zsh.shellAliases = {
+    R = "R --no-save --no-restore";
+  };
 
   programs.zsh.sessionVariables = {
   };
