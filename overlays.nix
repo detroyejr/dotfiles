@@ -67,7 +67,7 @@ final: prev: {
     '';
   });
 
-  ark-lsp =
+  ark-posit =
     let
       pname = "ark";
       version = "0.5.1";
