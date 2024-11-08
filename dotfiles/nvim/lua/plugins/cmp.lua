@@ -1,6 +1,8 @@
 return {
   'hrsh7th/nvim-cmp',
   dependencies = {
+    "L3MON4D3/LuaSnip",
+    "saadparwaiz1/cmp_luasnip",
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-cmdline',
     'hrsh7th/cmp-nvim-lsp',
@@ -9,6 +11,12 @@ return {
   },
   config = function()
     local cmp = require("cmp")
+    local ls = require('luasnip')
+
+    require('luasnip.loaders.from_lua').load({
+      paths = { '~/.config/nvim/lua/snippets/' },
+    })
+
     local kind_icons = {
       Text = "",
       Method = "m",
@@ -39,8 +47,10 @@ return {
     cmp.setup({
       snippet = {
         expand = function(args)
-          vim.snippet.expand(args.body)
-        end
+          ls.lsp_expand(args.body)
+          -- With native snippets.
+          -- vim.snippet.expand(args.body)
+        end,
       },
       sources = {
         { name = 'nvim_lsp' },
@@ -53,7 +63,7 @@ return {
               local default_path = vim.fn.expand(("#%d:p:h"):format(params.context.bufnr))
               -- R path completion is relative to the file open. We'd rather use
               -- the project directory as defined by the .RProj file.
-              if first_active and first_active.name == "r_language_server" then
+              if first_active and first_active.name == "ark" then
                 return vim.fs.dirname(vim.fs.find(function(name)
                   if name:match(".*%.[rR][pP]roj$") then
                     return name:match(".*%.[rR][pP]roj$")
@@ -70,7 +80,10 @@ return {
         },
       },
       mapping = cmp.mapping.preset.insert({
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
         ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-k>'] = cmp.mapping(function() ls.expand_or_jump() end),
       }),
       window = {
         documentation = cmp.config.window.bordered()
