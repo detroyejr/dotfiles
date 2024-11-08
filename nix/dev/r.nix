@@ -81,9 +81,10 @@ in
 {
   home.packages = [
     R-with-packages
+    ark-posit
     pandoc
+    positron-bin
     quarto
-    ark-lsp
   ];
 
   programs.zsh.shellAliases = {
