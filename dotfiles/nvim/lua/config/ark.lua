@@ -15,7 +15,7 @@ local rpattern = lsp.util.root_pattern(
 if not configs.ark then
   configs.ark = {
     default_config = {
-      cmd = { "ark-lsp.py" },
+      cmd = { "ark-lsp.py", "--timeout", "2" },
       filetypes = { 'r', 'R' },
       single_file_support = true,
       root_dir = function(fname)
