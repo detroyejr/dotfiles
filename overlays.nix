@@ -46,24 +46,7 @@ final: prev: {
   R = prev.R.overrideAttrs (oldAttrs: {
     postFixup = ''
       echo ${prev.which} > $out/nix-support/undetected-runtime-dependencies
-      paths=(
-        "$out/lib/R/library/grDevices/libs/cairo.so"
-        "$out/lib/R/library/grDevices/libs/grDevices.so"
-        "$out/lib/R/library/graphics/libs/graphics.so"
-        "$out/lib/R/library/grid/libs/grid.so"
-        "$out/lib/R/library/methods/libs/methods.so"
-        "$out/lib/R/library/parallel/libs/parallel.so"
-        "$out/lib/R/library/splines/libs/splines.so"
-        "$out/lib/R/library/stats/libs/stats.so"
-        "$out/lib/R/library/tcltk/libs/tcltk.so"
-        "$out/lib/R/library/tools/libs/tools.so"
-        "$out/lib/R/library/utils/libs/utils.so"
-        "$out/lib/R/modules/R_X11.so"
-        "$out/lib/R/modules/R_de.so"
-        "$out/lib/R/modules/internet.so"
-        "$out/lib/R/modules/lapack.so"
-      )
-      patchelf ''${paths[@]} --add-rpath $out/lib/R/lib
+      find $out -name "*.so" -exec patchelf {} --add-rpath $out/lib/R/lib \;
     '';
   });
 
@@ -88,7 +71,10 @@ final: prev: {
           url = "https://raw.githubusercontent.com/posit-dev/ark/${rev}/Cargo.lock";
           sha256 = "sha256:1v5klikaib1cf6d9qggqa3cch4jscl5ixibi1bbfa9bhcky86fjh";
         };
-        allowBuiltinFetchGit = true;
+        outputHashes = {
+          "dap-0.4.1-alpha1" = "sha256-nUsTazH1riI0nglWroDKDWoHEEtNEtpwn6jCH2N7Ass=";
+          "tree-sitter-r-1.1.0" = "sha256-a7vgmOY9K8w8vwMlOLBmUnXpWpVP+YlOilGODaI07y4=";
+        };
       };
 
       doCheck = false;

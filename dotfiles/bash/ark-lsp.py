@@ -44,6 +44,7 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--timeout",
+        type=float,
         default=1,
         help="Time to wait for the LSP server.",
     )
