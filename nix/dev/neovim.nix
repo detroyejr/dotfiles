@@ -58,8 +58,9 @@
   };
 
   home.packages = with pkgs; [
+    lua-language-server
+    lua52Packages.jsregexp
     nixd
     stylua
-    lua52Packages.jsregexp
   ];
 }

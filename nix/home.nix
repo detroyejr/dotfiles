@@ -29,38 +29,23 @@
     awscli2
     bat
     bc
-    cargo
-    clippy
     cmake
     curl
     fd
     ffmpeg
     file
     fzf
-    gcc
     gh
-    gnumake
     jq
     kubectl
-    lame
     lsd
     lsof
-    lua
-    lua-language-server
-    luaformatter
-    mediainfo
-    mitmproxy
     mp4v2
     neofetch
-    nil
     nitch
-    nixfmt-rfc-style
     openssh
     qsv
     ripgrep
-    rust-analyzer
-    rustc
-    rustfmt
     tiny
     tree
     unzip

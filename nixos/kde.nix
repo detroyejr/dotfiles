@@ -17,8 +17,8 @@
 
   environment.systemPackages = with pkgs; [
     whitesur-cursors
-    whitesur-icon-theme 
-    whitesur-kde 
+    whitesur-icon-theme
+    whitesur-kde
     latte-dock
   ];
 }

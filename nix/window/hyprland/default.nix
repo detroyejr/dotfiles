@@ -57,7 +57,7 @@ in
     workspace = 1, monitor:eDP-1, persistent:true
     workspace = 2, monitor:eDP-1, persistent:true
     workspace = 3, monitor:eDP-1, persistent:true
-    
+
     workspace = 1, monitor:HDMI-A-1, persistent:true
     workspace = 2, monitor:HDMI-A-1, persistent:true
     workspace = 3, monitor:HDMI-A-1, persistent:true
@@ -374,7 +374,6 @@ in
     nfs-utils
     nomacs
     obsidian
-    openai-whisper-cpp
     pamixer
     pavucontrol
     playerctl
@@ -396,7 +395,6 @@ in
     slurp
     socat
     swaynotificationcenter
-    torrential
     viewnior
     vlc
     wireplumber

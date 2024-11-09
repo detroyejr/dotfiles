@@ -7,5 +7,8 @@
     ./r.nix
   ];
 
-  home.packages = with pkgs; [ clang-tools ];
+  home.packages = with pkgs; [
+    clang-tools
+    nil
+  ];
 }
