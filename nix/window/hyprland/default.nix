@@ -363,7 +363,6 @@ in
     hyperion-ng
     hyprpaper
     hyprpicker
-    jq
     kanshi
     keepassxc
     libnotify
