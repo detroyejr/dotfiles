@@ -359,7 +359,6 @@ in
     dmenu
     element-desktop
     en-croissant
-    eww
     grim
     hyperion-ng
     hyprpaper
