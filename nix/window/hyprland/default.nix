@@ -394,7 +394,6 @@ in
     slurp
     socat
     swaynotificationcenter
-    viewnior
     vlc
     wireplumber
     wlr-randr
