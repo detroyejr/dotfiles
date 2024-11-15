@@ -370,7 +370,6 @@ in
     lutris
     networkmanager_dmenu
     nfs-utils
-    nomacs
     obsidian
     pamixer
     pavucontrol
