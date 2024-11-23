@@ -12,7 +12,7 @@ let
   };
 
   base-cdda = pkgs.cataclysm-dda-git.override {
-    version = "cdda-0.H-2024-10-14-1533";
+    version = "0.H-RELEASE";
     sha256 = "sha256-IodXEA+pWfDdR9huRXieP3+J3WZJO19C8PUPT18dFBw=";
   };
 
