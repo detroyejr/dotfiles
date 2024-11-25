@@ -9,18 +9,14 @@ let
           name = "EchelonSurveyTools";
           src = builtins.fetchGit {
             url = "git@github.com:echeloninsights/EchelonSurveyTools.git";
-            rev = "f54ea92a1828d82c2eb4a9b18f37119060ff71e6";
+            rev = "daa856e31b2737537db3779d50a0406e28dc3780";
             allRefs = true;
           };
           buildInputs = [
             RMariaDB
             RPostgres
-            huxtable
-            knitr
-            magick
             pkgs.R
             relaimpo
-            rmarkdown
             scales
             sjlabelled
             tibble
@@ -48,27 +44,21 @@ let
         };
       in
       [
-        PracTools
         RMariaDB
         RPostgres
         data_table
         dplyr
         flextable
         ftExtra
-        ggplot2
         googledrive
         haven
         httr
         huxtable
-        knitr
-        languageserver
         magick
         officer
         quarto
         readxl
         relaimpo
-        reticulate
-        rmarkdown
         sf
         sjlabelled
         stringi
