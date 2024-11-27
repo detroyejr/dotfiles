@@ -51,6 +51,12 @@
       hybrid-sleep.enable = false;
     };
   };
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+        "*/10 * * * * root [[ $(systemctl is-active NetworkManager.service) != \"active\" ]] && reboot > /dev/null 2>&1"
+    ];
+  };
 
   system.stateVersion = "23.11";
 }
