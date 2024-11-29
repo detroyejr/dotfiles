@@ -4,12 +4,8 @@
     enableDefaultPackages = true;
     packages = with pkgs; [
       ubuntu_font_family
-      (nerdfonts.override {
-        fonts = [
-          "IBMPlexMono"
-          "Ubuntu"
-        ];
-      })
+      nerd-fonts.blex-mono
+      nerd-fonts.ubuntu
     ];
 
     fontconfig = {
