@@ -16,7 +16,11 @@
   networking.hostName = "potato"; # Define your hostname.
 
   programs.firefox.enable = true;
-  environment.systemPackages = [ pkgs.obsidian pkgs.plex-desktop ];
+  environment.systemPackages = [
+    pkgs.calibre
+    pkgs.obsidian 
+    pkgs.plex-desktop 
+  ];
 
   system.stateVersion = "24.05"; # Did you read the comment?
 }
