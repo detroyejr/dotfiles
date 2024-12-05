@@ -32,13 +32,6 @@ final: prev: {
     doInstallCheck = false;
   };
 
-  R = prev.R.overrideAttrs (oldAttrs: {
-    postFixup = ''
-      echo ${prev.which} > $out/nix-support/undetected-runtime-dependencies
-      find $out -name "*.so" -exec patchelf {} --add-rpath $out/lib/R/lib \;
-    '';
-  });
-
   ark-posit =
     let
       pname = "ark";
