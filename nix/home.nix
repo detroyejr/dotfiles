@@ -43,6 +43,7 @@
     mp4v2
     neofetch
     nitch
+    ollama
     openssh
     qsv
     ripgrep
@@ -65,6 +66,10 @@
 
   # Theme for Powerlevel10k.
   home.file.".p10k.zsh".source = ../dotfiles/zsh/.p10k.zsh;
+
+  home.sessionVariables = {
+    "OLLAMA_HOST" = "mini-1.lan";
+  };
 
   programs.zsh = {
     enable = true;
