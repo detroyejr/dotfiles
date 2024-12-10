@@ -40,7 +40,7 @@ let
       pandas
       pillow
       pip
-      pyechelon
+      # pyechelon
       pygobject3
       pytest
       python-lsp-server
