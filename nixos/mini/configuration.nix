@@ -4,14 +4,15 @@
     ./hardware-configuration.nix
     ../default.nix
     ../binary-cache.nix
-    ../syncthing.nix
     ../brightness.nix
     ../cataclysm-dda.nix
     ../devices.nix
     ../fonts.nix
     ../hyprland.nix
+    ../ollama.nix
     ../rclone.nix
     ../steam.nix
+    ../syncthing.nix
     ../thunar.nix
     ../veikk.nix
     ../virtualization.nix
