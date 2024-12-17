@@ -12,12 +12,9 @@ let
 in
 {
   fileSystems."/run/media/Media" = {
-    device = "191.168.1.107:/mnt/nas0/Media";
+    device = "192.168.1.107:/mnt/nas0/Media";
     fsType = "nfs";
-    options = [
-      "nfsvers=4"
-      "rw"
-    ];
+    options = ["rw" "relatime" "vers=4.2" "rsize=524288" "wsize=524288" ];
   };
   services.plex = {
     package = myPlex;
