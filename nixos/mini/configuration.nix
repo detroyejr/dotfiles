@@ -56,7 +56,7 @@
   services.cron = {
     enable = true;
     systemCronJobs = [
-        "*/10 * * * * root [[ $(systemctl is-active NetworkManager.service) != \"active\" ]] && reboot > /dev/null 2>&1"
+        "0 4 * * * root reboot > /dev/null 2>&1"
     ];
   };
 
