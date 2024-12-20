@@ -25,4 +25,18 @@ if not configs.ark then
   }
 end
 
+if not configs.air then
+  configs.air = {
+    default_config = {
+      cmd = { "/home/detroyejr/.cargo/bin/air", "language-server" },
+      filetypes = { 'r', 'R' },
+      single_file_support = true,
+      root_dir = function(fname)
+        return rpattern(fname) or vim.loop.os_homedir()
+      end,
+    },
+  }
+end
+
 lsp.ark.setup {}
+lsp.air.setup {}
