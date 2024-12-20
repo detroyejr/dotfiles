@@ -37,7 +37,7 @@ let
           modName = "CC-Sounds";
           src = pkgs.fetchzip {
             url = "https://github.com/Fris0uman/CDDA-Soundpacks/releases/download/${version}/CC-Sounds.zip";
-            hash = "";
+            hash = "sha256-Or2gXcaVtcS7NPWKPvy5Lo4BgyrrU1kZpYLcyOuVxZM=";
           };
         };
       };

@@ -9,16 +9,19 @@ let
           name = "EchelonSurveyTools";
           src = builtins.fetchGit {
             url = "git@github.com:echeloninsights/EchelonSurveyTools.git";
-            rev = "daa856e31b2737537db3779d50a0406e28dc3780";
+            rev = "eb2550194ff022b31d6a100fb71d7d7c3908da88";
             allRefs = true;
           };
           buildInputs = [
             RMariaDB
             RPostgres
+            haven
+            httr
             pkgs.R
             relaimpo
             scales
             sjlabelled
+            stringi
             tibble
           ];
         };
@@ -26,7 +29,7 @@ let
           name = "Topline";
           src = builtins.fetchGit {
             url = "git@github.com:echeloninsights/topline.git";
-            rev = "4695bf8463ded468ff1c88a9df059bcd43995ce4";
+            rev = "a02ea59d3178dc32da226b750072954cd4cb0134";
           };
           buildInputs = with rPackages; [
             flextable
