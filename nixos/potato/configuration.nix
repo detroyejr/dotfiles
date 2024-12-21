@@ -5,8 +5,8 @@
     ./hardware-configuration.nix
     ../default.nix
     ../cataclysm-dda.nix
+    ../cosmic.nix
     ../fonts.nix
-    ../kde.nix
     ../syncthing.nix
   ];
 

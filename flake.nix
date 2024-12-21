@@ -7,6 +7,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,6 +26,7 @@
       home-manager,
       nixos-hardware,
       hyprland,
+      nixos-cosmic,
       ...
     }@inputs:
     let
@@ -190,6 +194,7 @@
           };
           modules = [
             ./nixos/potato/configuration.nix
+            nixos-cosmic.nixosModules.default
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
