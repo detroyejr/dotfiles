@@ -67,7 +67,7 @@ let
         stringi
         surveytools
         topline
-        usethis
+        # usethis
       ];
   };
 in
@@ -76,7 +76,7 @@ in
     R-with-packages
     ark-posit
     pandoc
-    positron-bin
+    # positron-bin
     quarto
   ];
 
