@@ -31,7 +31,9 @@ final: prev: {
   calibre = prev.calibre.overrideAttrs {
     doInstallCheck = false;
   };
-
+  xdg-desktop-portal = prev.xdg-desktop-portal.overrideAttrs {
+    doCheck = false;
+  };
   ark-posit =
     let
       pname = "ark";
