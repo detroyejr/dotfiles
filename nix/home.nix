@@ -172,13 +172,10 @@
       set-option -g renumber-windows on
 
       # Keybindings
-      bind -n M-H previous-window
-      bind -n M-L next-window
       bind '"' split-window -v -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
 
       # List of plugins.
-      set -g @plugin 'christoomey/vim-tmux-navigator'
       set -g @plugin 'jimeh/tmux-themepack'
       set -g @plugin 'sainnhe/tmux-fzf'
       set -g @plugin 'tmux-plugins/tmux-sensible'
