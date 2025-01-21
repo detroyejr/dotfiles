@@ -29,10 +29,8 @@
     awscli2
     bat
     bc
-    cmake
     curl
     fd
-    ffmpeg
     file
     fzf
     gh
@@ -40,14 +38,12 @@
     kubectl
     lsd
     lsof
-    mp4v2
     neofetch
     nitch
     ollama
     openssh
     qsv
     ripgrep
-    tiny
     tree
     unzip
     wget
