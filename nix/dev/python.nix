@@ -4,6 +4,7 @@ let
     ps: with ps; [
       black
       flake8
+      ipykernel
       ipython
       isort
       python-lsp-server
