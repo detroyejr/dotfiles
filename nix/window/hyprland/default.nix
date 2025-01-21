@@ -353,6 +353,7 @@ in
     alsa-utils
     anki
     bluez
+    bluetuith
     calibre
     colorz
     discord
