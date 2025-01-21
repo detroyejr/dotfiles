@@ -250,10 +250,6 @@ in
     preload = ${builtins.toString wallpaper}
 
     wallpaper = DP-3,${builtins.toString wallpaper}
-    wallpaper = DP-4,${builtins.toString wallpaper}
-    wallpaper = DP-5,${builtins.toString wallpaper}
-    wallpaper = DP-7,${builtins.toString wallpaper}
-    wallpaper = HDMI-A-1,${builtins.toString wallpaper}
     wallpaper = eDP-1,${builtins.toString wallpaper}
   '';
 
