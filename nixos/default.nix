@@ -3,6 +3,9 @@
   i18n.defaultLocale = "en_US.UTF-8";
   networking.networkmanager.enable = true;
   nix = {
+    optimise = {
+      automatic = true;
+    };
     gc = {
       automatic = true;
       dates = "weekly";
