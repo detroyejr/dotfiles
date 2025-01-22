@@ -59,14 +59,14 @@ let
         huxtable
         magick
         officer
-        quarto
+        # quarto
         readxl
         relaimpo
         sf
         sjlabelled
         stringi
         surveytools
-        topline
+        # topline
         # usethis
       ];
   };
@@ -75,9 +75,9 @@ in
   home.packages = [
     R-with-packages
     ark-posit
-    pandoc
+    # pandoc
     # positron-bin
-    quarto
+    # quarto
   ];
 
   programs.zsh.shellAliases = {
