@@ -31,6 +31,7 @@
     bc
     curl
     fd
+    ffmpeg
     file
     fzf
     gh

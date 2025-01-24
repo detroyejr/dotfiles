@@ -390,6 +390,7 @@ in
     socat
     swaynotificationcenter
     vlc
+    mp4v2
     wireplumber
     wlr-randr
     wlsunset
