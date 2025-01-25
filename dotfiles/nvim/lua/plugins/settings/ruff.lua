@@ -1,3 +1,3 @@
 return {
-		cmd = { "ruff", "server", "--preview" },
+  cmd = { "ruff", "server" },
 }
