@@ -75,6 +75,7 @@ in
   home.packages = [
     R-with-packages
     ark-posit
+    # air-posit
     # pandoc
     # positron-bin
     # quarto

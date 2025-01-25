@@ -73,4 +73,46 @@ final: prev: {
         prev.rustPlatform.bindgenHook
       ];
     };
+
+  # air-posit =
+  #   let
+  #     pname = "air";
+  #     version = "0.2.0";
+  #     rev = "1c1125690200e44920fa0610f3283166022ba56f";
+  #   in
+  #   prev.rustPlatform.buildRustPackage {
+  #
+  #     inherit pname version;
+  #     src = prev.fetchFromGitHub {
+  #       owner = "posit-dev";
+  #       repo = pname;
+  #       rev = rev;
+  #       hash = "sha256-N2RV0CmwB9jK28mW3a+yQBDhLrTwukWqUhYP2oWGMpw=";
+  #     };
+  #
+  #     useFetchCargoVendor = true;
+  #     cargoLock = {
+  #       lockFile = builtins.fetchurl {
+  #         url = "https://raw.githubusercontent.com/posit-dev/air/${rev}/Cargo.lock";
+  #         sha256 = "sha256:03qls2x1cgpdjylzrfsm7i96irq5sas907bxn2dvfy5vb87446x5";
+  #       };
+  #       outputHashes = {
+  #         "biome_console-0.5.7" = "sha256-kEdA+o2ONthHQl7Nt6rVv6Kkt9LoqCeow/N5i5gkAVs=";
+  #         "tower-lsp-0.20.0" = "sha256-XifEnsyyu7lATo5fdlmW5oM3RKCx7RtwryNUVGYIPLU=";
+  #         "tree-sitter-r-1.1.0" = "sha256-ryKgJ+3dv/O2AN5zIGtQnKml0zU0/s4Io8Tumpm62Gc=";
+  #       };
+  #     };
+  #
+  #     doCheck = false;
+  #
+  #     buildInputs = [
+  #       prev.libcxx
+  #       prev.libgcc
+  #     ];
+  #
+  #     nativeBuildInputs = [
+  #       prev.autoPatchelfHook
+  #       prev.rustPlatform.bindgenHook
+  #     ];
+  #   };
 }
