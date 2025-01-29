@@ -58,6 +58,7 @@
   };
 
   home.packages = with pkgs; [
+    gcc
     lua-language-server
     lua52Packages.jsregexp
     nixd
