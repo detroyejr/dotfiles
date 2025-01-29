@@ -66,8 +66,8 @@ let
         sjlabelled
         stringi
         surveytools
-        # topline
-        # usethis
+        topline
+        usethis
       ];
   };
 in
@@ -76,9 +76,9 @@ in
     R-with-packages
     ark-posit
     # air-posit
-    # pandoc
-    # positron-bin
-    # quarto
+    pandoc
+    positron-bin
+    quarto
   ];
 
   programs.zsh.shellAliases = {
