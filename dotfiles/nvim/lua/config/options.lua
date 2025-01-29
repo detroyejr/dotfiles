@@ -6,6 +6,9 @@ if vim.fn.has("win32") ~= 1 then
 	pcall(require, "config.colorscheme")
 	pcall(vim.cmd, "colorscheme " .. COLORSCHEME)
 
+  -- Needed for Transparency in wezterm.
+  vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+
 	SpellFile = "/.config/dotfiles/dotfiles/nvim/spell/en.utf-8.add"
 	if not os.rename(SpellFile, SpellFile) then
 		SpellFile = vim.opt.spellfile
