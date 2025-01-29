@@ -174,7 +174,7 @@ in
     bind = $mainMod, L, exec, bash -c "hyprlock"
     bind = $mainMod, N, exec, bash -c "swaync-client -t"
     bind = $mainMod, P, pseudo, # dwindle
-    bind = $mainMod, Q, exec, kitty
+    bind = $mainMod, Q, exec, wezterm
     bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else $HOME/.local/bin/rofi-launcher; fi"
     bind = CTRL ALT, Delete, exit
 
