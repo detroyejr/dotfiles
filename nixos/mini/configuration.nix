@@ -9,7 +9,7 @@
     ../devices.nix
     ../fonts.nix
     ../hyprland.nix
-    ../ollama.nix
+    ../llm.nix
     ../rclone.nix
     ../steam.nix
     ../syncthing.nix
