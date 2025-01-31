@@ -27,6 +27,17 @@ in
   services.llama-cpp.extraFlags = [
     "--temp"
     "0.6" # recommended for R1
+    "-ngl"
+    "99"
+    "-fa"
+    "-ub" 
+    "1024" 
+    "-b"
+    "1024"
+    "--ctx-size" 
+    "0" 
+    "--cache-reuse" 
+    "256"
   ];
   services.llama-cpp.port = 11434; # Default for ollama.
   services.llama-cpp.host = "0.0.0.0";
