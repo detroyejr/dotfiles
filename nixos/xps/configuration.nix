@@ -44,6 +44,8 @@
     53
     51820
     1337
+    8000
+    5678
   ];
 
   services.libinput.touchpad.disableWhileTyping = true;
