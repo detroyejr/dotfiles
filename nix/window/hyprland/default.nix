@@ -251,6 +251,7 @@ in
 
     wallpaper = DP-3,${builtins.toString wallpaper}
     wallpaper = eDP-1,${builtins.toString wallpaper}
+    wallpaper = HDMI-A-1,${builtins.toString wallpaper}
   '';
 
   home.file.".local/bin/disable-laptop" = {
