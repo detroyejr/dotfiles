@@ -8,9 +8,9 @@ return {
     return require("codecompanion").setup({
       adapters = {
         ollama = function()
-          return require("codecompanion.adapters").extend("ollama", {
+          return require("codecompanion.adapters").extend("openai_compatible", {
             env = {
-              url = "mini-1.lan:11434",
+              url = "http://mini-1.lan:11434",
             },
             parameters = {
               sync = true,

@@ -11,6 +11,7 @@
     ../hyprland.nix
     ../rclone.nix
     ../steam.nix
+    ../llm.nix
     ../syncthing.nix
     ../thunar.nix
     ../virtualization.nix
@@ -38,6 +39,7 @@
     80
     8000
     51820
+    52415
     1337
   ];
   networking.firewall.allowedUDPPorts = [
@@ -45,6 +47,7 @@
     51820
     1337
     8000
+    52415
     5678
   ];
 

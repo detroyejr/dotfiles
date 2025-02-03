@@ -2,10 +2,10 @@
 
 let
   models = pkgs.linkFarm "llm-models" {
-  "DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf" = pkgs.fetchurl {
-    name = "DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf";
-    url = "https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF/resolve/main/DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf?download=true";
-    sha256 = "sha256-cx7OjQbcftpvZXKZf+ue4SWNsHhIJ+ZCkJ2bVlZBk3s=";
+  "Qwen2.5-Coder-1.5B-Q8_0-GGUF.gguf" = pkgs.fetchurl {
+    name = "Qwen2.5-Coder-1.5B-Q8_0-GGUF.gguf";
+    url = "https://huggingface.co/ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF/resolve/main/qwen2.5-coder-1.5b-q8_0.gguf?download=true";
+    sha256 = "sha256-KYcclNFXJ6biQ/eaNxE9SuYlpiFbXoAL9Bojry2jKDI=";
   };
 };
 in
@@ -23,20 +23,20 @@ in
   # Llama CPP
   services.llama-cpp.enable = true;
 
-  services.llama-cpp.model = "${models}/DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf";
+  services.llama-cpp.model = "${models}/Qwen2.5-Coder-0.5B-Q8_0-GGUF.gguf";
   services.llama-cpp.extraFlags = [
-    "--temp"
-    "0.6" # recommended for R1
+    "--threads"
+    "20"
     "-ngl"
-    "99"
-    "-fa"
+    "25" 
+    "-fa" 
     "-ub" 
     "1024" 
-    "-b"
+    "-b" 
     "1024"
     "--ctx-size" 
     "0" 
-    "--cache-reuse" 
+    "--cache-reuse"
     "256"
   ];
   services.llama-cpp.port = 11434; # Default for ollama.
