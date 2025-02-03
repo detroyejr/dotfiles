@@ -17,8 +17,8 @@ in
   ];
 
   # Ollama.
-  services.ollama.enable = false;
-  services.ollama.host = "0.0.0.0";
+  # services.ollama.enable = false;
+  # services.ollama.host = "0.0.0.0";
 
   # Llama CPP
   services.llama-cpp.enable = true;
