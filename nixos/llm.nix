@@ -24,19 +24,17 @@ in
   services.llama-cpp.enable = true;
   services.llama-cpp.model = "${models}/Qwen2.5-Coder-1.5B-Q8_0-GGUF.gguf";
   services.llama-cpp.extraFlags = [
-    "--temp"
-    "0.7"
     "-ngl"
     "99" 
     "-fa" 
     "-ub" 
-    "2048" 
+    "1024" 
     "-b" 
-    "2048"
+    "4096"
     "--ctx-size" 
     "0" 
     "--cache-reuse"
-    "256"
+    "512"
   ];
   services.llama-cpp.port = 11434; # Default for ollama.
   services.llama-cpp.host = "0.0.0.0";
