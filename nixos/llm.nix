@@ -22,18 +22,17 @@ in
 
   # Llama CPP
   services.llama-cpp.enable = true;
-
-  services.llama-cpp.model = "${models}/Qwen2.5-Coder-0.5B-Q8_0-GGUF.gguf";
+  services.llama-cpp.model = "${models}/Qwen2.5-Coder-1.5B-Q8_0-GGUF.gguf";
   services.llama-cpp.extraFlags = [
-    "--threads"
-    "20"
+    "--temp"
+    "0.7"
     "-ngl"
-    "25" 
+    "99" 
     "-fa" 
     "-ub" 
-    "1024" 
+    "2048" 
     "-b" 
-    "1024"
+    "2048"
     "--ctx-size" 
     "0" 
     "--cache-reuse"
