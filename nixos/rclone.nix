@@ -48,7 +48,7 @@
           --gid 1000 \
           --allow-other \
           --config=$FILE \
-          "Google Drive:" "/home/detroyejr/Google Drive/"
+          "Google Drive 2:" "/home/detroyejr/Google Drive/"
       fi
     '';
     wantedBy = [ "multi-user.target" ];
