@@ -21,20 +21,22 @@ in
   # services.ollama.host = "0.0.0.0";
 
   # Llama CPP
-  services.llama-cpp.enable = true;
+  services.llama-cpp.enable = false;
   services.llama-cpp.model = "${models}/Qwen2.5-Coder-1.5B-Q8_0-GGUF.gguf";
   services.llama-cpp.extraFlags = [
     "-ngl"
     "99" 
+    "--temp" 
+    "0.7"
     "-fa" 
     "-ub" 
     "1024" 
     "-b" 
-    "4096"
+    "1024"
     "--ctx-size" 
     "0" 
     "--cache-reuse"
-    "512"
+    "256"
   ];
   services.llama-cpp.port = 11434; # Default for ollama.
   services.llama-cpp.host = "0.0.0.0";
