@@ -11,7 +11,6 @@
     ../hyprland.nix
     ../rclone.nix
     ../steam.nix
-    ../llm.nix
     ../syncthing.nix
     ../thunar.nix
     ../virtualization.nix
