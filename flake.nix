@@ -36,7 +36,7 @@
         config = {
           allowUnfree = true;
           allowBroken = true;
-          cudaSupport = true;
+          cudaSupport = false;
         };
         overlays = [ (import ./overlays.nix) ];
       };
