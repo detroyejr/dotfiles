@@ -372,18 +372,18 @@ in
     pamixer
     pavucontrol
     playerctl
-    (plex-desktop.override {
-      extraEnv =
-        if isNvidia then
-          {
-            __NV_PRIME_RENDER_OFFLOAD = 1;
-            __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
-            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-            __VK_LAYER_NV_optimus = "NVIDIA_only";
-          }
-        else
-          { };
-    })
+    # (plex-desktop.override {
+    #   extraEnv =
+    #     if isNvidia then
+    #       {
+    #         __NV_PRIME_RENDER_OFFLOAD = 1;
+    #         __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+    #         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    #         __VK_LAYER_NV_optimus = "NVIDIA_only";
+    #       }
+    #     else
+    #       { };
+    # })
     plexamp
     procps # replace GNU uptime.
     slack
