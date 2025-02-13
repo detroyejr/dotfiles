@@ -52,7 +52,7 @@
             text_align = "center";
             color = text_color;
             font_size = 65;
-            font_family = "BlexMono Nerd Font";
+            font_family = "Input Mono";
             rotate = 0;
             position = "0, 550";
             halign = "center";
@@ -64,7 +64,7 @@
             text_align = "center";
             color = text_color;
             font_size = 35;
-            font_family = "BlexMono Nerd Font";
+            font_family = "Input Sans";
             rotate = 0;
             position = "0, 0";
             halign = "center";

@@ -8,7 +8,7 @@
   programs.kitty = {
     enable = true;
     font = {
-      name = "BlexMono Nerd Font Mono";
+      name = "Input Mono";
       size = 14;
     };
     settings = with colorScheme.colors; {

@@ -1,24 +1,24 @@
 @import "config.css";
 
 #waybar {
-  font-family: "BlexMono Nerd Font Mono, monospace";
+  font-family: "Input Mono, monospace";
   font-weight: bold;
   min-height: 30px;
-  font-size: 14px;
+  font-size: 10px;
 }
 
 #window {
-  font-family: "BlexMono Nerd Font Mono, monospace";
+  font-family: "Input Mono, monospace";
   font-weight: bold;
-  font-size: 14px;
+  font-size: 10px;
 }
 
 #workspaces button.active {
   color: @accent
 }
 
-#clock, #battery, #disk, #network, #pulseaudio, #memory, #custom-power {
-  font-family: "BlexMono Nerd Font Mono, monospace";
+#clock, #battery, #disk, #network, #pulseaudio, #memory, #custom-power, #backlight {
+  font-family: "Input Mono, monospace";
   padding: 10px;
   min-width: 20px;
 }

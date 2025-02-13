@@ -37,6 +37,7 @@
           allowUnfree = true;
           allowBroken = true;
           cudaSupport = false;
+          input-fonts.acceptLicense = true;
         };
         overlays = [ (import ./overlays.nix) ];
       };

@@ -65,7 +65,7 @@
       config = {
         color_scheme = "custom",
         cursor_blink_rate = 0,
-        font = wezterm.font("BlexMono Nerd Font Mono"),
+        font = wezterm.font("Input Mono"),
         font_size = 14,
         use_fancy_tab_bar = false,
         window_background_opacity = 0.8,

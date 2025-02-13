@@ -12,7 +12,7 @@
   ];
 
   home.file.".config/swaylock/config".text = with colorScheme.colors; ''
-    font="BlexMono Nerd Font Mono"
+    font="Input Sans"
 
     clock
     timestr=%R

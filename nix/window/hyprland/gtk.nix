@@ -28,7 +28,7 @@ in
   gtk = {
     enable = true;
     font = {
-      name = "BlexMono Nerd Font Mono, monospace 12";
+      name = "Input Mono, monospace 12";
     };
     theme = {
       name = colorSchemeName;

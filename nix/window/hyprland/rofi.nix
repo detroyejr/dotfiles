@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   colorScheme,
   rofi-background,
   ...
@@ -17,7 +18,7 @@ let
       cp -r . $out;
     '';
     patchPhase = ''
-      find files -type f -name "*.rasi" -exec sed -i 's/font:.*$/font: "BlexMono Nerd Font Mono 12";/g' {} ';';
+      find files -type f -name "*.rasi" -exec sed -i 's/font:.*$/font: "Input Sans 12";/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/background:.*$/background: #${colorScheme.colors.base00};/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/background-alt:.*$/background-alt: #${colorScheme.colors.base01};/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/foreground:.*$/foreground: #${colorScheme.colors.base06};/g' {} ';';

@@ -22,7 +22,7 @@
   home.file.".config/eww/eww.scss".text = ''
     * {
       all: unset;
-      font-family: "BlexMono Nerd Font Mono, monospace";
+      font-family: "Input Mono, monospace";
     }
 
     @import "colors.scss";

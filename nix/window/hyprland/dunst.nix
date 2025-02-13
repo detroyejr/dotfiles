@@ -33,7 +33,7 @@
           frame_color = "#c678dd";
           separator_color = "frame";
           sort = true;
-          font = "Blex Nerd Font Mono";
+          font = "Input Sans";
           line_height = 0;
           markup = "full";
           format = ''

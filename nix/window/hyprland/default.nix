@@ -30,6 +30,7 @@ in
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
+    QT_AUTO_SCALE_SCREEN_FACTOR = "1";
   };
 
   home.file.".config/hypr/hyprland.conf".text = with colorScheme.colors; ''
@@ -43,12 +44,11 @@ in
     env = GDK_SCALE,1
     env = MOZ_ENABLE_WAYLAND,1;
     env = NIXOS_OZONE_WL,1
-    env = QT_QPA_PLATFORM,wayland;xcb;
+    env = QT_QPA_PLATFORM,wayland;xcb
     env = QT_QPA_PLATFORMTHEME,qt5ct;
     env = QT_AUTO_SCALE_SCREEN_FACTOR,1
     env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
     env = TERMINAL,kitty;
-    env = WLR_DRM_NO_ATOMIC,1
 
     exec-once = hyprctl dispatch dpms on &
     exec-once = hyprpaper & swaync & waybar & hyprlock & kanshi &

@@ -7,6 +7,7 @@
     ../cataclysm-dda.nix
     ../devices.nix
     ../docker.nix
+    ../flatpak.nix
     ../fonts.nix
     ../hyprland.nix
     ../rclone.nix
