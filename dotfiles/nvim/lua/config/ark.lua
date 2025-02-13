@@ -28,7 +28,7 @@ end
 if not configs.air then
   configs.air = {
     default_config = {
-      cmd = { "/home/detroyejr/.cargo/bin/air", "language-server" },
+      cmd = { "air", "language-server" },
       filetypes = { 'r', 'R' },
       single_file_support = true,
       root_dir = function(fname)

@@ -75,7 +75,7 @@ in
   home.packages = [
     R-with-packages
     ark-posit
-    # air-posit
+    air-posit
     pandoc
     (positron-bin.overrideAttrs(attrs: {
       src =  fetchurl {
