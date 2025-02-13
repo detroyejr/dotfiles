@@ -79,8 +79,9 @@ in
     pandoc
     (positron-bin.overrideAttrs(attrs: {
       src =  fetchurl {
-        url = "https://github.com/posit-dev/positron/releases/download/2025.02.0-137/Positron-2025.02.0-137-x64.deb";
-        hash = "sha256-Q4dDx4c3nNjoZPtoIkVAlisGShqtz4pIKXVh+5fngaI=";
+
+        url = "https://github.com/posit-dev/positron/releases/download/2025.02.0-171/Positron-2025.02.0-171-x64.deb";
+        hash = "sha256-TjQc/Y4Sa2MlLslbygYVFbIk3raArMvYstSiSEYzfo0=";
       };
       installPhase = ''
         runHook preInstall

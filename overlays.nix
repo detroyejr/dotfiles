@@ -37,8 +37,7 @@ final: prev: {
   ark-posit =
     let
       pname = "ark";
-      version = "0.5.1";
-      rev = "b8505c504eb10be0e9cb948e1631f151825facdb";
+      version = "0.1.159";
     in
     prev.rustPlatform.buildRustPackage {
 
@@ -46,20 +45,12 @@ final: prev: {
       src = prev.fetchFromGitHub {
         owner = "posit-dev";
         repo = pname;
-        rev = rev;
-        hash = "sha256-+0+UFiJsQKFT/DLeu3LF8RFik7Iqv873gzu+RP83GiA=";
+        tag = version;
+        hash = "sha256-dRF1PheW66ZVj+8MFzEk9RnewfWgJHIJVmfa0fpr1Ts=";
       };
 
-      cargoLock = {
-        lockFile = builtins.fetchurl {
-          url = "https://raw.githubusercontent.com/posit-dev/ark/${rev}/Cargo.lock";
-          sha256 = "sha256:1v5klikaib1cf6d9qggqa3cch4jscl5ixibi1bbfa9bhcky86fjh";
-        };
-        outputHashes = {
-          "dap-0.4.1-alpha1" = "sha256-nUsTazH1riI0nglWroDKDWoHEEtNEtpwn6jCH2N7Ass=";
-          "tree-sitter-r-1.1.0" = "sha256-a7vgmOY9K8w8vwMlOLBmUnXpWpVP+YlOilGODaI07y4=";
-        };
-      };
+      useFetchCargoVendor = true;
+      cargoHash = "sha256-QkitKjfLW/aVeuff67SmLnxg7JAdMEaeW8YuEwQfrhw=";
 
 
       doCheck = false;
