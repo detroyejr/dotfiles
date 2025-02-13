@@ -4,13 +4,13 @@
   font-family: "Input Mono, monospace";
   font-weight: bold;
   min-height: 30px;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 #window {
   font-family: "Input Mono, monospace";
   font-weight: bold;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 #workspaces button.active {
