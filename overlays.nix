@@ -49,12 +49,6 @@ final: prev: {
         hash = "sha256-dRF1PheW66ZVj+8MFzEk9RnewfWgJHIJVmfa0fpr1Ts=";
       };
 
-<<<<<<< Updated upstream
-      useFetchCargoVendor = true;
-      cargoHash = "sha256-QkitKjfLW/aVeuff67SmLnxg7JAdMEaeW8YuEwQfrhw=";
-
-=======
->>>>>>> Stashed changes
       doCheck = false;
 
       buildInputs = [
@@ -93,7 +87,7 @@ final: prev: {
         cp -r . $out/bin
       '';
     };
-<<<<<<< Updated upstream
+
   positron-bin = prev.positron-bin.overrideAttrs (attrs: {
     src = prev.fetchurl {
       url = "https://github.com/posit-dev/positron/releases/download/2025.02.0-171/Positron-2025.02.0-171-x64.deb";
@@ -105,20 +99,6 @@ final: prev: {
       mkdir -p "$out/share"
       cp -r usr/share/pixmaps "$out/share/pixmaps"
       cp -r usr/share/positron "$out/share/positron"
-=======
-  obs-studio-plugins = prev.obs-studio-plugins // {
-    obs-hyperion = prev.obs-studio-plugins.obs-hyperion.overrideAttrs {
-      patches = [
-        (final.fetchpatch {
-          url = "https://raw.githubusercontent.com/detroyejr/nixpkgs/897380107dfeedf4f352565c3f808067b16c7f06/pkgs/applications/video/obs-studio/plugins/obs-hyperion/check-state-changed.patch";
-          hash = "sha256-HF7zWfPTAiBSNDYqBzEkaBFmk0xyqiIH01lE5CDWVWk=";
-        })
-      ];
-    };
-  };
-
-  # air-posit =
->>>>>>> Stashed changes
 
       mkdir -p "$out/share/applications"
       install -m 444 -D usr/share/applications/positron.desktop "$out/share/applications/positron.desktop"
@@ -142,6 +122,18 @@ final: prev: {
       runHook postInstall
     '';
   });
+
+  obs-studio-plugins = prev.obs-studio-plugins // {
+    obs-hyperion = prev.obs-studio-plugins.obs-hyperion.overrideAttrs {
+      patches = [
+        (final.fetchpatch {
+          url = "https://raw.githubusercontent.com/detroyejr/nixpkgs/897380107dfeedf4f352565c3f808067b16c7f06/pkgs/applications/video/obs-studio/plugins/obs-hyperion/check-state-changed.patch";
+          hash = "sha256-HF7zWfPTAiBSNDYqBzEkaBFmk0xyqiIH01lE5CDWVWk=";
+        })
+      ];
+    };
+  };
+
   # air-posit =
   #   let
   #     pname = "air";
