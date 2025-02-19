@@ -49,6 +49,9 @@ final: prev: {
         hash = "sha256-dRF1PheW66ZVj+8MFzEk9RnewfWgJHIJVmfa0fpr1Ts=";
       };
 
+      useFetchCargoVendor = true;
+      cargoHash = "sha256-QkitKjfLW/aVeuff67SmLnxg7JAdMEaeW8YuEwQfrhw="; 
+
       doCheck = false;
 
       buildInputs = [
