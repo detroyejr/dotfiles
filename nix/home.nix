@@ -41,6 +41,7 @@
     lsof
     neofetch
     nitch
+    nixfmt-rfc-style
     ollama
     openssh
     qsv

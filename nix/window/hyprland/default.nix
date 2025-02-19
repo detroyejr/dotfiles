@@ -61,6 +61,10 @@ in
     workspace = 1, monitor:HDMI-A-1, persistent:true
     workspace = 2, monitor:HDMI-A-1, persistent:true
     workspace = 3, monitor:HDMI-A-1, persistent:true
+    
+    workspace = 1, monitor:DP-8, persistent:true
+    workspace = 2, monitor:DP-8, persistent:true
+    workspace = 3, monitor:DP-8, persistent:true
 
     windowrule = float,^(Rofi)$
     windowrule = center,^(Rofi)$
@@ -249,7 +253,7 @@ in
     splash = false
     preload = ${builtins.toString wallpaper}
 
-    wallpaper = DP-3,${builtins.toString wallpaper}
+    wallpaper = DP-7,${builtins.toString wallpaper}
     wallpaper = eDP-1,${builtins.toString wallpaper}
     wallpaper = HDMI-A-1,${builtins.toString wallpaper}
   '';
