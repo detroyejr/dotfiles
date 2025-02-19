@@ -218,5 +218,12 @@
           ];
         };
       };
+      colmena = {
+        meta.nixpkgs = pkgs;
+        mini-2 = import ./nixos/minis/mini-2.nix;
+        mini-3 = import ./nixos/minis/mini-3.nix;
+        mini-4 = import ./nixos/minis/mini-4.nix;
+        mini-5 = import ./nixos/minis/mini-5.nix;
+      };
     };
 }
