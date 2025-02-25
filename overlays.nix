@@ -68,8 +68,7 @@ final: prev: {
   air-posit =
     let
       name = "air";
-      version = "0.2.0";
-      rev = "1c1125690200e44920fa0610f3283166022ba56f";
+      version = "0.4.0";
     in
     prev.stdenv.mkDerivation {
       inherit name version;

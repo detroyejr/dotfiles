@@ -15,6 +15,7 @@
       randomizedDelaySec = "20min";
     };
     settings = {
+      builders-use-substitutes = true;
       experimental-features = [
         "nix-command"
         "flakes"
@@ -26,14 +27,14 @@
         "http://mini-4.lan/?priority=10"
         "http://mini-5.lan/?priority=10"
         "https://cache.nixos.org"
-        "https://cosmic.cachix.org/" 
+        "https://cosmic.cachix.org/"
       ];
-      trusted-public-keys = [ 
-        "mini-1.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI=" 
-        "mini-2.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI=" 
-        "mini-3.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI=" 
-        "mini-4.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI=" 
-        "mini-5.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI=" 
+      trusted-public-keys = [
+        "mini-1.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "mini-2.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "mini-3.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "mini-4.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "mini-5.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
         "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
       ];
 
@@ -42,6 +43,27 @@
         "detroyejr"
       ];
     };
+    buildMachines =
+      builtins.map
+        (name: {
+          hostName = name;
+          sshUser = "detroyejr";
+          sshKey = "/home/detroyejr/.ssh/mini_rsa";
+          system = pkgs.stdenv.hostPlatform.system;
+          maxJobs = 6;
+          supportedFeatures = [
+            "benchmark"
+            "big-parallel"
+            "kvm"
+            "nixos-test"
+          ];
+        })
+        [
+          "mini-2"
+          "mini-3"
+          "mini-4"
+          "mini-5"
+        ];
   };
   programs.zsh.enable = true;
   programs.ssh.startAgent = true;

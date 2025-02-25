@@ -20,6 +20,7 @@ let
       nerd-fonts.blex-mono
     ];
 
+    fontDir.enable = true;
     fontconfig = {
       defaultFonts = {
         serif = [

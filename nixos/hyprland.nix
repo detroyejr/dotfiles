@@ -30,6 +30,8 @@
     };
   };
 
+  programs.dconf.enable = true;
+
   services = {
     displayManager = {
       autoLogin = {

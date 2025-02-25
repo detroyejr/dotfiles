@@ -90,6 +90,8 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPq36MnanxkOnpsouHzkGJtudcEZ+00i202DVfUXycjT detroyejr@XPS-Nixos"
   ];
 
+  networking.firewall.enable = false;
+
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
   system.stateVersion = "24.11";
