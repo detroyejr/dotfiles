@@ -15,7 +15,7 @@
     ../syncthing.nix
     ../thunar.nix
     ../virtualization.nix
-    ../lichess/
+    # ../lichess
   ];
 
   networking.hostName = "XPS-Nixos";
