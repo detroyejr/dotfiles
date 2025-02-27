@@ -50,7 +50,7 @@ final: prev: {
       };
 
       useFetchCargoVendor = true;
-      cargoHash = "sha256-QkitKjfLW/aVeuff67SmLnxg7JAdMEaeW8YuEwQfrhw="; 
+      cargoHash = "sha256-QkitKjfLW/aVeuff67SmLnxg7JAdMEaeW8YuEwQfrhw=";
 
       doCheck = false;
 
@@ -65,30 +65,11 @@ final: prev: {
       ];
     };
 
-  air-posit =
-    let
-      name = "air";
-      version = "0.4.0";
-    in
-    prev.stdenv.mkDerivation {
-      inherit name version;
-      src = prev.fetchurl {
-        url = "https://github.com/posit-dev/${name}/releases/download/${version}/${name}-x86_64-unknown-linux-gnu.tar.gz";
-        hash = "sha256-a6Zl/Uj2cN/00hpQEtWagNPsoo4OQqlCu7i69gaRB1s=";
-      };
-
-      nativeBuildInputs = [ prev.autoPatchelfHook ];
-
-      buildInputs = [
-        prev.libcxx
-        prev.libgcc
-      ];
-
-      installPhase = ''
-        mkdir $out $out/bin
-        cp -r . $out/bin
-      '';
-    };
+  air-posit = import ./nixos/air/default.nix {
+    fetchFromGitHub = prev.fetchFromGitHub;
+    lib = prev.lib;
+    rustPlatform = prev.rustPlatform;
+  };
 
   positron-bin = prev.positron-bin.overrideAttrs (attrs: {
     src = prev.fetchurl {
