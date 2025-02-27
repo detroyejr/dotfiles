@@ -68,6 +68,7 @@
         font = wezterm.font("Input Mono"),
         font_size = 14,
         use_fancy_tab_bar = false,
+        warn_about_missing_glyphs = false,
         window_background_opacity = 0.8,
         window_frame = {
             active_titlebar_bg = "${base03}",
