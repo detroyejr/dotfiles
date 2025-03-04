@@ -254,7 +254,7 @@ in
   '';
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
-    splash = false
+    splash = true
     preload = ${builtins.toString wallpaper}
 
     wallpaper = DP-7,${builtins.toString wallpaper}
