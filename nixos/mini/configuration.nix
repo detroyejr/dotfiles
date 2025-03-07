@@ -26,7 +26,9 @@
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
   services.openssh.settings.X11Forwarding = true;
-  services.openssh.authorizedKeysFiles = [ "/home/detroyejr/.ssh/main_server.pub" ];
+  services.openssh.authorizedKeysFiles = [
+    "/home/detroyejr/.ssh/main_server.pub"
+  ];
 
   fileSystems."/run/mount/Media" = {
     device = "192.168.1.107:/mnt/nas0/Media";
@@ -38,6 +40,7 @@
     ];
   };
 
+  networking.wireless.enable = false;
   networking.interfaces.enp1s0.ipv4.addresses = [
     {
       address = "192.168.1.222";
