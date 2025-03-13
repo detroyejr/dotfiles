@@ -1,15 +1,23 @@
 return {
   "folke/snacks.nvim",
+  lazy = false,
   opts = {
+
+    animate = { enabled = true },
     explorer = {
+      enabled = true,
       replace_netrw = true
     },
+    image = { enabled = true },
+    indent = { enabled = true },
     picker = {
       sources = {
         explorer = { enabled = true },
       },
     },
-    image = {},
+    terminal = { enabled = true },
+    toggle = { enable = true },
+    -- dashboard = { enabled = true },
   },
   keys = {
     {
@@ -31,14 +39,14 @@ return {
       function()
         Snacks.picker.files()
       end,
-      desc = "Picker Snacks",
+      desc = "Files",
     },
     {
       "<space>fF",
       function()
         Snacks.picker.grep()
       end,
-      desc = "Picker Snacks",
+      desc = "Grep",
     },
     {
       "<space>fh",
@@ -47,5 +55,34 @@ return {
       end,
       desc = "Picker Snacks",
     },
+    {
+      "<space>.",
+      function()
+        Snacks.scratch()
+      end,
+      desc = "Scratch buffer",
+    },
+    {
+      "<space>S",
+      function()
+        Snacks.scratch()
+      end,
+      desc = "Select Scratch Buffer",
+    },
+    {
+      "<leader>uC",
+      function()
+        Snacks.picker.colorschemes()
+      end,
+      desc = "Colorschemes",
+    },
+    {
+      "<leader>ug",
+      function()
+        Snacks.toggle.indent()
+      end,
+      desc = "Toggle indent",
+    },
   },
+
 }

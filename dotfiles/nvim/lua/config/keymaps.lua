@@ -30,7 +30,7 @@ if tmux then
 else
 	vim.keymap.set("n", "<leader>tf", "<cmd>terminal<cr>")
 	vim.keymap.set("n", "<leader>th", "<cmd>new term://${SHELL}<cr>")
-	vim.keymap.set("n", "<leader>tv", "<cmd>vnew term://${SHELL}<cr>")
+	vim.keymap.set("n", "<leader>tv", "<cmd>:lua Snacks.terminal.open()<cr>")
 end
 -- Sending keys to terminal
 
