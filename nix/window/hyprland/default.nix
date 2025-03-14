@@ -54,21 +54,9 @@ in
     exec-once = hyprpaper & swaync & waybar & hyprlock & kanshi &
     exec-once = hyprctl setcursor Bibata-Modern-Ice 14
 
-    workspace = 1, monitor:eDP-1, persistent:true
-    workspace = 2, monitor:eDP-1, persistent:true
-    workspace = 3, monitor:eDP-1, persistent:true
-
-    workspace = 1, monitor:HDMI-A-1, persistent:true
-    workspace = 2, monitor:HDMI-A-1, persistent:true
-    workspace = 3, monitor:HDMI-A-1, persistent:true
-
-    workspace = 1, monitor:DP-7, persistent:true
-    workspace = 2, monitor:DP-7, persistent:true
-    workspace = 3, monitor:DP-7, persistent:true
-    
-    workspace = 1, monitor:DP-8, persistent:true
-    workspace = 2, monitor:DP-8, persistent:true
-    workspace = 3, monitor:DP-8, persistent:true
+    workspace = 1, persistent:true
+    workspace = 2, persistent:true
+    workspace = 3, persistent:true
 
     windowrule = float,^(Rofi)$
     windowrule = center,^(Rofi)$
