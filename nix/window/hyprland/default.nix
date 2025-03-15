@@ -158,9 +158,9 @@ in
     bind = $mainMod SHIFT, K, exec, bash -c "if pgrep -x .keepassxc-wrap > /dev/null; then pkill keepassxc; else keepassxc; fi"
     bind = $mainMod, C, killactive,
     bind = $mainMod, E, exec, thunar
-    bind = $mainMod, F, centerwindow
-    bind = $mainMod, F, resizeactive, exact 1200 700
     bind = $mainMod, F, togglefloating,
+    bind = $mainMod, F, resizeactive, exact 1300 850
+    bind = $mainMod, F, centerwindow
     bind = $mainMod, G, fullscreen
     bind = $mainMod, J, togglesplit, # dwindle
     bind = $mainMod, L, exec, bash -c "hyprlock"
