@@ -10,6 +10,7 @@
     ../fonts.nix
     ../hyprland.nix
     ../llm.nix
+    ../openrgb.nix
     ../rclone.nix
     ../steam.nix
     ../syncthing.nix

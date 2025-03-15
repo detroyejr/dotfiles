@@ -10,6 +10,7 @@
     ../flatpak.nix
     ../fonts.nix
     ../hyprland.nix
+    ../openrgb.nix
     ../rclone.nix
     ../steam.nix
     ../syncthing.nix
