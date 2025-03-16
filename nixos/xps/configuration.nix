@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -12,6 +12,7 @@
     ../hyprland.nix
     ../openrgb.nix
     ../rclone.nix
+    ../sops.nix
     ../steam.nix
     ../syncthing.nix
     ../thunar.nix

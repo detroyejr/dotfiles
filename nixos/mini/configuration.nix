@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ../default.nix
+    ../actual.nix
     ../binary-cache.nix
     ../brightness.nix
     ../cataclysm-dda.nix
@@ -12,6 +13,7 @@
     ../llm.nix
     ../openrgb.nix
     ../rclone.nix
+    ../sops.nix
     ../steam.nix
     ../syncthing.nix
     ../thunar.nix
@@ -28,7 +30,7 @@
   services.openssh.settings.PasswordAuthentication = false;
   services.openssh.settings.X11Forwarding = true;
   services.openssh.authorizedKeysFiles = [
-    "/home/detroyejr/.ssh/main_server.pub"
+    "/home/detroyejr/.ssh/main_server_ed25519.pub"
   ];
 
   fileSystems."/run/mount/Media" = {

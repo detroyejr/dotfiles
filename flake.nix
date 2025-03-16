@@ -16,6 +16,11 @@
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -26,6 +31,7 @@
       nixos-hardware,
       hyprland,
       nixos-cosmic,
+      sops-nix,
       ...
     }@inputs:
     let
@@ -111,6 +117,7 @@
             nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
             home-manager.nixosModules.home-manager
             default-nixos-home-configuration
+            sops-nix.nixosModules.sops
           ];
         };
         "mini" = nixpkgs.lib.nixosSystem {
@@ -126,6 +133,7 @@
             nixos-hardware.nixosModules.dell-optiplex-3050
             home-manager.nixosModules.home-manager
             default-nixos-home-configuration
+            sops-nix.nixosModules.sops
           ];
         };
         "tower" = nixpkgs.lib.nixosSystem {
