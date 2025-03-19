@@ -4,6 +4,10 @@
   networking.networkmanager.enable = true;
   nix = {
     distributedBuilds = true;
+    extraOptions = ''
+      # Ensure we can still build when missing-server is not accessible
+      fallback = true
+    '';
     optimise = {
       automatic = true;
     };
@@ -15,6 +19,7 @@
       randomizedDelaySec = "20min";
     };
     settings = {
+      auto-optimise-store = true;
       builders-use-substitutes = true;
       experimental-features = [
         "nix-command"
