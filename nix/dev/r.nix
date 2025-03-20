@@ -9,7 +9,7 @@ let
           name = "EchelonSurveyTools";
           src = builtins.fetchGit {
             url = "git@github.com:echeloninsights/EchelonSurveyTools.git";
-            rev = "eb2550194ff022b31d6a100fb71d7d7c3908da88";
+            rev = "4d2116839396d02fe9a04435f86decb53de6d665";
             allRefs = true;
           };
           buildInputs = [
@@ -29,7 +29,7 @@ let
           name = "Topline";
           src = builtins.fetchGit {
             url = "git@github.com:echeloninsights/topline.git";
-            rev = "a02ea59d3178dc32da226b750072954cd4cb0134";
+            rev = "324eb187774aea8ef129aed6d9f92da5accb0545";
           };
           buildInputs = with rPackages; [
             flextable
