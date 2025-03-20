@@ -54,25 +54,25 @@ in
     exec-once = hyprpaper & swaync & waybar & hyprlock & kanshi &
     exec-once = hyprctl setcursor Bibata-Modern-Ice 14
 
-    windowrule = float,^(Rofi)$
-    windowrule = center,^(Rofi)$
+    windowrule = float,title:^(Rofi)$
+    windowrule = center,title:^(Rofi)$
 
-    windowrule = float,^(thunar)$
-    windowrule = center,^(thunar)$
-    windowrule = size 70% 70%,^(thunar)$
+    windowrule = float,title:^(thunar)$
+    windowrule = center,title:^(thunar)$
+    windowrule = size 70% 70%,title:^(thunar)$
 
-    windowrule = float,^(Volume Control)$
-    windowrule = move 100%-488 6%,^(Volume Control)$
-    windowrule = size 400 560,^(Volume Control)$
-    windowrule = animation slide,^(Volume Control)$
+    windowrule = float,title:^(Volume Control)$
+    windowrule = move 100%-488 6%,title:^(Volume Control)$
+    windowrule = size 400 560,title:^(Volume Control)$
+    windowrule = animation slide,title:^(Volume Control)$
 
-    windowrule = float,^(Plexamp)$
+    windowrule = float,title:^(Plexamp)$
     windowrule = move 100%-488 6%,title:^(Plexamp)$
     windowrule = size 400 560,title:^(Plexamp)$
-    windowrule = animation slide,^(Plexamp)$
+    windowrule = animation slide,title:^(Plexamp)$
 
-    windowrulev2 = float,class:^(org.wezfurlong.wezterm)$
-    windowrulev2 = tile,class:^(org.wezfurlong.wezterm)$
+    windowrule = float,class:^(org.wezfurlong.wezterm)$
+    windowrule = tile,class:^(org.wezfurlong.wezterm)$
 
     # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
     input {
