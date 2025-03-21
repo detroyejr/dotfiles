@@ -1,5 +1,7 @@
 {
   pkgs,
+  lib,
+  osConfig,
   colorScheme,
   wallpaper,
   isNvidia,
@@ -35,8 +37,15 @@ in
 
   home.file.".config/hypr/hyprland.conf".text = with colorScheme.colors; ''
     # change monitor to high resolution, the last argument is the scale factor
+
+    
     monitor=eDP-1,preferred,auto,2
     monitor=,highres,auto,1
+
+    ${lib.optionalString (osConfig.system.name == "skate") ''
+    monitor=eDP-1,preferred,auto,1,transform,3
+    ''}
+
     debug:disable_logs = false
     # toolkit-specific scale
     env = BROWSER,firefox;
@@ -241,6 +250,10 @@ in
     splash = true
     preload = ${builtins.toString wallpaper}
 
+    ${lib.optionalString (osConfig.system.name == "skate") ''
+    wallpaper = DP-1,${builtins.toString wallpaper}
+    ''}
+
     wallpaper = DP-7,${builtins.toString wallpaper}
     wallpaper = DP-8,${builtins.toString wallpaper}
     wallpaper = eDP-1,${builtins.toString wallpaper}
@@ -286,20 +299,12 @@ in
       systemdTarget = "hyprland-session.target";
       settings = [
         {
-          profile.name = "undocked";
+          profile.name = "docked";
           profile.outputs = [
             {
-              criteria = "eDP-1";
-              status = "enable";
-            }
-          ];
-        }
-        {
-          profile.name = "undocked";
-          profile.outputs = [
-            {
-              criteria = "Samsung Electric Company S24F350 H4ZM900001";
-              mode = "1920x1080@59.96";
+              criteria = "Dell Inc. DELL S2721QS BVR9513";
+              mode = if (osConfig.system.name == "skate") then "2560x1440@59.95Hz" else "3840x2160@60.00Hz";
+              scale = if (osConfig.system.name == "skate") then 1.0 else 2.0;
               status = "enable";
             }
             {
@@ -309,27 +314,10 @@ in
           ];
         }
         {
-          profile.name = "docked2";
+          profile.name = "undocked";
           profile.outputs = [
-            {
-              criteria = "Dell Inc. DELL S2721QS BVR9513";
-              mode = "3840x2160@59.94";
-              scale = 2.0;
-              status = "enable";
-            }
             {
               criteria = "eDP-1";
-              status = "disable";
-            }
-          ];
-        }
-        {
-          profile.name = "docked3";
-          profile.outputs = [
-            {
-              criteria = "Dell Inc. DELL S2721QS BVR9513";
-              mode = "2560x1440@59.95";
-              scale = 1.0;
               status = "enable";
             }
           ];
@@ -365,18 +353,18 @@ in
     pamixer
     pavucontrol
     playerctl
-    # (plex-desktop.override {
-    #   extraEnv =
-    #     if isNvidia then
-    #       {
-    #         __NV_PRIME_RENDER_OFFLOAD = 1;
-    #         __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
-    #         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    #         __VK_LAYER_NV_optimus = "NVIDIA_only";
-    #       }
-    #     else
-    #       { };
-    # })
+    (plex-desktop.override {
+      extraEnv =
+        if isNvidia then
+          {
+            __NV_PRIME_RENDER_OFFLOAD = 1;
+            __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+            __VK_LAYER_NV_optimus = "NVIDIA_only";
+          }
+        else
+          { };
+    })
     plexamp
     procps # replace GNU uptime.
     slack
