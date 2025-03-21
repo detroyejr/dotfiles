@@ -1,6 +1,7 @@
 {
   inputs,
   system,
+  config,
   pkgs,
   lib,
   isNvidia,
@@ -32,7 +33,7 @@
 
   programs.dconf.enable = true;
 
-  services = {
+  services = lib.mkIf (!config.jovian.steam.autoStart) {
     displayManager = {
       autoLogin = {
         enable = true;

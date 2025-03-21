@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,6 +35,7 @@
       home-manager,
       nixos-hardware,
       hyprland,
+      jovian,
       nixos-cosmic,
       sops-nix,
       ...
@@ -134,6 +140,20 @@
             home-manager.nixosModules.home-manager
             default-nixos-home-configuration
             sops-nix.nixosModules.sops
+          ];
+        };
+        "skate" = nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit inputs outputs system;
+            isNvidia = false;
+            isFprint = false;
+          };
+          modules = [
+            ./nixos/skate/configuration.nix
+            jovian.nixosModules.default
+            home-manager.nixosModules.home-manager
+            default-nixos-home-configuration
           ];
         };
         "tower" = nixpkgs.lib.nixosSystem {
