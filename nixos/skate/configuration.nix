@@ -17,11 +17,11 @@
   ];
 
   fileSystems."/home/detroyejr/SD" = {
-    device = "/dev/mmcblk0";
+    device = "/dev/mmcblk0p1";
     fsType = "ext4";
     options = [
-      "users"
       "nofail"
+      "x-systemd.automount"
     ];
   };
 

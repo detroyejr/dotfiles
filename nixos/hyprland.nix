@@ -33,7 +33,7 @@
 
   programs.dconf.enable = true;
 
-  services = lib.mkIf (!config.jovian.steam.autoStart) {
+  services = {
     displayManager = {
       autoLogin = {
         enable = true;
