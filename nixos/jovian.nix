@@ -32,8 +32,10 @@
   };
 
   environment.systemPackages = with pkgs; [
-    plasmadeck-vapor-theme
     heroic
+    plasmadeck-vapor-theme
+    protonup
+    gnutls
     (pkgs.makeDesktopItem {
       name = "Return to Gaming Mode";
       desktopName = "Return to Gaming Mode";
@@ -55,4 +57,10 @@
       };
     })
   ];
+
+  environment.sessionVariables = {
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS =
+      "/home/detroyejr/.steam/root/compatibilitytools.d";
+  };
+
 }
