@@ -93,5 +93,5 @@
     ];
   };
 
-  hardware.nvidia.open = isNvidia;
+  hardware.nvidia.open = pkgs.lib.mkDefault isNvidia;
 }
