@@ -8,4 +8,5 @@ Contents:
 * Hyprland/Waybar/Wofi
 
 ![](screenshot.png)
-![](rofi.png)
+
+[Wallpaper](https://unsplash.com/photos/brown-mountains-under-blue-sky-4wzRuAb-KWs)
