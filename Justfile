@@ -12,7 +12,6 @@ switch system: setup
 
 core:
   just build xps build mini build skate
-  just git-update-lock
 
 checkout-lockfile: setup
   git checkout origin/update_flake_lock_action --detach
