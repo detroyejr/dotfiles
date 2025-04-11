@@ -1,4 +1,3 @@
-
 default:
   just --list
 
@@ -15,9 +14,14 @@ core:
   just build xps build mini build skate
   just git-update-lock
 
-git-update-lock: setup
+checkout-lockfile: setup
+  git checkout origin/update_flake_lock_action --detach
+  git rebase origin/main
+
+rebase-lockfile: setup
 	git checkout main && \
 		git pull --rebase && \
 		git rebase origin/update_flake_lock_action && \
 		git push -u origin main
 
+ci: checkout-lockfile core rebase-lockfile
