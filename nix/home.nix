@@ -35,8 +35,8 @@
     file
     fzf
     gh
-    gnumake
     jq
+    just
     kubectl
     lsd
     lsof
