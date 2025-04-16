@@ -4,6 +4,9 @@ default:
 setup: 
   eval $(ssh-agent) && ssh-add ~/.ssh/github_rsa
 
+pull: setup
+  git pull --rebase
+
 build system: setup
   sudo nixos-rebuild build --flake $HOME/.config/dotfiles#{{system}}
 
