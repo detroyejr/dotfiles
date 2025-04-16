@@ -11,7 +11,7 @@ build system: setup
   sudo nixos-rebuild build --flake $HOME/.config/dotfiles#{{system}}
 
 switch system: setup
-  sudo nixos-rebuild build --flake $HOME/.config/dotfiles#{{system}}
+  sudo nixos-rebuild switch --flake $HOME/.config/dotfiles#{{system}}
 
 core:
   just build xps build mini build skate
