@@ -9,5 +9,6 @@
 
   home.packages = with pkgs; [
     nil
+    clang-tools
   ];
 }
