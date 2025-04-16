@@ -2,7 +2,6 @@ return {
   "folke/snacks.nvim",
   lazy = false,
   opts = {
-
     animate = { enabled = true },
     explorer = {
       enabled = true,
