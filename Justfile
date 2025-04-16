@@ -26,4 +26,4 @@ rebase-lockfile: setup
 		git rebase origin/update_flake_lock_action && \
 		git push -u origin main
 
-ci: checkout-lockfile core rebase-lockfile
+ci: pull checkout-lockfile core rebase-lockfile
