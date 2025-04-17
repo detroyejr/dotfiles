@@ -10,6 +10,10 @@
     ../syncthing.nix
   ];
 
+  environment.systemPackages = with pkgs; [
+    plex-htpc
+  ];
+
   fileSystems."/home/detroyejr/SD" = {
     device = "/dev/mmcblk0p1";
     fsType = "ext4";
@@ -37,7 +41,6 @@
   services.openssh.authorizedKeysFiles = [
     "/home/detroyejr/.ssh/main_server_ed25519.pub"
   ];
-
 
   networking.hostName = "skate";
   services.xserver.enable = true;
