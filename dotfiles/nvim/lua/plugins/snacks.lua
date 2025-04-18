@@ -41,6 +41,13 @@ return {
       desc = "Files",
     },
     {
+      "<space>fw",
+      function()
+        Snacks.picker.grep_word()
+      end,
+      desc = "Words",
+    },
+    {
       "<space>fF",
       function()
         Snacks.picker.grep()
