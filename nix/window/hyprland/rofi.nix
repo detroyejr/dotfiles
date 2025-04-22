@@ -27,6 +27,16 @@ let
       find files -type f -name "*.rasi" -exec sed -i 's/urgent:.*$/urgent: #${colorScheme.colors.base01};/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/[a-j].png/wallpaper.png/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/[a-j].jpg/wallpaper.png/g' {} ';';
+
+      find files -type f -name "powermenu.sh" -exec sed -i "s/hibernate='.*'/hibernate='⏻'/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/shutdown='.*'/shutdown='󰤂'/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/reboot='.*'/reboot='󰤁'/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/lock='.*'/lock=''/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/suspend='.*'/suspend=''/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/logout='.*'/logout='󰠚'/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/yes='.*'/yes='󰔓'/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/no='.*'/no='󰔑'/g" {} ';';
+
       cp ${rofi-background} files/images/wallpaper.png
     '';
   };
@@ -40,7 +50,7 @@ in
   home.file.".config/rofi/".source = rofi-themes + "/files";
   home.file.".local/bin/rofi-launcher" = {
     text = ''
-      dir="$HOME/.config/rofi/launchers/type-7"
+      dir="$HOME/.config/rofi/launchers/type-6"
       theme='style-3'
 
       ## Run
