@@ -17,21 +17,11 @@ return {
       capabilities = require('cmp_nvim_lsp').default_capabilities()
     }
 
-    local signs = {
-      { name = "DiagnosticSignError", text = "" },
-      { name = "DiagnosticSignWarn", text = "" },
-      { name = "DiagnosticSignHint", text = "" },
-      { name = "DiagnosticSignInfo", text = "" },
-    }
-
-    local config = {
-      virtual_text = true,
-      signs = {
-        active = signs,
-      },
-      update_in_insert = true,
-      underline = true,
+    vim.diagnostic.config({
       severity_sort = true,
+      underline = true,
+      update_in_insert = true,
+      virtual_text = true,
       float = {
         focusable = false,
         style = "minimal",
@@ -40,8 +30,21 @@ return {
         header = "",
         prefix = "",
       },
-    }
-    vim.diagnostic.config(config)
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = " ",
+          [vim.diagnostic.severity.WARN] = " ",
+          [vim.diagnostic.severity.INFO] = "󰋼 ",
+          [vim.diagnostic.severity.HINT] = "󰌵 ",
+        },
+        numhl = {
+          [vim.diagnostic.severity.ERROR] = "",
+          [vim.diagnostic.severity.WARN] = "",
+          [vim.diagnostic.severity.HINT] = "",
+          [vim.diagnostic.severity.INFO] = "",
+        },
+      },
+    })
 
     for _, server in pairs(servers) do
       local ok, setting = pcall(require, "plugins.settings." .. server)
@@ -51,10 +54,6 @@ return {
       else
         lspconfig[server].setup(opts)
       end
-    end
-
-    for _, sign in ipairs(signs) do
-      vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
     end
   end,
   keys = {
