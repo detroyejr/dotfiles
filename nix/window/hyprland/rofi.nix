@@ -18,6 +18,7 @@ let
       cp -r . $out;
     '';
     patchPhase = ''
+      # Patch font, colors, and wallpaper.
       find files -type f -name "*.rasi" -exec sed -i 's/font:.*$/font: "Input Sans 12";/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/background:.*$/background: #${colorScheme.colors.base00};/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/background-alt:.*$/background-alt: #${colorScheme.colors.base01};/g' {} ';';
@@ -28,14 +29,16 @@ let
       find files -type f -name "*.rasi" -exec sed -i 's/[a-j].png/wallpaper.png/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/[a-j].jpg/wallpaper.png/g' {} ';';
 
-      find files -type f -name "powermenu.sh" -exec sed -i "s/hibernate='.*'/hibernate='⏻'/g" {} ';';
-      find files -type f -name "powermenu.sh" -exec sed -i "s/shutdown='.*'/shutdown='󰤂'/g" {} ';';
-      find files -type f -name "powermenu.sh" -exec sed -i "s/reboot='.*'/reboot='󰤁'/g" {} ';';
+      # Patch powermenu icons.
+      find files -type f -name "powermenu.sh" -exec sed -i "s/hibernate='.*'/hibernate='󰤄'/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/shutdown='.*'/shutdown='⏻'/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/reboot='.*'/reboot='󰜉'/g" {} ';';
       find files -type f -name "powermenu.sh" -exec sed -i "s/lock='.*'/lock=''/g" {} ';';
-      find files -type f -name "powermenu.sh" -exec sed -i "s/suspend='.*'/suspend=''/g" {} ';';
-      find files -type f -name "powermenu.sh" -exec sed -i "s/logout='.*'/logout='󰠚'/g" {} ';';
-      find files -type f -name "powermenu.sh" -exec sed -i "s/yes='.*'/yes='󰔓'/g" {} ';';
-      find files -type f -name "powermenu.sh" -exec sed -i "s/no='.*'/no='󰔑'/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/suspend='.*'/suspend='󰾊'/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/logout='.*'/logout='󰍃'/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/yes='.*'/yes=''/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/no='.*'/no='󰬟'/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s/\".*\$uptime\"/\" Uptime: \$uptime\"/g" {} ';';
 
       cp ${rofi-background} files/images/wallpaper.png
     '';
