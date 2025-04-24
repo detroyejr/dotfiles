@@ -86,7 +86,7 @@
     },
     "custom/power": {
       "format": "⏻",
-      "on-click": "bash -c 'hyprctl dispatch exec \"$HOME/.config/rofi/powermenu/type-5/powermenu.sh\"'"
+      "on-click": "bash -c 'hyprctl dispatch exec \"$HOME/.config/rofi/powermenu/type-6/powermenu.sh\"'"
     },
     "pulseaudio/slider": {
       "min": 0,
