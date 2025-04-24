@@ -39,6 +39,7 @@ let
       find files -type f -name "powermenu.sh" -exec sed -i "s/yes='.*'/yes=''/g" {} ';';
       find files -type f -name "powermenu.sh" -exec sed -i "s/no='.*'/no='󰬟'/g" {} ';';
       find files -type f -name "powermenu.sh" -exec sed -i "s/\".*\$uptime\"/\" Uptime: \$uptime\"/g" {} ';';
+      find files -type f -name "powermenu.sh" -exec sed -i "s///g" {} ';';
 
       cp ${rofi-background} files/images/wallpaper.png
     '';
