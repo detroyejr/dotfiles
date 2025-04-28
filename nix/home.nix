@@ -108,7 +108,7 @@
         };
       });
     };
-    initExtra = ''
+    initContent = ''
       # ZSH Options
       DISABLE_AUTO_TITLE=true
       ZSH_TMUX_AUTOSTART=true
