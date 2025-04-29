@@ -10,7 +10,6 @@
     ../devices.nix
     ../fonts.nix
     ../hyprland.nix
-    ../llm.nix
     ../openrgb.nix
     ../rclone.nix
     ../sops.nix

@@ -21,7 +21,7 @@ in
   # services.ollama.host = "0.0.0.0";
 
   # Llama CPP
-  services.llama-cpp.enable = false;
+  services.llama-cpp.enable = true;
   services.llama-cpp.model = "${models}/Qwen3-32B-Q3_K_M.gguf";
   services.llama-cpp.extraFlags = [
     "-ngl"
