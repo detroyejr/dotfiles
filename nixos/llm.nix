@@ -2,10 +2,10 @@
 
 let
   models = pkgs.linkFarm "llm-models" {
-  "Qwen3-32B-Q3_K_M.gguf" = pkgs.fetchurl {
-    name = "Qwen3-32B-Q3_K_M.gguf";
-    url = "https://huggingface.co/unsloth/Qwen3-32B-GGUF/resolve/main/Qwen3-32B-Q3_K_M.gguf?download=true";
-    sha256 = "sha256-84s/xfEHxz3VbvdQ+JfkYZYTthcEgg1Y1S8uwPcC6zM=";
+  "Qwen3-30B-A3B-GGUF.gguf" = pkgs.fetchurl {
+    name = "Qwen3-30B-A3B-GGUF.gguf";
+    url = "https://huggingface.co/unsloth/Qwen3-30B-A3B-GGUF/resolve/main/Qwen3-30B-A3B-UD-IQ1_S.gguf?download=true";
+    sha256 = "";
   };
 };
 in
@@ -22,7 +22,7 @@ in
 
   # Llama CPP
   services.llama-cpp.enable = true;
-  services.llama-cpp.model = "${models}/Qwen3-32B-Q3_K_M.gguf";
+  services.llama-cpp.model = "${models}/Qwen3-30B-A3B-GGUF.gguf";
   services.llama-cpp.extraFlags = [
     "-ngl"
     "99" 
