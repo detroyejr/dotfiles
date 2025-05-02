@@ -58,17 +58,6 @@ final: prev: {
       ];
     };
 
-  obs-studio-plugins = prev.obs-studio-plugins // {
-    obs-hyperion = prev.obs-studio-plugins.obs-hyperion.overrideAttrs {
-      patches = [
-        (final.fetchpatch {
-          url = "https://raw.githubusercontent.com/detroyejr/nixpkgs/897380107dfeedf4f352565c3f808067b16c7f06/pkgs/applications/video/obs-studio/plugins/obs-hyperion/check-state-changed.patch";
-          hash = "sha256-HF7zWfPTAiBSNDYqBzEkaBFmk0xyqiIH01lE5CDWVWk=";
-        })
-      ];
-    };
-  };
-
   plasmadeck-vapor-theme =
     let
       pname = "plasmadeck-vapor-theme";
