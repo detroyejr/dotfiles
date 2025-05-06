@@ -30,6 +30,7 @@
     bat
     bc
     curl
+    fastfetch
     fd
     ffmpeg
     file
@@ -40,7 +41,6 @@
     kubectl
     lsd
     lsof
-    neofetch
     nitch
     nixfmt-rfc-style
     ollama
