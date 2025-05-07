@@ -30,6 +30,7 @@
     bat
     bc
     curl
+    eza
     fastfetch
     fd
     ffmpeg
@@ -39,7 +40,6 @@
     jq
     just
     kubectl
-    lsd
     lsof
     nitch
     nixfmt-rfc-style
@@ -76,8 +76,8 @@
     autosuggestion.enable = true;
     shellAliases = {
       k = "kubectl";
-      ll = "lsd -l";
-      ls = "lsd";
+      ll = "eza -l";
+      ls = "eza";
       pwsh = "pwsh.exe";
       ssh = "TERM=xterm-256color ssh";
       st = "set-title";
