@@ -1,42 +1,32 @@
--- Use ark with nvim-lspconfig.
+-- Use ark with builtin nvim lsp.
 
-local lsp = require 'lspconfig'
-local configs = require 'lspconfig.configs'
+vim.lsp.config["ark"] = {
+  cmd = { "ark-lsp.py" },
+  filetypes = { 'r', 'R' },
+  root_markers = {
+    '.rproj',
+    '.Rproj',
+    '.RPROJ',
+    '.RProj',
+    'DESCRIPTION',
+    'NAMESPACE',
+    '.git'
+  },
+}
 
-local rpattern = lsp.util.root_pattern(
-  "DESCRIPTION",
-  "NAMESPACE",
-  ".Rbuildignore",
-  ".RProj",
-  ".Rproj",
-  ".rproj"
-)
+vim.lsp.config["air"] = {
+  cmd = { "air", "language-server" },
+  filetypes = { 'r', 'R' },
+  root_markers = {
+    '.rproj',
+    '.Rproj',
+    '.RPROJ',
+    '.RProj',
+    'DESCRIPTION',
+    'NAMESPACE',
+    '.git'
+  },
+}
 
-if not configs.ark then
-  configs.ark = {
-    default_config = {
-      cmd = { "ark-lsp.py" },
-      filetypes = { 'r', 'R' },
-      single_file_support = true,
-      root_dir = function(fname)
-        return rpattern(fname) or vim.loop.os_homedir()
-      end,
-    },
-  }
-end
-
-if not configs.air then
-  configs.air = {
-    default_config = {
-      cmd = { "air", "language-server" },
-      filetypes = { 'r', 'R' },
-      single_file_support = true,
-      root_dir = function(fname)
-        return rpattern(fname) or vim.loop.os_homedir()
-      end,
-    },
-  }
-end
-
-lsp.ark.setup {}
-lsp.air.setup {}
+vim.lsp.enable("ark")
+vim.lsp.enable("air")
