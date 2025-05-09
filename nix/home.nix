@@ -53,7 +53,6 @@
     xclip
     yazi
     yt-dlp
-    zsh-powerlevel10k
   ];
 
   programs.bash.enable = true;
@@ -63,90 +62,8 @@
     enableZshIntegration = true;
   };
 
-  # Theme for Powerlevel10k.
-  home.file.".p10k.zsh".source = ../dotfiles/zsh/.p10k.zsh;
-
   home.sessionVariables = {
     "OLLAMA_HOST" = "mini-1.lan";
-  };
-
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestion.enable = true;
-    shellAliases = {
-      k = "kubectl";
-      ll = "eza -l";
-      ls = "eza";
-      pwsh = "pwsh.exe";
-      ssh = "TERM=xterm-256color ssh";
-      st = "set-title";
-      tf = "tmux-fzf";
-      vim = "nvim";
-      rm = "rm -I";
-    };
-    plugins = [
-      {
-        name = "powerlevel10k";
-        src = pkgs.zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-    ];
-    oh-my-zsh = {
-      enable = true;
-      plugins = [
-        "git"
-        "tmux"
-      ];
-      theme = "robbyrussell";
-      package = pkgs.oh-my-zsh.overrideAttrs (old: {
-        src = pkgs.fetchFromGitHub {
-          owner = "ohmyzsh";
-          repo = "ohmyzsh";
-          rev = "695c7456d1a84697e9b86e11e839d5178cae743a";
-          sha256 = "sha256-jFCqNVeX4LQhBQVicBhRNEIB+Ivo095cw/qyXFgbMoc=";
-        };
-      });
-    };
-    initContent = ''
-      # ZSH Options
-      DISABLE_AUTO_TITLE=true
-      ZSH_TMUX_AUTOSTART=true
-      ZSH_TMUX_AUTOCONNECT=true
-
-      export PATH=$PATH:/home/detroyejr/.nix-profile/bin
-      [[ -f $HOME/.nix-profile/etc/profile.d/nix.sh ]] && . $HOME/.nix-profile/etc/profile.d/nix.sh
-      [[ -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]] && . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-      source $HOME/.zsh/plugins/powerlevel10k/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      source $HOME/.p10k.zsh
-
-      export EDITOR=nvim
-
-      if [ -d "$HOME/.local/bin/" ] ; then
-          PATH="$HOME/.local/bin/:$PATH"
-      fi
-
-      if [ -d "$HOME/.local/bin/bash/" ] ; then
-          PATH="$HOME/.local/bin/bash/:$PATH"
-      fi
-
-      [[ -f $HOME/.local/.secrets ]] && export $(cat ~/.local/.secrets)
-
-      bindkey ^R history-incremental-search-backward
-      bindkey ^S history-incremental-search-forward
-
-      eval "$(direnv hook zsh)"
-
-      # Yazi
-      function ya() {
-        local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
-        yazi "$@" --cwd-file="$tmp"
-        if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-          cd -- "$cwd"
-        fi
-        rm -f -- "$tmp"
-      }
-    '';
   };
 
   programs.tmux = {

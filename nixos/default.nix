@@ -1,5 +1,9 @@
 { pkgs, isNvidia, ... }:
 {
+  imports = [
+    ./zsh.nix
+  ];
+
   i18n.defaultLocale = "en_US.UTF-8";
   networking.networkmanager.enable = true;
   nix = {
@@ -70,7 +74,7 @@
           "mini-5"
         ];
   };
-  programs.zsh.enable = true;
+
   programs.ssh.startAgent = true;
   services.ntp.enable = true;
   time.timeZone = "America/New_York";
