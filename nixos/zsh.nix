@@ -12,10 +12,48 @@ let
       find $out/bin -exec chmod +x {} \;
     '';
   };
+
+  btop-conf = pkgs.writeTextFile {
+    name = "btop.conf";
+    text = ''
+      color_theme = "TTY" 
+      vim_keys = True
+    '';
+  };
+
 in
 {
-  environment.systemPackages = [
+  # Packages that should be installed to the user profile.
+  environment.systemPackages = with pkgs; [
+    awscli2
+    bat
+    bc
+    btop
+    curl
     custom-scripts
+    eza
+    fastfetch
+    fd
+    ffmpeg
+    file
+    fzf
+    gh
+    jq
+    just
+    kubectl
+    lsof
+    nitch
+    nixfmt-rfc-style
+    ollama
+    openssh
+    qsv
+    ripgrep
+    tree
+    unzip
+    wget
+    xclip
+    yazi
+    yt-dlp
   ];
 
   programs.zsh = {
@@ -32,6 +70,7 @@ in
       tf = "tmux-fzf";
       vim = "nvim";
       rm = "rm -I";
+      btop = "btop --config ${btop-conf}";
     };
     ohMyZsh = {
       enable = true;

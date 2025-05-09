@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -23,59 +23,6 @@
       videos = "$HOME/Documents/Videos";
     };
   };
-
-  # Packages that should be installed to the user profile.
-  home.packages = with pkgs; [
-    awscli2
-    bat
-    bc
-    curl
-    eza
-    fastfetch
-    fd
-    ffmpeg
-    file
-    fzf
-    gh
-    jq
-    just
-    kubectl
-    lsof
-    nitch
-    nixfmt-rfc-style
-    ollama
-    openssh
-    qsv
-    ripgrep
-    tree
-    unzip
-    wget
-    xclip
-    yazi
-    yt-dlp
-  ];
-
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.mcfly = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.btop = {
-    enable = true;
-    settings = {
-      color_theme = "TTY";
-      vim_keys = true;
-    };
-  };
-
-  home.file.".digrc".text = ''
-    +noall +answer
-  '';
 
   home.stateVersion = "23.11";
 }
