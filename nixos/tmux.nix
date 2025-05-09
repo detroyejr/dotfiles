@@ -9,7 +9,6 @@
     plugins = with pkgs.tmuxPlugins; [
       yank
       sensible
-      rose-pine
     ];
     extraConfig = ''
       # Get 256 colors in Windows Terminal/WSL2.
@@ -28,14 +27,7 @@
       bind '"' split-window -v -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
 
-      # List of plugins.
-      # set -g @plugin 'jimeh/tmux-themepack'
-      # set -g @plugin 'sainnhe/tmux-fzf'
-      # set -g @plugin 'tmux-plugins/tmux-sensible'
-      # set -g @plugin 'tmux-plugins/tmux-yank'
-      # set -g @plugin 'tmux-plugins/tpm'
-      # set -g @themepack 'basic'
-      # run '$HOME/.tmux/plugins/tpm/tpm'
+      set-option -g status-style bg=default
     '';
   };
 }
