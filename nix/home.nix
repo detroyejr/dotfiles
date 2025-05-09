@@ -60,8 +60,6 @@
     enableZshIntegration = true;
   };
 
-  home.file.".local/bin/bash".source = ../dotfiles/bash;
-
   programs.mcfly = {
     enable = true;
     enableZshIntegration = true;

@@ -260,20 +260,6 @@ in
     wallpaper = HDMI-A-1,${builtins.toString wallpaper}
   '';
 
-  home.file.".local/bin/disable-laptop" = {
-    text = ''
-      for display in `ps aux | grep -oE "/usr/bin/X\s[^ ]+" | cut -d " " -f 2`; do
-          xset -display $display dpms force on;
-      done
-
-      if [[ `hyprctl monitors | grep "Monitor" | wc -l` != 1 ]]; then
-          export GDK_SCALE=1
-          hyprctl keyword monitor "eDP-1, disable"
-      fi
-    '';
-    executable = true;
-  };
-
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
