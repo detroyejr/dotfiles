@@ -1,6 +1,7 @@
 { pkgs, isNvidia, ... }:
 {
   imports = [
+    ./tmux.nix
     ./zsh.nix
   ];
 
