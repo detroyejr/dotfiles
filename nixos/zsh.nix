@@ -38,8 +38,6 @@
           PATH="$HOME/.local/bin/bash/:$PATH"
       fi
 
-      eval "$(direnv hook zsh)"
-
       # Yazi
       function ya() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
@@ -49,6 +47,8 @@
         fi
         rm -f -- "$tmp"
       }
+
+      eval "$(direnv hook zsh)"
     '';
   };
 }
