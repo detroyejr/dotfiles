@@ -57,11 +57,12 @@ in
     env = QT_QPA_PLATFORMTHEME,qt5ct;
     env = QT_AUTO_SCALE_SCREEN_FACTOR,1
     env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
-    env = TERMINAL,kitty;
+    env = TERMINAL,wezterm;
 
     exec-once = hyprctl dispatch dpms on &
     exec-once = hyprpaper & swaync & waybar & hyprlock & kanshi &
     exec-once = hyprctl setcursor Bibata-Modern-Ice 14
+    exec-once = $TERMINAL
 
     windowrule = float,title:^(Rofi)$
     windowrule = center,title:^(Rofi)$
