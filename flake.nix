@@ -127,7 +127,7 @@
         "mini" = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
-            inherit inputs outputs system;
+            inherit inputs outputs system colorScheme colorSchemeName;
             isNvidia = false;
             isFprint = false;
           };
@@ -143,7 +143,7 @@
         "skate" = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
-            inherit inputs outputs system;
+            inherit inputs outputs system colorScheme colorSchemeName;
             isNvidia = false;
             isFprint = false;
           };
@@ -158,7 +158,7 @@
         "tower" = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
-            inherit inputs outputs system;
+            inherit inputs outputs system colorScheme colorSchemeName;
             isNvidia = false;
             isFprint = false;
           };
@@ -179,7 +179,7 @@
         "brick" = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
-            inherit inputs outputs system;
+            inherit inputs outputs system colorScheme colorSchemeName;
             isNvidia = true;
             isFprint = false;
           };
@@ -211,7 +211,7 @@
         "potato" = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
-            inherit inputs outputs system;
+            inherit inputs outputs system colorScheme colorSchemeName;
             isNvidia = false;
             isFprint = false;
           };
