@@ -1,5 +1,5 @@
 return {
-  cmd = { "ark-lsp.py" },
+  cmd = { "ark-lsp" },
   filetypes = { 'r', 'R' },
   root_markers = {
     '.rproj',

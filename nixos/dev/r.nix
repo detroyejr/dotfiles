@@ -72,7 +72,7 @@ let
   };
 in
 {
-  home.packages = [
+  environment.systemPackages = [
     R-with-packages
     ark-posit
     air-formatter
@@ -117,7 +117,4 @@ in
   programs.zsh.shellAliases = {
     R = "R --no-save --no-restore";
   };
-
-  home.file.".radian_profile".source = ../../dotfiles/R/.radian_profile;
-  home.file.".Rprofile".source = ../../dotfiles/R/.Rprofile;
 }

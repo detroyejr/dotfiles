@@ -68,7 +68,6 @@ in
       ssh = "TERM=xterm-256color ssh";
       st = "set-title";
       tf = "tmux-fzf";
-      vim = "nvim";
       rm = "rm -I";
       btop = "btop --config ${btop-conf}";
     };

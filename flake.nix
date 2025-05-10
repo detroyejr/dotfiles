@@ -73,7 +73,6 @@
         };
         modules = [
           ./nix/home.nix
-          ./nix/dev
           ./nix/window/hyprland
         ];
       };
@@ -106,7 +105,6 @@
         };
         modules = [
           ./nix/home.nix
-          ./nix/dev
         ];
       };
 
@@ -114,7 +112,7 @@
         "xps" = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
-            inherit inputs outputs system;
+            inherit inputs outputs system colorScheme colorSchemeName;
             isNvidia = true;
             isFprint = true;
           };
@@ -173,9 +171,6 @@
               home-manager.users.detroyejr = {
                 imports = [
                   ./nix/home.nix
-                  ./nix/dev/neovim.nix
-                  ./nix/dev/git.nix
-                  ./nix/dev/python.nix
                 ];
               };
             }
@@ -208,7 +203,6 @@
               home-manager.users.detroyejr = {
                 imports = [
                   ./nix/home.nix
-                  ./nix/dev
                 ];
               };
             }
@@ -238,7 +232,6 @@
               home-manager.users.detroyejr = {
                 imports = [
                   ./nix/home.nix
-                  ./nix/dev
                   ./nix/window/hyprland/wezterm.nix
                   ./nix/window/hyprland/kitty.nix
                 ];
