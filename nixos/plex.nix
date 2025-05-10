@@ -9,6 +9,5 @@
     enable = true;
     openFirewall = true;
     accelerationDevices = [ "*" ];
-    user = "root";
   };
 }
