@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -36,7 +35,6 @@
       nixos-hardware,
       hyprland,
       jovian,
-      nixos-cosmic,
       sops-nix,
       ...
     }@inputs:
@@ -217,7 +215,6 @@
           };
           modules = [
             ./nixos/potato/configuration.nix
-            nixos-cosmic.nixosModules.default
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
