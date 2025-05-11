@@ -38,6 +38,7 @@ in
   home.file.".config/hypr/hyprland.conf".text = with colorScheme.colors; ''
     # change monitor to high resolution, the last argument is the scale factor
 
+    $TERMINAL = wezterm
     
     monitor=eDP-1,preferred,auto,2
     monitor=HDMI-A-1,preferred,auto,2
@@ -58,7 +59,7 @@ in
     env = QT_QPA_PLATFORMTHEME,qt5ct;
     env = QT_AUTO_SCALE_SCREEN_FACTOR,1
     env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
-    env = TERMINAL,wezterm;
+    env = TERMINAL,$TERMINAL;
 
     exec-once = hyprctl dispatch dpms on &
     exec-once = hyprpaper & swaync & waybar & hyprlock & kanshi &
