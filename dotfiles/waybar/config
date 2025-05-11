@@ -34,7 +34,7 @@
         "interface": ["wlp0s20f3", "wlp2s0"],
         "format": "{bandwidthTotalBits}",
         "format-wifi": "{bandwidthTotalBits} ",
-        "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+        "format-ethernet": "{bandwidthTotalBits} 󰊗",
         "format-disconnected": "",
         "tooltip-format": "{ifname} via {gwaddr} 󰊗",
         "tooltip-format-wifi": "{ipaddr} via {ifname} 󰊗",
