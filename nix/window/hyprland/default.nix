@@ -39,13 +39,13 @@ in
     # change monitor to high resolution, the last argument is the scale factor
 
     $TERMINAL = wezterm
-    
+
     monitor=eDP-1,preferred,auto,2
     monitor=HDMI-A-1,preferred,auto,2
     monitor=,highres,auto,1
 
     ${lib.optionalString (osConfig.system.name == "skate") ''
-    monitor=eDP-1,preferred,auto,1,transform,3
+      monitor=eDP-1,preferred,auto,1,transform,3
     ''}
 
     debug:disable_logs = false
@@ -254,7 +254,7 @@ in
     preload = ${builtins.toString wallpaper}
 
     ${lib.optionalString (osConfig.system.name == "skate") ''
-    wallpaper = DP-1,${builtins.toString wallpaper}
+      wallpaper = DP-1,${builtins.toString wallpaper}
     ''}
 
     wallpaper = DP-7,${builtins.toString wallpaper}

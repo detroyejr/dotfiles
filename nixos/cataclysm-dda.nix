@@ -28,19 +28,19 @@ let
 
   customMods =
     self: super:
-    let 
+    let
       version = "2024-10-27";
     in
-      lib.recursiveUpdate super {
-        soundpack.CC-Sounds = cddaLib.buildSoundPack {
-          inherit version;
-          modName = "CC-Sounds";
-          src = pkgs.fetchzip {
-            url = "https://github.com/Fris0uman/CDDA-Soundpacks/releases/download/${version}/CC-Sounds.zip";
-            hash = "sha256-Or2gXcaVtcS7NPWKPvy5Lo4BgyrrU1kZpYLcyOuVxZM=";
-          };
+    lib.recursiveUpdate super {
+      soundpack.CC-Sounds = cddaLib.buildSoundPack {
+        inherit version;
+        modName = "CC-Sounds";
+        src = pkgs.fetchzip {
+          url = "https://github.com/Fris0uman/CDDA-Soundpacks/releases/download/${version}/CC-Sounds.zip";
+          hash = "sha256-Or2gXcaVtcS7NPWKPvy5Lo4BgyrrU1kZpYLcyOuVxZM=";
         };
       };
+    };
 
   cdda = (cddaLib.attachPkgs cddaLib.pkgs cdda-no-mod).withMods (
     mods: with mods.extend customMods; [

@@ -1,4 +1,9 @@
-{ pkgs,lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
 
   input-fonts-nf = pkgs.input-fonts.overrideAttrs (oldAttrs: {
@@ -9,7 +14,7 @@ let
       done
     '';
   });
-  in
+in
 {
 
   fonts = {

@@ -18,8 +18,8 @@
   programs.firefox.enable = true;
   environment.systemPackages = [
     pkgs.calibre
-    pkgs.obsidian 
-    pkgs.plex-desktop 
+    pkgs.obsidian
+    pkgs.plex-desktop
   ];
 
   system.stateVersion = "24.05"; # Did you read the comment?
