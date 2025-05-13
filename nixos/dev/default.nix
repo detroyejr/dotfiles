@@ -8,8 +8,9 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    nil
     clang-tools
+    gcc
+    nil
   ];
 
   programs.direnv = {
