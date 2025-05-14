@@ -8,10 +8,10 @@ pull: setup
   git pull --rebase
 
 build system: setup
-  sudo nixos-rebuild build --flake $HOME/.config/dotfiles#{{system}}
+  nixos-rebuild build --flake /home/detroyejr/.config/dotfiles#{{system}}
 
 switch system: setup
-  sudo nixos-rebuild switch --flake $HOME/.config/dotfiles#{{system}}
+  nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#{{system}}
 
 core:
   just build xps build mini build skate
