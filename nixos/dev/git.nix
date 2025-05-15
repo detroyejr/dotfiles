@@ -15,6 +15,10 @@
       pull = {
         rebase = true;
       };
+      # NOTE: Root does not own this directory therefore it's unsafe.
+      safe = {
+        directory = [ "/home/detroyejr/.config/dotfiles" ];
+      };
     };
   };
 }
