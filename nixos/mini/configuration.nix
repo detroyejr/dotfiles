@@ -84,13 +84,13 @@
   };
 
   systemd.services.build-hook = {
-    path = with pkgs; [ 
-        nixos-rebuild
-        git
-        openssh
-        bash
-        nmap
-        just
+    path = with pkgs; [
+      nixos-rebuild
+      git
+      openssh
+      bash
+      nmap
+      just
     ];
     script = ''
       export ISDENIED=$(
@@ -110,7 +110,10 @@
 
       echo "Done!"
     '';
-    serviceConfig = { User = "root"; Type = "oneshot"; };
+    serviceConfig = {
+      User = "root";
+      Type = "oneshot";
+    };
   };
 
   systemd.timers.build-hook = {
