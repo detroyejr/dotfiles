@@ -16,6 +16,7 @@
     ../steam.nix
     ../syncthing.nix
     ../thunar.nix
+    ../wireshark.nix
     ../virtualization.nix
     # ../lichess
   ];
