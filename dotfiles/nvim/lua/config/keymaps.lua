@@ -71,8 +71,8 @@ elseif tmux then
 		.. "tmux paste-buffer<CR><CR>"
 	)
 else
-  vim.keymap.set("n", "<C-A-x>", "yy<C-w><C-w><C-\\><C-n>pi<CR><C-\\>")
-  vim.keymap.set("v", "<C-A-x>", "y<C-w><C-w><C-\\><C-n>pi<CR><C-\\>")
+  vim.keymap.set("n", "<C-A-x>", "yy<C-w><C-w><C-\\><C-n>pi<CR><C-\\><CR>")
+  vim.keymap.set("v", "<C-A-x>", "y<C-w><C-w><C-\\><C-n>pi<CR><C-\\><CR>")
 end
 
 -- avoid freezing the vim process forever when on windows, see
