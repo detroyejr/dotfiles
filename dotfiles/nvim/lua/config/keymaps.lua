@@ -38,7 +38,7 @@ if tmux and wsl then
 	vim.keymap.set(
 		"n",
 		"<C-A-x>",
-		"yy:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
+		"yy:!tmux 'last-pane'"
 		.. "| win32yank.exe -o"
 		.. "| tmux load-buffer - ;"
 		.. "tmux paste-buffer<CR>"
@@ -47,7 +47,7 @@ if tmux and wsl then
 	vim.keymap.set(
 		"v",
 		"<C-A-x>",
-		"y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
+		"y:!tmux 'last-pane'"
 		.. "| win32yank.exe -o"
 		.. "| tmux load-buffer - ;"
 		.. "tmux paste-buffer<CR><CR>"
@@ -56,7 +56,7 @@ elseif tmux then
 	vim.keymap.set(
 		"n",
 		"<C-A-x>",
-		"yy:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
+		"yy:!tmux 'last-pane'"
 		.. "| wl-paste"
 		.. "| tmux load-buffer - ;"
 		.. "tmux paste-buffer<CR><CR>"
@@ -65,14 +65,14 @@ elseif tmux then
 	vim.keymap.set(
 		"v",
 		"<C-A-x>",
-		"y:!tmux if-shell 'test \\#{window_panes} -gt 1' 'last-pane' 'last-window'"
+		"y:!tmux 'last-pane'"
 		.. "| wl-paste"
 		.. "| tmux load-buffer - ;"
 		.. "tmux paste-buffer<CR><CR>"
 	)
 else
-	vim.keymap.set("n", "<C-A-x>", "Vy<C-w>wpa<CR><C-\\><C-n><C-w>pj")
-	vim.keymap.set("v", "<C-A-x>", "y<C-w>wpa<CR><C-\\><C-n><C-w>p")
+  vim.keymap.set("n", "<C-A-x>", "yy<C-w><C-w><C-\\><C-n>pi<CR><C-\\>")
+  vim.keymap.set("v", "<C-A-x>", "y<C-w><C-w><C-\\><C-n>pi<CR><C-\\>")
 end
 
 -- avoid freezing the vim process forever when on windows, see
