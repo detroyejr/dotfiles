@@ -4,23 +4,23 @@ default:
 setup: 
   eval $(ssh-agent) && ssh-add ~/.ssh/github_rsa
 
-pull: setup
+pull:
   git pull --rebase
 
-build system: setup
+build system:
   nixos-rebuild build --flake /home/detroyejr/.config/dotfiles#{{system}}
 
-switch system: setup
+switch system:
   nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#{{system}}
 
 core:
   just build xps build mini build skate
 
-checkout-lockfile: setup
+checkout-lockfile:
   git checkout origin/update_flake_lock_action --detach
   git rebase origin/main
 
-rebase-lockfile: setup
+rebase-lockfile:
 	git checkout main && \
 		git pull --rebase && \
 		git rebase origin/update_flake_lock_action && \
