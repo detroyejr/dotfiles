@@ -85,14 +85,17 @@
 
   systemd.services.build-hook = {
     path = with pkgs; [
-      nixos-rebuild
-      git
-      openssh
       bash
-      nmap
+      gh
+      git
       just
+      nixos-rebuild
+      nmap
+      openssh
     ];
     script = ''
+      gh workflow run --repo detroyejr/dotfiles flake.yml
+
       export ISDENIED=$(
         ncat -l 0.0.0.0 \
           --allow 192.30.252.0/22,185.199.108.0/22,140.82.112.0/20,143.55.64.0/20 \
