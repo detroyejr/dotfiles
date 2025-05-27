@@ -9,7 +9,7 @@ let
           name = "EchelonSurveyTools";
           src = builtins.fetchGit {
             url = "git@github.com:echeloninsights/EchelonSurveyTools.git";
-            rev = "b1af2195138bf5693f12f74017c6ede56052bb00";
+            rev = "1fae6095015f70000f531380b80fd8d94a8461fa";
             allRefs = true;
           };
           buildInputs = [
