@@ -1,6 +1,6 @@
 -- Default LSP Settings
 
-local lsps = { "ark", "air", "pylsp", "nixd", "lua_ls", "clangd" }
+local lsps = { "ark", "air", "pylsp", "ruff", "nixd", "lua_ls", "clangd" }
 
 for _, lsp in ipairs(lsps) do
   vim.lsp.enable(lsp)
