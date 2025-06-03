@@ -10,7 +10,7 @@
   environment.systemPackages = with pkgs; [
     clang-tools
     gcc
-    nil
+    nixd
   ];
 
   programs.direnv = {
