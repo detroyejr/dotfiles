@@ -16,7 +16,7 @@
 
     # : Manager {{{
 
-    [manager]
+    [mgr]
     cwd = { fg = "cyan" }
 
     # Hovered
