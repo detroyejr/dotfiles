@@ -65,6 +65,7 @@ in
     exec-once = hyprpaper & swaync & waybar & hyprlock & kanshi &
     exec-once = hyprctl setcursor Bibata-Modern-Ice 14
     exec-once = $TERMINAL
+    exec-once = [workspace 2 silent;] firefox
 
     windowrule = float,title:^(Rofi)$
     windowrule = center,title:^(Rofi)$
