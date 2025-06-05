@@ -10,6 +10,7 @@
   environment.systemPackages = with pkgs; [
     clang-tools
     gcc
+    lua-language-server
     nixd
   ];
 
