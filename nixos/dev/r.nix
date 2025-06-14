@@ -9,14 +9,14 @@ let
           name = "EchelonSurveyTools";
           src = builtins.fetchGit {
             url = "git@github.com:echeloninsights/EchelonSurveyTools.git";
-            rev = "51052904e8e791c59ef525c6844ec7df05b94370";
+            rev = "395128b5980119804edf842f84dc560b62d77229";
             allRefs = true;
           };
           buildInputs = [
             RMariaDB
             RPostgres
             haven
-            httr
+            httr2
             pkgs.R
             relaimpo
             scales
