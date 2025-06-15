@@ -2,6 +2,37 @@
 # Add custom packages or patches when things break.
 
 final: prev: {
+  whisper-cpp = prev.whisper-cpp.overrideAttrs (attrs: { 
+    src = prev.fetchFromGitHub {
+      owner = "ggml-org";
+      repo = "whisper.cpp";
+      rev = "b175baa665bc35f97a2ca774174f07dfffb84e19";
+      hash = "sha256-GtGzUNpIbS81z7SXFolT866fGfdSjdyf9R+PKlK6oYs=";
+    };
+  });
+  custom-whisper-server = prev.stdenv.mkDerivation {
+    name = "custom-whisper-server";
+    version = "0.1";
+    src = prev.fetchFromGitHub {
+      owner = "detroyejr";
+      repo = "custom-whisper-server";
+      rev = "b3fd552a15cb22f3a47039bb3eb6f2d6b41bba92";
+      hash = "sha256-XvPwIhzFHjpM6MBLV3V5pk5k7p9iITuZZ0Gz7h36xy8=";
+    };
+    buildInputs = with final; [
+      cmake
+      httplib
+      nlohmann_json
+      whisper-cpp
+    ];
+    nativeBuildInputs = [prev.yt-dlp];
+      
+    installPhase = ''
+      mkdir -p $out $out/bin
+      cp custom-whisper-server $out/bin
+      cp ${final.whisper-cpp}/bin/*.so $out/bin
+    '';
+  };
   ark-posit =
     let
       pname = "ark";

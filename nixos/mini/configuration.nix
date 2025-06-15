@@ -6,6 +6,7 @@
     ../actual.nix
     ../binary-cache.nix
     ../brightness.nix
+    ../custom-whisper-server.nix
     ../cataclysm-dda.nix
     ../devices.nix
     ../fonts.nix
@@ -62,6 +63,7 @@
     5678
     7878
     8000
+    8080
     11434
   ];
   networking.firewall.allowedUDPPorts = [
