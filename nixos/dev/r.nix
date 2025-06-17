@@ -111,7 +111,7 @@ in
     #     runHook postInstall
     #   '';
     # }))
-    quarto
+    # quarto
   ];
 
   programs.zsh.shellAliases = {
