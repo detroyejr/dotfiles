@@ -257,6 +257,7 @@ final: prev: {
           cp usr/lib/x86_64-linux-gnu/libwebp.so.6 $out/lib/libwebp.so.6
           cp usr/lib/x86_64-linux-gnu/libxkbfile.so.1 $out/lib/libxkbfile.so.1
           cp usr/lib/x86_64-linux-gnu/libxslt.so.1 $out/lib/libxslt.so.1
+          cp usr/lib/x86_64-linux-gnu/libxml2.so.2 $out/lib/libxml2.so.2
 
           runHook postInstall
         '';
