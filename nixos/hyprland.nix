@@ -35,13 +35,13 @@
 
   services = {
     displayManager = {
+      gdm.enable = true;
       autoLogin = {
         enable = true;
         user = "detroyejr";
       };
     };
     xserver = {
-      displayManager.gdm.enable = true;
       enable = true;
       videoDrivers = lib.mkIf isNvidia [ "nvidia" ];
     };
