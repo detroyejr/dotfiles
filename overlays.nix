@@ -16,8 +16,8 @@ final: prev: {
     src = prev.fetchFromGitHub {
       owner = "detroyejr";
       repo = "custom-whisper-server";
-      rev = "b3fd552a15cb22f3a47039bb3eb6f2d6b41bba92";
-      hash = "sha256-XvPwIhzFHjpM6MBLV3V5pk5k7p9iITuZZ0Gz7h36xy8=";
+      rev = "d23c4fc31c71904ee3c7202dc554ea0eb46d6ede";
+      hash = "sha256-HBzUVPo+A+8RR/D1Tj+fXN+Y88tgXuQmcWd7/RiDM24=";
     };
     buildInputs = with final; [
       cmake
