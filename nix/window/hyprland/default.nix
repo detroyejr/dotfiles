@@ -94,14 +94,7 @@ in
         kb_model =
         kb_options =
         kb_rules =
-
         follow_mouse = 1
-
-        touchpad {
-            natural_scroll = yes
-            scroll_factor = 0.5
-        }
-
         sensitivity = 0
         repeat_rate = 80
         repeat_delay = 300
