@@ -43,7 +43,7 @@ let
     label {
       monitor=
       color=rgba(${text_color})
-      font_family=Input Mono
+      font_family=${config.font.name}
       font_size=65
       halign=center
       position=0, 550
@@ -56,7 +56,7 @@ let
     label {
       monitor=
       color=rgba(${text_color})
-      font_family=Input Sans
+      font_family=${config.font.name}
       font_size=35
       halign=center
       position=0, 0

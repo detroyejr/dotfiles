@@ -81,7 +81,7 @@
 
       exec-once = hyprctl dispatch dpms on &
       exec-once = hyprpaper & swaync & waybar & hyprlock & kanshi &
-      exec-once = hyprctl setcursor Bibata-Modern-Ice 14
+      exec-once = hyprctl setcursor ${config.cursor.name} ${config.cursor.size}
       exec-once = $TERMINAL
       exec-once = [workspace 2 silent;] firefox
 

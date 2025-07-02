@@ -1,6 +1,21 @@
 { lib, ... }:
 {
   options = {
+    font = lib.mkOption {
+      default = {
+        name = "Input Mono";
+        size = "11";
+        scale = "1";
+      };
+      type = lib.types.attrs;
+    };
+    cursor = lib.mkOption {
+      default = {
+        name = "Bibata-Modern-Ice";
+        size = "11";
+      };
+      type = lib.types.attrs;
+    };
     colorScheme = {
       name = lib.mkOption {
         default = "rose-pine";

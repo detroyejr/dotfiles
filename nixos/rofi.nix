@@ -17,7 +17,7 @@ let
     '';
     patchPhase = ''
       # Patch font, colors, and wallpaper.
-      find files -type f -name "*.rasi" -exec sed -i 's/font:.*$/font: "Input Sans 12";/g' {} ';';
+      find files -type f -name "*.rasi" -exec sed -i 's/font:.*$/font: "${config.font.name} ${config.font.size}";/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/background:.*$/background: #${config.colorScheme.colors.base00};/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/background-alt:.*$/background-alt: #${config.colorScheme.colors.base01};/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/foreground:.*$/foreground: #${config.colorScheme.colors.base06};/g' {} ';';

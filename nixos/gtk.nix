@@ -23,19 +23,16 @@ in
   ];
 
   environment.sessionVariables = {
-    CURSOR_THEME = "Bibata-Modern-Ice";
-    XCURSOR_THEME = "Bibata-Modern-Ice";
+    CURSOR_THEME = config.cursor.name;
     GDK_BACKEND = "wayland";
     GTK_THEME = config.colorScheme.slug;
     QT_AUTO_SCALE_SCREEN_FACTOR = "1";
+    XCURSOR_THEME = config.cursor.name;
     XDG_CONFIG_HOME = "/etc/xdg";
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
   };
-
-  qt.enable = true;
-  qt.style = "gtk2";
 
   programs.dconf.enable = true;
   programs.dconf.profiles.user.databases = [
@@ -44,13 +41,13 @@ in
         "org/gnome/desktop/interface" = {
           clock-format = "12h";
           color-scheme = "prefer-dark";
-          cursor-size = lib.gvariant.mkInt32 11;
-          cursor-theme = "Bibata-Modern-Ice";
-          document-font-name = "Input Mono 11";
-          font-name = "Input Mono 11";
+          cursor-size = lib.gvariant.mkInt32 config.cursor.size;
+          cursor-theme = config.cursor.name;
+          document-font-name = "${config.font.name} ${config.font.size}";
+          font-name = "${config.font.name} ${config.font.size}";
           gtk-theme = "${config.colorScheme.slug}";
-          monospace-font-name = "Input Mono 11";
-          text-scaling-factor = lib.gvariant.mkDouble 1.0;
+          monospace-font-name = "${config.font.name} ${config.font.size}";
+          text-scaling-factor = lib.gvariant.mkDouble config.font.scale;
         };
       };
     }
