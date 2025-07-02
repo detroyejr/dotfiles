@@ -1,4 +1,4 @@
 {...}:
 {
-  imports = [ ./colors.nix ];
+  imports = [ ./theme.nix ];
 }
