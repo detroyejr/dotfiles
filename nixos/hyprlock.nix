@@ -66,21 +66,10 @@ let
       valign=center
     }
   '';
-
-  hyprlock = pkgs.stdenv.mkDerivation {
-    pname = "hyprlock";
-    version = "1.0";
-    dontUnpack = true;
-    src = hyprlockConfig;
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    installPhase = ''
-      mkdir -p $out/bin $out/share/hypr && cp -r ${hyprlockConfig} $out/share/hypr/hyprlock.conf
-      makeWrapper ${pkgs.hyprlock}/bin/hyprlock $out/bin/hyprlock \
-        --set XDG_CONFIG_HOME $out/share
-    '';
-  };
 in
 {
   programs.hyprlock.enable = config.programs.hyprland.enable;
-  programs.hyprlock.package = hyprlock;
+  environment.etc = {
+    "xdg/hypr/hyprlock.conf".source = hyprlockConfig;
+  };
 }
