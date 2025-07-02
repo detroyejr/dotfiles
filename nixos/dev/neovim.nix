@@ -1,16 +1,15 @@
 {
   pkgs,
-  colorScheme,
-  colorSchemeName,
+  config,
   ...
 }:
 let
   colors =
-    with colorScheme.colors;
+    with config.colorScheme.colors;
     pkgs.writeText "colorscheme.lua" ''
       local Shade = require("nightfox.lib.shade")
 
-      COLORSCHEME = "${colorSchemeName}"
+      COLORSCHEME = "${config.colorScheme.name}"
 
       -- stylua: ignore
       local palettes = {
@@ -49,21 +48,20 @@ let
         palettes = palettes
       })
     '';
-  neovim = pkgs.stdenv.mkDerivation {
+  neovimConfig = pkgs.stdenv.mkDerivation {
     pname = "neovim-config";
     version = "1.0";
     src = ../../dotfiles/nvim;
     nativeBuildInputs = [ pkgs.makeWrapper ];
     installPhase = ''
-      mkdir -p $out/bin $out/share/nvim && cp -r . $out/share/nvim
-      cp ${colors} $out/share/nvim/lua/config/colorscheme.lua
-      makeWrapper ${pkgs.neovim}/bin/nvim $out/bin/nvim \
-        --set XDG_CONFIG_HOME $out/share
+      mkdir -p $out && cp -r . $out
+      cp ${colors} $out/lua/config/colorscheme.lua
     '';
   };
 in
 {
-  users.users.detroyejr.packages = [
-    neovim
-  ];
+  programs.neovim.enable = true;
+  environment.etc = {
+    "xdg/nvim".source = neovimConfig;
+  };
 }

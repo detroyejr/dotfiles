@@ -2,7 +2,7 @@
 # Add custom packages or patches when things break.
 
 final: prev: {
-  whisper-cpp = prev.whisper-cpp.overrideAttrs (attrs: { 
+  whisper-cpp = prev.whisper-cpp.overrideAttrs (attrs: {
     src = prev.fetchFromGitHub {
       owner = "ggml-org";
       repo = "whisper.cpp";
@@ -25,8 +25,8 @@ final: prev: {
       nlohmann_json
       whisper-cpp
     ];
-    nativeBuildInputs = [prev.yt-dlp];
-      
+    nativeBuildInputs = [ prev.yt-dlp ];
+
     installPhase = ''
       mkdir -p $out $out/bin
       cp custom-whisper-server $out/bin
@@ -300,4 +300,13 @@ final: prev: {
       '';
       passthru.updateScript = ./update.sh;
     };
+
+  plex-desktop = prev.plex-desktop.override {
+    extraEnv = {
+      __NV_PRIME_RENDER_OFFLOAD = 1;
+      __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      __VK_LAYER_NV_optimus = "NVIDIA_only";
+    };
+  };
 }

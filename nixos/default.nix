@@ -1,8 +1,11 @@
 { pkgs, isNvidia, ... }:
 {
   imports = [
+    ../modules
     ./dev
     ./tmux.nix
+    ./wezterm.nix
+    ./yazi.nix
     ./zsh.nix
   ];
 
@@ -97,6 +100,14 @@
       "dialout"
       "gamemode"
     ];
+  };
+
+  environment.sessionVariables = {
+    XDG_CONFIG_HOME = "/etc/xdg";
+    XDG_CACHE_HOME = "/home/detroyejr/.cache";
+    XDG_DATA_HOME = "/home/detroyejr/.local/share";
+    XDG_STATE_HOME = "/home/detroyejr/.local/share";
+    XDG_RUNTIME_DIR = "/run/user/1000";
   };
 
   hardware.nvidia.open = pkgs.lib.mkDefault isNvidia;

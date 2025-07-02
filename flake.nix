@@ -124,7 +124,7 @@
             ./nixos/xps/configuration.nix
             nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
             home-manager.nixosModules.home-manager
-            default-nixos-home-configuration
+            # default-nixos-home-configuration
             sops-nix.nixosModules.sops
           ];
         };

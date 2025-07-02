@@ -32,7 +32,7 @@
     libinput = {
       enable = true;
       touchpad = {
-        accelSpeed = 0.5;
+        accelSpeed = "0.5";
         naturalScrolling = false;
         scrollMethod = "twofinger";
         tappingDragLock = false;
