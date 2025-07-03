@@ -46,6 +46,7 @@
         user = "detroyejr";
       };
     };
+    gnome.gnome-keyring.enable = true;
     xserver = {
       enable = true;
       videoDrivers = lib.mkIf isNvidia [ "nvidia" ];
@@ -80,7 +81,12 @@
       env = TERMINAL,$TERMINAL;
 
       exec-once = hyprctl dispatch dpms on &
-      exec-once = hyprpaper & swaync & waybar & hyprlock & kanshi &
+      exec-once = kanshi
+      exec-once = hyprpaper
+      exec-once = waybar
+      exec-once = hyprlock
+      exec-once = swaync
+
       exec-once = hyprctl setcursor ${config.cursor.name} ${config.cursor.size}
       exec-once = $TERMINAL
       exec-once = [workspace 2 silent;] firefox

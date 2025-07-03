@@ -51,20 +51,9 @@
   # Recommended with pipewire.
   security.rtkit.enable = true;
 
-  services.dbus.packages = [
-    pkgs.gnome-keyring
-    pkgs.gcr
-  ];
-
-  services.xserver.displayManager.sessionCommands = ''
-    eval $(gnome-keyring-daemon --start --daemonize --components=ssh,secrets)
-    export SSH_AUTH_SOCK
-  '';
-
   security = {
     polkit.enable = true;
     pam.services = {
-      login.enableGnomeKeyring = true;
       hyprlock.text = lib.mkIf config.services.fprintd.enable ''
         # Account management.
         account required pam_unix.so
