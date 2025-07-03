@@ -6,6 +6,7 @@
     ./tmux.nix
     ./wezterm.nix
     ./yazi.nix
+    ./xdg.nix
     ./zsh.nix
   ];
 
@@ -80,13 +81,21 @@
         ];
   };
 
-  services.ntp.enable = true;
+  services = {
+    ntp.enable = true;
+    gnome = {
+      gnome-keyring.enable = true;
+      gcr-ssh-agent.enable = true;
+    };
+  };
+
   time.timeZone = "America/New_York";
 
   environment.systemPackages = with pkgs; [
     usbutils
     wget
     wl-clipboard
+    gcr
   ];
 
   users.users.detroyejr = {
@@ -99,14 +108,6 @@
       "dialout"
       "gamemode"
     ];
-  };
-
-  environment.sessionVariables = {
-    XDG_CONFIG_HOME = "/etc/xdg";
-    XDG_CACHE_HOME = "/home/detroyejr/.cache";
-    XDG_DATA_HOME = "/home/detroyejr/.local/share";
-    XDG_STATE_HOME = "/home/detroyejr/.local/share";
-    XDG_RUNTIME_DIR = "/run/user/1000";
   };
 
   hardware.nvidia.open = pkgs.lib.mkDefault isNvidia;

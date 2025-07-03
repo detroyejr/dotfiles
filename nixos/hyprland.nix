@@ -46,7 +46,6 @@
         user = "detroyejr";
       };
     };
-    gnome.gnome-keyring.enable = true;
     xserver = {
       enable = true;
       videoDrivers = lib.mkIf isNvidia [ "nvidia" ];
@@ -56,9 +55,6 @@
 
   environment.sessionVariables = {
     BROWSER = "firefox";
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_DESKTOP = "Hyprland";
-    XDG_SESSION_TYPE = "wayland";
   };
 
   environment.etc = {
