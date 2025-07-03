@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 {
   options = {
     font = lib.mkOption {
@@ -13,6 +13,7 @@
       default = {
         name = "Bibata-Modern-Ice";
         size = "11";
+        package = pkgs.bibata-cursors;
       };
       type = lib.types.attrs;
     };

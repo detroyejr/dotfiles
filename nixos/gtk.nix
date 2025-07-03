@@ -19,7 +19,7 @@ in
 {
   users.users.detroyejr.packages = [
     gtkTheme
-    pkgs.bibata-cursors
+    config.cursor.package
   ];
 
   environment.sessionVariables = {
@@ -28,10 +28,6 @@ in
     GTK_THEME = config.colorScheme.slug;
     QT_AUTO_SCALE_SCREEN_FACTOR = "1";
     XCURSOR_THEME = config.cursor.name;
-    XDG_CONFIG_HOME = "/etc/xdg";
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_DESKTOP = "Hyprland";
-    XDG_SESSION_TYPE = "wayland";
   };
 
   programs.dconf.enable = true;
