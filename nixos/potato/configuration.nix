@@ -13,8 +13,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "potato"; # Define your hostname.
+  networking.hostName = "potato";
 
+  services.fprintd.enable = true;
   programs.firefox.enable = true;
   environment.systemPackages = [
     pkgs.calibre
@@ -22,5 +23,5 @@
     pkgs.plex-desktop
   ];
 
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.05";
 }

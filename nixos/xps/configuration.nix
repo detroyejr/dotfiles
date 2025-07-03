@@ -54,6 +54,7 @@
     5678
   ];
 
+  services.fprintd.enable = true;
   services.libinput.touchpad.disableWhileTyping = true;
   services.tlp.enable = true;
   system.stateVersion = "23.11";

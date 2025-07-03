@@ -3,7 +3,6 @@
   lib,
   config,
   isNvidia,
-  isFprint,
   ...
 }:
 {
@@ -38,7 +37,6 @@
         tappingDragLock = false;
       };
     };
-    fprintd.enable = isFprint;
     pipewire = {
       enable = true;
       alsa = {
@@ -55,7 +53,7 @@
 
   security = {
     polkit.enable = true;
-    pam.services.hyprlock.text = lib.mkIf isFprint ''
+    pam.services.hyprlock.text = lib.mkIf config.services.fprintd.enable ''
       # Account management.
       account required pam_unix.so
 
