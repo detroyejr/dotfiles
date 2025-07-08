@@ -61,6 +61,7 @@ let
 in
 {
   programs.neovim.enable = true;
+  programs.neovim.defaultEditor = true;
   environment.etc = {
     "xdg/nvim".source = neovimConfig;
   };
