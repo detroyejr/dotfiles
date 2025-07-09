@@ -70,8 +70,8 @@
       monitor=HDMI-A-1,preferred,auto,2
       monitor=,highres,auto,1
 
-      ${lib.optionalString (config.system.name == "skate") ''
-        monitor=eDP-1,preferred,auto,1,transform,3
+      ${lib.optionalString (config.system.name == "potato") ''
+        monitor=eDP-1,preferred,auto,1
       ''}
 
       debug:disable_logs = false
