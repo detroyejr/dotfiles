@@ -44,7 +44,7 @@
           cudaSupport = false;
           input-fonts.acceptLicense = true;
         };
-        overlays = [ (import ./overlays.nix) ];
+        overlays = [ (import ./nixos/overlays.nix) ];
       };
     in
     {
@@ -142,6 +142,7 @@
           };
           modules = [
             ./nixos/potato/configuration.nix
+            sops-nix.nixosModules.sops
           ];
         };
       };

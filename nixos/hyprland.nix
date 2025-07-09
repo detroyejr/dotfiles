@@ -54,6 +54,9 @@
   security.pam.services.hyprlock.fprintAuth = config.services.fprintd.enable;
 
   environment.sessionVariables = {
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    XDG_SESSION_TYPE = "wayland";
     BROWSER = "firefox";
   };
 
