@@ -12,7 +12,7 @@
     cursor = lib.mkOption {
       default = {
         name = "Bibata-Modern-Ice";
-        size = "11";
+        size = "14";
         package = pkgs.bibata-cursors;
       };
       type = lib.types.attrs;

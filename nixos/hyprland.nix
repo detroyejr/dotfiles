@@ -86,7 +86,6 @@
       exec-once = hyprlock
       exec-once = swaync
 
-      exec-once = hyprctl setcursor ${config.cursor.name} ${config.cursor.size}
       exec-once = $TERMINAL
       exec-once = [workspace 2 silent;] firefox
 
