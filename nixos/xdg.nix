@@ -12,6 +12,17 @@
 
   xdg.icons.fallbackCursorThemes = [ config.cursor.name ];
 
+  # Set Firefox as default browser
+  xdg.mime = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "firefox.desktop";
+      "text/pdf" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/about" = "firefox.desktop";
+      "x-scheme-handler/unknown" = "firefox.desktop";
+    };
   };
 
   environment.etc = {
