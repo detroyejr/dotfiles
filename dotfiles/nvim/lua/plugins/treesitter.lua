@@ -14,6 +14,7 @@ return {
 				'python',
 				'r',
 				'rust',
+        'regex',
 			},
 			auto_install = true,
 			highlight = {
