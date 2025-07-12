@@ -26,7 +26,6 @@
     {
       self,
       nixpkgs,
-      home-manager,
       nixos-hardware,
       hyprland,
       jovian,
@@ -126,7 +125,6 @@
           };
           modules = [
             ./nixos/brick/configuration.nix
-            home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.dell-xps-15-9570-nvidia
           ];
         };
