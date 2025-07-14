@@ -1,4 +1,9 @@
-{ pkgs, config, isNvidia, ... }:
+{
+  pkgs,
+  config,
+  isNvidia,
+  ...
+}:
 {
   imports = [
     ../modules
