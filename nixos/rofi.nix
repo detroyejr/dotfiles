@@ -27,7 +27,7 @@ let
       find files -type f -name "*.rasi" -exec sed -i 's/[a-j].png/wallpaper.png/g' {} ';';
       find files -type f -name "*.rasi" -exec sed -i 's/[a-j].jpg/wallpaper.png/g' {} ';';
       find files -type f -name "*.rasi" -exec \
-        sed -i "s,~/.config/rofi/images/wallpaper.png,${config.colorScheme.wallpaper},g" {} ';';
+        sed -i "s,~/.config/rofi/images/wallpaper.png,${config.colorScheme.rofi},g" {} ';';
 
       # Patch powermenu icons.
       find files -type f -name "powermenu.sh" -exec sed -i "s/hibernate='.*'/hibernate='󰤄'/g" {} ';';
@@ -58,6 +58,7 @@ let
     installPhase = ''
       mkdir -p $out/bin $out/share/rofi && cp -r files $out/share/rofi
       cp ${rofi-launcher}/bin/rofi-launcher $out/bin/rofi-launcher
+      cp files/powermenu/type-6/powermenu.sh $out/bin/powermenu
     '';
   };
 in
