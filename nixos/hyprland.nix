@@ -109,6 +109,8 @@
       windowrule = float,class:^(org.wezfurlong.wezterm)$
       windowrule = tile,class:^(org.wezfurlong.wezterm)$
 
+      windowrulev2 = opacity 0.94, class:(firefox)
+
       # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
       input {
           kb_layout = us
@@ -290,6 +292,11 @@
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
+    preferences = {
+      "browser.tabs.insertAfterCurrent" = true;
+      "browser.tabs.allow_transparent_browser" = true;
+      "gwfox.plus" = true;
+    };
   };
 
   programs.chromium = {
