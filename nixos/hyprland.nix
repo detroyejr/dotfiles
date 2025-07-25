@@ -14,6 +14,7 @@
     ./rofi.nix
     ./waybar.nix
     ./gtk.nix
+    ./firefox.nix
   ];
 
   xdg.portal.config.common.default = "*";
@@ -288,17 +289,6 @@
   };
 
   # TODO: should these remain in hyprland or move to another file?
-
-  programs.firefox = {
-    enable = true;
-    package = pkgs.firefox;
-    preferences = {
-      "browser.tabs.insertAfterCurrent" = true;
-      "browser.tabs.allow_transparent_browser" = true;
-      "gwfox.plus" = true;
-    };
-  };
-
   programs.chromium = {
     enable = true;
   };
