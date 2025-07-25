@@ -11,6 +11,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    keepassxc
+    plasmadeck-vapor-theme
     plex-htpc
   ];
 
@@ -23,12 +25,13 @@
     ];
   };
 
+  programs.firefox.enable = true;
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
-      wlrobs
-      obs-pipewire-audio-capture
       obs-hyperion
+      obs-pipewire-audio-capture
+      wlrobs
     ];
   };
 
