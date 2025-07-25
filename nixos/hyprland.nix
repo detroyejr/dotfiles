@@ -324,7 +324,6 @@
     discord
     dmenu
     element-desktop
-    en-croissant
     grim
     hyperion-ng
     hyprpaper
