@@ -10,14 +10,14 @@
   )
 
   if (interactive()) {
-    Sys.setenv("R_HISTFILE" = "~/.Rhistory")
-    try(utils::loadhistory("~/.Rhistory"))
+    Sys.setenv("R_HISTFILE" = "/etc/xdg/R/.Rhistory")
+    try(utils::loadhistory("/etc/xdg/R/.Rhistory"))
   }
 }
 
 if (interactive()) {
   .Last <- function() {
-    try(utils::savehistory("~/.Rhistory"))
+    try(utils::savehistory("/etc/xdg/R/.Rhistory"))
   }
 }
 
