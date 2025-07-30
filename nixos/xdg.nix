@@ -4,10 +4,7 @@
     XCURSOR_SIZE = config.cursor.size;
     XCURSOR_THEME = config.cursor.name;
     XDG_CONFIG_HOME = "/etc/xdg";
-    XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_CURSOR_THEME = config.cursor.name;
-    XDG_SESSION_DESKTOP = "Hyprland";
-    XDG_SESSION_TYPE = "wayland";
   };
 
   xdg.icons.fallbackCursorThemes = [ config.cursor.name ];
