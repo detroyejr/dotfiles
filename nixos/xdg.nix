@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   environment.sessionVariables = {
     XCURSOR_SIZE = config.cursor.size;
@@ -12,7 +12,7 @@
   # Set Firefox as default browser
   xdg.mime = {
     enable = true;
-    defaultApplications = {
+    defaultApplications = lib.mkIf config.programs.firefox.enable {
       "text/html" = "firefox.desktop";
       "text/pdf" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
