@@ -47,7 +47,6 @@
         "http://mini-4.lan/?priority=10"
         "http://mini-5.lan/?priority=10"
         "https://cache.nixos.org"
-        "https://cosmic.cachix.org/"
       ];
       trusted-public-keys = [
         "mini-1.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
@@ -55,7 +54,6 @@
         "mini-3.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
         "mini-4.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
         "mini-5.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
       ];
 
       trusted-users = [
