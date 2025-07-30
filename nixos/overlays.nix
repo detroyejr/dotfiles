@@ -36,21 +36,19 @@ final: prev: {
   ark-posit =
     let
       pname = "ark";
-      version = "0.1.182";
+      version = "0.1.200";
     in
     prev.rustPlatform.buildRustPackage {
-
       inherit pname version;
       src = prev.fetchFromGitHub {
         owner = "posit-dev";
         repo = pname;
         tag = version;
-        hash = "sha256-ajGquqGKs002mJihnHoaMW+qkc4zgqGRnMT4b2BT2cU=";
+        hash = "sha256-0p27KD9HgPkK/WCsXSuzOQ8M1bwso4onjyDLBL/EdE8=";
       };
 
       useFetchCargoVendor = true;
-      cargoHash = "sha256-xPIPEugJKS7nGcc+kKRCmNptTgcd6yK8sqBFO/Hpj0U=";
-
+      cargoHash = "sha256-81IUFJDtNLtQIf1od1mo4294LIV8zJvRT8gT3jgr0xs=";
       doCheck = false;
 
       buildInputs = [
