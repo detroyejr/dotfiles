@@ -6,6 +6,7 @@
     ../default.nix
     ../cataclysm-dda.nix
     ../fonts.nix
+    ../firefox.nix
     ../jovian.nix
     ../syncthing.nix
   ];
@@ -25,7 +26,6 @@
     ];
   };
 
-  programs.firefox.enable = true;
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
