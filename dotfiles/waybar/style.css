@@ -19,7 +19,7 @@
 
 #clock, #battery, #disk, #network, #pulseaudio, #memory, #custom-power, #backlight {
   font-family: "Input Mono, monospace";
-  padding: 10px;
+  padding: 12px;
   min-width: 20px;
 }
 

@@ -87,6 +87,7 @@
       exec-once = waybar
       exec-once = hyprlock
       exec-once = swaync
+      exec-once = blueman-applet
 
       exec-once = $TERMINAL
       exec-once = [workspace 2 silent;] firefox
@@ -307,7 +308,7 @@
     acpi
     alsa-utils
     anki
-    bluetuith
+    blueman
     bluez
     calibre
     chromium

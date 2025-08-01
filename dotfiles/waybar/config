@@ -5,6 +5,7 @@
     "modules-right": [
       "pulseaudio",
       "pulseaudio/slider",
+      "bluetooth",
       "backlight",
       "backlight/slider",
       "network",
@@ -29,6 +30,15 @@
     },
     "hyprland/window": {
       "max-length": 50
+    },
+    "bluetooth": {
+        "format": "{status}",
+        "format-on": "󰂯",
+        "format-off": "󰂲",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂯",
+        "on-click": "blueman-manager",
+        "tooltip-format": "{status} {device_alias}"
     },
     "network": {
         "interface": ["wlp0s20f3", "wlp2s0"],
