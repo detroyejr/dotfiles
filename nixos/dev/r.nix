@@ -54,6 +54,7 @@ let
         flextable
         ftExtra
         googledrive
+        googlesheets4
         haven
         httr
         huxtable
