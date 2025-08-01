@@ -10,11 +10,12 @@
 }:
 {
   imports = [
+    ./firefox.nix
+    ./gtk.nix
     ./hyprlock.nix
     ./rofi.nix
     ./waybar.nix
-    ./gtk.nix
-    ./firefox.nix
+    ./xdg.nix
   ];
 
   xdg.portal.config.common.default = "*";

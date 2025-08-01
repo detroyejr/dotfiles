@@ -36,7 +36,6 @@
   };
 
   services.desktopManager.plasma6.enable = true;
-
   services.flatpak.enable = true;
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
@@ -44,6 +43,15 @@
   services.openssh.authorizedKeysFiles = [
     "/home/detroyejr/.ssh/main_server_ed25519.pub"
   ];
+  
+  # Set the theme.
+  system.activationScripts = {
+    nvimConfig = {
+      text = ''
+        ln -sfn ${../../dotfiles/nvim/.} /home/detroyejr/.config/nvim
+      '';
+    };
+  };
 
   networking.hostName = "skate";
   services.xserver.enable = true;

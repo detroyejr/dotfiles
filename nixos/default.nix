@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   isNvidia,
   ...
 }:
@@ -11,7 +10,6 @@
     ./tmux.nix
     ./wezterm.nix
     ./yazi.nix
-    ./xdg.nix
     ./zsh.nix
   ];
 
