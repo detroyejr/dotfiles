@@ -59,6 +59,7 @@ let
       mkdir -p $out/bin $out/share/rofi && cp -r files $out/share/rofi
       cp ${rofi-launcher}/bin/rofi-launcher $out/bin/rofi-launcher
       cp files/powermenu/type-6/powermenu.sh $out/bin/powermenu
+      sed -i "s,dir=\".*\",dir=\"${rofi-themes}/files/powermenu/type-6\",g" $out/bin/powermenu 
     '';
   };
 in
