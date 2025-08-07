@@ -78,12 +78,6 @@
       hybrid-sleep.enable = false;
     };
   };
-  services.cron = {
-    enable = true;
-    systemCronJobs = [
-      "0 4 * * * root reboot > /dev/null 2>&1"
-    ];
-  };
 
   systemd.services.build-hook = {
     path = with pkgs; [
