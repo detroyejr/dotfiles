@@ -9,7 +9,7 @@ let
           name = "EchelonSurveyTools";
           src = builtins.fetchGit {
             url = "git@github.com:echeloninsights/EchelonSurveyTools.git";
-            rev = "676d0e326cc1a7850c17f0c169f9b09d475443ab";
+            rev = "662e3d324273986e2c923f4d8e557ff06aff3b0d";
             allRefs = true;
           };
           buildInputs = [
@@ -53,6 +53,7 @@ let
         dplyr
         flextable
         ftExtra
+        ggplot2
         googledrive
         googlesheets4
         haven
