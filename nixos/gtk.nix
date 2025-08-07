@@ -28,6 +28,8 @@ in
     GTK_THEME = config.colorScheme.slug;
     QT_AUTO_SCALE_SCREEN_FACTOR = "1";
     XCURSOR_THEME = config.cursor.name;
+    XCURSOR_SIZE = config.cursor.size;
+    XDG_CURSOR_THEME = config.cursor.name;
   };
 
   programs.dconf.enable = true;

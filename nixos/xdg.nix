@@ -1,10 +1,7 @@
 { config, lib, ... }:
 {
   environment.sessionVariables = {
-    XCURSOR_SIZE = config.cursor.size;
-    XCURSOR_THEME = config.cursor.name;
     XDG_CONFIG_HOME = "/etc/xdg";
-    XDG_CURSOR_THEME = config.cursor.name;
   };
 
   xdg.icons.fallbackCursorThemes = [ config.cursor.name ];
