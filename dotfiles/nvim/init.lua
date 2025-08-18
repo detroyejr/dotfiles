@@ -52,7 +52,6 @@ vim.keymap.set("n", "<Leader>gai", ":terminal git ai<CR>i")
 vim.keymap.set("n", "<Leader>gc", ":terminal git commit<CR>i")
 vim.keymap.set("n", "<Leader>gs", ":terminal git status<CR>i")
 
--- Terminal
 local tmux = os.getenv("TMUX")
 
 if tmux then
@@ -194,4 +193,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-vim.lsp.enable({ "ark", "clangd", "lua_ls", "nixd", "pylsp", "ruff" })
+vim.lsp.enable({ "ark", "air", "clangd", "lua_ls", "nixd", "pylsp", "ruff" })
