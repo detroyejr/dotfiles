@@ -153,7 +153,7 @@ CommentString = function(name)
         local j, k = string.find(l, string.upper(name) .. ":")
         if k then
           vim.api.nvim_buf_set_extmark(args.buf, 1, n - 1, j - 1, { end_col = k, hl_group = name })
-          while string.find(lines[n], string.format(vim.opt.commentstring:get(), "")) do
+          while string.find(lines[n], "\\" .. string.format(vim.opt.commentstring:get(), "")) do
             vim.api.nvim_buf_set_extmark(args.buf, 1, n - 1, 0,
               { end_col = string.len(lines[n]), hl_group = name .. "Text" })
             n = n + 1
