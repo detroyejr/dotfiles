@@ -149,11 +149,17 @@ CommentString = function(name)
     group = vim.api.nvim_create_augroup(name, {}),
     callback = function(args)
       local lines = vim.api.nvim_buf_get_lines(args.buf, 0, -1, true)
+
+      local comment = string.gsub(string.format(vim.opt.commentstring:get(), ""), " ", "")
+      local prefix
+      if comment == "--" then prefix = "\\" else prefix = "" end
+
       for n, l in ipairs(lines) do
         local j, k = string.find(l, string.upper(name) .. ":")
         if k then
           vim.api.nvim_buf_set_extmark(args.buf, 1, n - 1, j - 1, { end_col = k, hl_group = name })
-          while string.find(lines[n], "\\" .. string.format(vim.opt.commentstring:get(), "")) do
+          print(prefix)
+          while lines[n] and string.find(lines[n], prefix .. comment) do
             vim.api.nvim_buf_set_extmark(args.buf, 1, n - 1, 0,
               { end_col = string.len(lines[n]), hl_group = name .. "Text" })
             n = n + 1
