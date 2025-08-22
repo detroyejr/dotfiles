@@ -30,13 +30,26 @@ vim.opt.writebackup = false
 local opts = { silent = true }
 vim.g.mapleader = " "
 vim.keymap.set("i", "jj", "<Esc>")
-vim.keymap.set("n", "<Leader>", " ")
+
+-- Buffers
+vim.keymap.set("n", "<Leader>bl", ":buffers<CR>", opts)
+vim.keymap.set("n", "<Leader>bn", ":bNext<CR>", opts)
+vim.keymap.set("n", "<Leader>bp", ":bPrevious<CR>", opts)
+
+-- Netrw
+vim.keymap.set("n", "<Leader>E", ":Explore<CR>", opts)
 vim.keymap.set("n", "<Leader>e", ":Lexplore<CR>", opts)
-vim.keymap.set("n", "<Leader>h", ":noh<CR>", opts)
+
+-- Lsp
+vim.keymap.set("n", "<Leader>ld", ":lua vim.diagnostic.setqflist()<CR>", opts)
 vim.keymap.set("n", "<Leader>lf", ":lua vim.lsp.buf.format()<CR>", opts)
 vim.keymap.set("n", "<Leader>li", ":checkhealth lsp<CR>", opts)
+
+-- Terminal
 vim.keymap.set("n", "<Leader>th", ":botright terminal<CR>", opts)
 vim.keymap.set("n", "<Leader>tv", ":vertical terminal<CR>", opts)
+
+-- Fzf
 vim.keymap.set("n", "<Leader>ff", ":terminal fzf<CR>i", opts)
 vim.keymap.set("n", "<Leader>fF",
   ":terminal fzf --disabled --ansi " ..
@@ -46,11 +59,16 @@ vim.keymap.set("n", "<Leader>fF",
   "--preview 'bat --style=full --color=always --highlight-line {2} {1}' " ..
   "--preview-window '~4,+{2}+4/3,<80(up)'<CR>i", opts)
 
+-- Git
 vim.keymap.set("n", "<Leader>gA", ":terminal git add -A<CR>")
 vim.keymap.set("n", "<Leader>gaa", ":terminal git add '%'<CR>i")
 vim.keymap.set("n", "<Leader>gai", ":terminal git ai<CR>i")
 vim.keymap.set("n", "<Leader>gc", ":terminal git commit<CR>i")
 vim.keymap.set("n", "<Leader>gs", ":terminal git status<CR>i")
+vim.keymap.set("n", "<Leader>gd", ":terminal git diff<CR>i")
+
+-- Misc
+vim.keymap.set("n", "<Leader>h", ":noh<CR>", opts)
 
 local tmux = os.getenv("TMUX")
 
