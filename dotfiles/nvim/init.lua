@@ -219,3 +219,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 vim.lsp.enable({ "ark", "air", "clangd", "lua_ls", "nixd", "pylsp", "ruff" })
+
+-- Plugins
+require 'nvim-treesitter'.install({
+  "c", "csv", "cpp", "nix", "python", "r", "rust", "javascript", "json", "lua", "vim",
+  "vimdoc", "query", "markdown", "markdown_inline"
+}):wait(300000)
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { '*' },
+  callback = function()
+    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    vim.treesitter.start()
+  end,
+})
