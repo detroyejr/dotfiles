@@ -91,6 +91,7 @@
 
       exec-once = $TERMINAL
       exec-once = [workspace 2 silent;] firefox
+      exec-once = [workspace 3 silent;] obsidian
 
       windowrule = float,title:^(Rofi)$
       windowrule = center,title:^(Rofi)$
