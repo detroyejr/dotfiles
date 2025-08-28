@@ -67,15 +67,12 @@ vim.keymap.set("n", "<Leader>gc", ":terminal git commit<CR>i")
 vim.keymap.set("n", "<Leader>gs", ":terminal git status<CR>i")
 vim.keymap.set("n", "<Leader>gd", ":terminal git diff<CR>i")
 
--- Misc
-vim.keymap.set("n", "<Leader>h", ":noh<CR>", opts)
-
 local tmux = os.getenv("TMUX")
 
 if tmux then
   vim.keymap.set(
     "n",
-    "<leader>tf",
+    "<Leader>tf",
     "<cmd>!tmux display-popup -h 75\\% -w 75\\% -E "
     .. '"tmux new-session -A '
     .. "-s $(tmux display-message "
@@ -83,8 +80,8 @@ if tmux then
     .. "</dev/null >/dev/null 2>&1 & <CR>"
     .. "<CR>"
   )
-  vim.keymap.set("n", "<leader>th", "<cmd>!tmux split-window<CR><CR>")
-  vim.keymap.set("n", "<leader>tv", "<cmd>!tmux split-window -h<CR><CR>")
+  vim.keymap.set("n", "<Leader>th", "<cmd>!tmux split-window<CR><CR>")
+  vim.keymap.set("n", "<Leader>tv", "<cmd>!tmux split-window -h<CR><CR>")
   vim.keymap.set(
     "n",
     "<C-A-x>",
@@ -202,7 +199,7 @@ vim.api.nvim_create_autocmd('TermClose', {
         out = string.sub(out, 1, string.find(out, ":") - 1)
       end
       vim.cmd.edit(out)
-      -- NOTE: Force a refresh or we won't get syntax highlighting.
+      -- NOTE: Force a refresh or we won't get syntax highlighting. There's probably an autocmd
       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(":edit<CR>", true, false, true), "n", true)
     end
   end
