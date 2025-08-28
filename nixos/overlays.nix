@@ -36,7 +36,7 @@ final: prev: {
   ark-posit =
     let
       pname = "ark";
-      version = "0.1.200";
+      version = "0.1.207";
     in
     prev.rustPlatform.buildRustPackage {
       inherit pname version;
@@ -44,13 +44,11 @@ final: prev: {
         owner = "posit-dev";
         repo = pname;
         tag = version;
-        hash = "sha256-0p27KD9HgPkK/WCsXSuzOQ8M1bwso4onjyDLBL/EdE8=";
+        hash = "sha256-Pk3zOOzM+Ibd94CfBkg+QtHvUnlC6ne5yhjP4HeRN2w=";
       };
 
-      useFetchCargoVendor = true;
-      cargoHash = "sha256-81IUFJDtNLtQIf1od1mo4294LIV8zJvRT8gT3jgr0xs=";
+      cargoHash = "sha256-I+4ZVLUDPyAPx2Qbv6MtDfgzKrAoYSP/u85lHTV8Ckg=";
       doCheck = false;
-
       buildInputs = [
         prev.libcxx
         prev.libgcc
