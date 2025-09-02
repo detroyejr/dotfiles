@@ -4,6 +4,9 @@ default:
 setup: 
   eval $(ssh-agent) && ssh-add ~/.ssh/github_rsa
 
+checkout-initial:
+  git checkout main
+
 pull:
   git pull --rebase
 
@@ -26,4 +29,4 @@ rebase-lockfile:
 		git rebase origin/update_flake_lock_action && \
 		git push -u origin main
 
-ci: pull checkout-lockfile core rebase-lockfile
+ci: checkout-initial pull checkout-lockfile core rebase-lockfile
