@@ -17,7 +17,7 @@
     ../steam.nix
     ../syncthing.nix
     ../thunar.nix
-    ../veikk.nix
+    # ../veikk.nix
     ../virtualization.nix
   ];
 
