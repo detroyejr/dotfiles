@@ -57,6 +57,7 @@ let
         googledrive
         googlesheets4
         haven
+        httpuv
         httr
         huxtable
         magick
