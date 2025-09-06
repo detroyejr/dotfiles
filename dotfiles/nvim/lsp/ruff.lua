@@ -9,4 +9,10 @@ return {
     'Pipfile',
     '.git',
   },
+  init_options = {
+    settings = {
+      lineLength = 79,
+      organizeImports = true
+    }
+  }
 }

@@ -7,13 +7,15 @@ vim.g.netrw_liststyle = 3
 vim.g.netrw_preview = 1
 vim.g.netrw_winsize = 30
 
+vim.opt.autoread = true
 vim.opt.backup = false
 vim.opt.clipboard = "unnamedplus"
 vim.opt.colorcolumn = "89"
-vim.opt.completeopt = "menuone,popup,noinsert,fuzzy"
+vim.opt.completeopt = "menuone,popup,noselect,fuzzy"
 vim.opt.expandtab = true
 vim.opt.pumheight = 10
 vim.opt.relativenumber = true
+vim.opt.scrolloff = 10
 vim.opt.shiftwidth = 2
 vim.opt.signcolumn = "yes"
 vim.opt.softtabstop = 2

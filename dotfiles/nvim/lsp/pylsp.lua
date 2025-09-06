@@ -9,4 +9,9 @@ return {
     'Pipfile',
     '.git',
   },
+  plugins = {
+    mypy = {
+      follow_untyped_imports = true,
+    }
+  }
 }
