@@ -8,6 +8,8 @@ let
       ipython
       isort
       python-lsp-server
+      python-lsp-ruff
+      pylsp-mypy
     ]
   );
 in
