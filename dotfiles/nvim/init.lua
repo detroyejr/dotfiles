@@ -46,6 +46,13 @@ vim.keymap.set("n", "<Leader>e", ":Lexplore<CR>", opts)
 vim.keymap.set("n", "<Leader>ld", ":lua vim.diagnostic.setqflist()<CR>", opts)
 vim.keymap.set("n", "<Leader>lf", ":lua vim.lsp.buf.format()<CR>", opts)
 vim.keymap.set("n", "<Leader>li", ":checkhealth lsp<CR>", opts)
+vim.keymap.set("n", '<leader>lh',
+  function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local filter = { bufnr = bufnr }
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
+  end
+)
 
 -- Terminal
 vim.keymap.set("n", "<Leader>th", ":botright terminal<CR>", opts)
@@ -217,7 +224,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-vim.lsp.enable({ "ark", "air", "clangd", "lua_ls", "nixd", "pylsp", "ruff" })
+vim.lsp.enable({ "ark", "air", "clangd", "lua_ls", "nixd", "pylsp", "ruff", "rust_analyzer" })
+
+
+vim.lsp.inlay_hint.enable()
+
+vim.diagnostic.config({ virtual_text = true })
 
 -- Plugins
 require 'nvim-treesitter'.install({
@@ -226,7 +238,7 @@ require 'nvim-treesitter'.install({
 }):wait(300000)
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { '*' },
+  pattern = { 'c', 'h', 'cpp', 'nix', 'py', 'r', 'rs', 'js', 'json', 'lua', 'vim', 'md' },
   callback = function()
     vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
