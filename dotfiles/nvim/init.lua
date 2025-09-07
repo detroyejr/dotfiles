@@ -13,6 +13,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.colorcolumn = "89"
 vim.opt.completeopt = "menuone,popup,noselect,fuzzy"
 vim.opt.expandtab = true
+vim.opt.path = ",,**"
 vim.opt.pumheight = 10
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 10
@@ -59,6 +60,7 @@ vim.keymap.set("n", "<Leader>th", ":botright terminal<CR>", opts)
 vim.keymap.set("n", "<Leader>tv", ":vertical terminal<CR>", opts)
 
 -- Fzf
+vim.keymap.set("n", "<Leader>fq", ":find ")
 vim.keymap.set("n", "<Leader>ff", ":terminal fzf<CR>i", opts)
 vim.keymap.set("n", "<Leader>fF",
   ":terminal fzf --disabled --ansi " ..
