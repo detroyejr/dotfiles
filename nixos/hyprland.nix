@@ -171,10 +171,6 @@
           new_status = "slave"
       }
 
-      gestures {
-          workspace_swipe = off
-      }
-
       misc {
         disable_hyprland_logo = true
         disable_splash_rendering = false
