@@ -60,8 +60,8 @@ vim.keymap.set("n", "<Leader>th", ":botright terminal<CR>", opts)
 vim.keymap.set("n", "<Leader>tv", ":vertical terminal<CR>", opts)
 
 -- Fzf
-vim.keymap.set("n", "<Leader>fq", ":find ")
-vim.keymap.set("n", "<Leader>ff", ":terminal fzf<CR>i", opts)
+vim.keymap.set("n", "<Leader>fq", ":terminal fzf<CR>i", opts)
+vim.keymap.set("n", "<Leader>ff", ":find ")
 vim.keymap.set("n", "<Leader>fF",
   ":terminal fzf --disabled --ansi " ..
   "--bind \"start:reload:rg --column --color=always --smart-case {q}\" " ..
