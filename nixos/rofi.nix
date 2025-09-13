@@ -66,7 +66,6 @@ in
 {
   users.users.detroyejr.packages = with pkgs; [
     rofi
-    rofi-wayland
     rofi-power-menu
   ];
 }
