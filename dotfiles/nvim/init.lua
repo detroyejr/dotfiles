@@ -38,8 +38,6 @@ vim.keymap.set("i", "jj", "<Esc>")
 
 -- Buffers
 vim.keymap.set("n", "<Leader>bl", ":buffers<CR>", opts)
-vim.keymap.set("n", "<Leader>bn", ":bnext<CR>", opts)
-vim.keymap.set("n", "<Leader>bp", ":bprevious<CR>", opts)
 
 -- Netrw
 vim.keymap.set("n", "<Leader>E", ":Explore<CR>", opts)
