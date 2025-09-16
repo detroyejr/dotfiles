@@ -6,6 +6,9 @@
     config = {
       core = {
         editor = "nvim";
+        core.autocrlf = true;
+        autocrlf = "input";
+        eol = "lf";
       };
       init.defaultBranch = "main";
       user = {
