@@ -330,6 +330,7 @@
     pavucontrol
     playerctl
     plex-desktop
+    plex-htpc
     plexamp
     procps # replace GNU uptime.
     slack

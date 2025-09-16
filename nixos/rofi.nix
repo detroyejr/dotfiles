@@ -50,7 +50,7 @@ let
       -show drun \
       -theme ''${dir}/''${theme}.rasi
   '';
-  rofi = pkgs.stdenv.mkDerivation {
+  rofi-theme = pkgs.stdenv.mkDerivation {
     pname = "rofi";
     version = "1.0";
     src = rofi-themes;
@@ -66,6 +66,7 @@ in
 {
   users.users.detroyejr.packages = with pkgs; [
     rofi
+    rofi-theme
     rofi-power-menu
   ];
 }
