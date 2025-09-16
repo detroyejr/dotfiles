@@ -32,12 +32,21 @@ vim.opt.updatetime = 50
 vim.opt.wrap = false
 vim.opt.writebackup = false
 
+
 local opts = { silent = true }
 vim.g.mapleader = " "
 vim.keymap.set("i", "jj", "<Esc>")
 
 -- Buffers
-vim.keymap.set("n", "<Leader>bl", ":buffers<CR>", opts)
+local makeprg_input = function()
+  vim.ui.input({ prompt = "Build command: ", }, function(input)
+    vim.cmd("set makeprg=" .. input)
+    vim.cmd("make")
+  end)
+end
+
+vim.keymap.set("n", "<Leader>b", ":buffers<CR>", opts)
+vim.keymap.set("n", "<Leader>bl", function() makeprg_input() end, opts)
 
 -- Netrw
 vim.keymap.set("n", "<Leader>E", ":Explore<CR>", opts)
@@ -233,11 +242,30 @@ vim.lsp.inlay_hint.enable()
 
 vim.diagnostic.config({ virtual_text = true })
 
+
 -- Plugins
 require 'nvim-treesitter'.install({
   "c", "csv", "cpp", "nix", "python", "r", "rust", "javascript", "json", "lua", "vim",
   "vimdoc", "query", "markdown", "markdown_inline"
 }):wait(300000)
+
+
+local makeprg_map = {
+  py = "python3 %",
+  python = "python3 %",
+  quarto = "quarto render %",
+}
+
+-- function to set makeprg
+local function set_makeprg()
+  local cmd = makeprg_map[vim.bo.filetype]
+  vim.o.makeprg = cmd or ""
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = set_makeprg,
+})
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'c', 'h', 'cpp', 'nix', 'py', 'r', 'rs', 'js', 'json', 'lua', 'vim', 'md' },
@@ -245,5 +273,6 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     vim.treesitter.start()
+    set_makeprg()
   end,
 })
