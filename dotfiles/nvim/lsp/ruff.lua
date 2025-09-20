@@ -12,7 +12,12 @@ return {
   init_options = {
     settings = {
       lineLength = 79,
-      organizeImports = true
+      organizeImports = true,
+      lint = {
+        enable = true,
+        select = { 'E', 'W', 'F', 'I', 'N' },
+        preview = true,
+      }
     }
   }
 }
