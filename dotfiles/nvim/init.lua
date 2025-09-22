@@ -11,7 +11,7 @@ vim.opt.autoread = true
 vim.opt.backup = false
 vim.opt.clipboard = "unnamedplus"
 vim.opt.colorcolumn = "89"
-vim.opt.completeopt = "menuone,popup,noselect,fuzzy"
+vim.opt.completeopt = "menu,menuone,popup,fuzzy,noinsert"
 vim.opt.expandtab = true
 vim.opt.fileformat = "unix"
 vim.opt.fixendofline = true
@@ -230,7 +230,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
     if client:supports_method('textDocument/completion') then
-      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = false })
+      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
     end
   end
 })
