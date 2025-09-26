@@ -35,6 +35,10 @@
     let
       inherit (self) outputs;
       system = "x86_64-linux";
+      dir = packages/.;
+      packages = builtins.attrValues (
+        builtins.mapAttrs (file: _: "${dir}/${file}") (builtins.readDir dir)
+      );
       pkgs = import nixpkgs {
         inherit system;
         config = {
@@ -43,7 +47,7 @@
           cudaSupport = false;
           input-fonts.acceptLicense = true;
         };
-        overlays = [ (import ./nixos/overlays.nix) ];
+        overlays = map import packages;
       };
     in
     {

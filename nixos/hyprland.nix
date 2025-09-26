@@ -309,6 +309,7 @@
     bluez
     calibre
     chromium
+    comskip
     colorz
     discord
     dmenu

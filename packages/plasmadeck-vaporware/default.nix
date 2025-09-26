@@ -1,65 +1,4 @@
-# Overlays
-# Add custom packages or patches when things break.
-
 final: prev: {
-  whisper-cpp = prev.whisper-cpp.overrideAttrs (attrs: {
-    src = prev.fetchFromGitHub {
-      owner = "ggml-org";
-      repo = "whisper.cpp";
-      rev = "b175baa665bc35f97a2ca774174f07dfffb84e19";
-      hash = "sha256-GtGzUNpIbS81z7SXFolT866fGfdSjdyf9R+PKlK6oYs=";
-    };
-  });
-  custom-whisper-server = prev.stdenv.mkDerivation {
-    name = "custom-whisper-server";
-    version = "0.1";
-    src = prev.fetchFromGitHub {
-      owner = "detroyejr";
-      repo = "custom-whisper-server";
-      rev = "d23c4fc31c71904ee3c7202dc554ea0eb46d6ede";
-      hash = "sha256-HBzUVPo+A+8RR/D1Tj+fXN+Y88tgXuQmcWd7/RiDM24=";
-    };
-    buildInputs = with final; [
-      cmake
-      httplib
-      nlohmann_json
-      whisper-cpp
-    ];
-    nativeBuildInputs = [ prev.yt-dlp ];
-
-    installPhase = ''
-      mkdir -p $out $out/bin
-      cp custom-whisper-server $out/bin
-      cp ${final.whisper-cpp}/bin/*.so $out/bin
-    '';
-  };
-  ark-posit =
-    let
-      pname = "ark";
-      version = "0.1.207";
-    in
-    prev.rustPlatform.buildRustPackage {
-      inherit pname version;
-      src = prev.fetchFromGitHub {
-        owner = "posit-dev";
-        repo = pname;
-        tag = version;
-        hash = "sha256-Pk3zOOzM+Ibd94CfBkg+QtHvUnlC6ne5yhjP4HeRN2w=";
-      };
-
-      cargoHash = "sha256-I+4ZVLUDPyAPx2Qbv6MtDfgzKrAoYSP/u85lHTV8Ckg=";
-      doCheck = false;
-      buildInputs = [
-        prev.libcxx
-        prev.libgcc
-      ];
-
-      nativeBuildInputs = [
-        prev.autoPatchelfHook
-        prev.rustPlatform.bindgenHook
-      ];
-    };
-
   plasmadeck-vapor-theme =
     let
       pname = "plasmadeck-vapor-theme";
@@ -159,12 +98,4 @@ final: prev: {
         license = licenses.gpl2;
       };
     };
-  plex-desktop = prev.plex-desktop.override {
-    extraEnv = {
-      __NV_PRIME_RENDER_OFFLOAD = 1;
-      __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
-      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      __VK_LAYER_NV_optimus = "NVIDIA_only";
-    };
-  };
 }
