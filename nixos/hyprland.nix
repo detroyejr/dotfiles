@@ -1,12 +1,9 @@
 {
-  inputs,
-  system,
   pkgs,
   lib,
   config,
   isNvidia,
   ...
-
 }:
 {
   imports = [
@@ -30,11 +27,6 @@
 
   programs.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${system}.default.overrideAttrs (oldAttrs: {
-      prePatch = ''
-        cp ${../dotfiles/hyprland/Splashes.hpp} ./src/helpers/Splashes.hpp
-      '';
-    });
     xwayland = {
       enable = true;
     };
