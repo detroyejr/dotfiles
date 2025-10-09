@@ -1,12 +1,12 @@
 {
-  "shell": {
-    "prefix": ["shell"],
+  "pkgs": {
+    "prefix": "pkgs",
     "body": [
-      "let\n",
+      "\n",
       "  pkgs = import <nixpkgs> { };\n",
       "in\n",
       "pkgs.mkShell {\n",
-      "  packages = [ ];\n",
+      "  packages = [ $1 ];\n",
       "}"
     ]
   }

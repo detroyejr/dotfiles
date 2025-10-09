@@ -11,7 +11,7 @@ vim.opt.autoread = true
 vim.opt.backup = false
 vim.opt.clipboard = "unnamedplus"
 vim.opt.colorcolumn = "89"
-vim.opt.completeopt = "menu,menuone,popup,fuzzy,noinsert"
+vim.opt.completeopt = { "menu", "menuone", "popup", "fuzzy", "noinsert" }
 vim.opt.expandtab = true
 vim.opt.fileformat = "unix"
 vim.opt.fixendofline = true
@@ -235,7 +235,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-vim.lsp.enable({ "ark", "air", "clangd", "lua_ls", "nixd", "pylsp", "ruff", "rust_analyzer" })
+vim.lsp.enable({ "ark", "air", "clangd", "lua_ls", "nixd", "pylsp", "ruff", "rust_analyzer", "snippets_lsp" })
 
 
 vim.lsp.inlay_hint.enable()
@@ -276,3 +276,50 @@ vim.api.nvim_create_autocmd('FileType', {
     set_makeprg()
   end,
 })
+
+local snippet_json = vim.fs.find(function(name, path)
+  return name:match('.*%.json$') and path:match('[/\\]snippets$')
+end, {
+  limit = math.huge,
+  type = 'file',
+  path = vim.fs.dirname(
+    vim.api.nvim_get_runtime_file("init.lua", false)[1]
+  )
+})
+
+
+
+-- Basic snippet support.
+-- local snippet_files = {}
+-- for _, val in pairs(snippet_json) do
+--   local key = vim.fs.basename(val)
+--   key = key:sub(key:find("^.*[.]"))
+--   snippet_files[key:sub(1, -2)] = val
+-- end
+--
+-- NOTE: -- Keyword to snippet is fine, but this doesn't use vim.snippet at all which
+-- -- would work much better.
+-- function SnippetCompletion()
+--   local matches = {}
+--
+--   if snippet_files[vim.bo.filetype] then
+--     local file = io.open(snippet_files[vim.bo.filetype]):read("*all")
+--     local snippets = vim.json.decode(file)
+--     for k, _ in pairs(snippets) do
+--       table.insert(matches,
+--         { abbr = snippets[k].prefix, word = table.concat(snippets[k].body) })
+--     end
+--   end
+--   return { words = matches, refresh = 'always' }
+-- end
+--
+-- vim.opt.completefunc = "v:lua.SnippetCompletion"
+-- vim.api.nvim_create_autocmd('CompleteDone', {
+--   group = vim.api.nvim_create_augroup('lsp', {}),
+--   callback = function()
+--     if vim.v.event.complete_type == "function" then
+--       vim.snippet.expand(vim.v.event.complete_word)
+--     end
+--   end
+-- })
+--
