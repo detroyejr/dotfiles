@@ -301,8 +301,8 @@
     bluez
     calibre
     chromium
-    comskip
     colorz
+    comskip
     discord
     dmenu
     element-desktop

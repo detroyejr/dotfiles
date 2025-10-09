@@ -45,6 +45,7 @@ in
     nitch
     nixfmt-rfc-style
     ollama
+    opencode
     openssh
     qsv
     ripgrep
