@@ -87,4 +87,8 @@ in
       eval "$(direnv hook zsh)"
     '';
   };
+
+  environment.sessionVariables = {
+    MANPAGER = "nvim +Man!";
+  };
 }
