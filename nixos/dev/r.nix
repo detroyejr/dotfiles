@@ -64,6 +64,7 @@ let
         officer
         readxl
         relaimpo
+        reticulate
         sf
         sjlabelled
         stringi
