@@ -1,0 +1,15 @@
+{
+  "library": {
+    "prefix": "library",
+    "body": ["library($1)"]
+  },
+  "EchelonSurveyTools::presto_get": {
+    "prefix": "EchelonSurveyTools::presto_get",
+    "body": [
+      "EchelonSurveyTools::presto_get(\n",
+      " \"SELECT $1 FROM $2\",\n",
+      " \"PostgreSQL\"\n",
+      ")"
+    ]
+  }
+}
