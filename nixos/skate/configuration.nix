@@ -43,7 +43,7 @@
   services.openssh.authorizedKeysFiles = [
     "/home/detroyejr/.ssh/main_server_ed25519.pub"
   ];
-  
+
   # Set the theme.
   system.activationScripts = {
     nvimConfig = {
