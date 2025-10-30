@@ -8,7 +8,7 @@
   programs = {
     steam = {
       enable = true;
-      package = pkgs.steam-small.override {
+      package = pkgs.steam.override {
         extraEnv =
           if isNvidia then
             {
