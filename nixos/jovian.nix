@@ -34,7 +34,7 @@
   environment.systemPackages = with pkgs; [
     heroic
     plasmadeck-vapor-theme
-    protonup
+    protonup-ng
     gnutls
     (pkgs.makeDesktopItem {
       name = "Return to Gaming Mode";
