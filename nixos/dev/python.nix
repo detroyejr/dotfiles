@@ -17,7 +17,7 @@ let
       pytest-asyncio
       python-lsp-ruff
       python-lsp-server
-      redshift-connector
+      # FIXME: redshift-connector
       requests
       s3fs
       voter_match
