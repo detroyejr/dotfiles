@@ -15,6 +15,7 @@
     "sd_mod"
     "rtsx_pci_sdmmc"
   ];
+  boot.blacklistedKernelModules = [ "dvb_usb_rtl28xxu" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];

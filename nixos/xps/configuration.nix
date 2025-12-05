@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -57,5 +57,6 @@
   services.fprintd.enable = true;
   services.libinput.touchpad.disableWhileTyping = true;
   services.tlp.enable = true;
+  services.udev.packages = [ pkgs.rtl-sdr-librtlsdr ];
   system.stateVersion = "23.11";
 }
