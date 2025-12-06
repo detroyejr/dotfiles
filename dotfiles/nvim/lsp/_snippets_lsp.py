@@ -61,12 +61,16 @@ class ResponseMessage(Message):
         self.error: ResponseError = error
 
     def __iter__(self):
-        yield {
+        resp = {
             "jsonrpc": self.jsonrpc,
             "id": self.id,
             "result": self.result,
-            "error": self.error,
         }
+
+        if self.error:
+            yield resp | {"error": self.error}
+        else:
+            yield resp
 
     def __str__(self):
         content = json.dumps(self, cls=MessageEncoder)

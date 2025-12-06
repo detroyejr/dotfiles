@@ -12,14 +12,20 @@ let
   nvim-treesitter = pkgs.fetchFromGitHub {
     owner = "nvim-treesitter";
     repo = "nvim-treesitter";
-    rev = "44e90ec66e44f7dbb60030f453a48282b3a1125a";
-    hash = "sha256-f2ne9sXnld2zvooajbQ9qXiboBUBtnPVbG9xOj1uLps=";
+    rev = "75797cdd8ac125c7ace065b17788b439dcf89a71";
+    hash = "sha256-KZifQVHVhw1ee4encXHo/U5OyaUU6C1fZhNm+Hu5jhE=";
+  };
+  sidekick = pkgs.fetchFromGitHub {
+    owner = "folke";
+    repo = "sidekick.nvim";
+    rev = "c2bdf8cfcd87a6be5f8b84322c1b5052e78e302e";
+    hash = "sha256-ABuILCcKfYViZoFHaCepgIMLjvMEb/SBmGqGHUBucAM=";
   };
 in
 {
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
-  environment.systemPackages = [ pkgs.tree-sitter ];
+  environment.systemPackages = [ pkgs.tree-sitter pkgs.copilot-language-server ];
   environment.etc = {
     "xdg/nvim".source = neovimConfig;
   };
@@ -33,6 +39,9 @@ in
           ''${DIR}/nvim/site/queries \
           ''${DIR}/nvim/site/parser
         ln -sfn ${nvim-treesitter}/* ''${DIR}/nvim/site/pack/plugins/start/nvim-treesitter
+
+        mkdir -p ''${DIR}/nvim/site/pack/plugins/start/sidekick
+        ln -sfn ${sidekick}/* ''${DIR}/nvim/site/pack/plugins/start/sidekick
       '';
     };
   };

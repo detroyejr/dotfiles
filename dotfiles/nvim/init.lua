@@ -225,6 +225,7 @@ vim.api.nvim_create_autocmd('TermClose', {
   end
 })
 
+
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp', {}),
   callback = function(args)
@@ -232,10 +233,26 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client:supports_method('textDocument/completion') then
       vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
     end
+    if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, bufnr) then
+      vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
+
+      vim.keymap.set(
+        'i',
+        '<C-F>',
+        vim.lsp.inline_completion.get,
+        { desc = 'LSP: accept inline completion', buffer = bufnr }
+      )
+      vim.keymap.set(
+        'i',
+        '<C-G>',
+        vim.lsp.inline_completion.select,
+        { desc = 'LSP: switch inline completion', buffer = bufnr }
+      )
+    end
   end
 })
 
-vim.lsp.enable({ "ark", "air", "clangd", "lua_ls", "nixd", "pylsp", "ruff", "rust_analyzer", "snippets_lsp" })
+vim.lsp.enable({ "ark", "air", "clangd", "lua_ls", "nixd", "pylsp", "ruff", "rust_analyzer", "snippets_lsp", "copilot" })
 
 
 vim.lsp.inlay_hint.enable()
@@ -277,49 +294,72 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-local snippet_json = vim.fs.find(function(name, path)
-  return name:match('.*%.json$') and path:match('[/\\]snippets$')
-end, {
-  limit = math.huge,
-  type = 'file',
-  path = vim.fs.dirname(
-    vim.api.nvim_get_runtime_file("init.lua", false)[1]
-  )
+require("sidekick").setup({
+  cli = {
+    mux = {
+      backend = "tmux",
+      enabled = true,
+      split = { size = 0.33 },
+    },
+  },
 })
 
+vim.keymap.set('i', '<Tab>', function()
+  if not vim.lsp.inline_completion.get() then
+    return '<Tab>'
+  end
+end, { expr = true, desc = 'Accept the current inline completion' })
 
+vim.keymap.set(
+  "n",
+  "<tab>",
+  function()
+    -- if there is a next edit, jump to it, otherwise apply it if any
+    if not require("sidekick").nes_jump_or_apply() then
+      return "<Tab>" -- fallback to normal tab
+    end
+  end,
+  opts
+)
 
--- Basic snippet support.
--- local snippet_files = {}
--- for _, val in pairs(snippet_json) do
---   local key = vim.fs.basename(val)
---   key = key:sub(key:find("^.*[.]"))
---   snippet_files[key:sub(1, -2)] = val
--- end
---
--- NOTE: -- Keyword to snippet is fine, but this doesn't use vim.snippet at all which
--- -- would work much better.
--- function SnippetCompletion()
---   local matches = {}
---
---   if snippet_files[vim.bo.filetype] then
---     local file = io.open(snippet_files[vim.bo.filetype]):read("*all")
---     local snippets = vim.json.decode(file)
---     for k, _ in pairs(snippets) do
---       table.insert(matches,
---         { abbr = snippets[k].prefix, word = table.concat(snippets[k].body) })
---     end
---   end
---   return { words = matches, refresh = 'always' }
--- end
---
--- vim.opt.completefunc = "v:lua.SnippetCompletion"
--- vim.api.nvim_create_autocmd('CompleteDone', {
---   group = vim.api.nvim_create_augroup('lsp', {}),
---   callback = function()
---     if vim.v.event.complete_type == "function" then
---       vim.snippet.expand(vim.v.event.complete_word)
---     end
---   end
--- })
---
+vim.keymap.set(
+  "n",
+  "<Leader>aa",
+  function() require("sidekick.cli").toggle({ name = "opencode", focus = true }) end,
+  opts
+)
+
+vim.keymap.set(
+  { "x", "n" },
+  "<leader>ap",
+  function() require("sidekick.cli").prompt() end,
+  opts
+)
+
+vim.keymap.set(
+  { "x", "n" },
+  "<leader>at",
+  function() require("sidekick.cli").send({ msg = "{this}", name = "opencode" }) end,
+  opts
+)
+
+vim.keymap.set(
+  { "i", "x", "n" },
+  "<leader>af",
+  function() require("sidekick.cli").send({ msg = "{file}", name = "opencode" }) end,
+  opts
+)
+
+vim.keymap.set(
+  "x",
+  "<leader>av",
+  function() require("sidekick.cli").send({ msg = "{selection}", name = "opencode" }) end,
+  opts
+)
+
+vim.keymap.set(
+  { "i", "x", "n" },
+  "<leader>ad",
+  function() require("sidekick.cli").close() end,
+  opts
+)
