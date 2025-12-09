@@ -22,7 +22,7 @@ let
       halign=center
       path=${config.colorScheme.profile}
       position=0, 270
-      rounding=-2
+      rounding=-1
       valign=center
     }
 
