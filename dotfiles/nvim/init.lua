@@ -271,6 +271,7 @@ local makeprg_map = {
   py = "python3 %",
   python = "python3 %",
   quarto = "quarto render %",
+  r = "Rscript --no-restore %",
 }
 
 -- function to set makeprg
