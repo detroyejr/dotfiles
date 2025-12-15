@@ -323,6 +323,26 @@ vim.keymap.set(
   opts
 )
 
+local toggle_copilot = function()
+  local clients = vim.lsp.get_clients({ name = "copilot" })
+  for _, client in pairs(clients) do
+    if not client:is_stopped() then
+      client:stop()
+      print("Copilot LSP stopped.")
+      return
+    end
+  end
+  print("Copilot LSP is starting.")
+  vim.lsp.enable("copilot")
+end
+
+vim.keymap.set(
+  "n",
+  "<Leader>ae",
+  function() toggle_copilot() end,
+  opts
+)
+
 vim.keymap.set(
   "n",
   "<Leader>aa",
