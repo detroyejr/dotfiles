@@ -305,6 +305,7 @@
     comskip
     discord
     dmenu
+    easyeffects
     element-desktop
     grim
     hyperion-ng
