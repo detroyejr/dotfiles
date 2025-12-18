@@ -10,6 +10,12 @@
         autocrlf = "input";
         eol = "lf";
       };
+      merge = {
+        tool = "nvimdiff";
+      };
+      diff = {
+        tool = "nvimdiff";
+      };
       init.defaultBranch = "main";
       user = {
         name = "detroyejr";
