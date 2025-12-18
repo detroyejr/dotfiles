@@ -37,7 +37,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.version:
-        print("Ark 0.5.1")
+        print("Ark 0.1.222")
         sys.exit(0)
 
     # Setup connection and logging information.
