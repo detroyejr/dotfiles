@@ -79,13 +79,16 @@ vim.keymap.set("n", "<Leader>fF",
   "--preview 'bat --style=full --color=always --highlight-line {2} {1}' " ..
   "--preview-window '~4,+{2}+4/3,<80(up)'<CR>i", opts)
 
+
+
 -- Git
-vim.keymap.set("n", "<Leader>gA", ":terminal git add -A<CR>")
+vim.keymap.set("n", "<Leader>gA", ":terminal git add -A<CR>iq")
 vim.keymap.set("n", "<Leader>gaa", ":terminal git add '%'<CR>i")
 vim.keymap.set("n", "<Leader>gai", ":terminal git ai<CR>i")
 vim.keymap.set("n", "<Leader>gc", ":terminal git commit<CR>i")
 vim.keymap.set("n", "<Leader>gs", ":terminal git status<CR>i")
 vim.keymap.set("n", "<Leader>gd", ":terminal git diff<CR>i")
+vim.keymap.set("n", "<Leader>gD", ":terminal git difftool --tool nvimdiff -y<CR>i")
 
 -- TODO: Do we still want tmux integration?
 -- local tmux = os.getenv("TMUX")
@@ -214,7 +217,10 @@ for _, name in ipairs({ "Fixme", "Hack", "Note", "Todo" }) do
   CommentString(name)
 end
 
+local group = vim.api.nvim_create_augroup("autocmdgroup", { clear = true })
+
 vim.api.nvim_create_autocmd('TermClose', {
+  group = group,
   once = false,
   callback = function(args)
     local out = vim.api.nvim_buf_get_lines(0, 0, 1, 2)[1]
@@ -226,7 +232,10 @@ vim.api.nvim_create_autocmd('TermClose', {
       -- NOTE: Force a refresh or we won't get syntax highlighting. There's probably an autocmd
       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(":edit<CR>", true, false, true), "n", true)
     end
+    -- Suppress "Process exit 0" message
+    vim.api.nvim_input("<CR>")
   end
+
 })
 
 
