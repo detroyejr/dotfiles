@@ -8,9 +8,6 @@
       "bluetooth",
       "backlight",
       "backlight/slider",
-      "network",
-      "disk",
-      "memory",
       "battery",
       "clock",
       "custom/power"
