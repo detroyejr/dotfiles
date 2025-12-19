@@ -10,6 +10,7 @@
     ./firefox.nix
     ./gtk.nix
     ./hyprlock.nix
+    ./mako.nix
     ./rofi.nix
     ./waybar.nix
     ./xdg.nix
@@ -43,6 +44,10 @@
     xserver = {
       enable = true;
       videoDrivers = lib.mkIf isNvidia [ "nvidia" ];
+    };
+    upower = {
+      enable = true;
+      usePercentageForPolicy = true;
     };
   };
   security.pam.services.hyprlock.fprintAuth = config.services.fprintd.enable;
@@ -78,7 +83,7 @@
       exec-once = hyprpaper
       exec-once = waybar
       exec-once = hyprlock
-      exec-once = swaync
+      exec-once = hyprctl dispatch exec mako -- --config /etc/xdg/mako/mako.ini
       exec-once = blueman-applet
 
       exec-once = $TERMINAL
@@ -330,7 +335,6 @@
     slack
     slurp
     socat
-    swaynotificationcenter
     vlc
     wireplumber
     wlr-randr
