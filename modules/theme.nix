@@ -1,5 +1,36 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  walls = pkgs.stdenv.mkDerivation {
+    name = "walls";
+    version = "1.0";
+    src = builtins.fetchurl {
+      name = "wallpaper";
+      url = "https://unsplash.com/photos/m96cH5FOXOM/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzY2MTE1MDU3fA&force=true";
+      sha256 = "sha256:02ml53yb27qssn4sgfdp6f3xx4yvy8bwciqzpdzm21lwjal0kylq";
+    };
+
+    phases = [ "installPhase" ];
+    buildInputs = [ pkgs.imagemagick ];
+    installPhase = ''
+      mkdir $out
+
+      magick $src -resize 800x600^ rofi.jpg
+      magick $src -resize 1920x1080^ medium.jpg
+
+      mv rofi.jpg $out
+      cp medium.jpg $out/medium.jpg
+      cp $src $out/wallpaper.jpg
+
+    '';
+  };
+in
+{
+
   options = {
     font = lib.mkOption {
       default = {
@@ -27,11 +58,11 @@
         type = lib.types.str;
       };
       wallpaper = lib.mkOption {
-        default = ../assets/walls/wallpaper.jpg;
+        default = "${walls}/wallpaper.jpg";
         type = lib.types.path;
       };
       rofi = lib.mkOption {
-        default = ../assets/walls/rofi.jpg;
+        default = "${walls}/rofi.jpg";
         type = lib.types.path;
       };
       profile = lib.mkOption {
