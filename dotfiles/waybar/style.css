@@ -17,10 +17,14 @@
   color: @accent
 }
 
-#clock, #battery, #disk, #network, #pulseaudio, #memory, #custom-power, #backlight {
+#custom-power, #clock, #battery, #bluetooth {
   font-family: "Input Mono, monospace";
-  padding: 12px;
-  min-width: 20px;
+  margin-right: 22px;
+}
+
+#pulseaudio, #backlight {
+  font-family: "Input Mono, monospace";
+  margin-right: 5px;
 }
 
 #pulseaudio-slider trough {
