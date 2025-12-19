@@ -12,8 +12,8 @@ let
   nvim-treesitter = pkgs.fetchFromGitHub {
     owner = "nvim-treesitter";
     repo = "nvim-treesitter";
-    rev = "75797cdd8ac125c7ace065b17788b439dcf89a71";
-    hash = "sha256-KZifQVHVhw1ee4encXHo/U5OyaUU6C1fZhNm+Hu5jhE=";
+    rev = "4fc09bee78e91bf4ba471cdab4bf9dfa37fde51c";
+    hash = "sha256-PBiYshT9p5l4YZHv8DHvcB396mKwRIfa8F2y0VgUuI4=";
   };
   sidekick = pkgs.fetchFromGitHub {
     owner = "folke";
