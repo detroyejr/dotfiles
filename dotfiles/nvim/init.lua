@@ -87,42 +87,46 @@ vim.keymap.set("n", "<Leader>gc", ":terminal git commit<CR>i")
 vim.keymap.set("n", "<Leader>gs", ":terminal git status<CR>i")
 vim.keymap.set("n", "<Leader>gd", ":terminal git diff<CR>i")
 
-local tmux = os.getenv("TMUX")
+-- TODO: Do we still want tmux integration?
+-- local tmux = os.getenv("TMUX")
+--
+-- if false then
+--   vim.keymap.set(
+--     "n",
+--     "<Leader>tf",
+--     "<cmd>!tmux display-popup -h 75\\% -w 75\\% -E "
+--     .. '"tmux new-session -A '
+--     .. "-s $(tmux display-message "
+--     .. "-p '\\#{session_name}')-shell\" "
+--     .. "</dev/null >/dev/null 2>&1 & <CR>"
+--     .. "<CR>"
+--   )
+--   vim.keymap.set("n", "<Leader>th", "<cmd>!tmux split-window<CR><CR>")
+--   vim.keymap.set("n", "<Leader>tv", "<cmd>!tmux split-window -h<CR><CR>")
+--   vim.keymap.set(
+--     "n",
+--     "<C-A-x>",
+--     "yy:!tmux 'last-pane'"
+--     .. "| wl-paste"
+--     .. "| tmux load-buffer - ;"
+--     .. "tmux paste-buffer<CR><CR>"
+--   )
+--
+--   vim.keymap.set(
+--     "v",
+--     "<C-A-x>",
+--     "y:!tmux 'last-pane'"
+--     .. "| wl-paste"
+--     .. "| tmux load-buffer - ;"
+--     .. "tmux paste-buffer<CR><CR>"
+--   )
+-- else
+--   vim.keymap.set("n", "<C-A-x>", "yy<C-w><C-w><C-\\><C-n>pi<CR><C-\\><CR>")
+--   vim.keymap.set("v", "<C-A-x>", "y<C-w><C-w><C-\\><C-n>pi<CR><C-\\><CR>")
+-- end
 
-if tmux then
-  vim.keymap.set(
-    "n",
-    "<Leader>tf",
-    "<cmd>!tmux display-popup -h 75\\% -w 75\\% -E "
-    .. '"tmux new-session -A '
-    .. "-s $(tmux display-message "
-    .. "-p '\\#{session_name}')-shell\" "
-    .. "</dev/null >/dev/null 2>&1 & <CR>"
-    .. "<CR>"
-  )
-  vim.keymap.set("n", "<Leader>th", "<cmd>!tmux split-window<CR><CR>")
-  vim.keymap.set("n", "<Leader>tv", "<cmd>!tmux split-window -h<CR><CR>")
-  vim.keymap.set(
-    "n",
-    "<C-A-x>",
-    "yy:!tmux 'last-pane'"
-    .. "| wl-paste"
-    .. "| tmux load-buffer - ;"
-    .. "tmux paste-buffer<CR><CR>"
-  )
-
-  vim.keymap.set(
-    "v",
-    "<C-A-x>",
-    "y:!tmux 'last-pane'"
-    .. "| wl-paste"
-    .. "| tmux load-buffer - ;"
-    .. "tmux paste-buffer<CR><CR>"
-  )
-else
-  vim.keymap.set("n", "<C-A-x>", "yy<C-w><C-w><C-\\><C-n>pi<CR><C-\\><CR>")
-  vim.keymap.set("v", "<C-A-x>", "y<C-w><C-w><C-\\><C-n>pi<CR><C-\\><CR>")
-end
+vim.keymap.set("n", "<C-A-x>", "yy<C-w>p<C-\\><C-n>pi<CR><C-\\><CR>")
+vim.keymap.set("v", "<C-A-x>", "y<C-w>p<C-\\><C-n>pi<CR><C-\\><CR>")
 
 local palette = {
   _nc = "#16141f",
