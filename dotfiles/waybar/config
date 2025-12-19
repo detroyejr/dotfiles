@@ -26,7 +26,7 @@
       "sort-by-number": true
     },
     "hyprland/window": {
-      "max-length": 50
+      "max-length": 120
     },
     "bluetooth": {
         "format": "{status}",
@@ -36,20 +36,6 @@
         "format-connected": "󰂯",
         "on-click": "blueman-manager",
         "tooltip-format": "{status} {device_alias}"
-    },
-    "network": {
-        "interface": ["wlp0s20f3", "wlp2s0"],
-        "format": "{bandwidthTotalBits}",
-        "format-wifi": "{bandwidthTotalBits} ",
-        "format-ethernet": "{bandwidthTotalBits} 󰊗",
-        "format-disconnected": "",
-        "tooltip-format": "{ifname} via {gwaddr} 󰊗",
-        "tooltip-format-wifi": "{ipaddr} via {ifname} 󰊗",
-        "tooltip-format-ethernet": "{ifname} ",
-        "tooltip-format-disconnected": "Disconnected",
-        "max-length": 50,
-        "on-click": "kitty -e nmtui-connect",
-        "interval": 10
     },
     "pulseaudio": {
         "format": "{icon}",
@@ -73,14 +59,6 @@
             "default": ["", ""]
         },
         "scroll-step": 1,
-    },
-    "disk": {
-      "format": "{percentage_used}% ",
-    },
-    "memory": {
-        "interval": 30,
-        "format": "{}% ",
-        "max-length": 10
     },
     "battery": {
         "format": "{capacity}% {icon}",
