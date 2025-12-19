@@ -4,6 +4,7 @@
     ./git.nix
     ./neovim.nix
     ./python.nix
+    ./opencode.nix
     ./r.nix
   ];
 
