@@ -84,6 +84,7 @@
       exec-once = waybar
       exec-once = hyprlock
       exec-once = hyprctl dispatch exec mako -- --config /etc/xdg/mako/mako.ini
+      exec-once = hyprctl dispatch exec easyeffects -- -w
       exec-once = blueman-applet
 
       exec-once = $TERMINAL
