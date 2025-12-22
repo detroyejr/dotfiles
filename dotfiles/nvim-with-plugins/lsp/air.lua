@@ -1,6 +1,6 @@
 return {
   cmd = { "air", "language-server" },
-  filetypes = { 'r', 'R' },
+  filetypes = { 'r' },
   root_markers = {
     '.rproj',
     '.Rproj',
