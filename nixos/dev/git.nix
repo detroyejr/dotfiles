@@ -12,6 +12,7 @@
       };
       merge = {
         tool = "nvimdiff";
+        keepBackup = false;
       };
       diff = {
         tool = "nvimdiff";
