@@ -265,7 +265,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-vim.lsp.enable({ "ark", "air", "clangd", "lua_ls", "nixd", "pylsp", "ruff", "rust_analyzer", "snippets_lsp", "copilot" })
+vim.lsp.enable({
+  "air",
+  "ark",
+  "clangd",
+  "copilot",
+  "jarl",
+  "lua_ls",
+  "nixd",
+  "pylsp",
+  "ruff",
+  "rust_analyzer",
+  "snippets_lsp",
+})
 
 
 vim.lsp.inlay_hint.enable()

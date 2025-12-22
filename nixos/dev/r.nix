@@ -79,6 +79,7 @@ in
     R-with-packages
     ark-posit
     air-formatter
+    jarl
     pandoc
   ];
 

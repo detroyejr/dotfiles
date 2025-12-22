@@ -14,7 +14,7 @@ return {
   settings = {
     Lua = {
       diagnostics = {
-        globals = { 'vim', 'bold', 'underline' },
+        globals = { 'vim', 'bold', 'underline', 'bufrn' },
       },
     }
   }
