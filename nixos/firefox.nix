@@ -12,6 +12,7 @@ in
     enable = true;
     package = pkgs.firefox;
     preferences = {
+      "browser.ml.enable" = false;
       "browser.tabs.allow_transparent_browser" = true;
       "browser.tabs.insertAfterCurrent" = true;
       "gwfox.plus" = true;
