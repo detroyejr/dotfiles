@@ -190,6 +190,7 @@ CommentString = function(name)
   vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI', 'BufEnter' }, {
     group = vim.api.nvim_create_augroup(name, {}),
     callback = function(args)
+      if vim.bo[args.buf].buftype == "terminal" then return end
       local comment
       local lines
       local prefix
