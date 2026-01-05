@@ -3,7 +3,7 @@
   programs = {
     thunar = {
       enable = true;
-      plugins = with pkgs; [ xfce.exo ];
+      plugins = with pkgs; [ xfce4-exo ];
     };
   };
   services = {
