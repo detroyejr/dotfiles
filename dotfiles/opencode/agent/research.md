@@ -1,6 +1,6 @@
 ---
 description: Research agent configuration
-mode: subagent
+mode: all
 temperature: 0.1
 tools:
   write: false
