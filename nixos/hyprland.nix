@@ -90,6 +90,7 @@
       exec-once = $TERMINAL
       exec-once = [workspace 2 silent;] firefox
       exec-once = [workspace 3 silent;] obsidian
+      exec-once = [workspace 9 silent;] keepassxc
 
       windowrule = float,title:^(Rofi)$
       windowrule = center,title:^(Rofi)$
