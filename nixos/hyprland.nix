@@ -309,7 +309,6 @@
     calibre
     chromium
     colorz
-    comskip
     discord
     dmenu
     easyeffects
