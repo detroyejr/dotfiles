@@ -92,25 +92,25 @@
       exec-once = [workspace 3 silent;] obsidian
       exec-once = [workspace 9 silent;] keepassxc
 
-      windowrule = float,title:^(Rofi)$
-      windowrule = center,title:^(Rofi)$
+      windowrule = match:title ^(Rofi)$, float yes
+      windowrule = match:title ^(Rofi)$, center yes
 
-      windowrule = float,title:^(thunar)$
-      windowrule = center,title:^(thunar)$
-      windowrule = size 70% 70%,title:^(thunar)$
+      windowrule = match:title thunar, float yes
+      windowrule = match:title thunar, center yes
+      windowrule = match:title thunar, size 70% 70%
 
-      windowrule = float,title:^(Volume Control)$
-      windowrule = move 100%-488 6%,title:^(Volume Control)$
-      windowrule = size 400 560,title:^(Volume Control)$
-      windowrule = animation slide,title:^(Volume Control)$
+      windowrule = match:title ^(Volume Control)$, float yes
+      windowrule = match:title ^(Volume Control)$, move 100%-488 6%
+      windowrule = match:title ^(Volume Control)$, size 400 560
+      windowrule = match:title ^(Volume Control)$, animation slide
 
-      windowrule = float,title:^(Plexamp)$
-      windowrule = move 100%-488 6%,title:^(Plexamp)$
-      windowrule = size 400 560,title:^(Plexamp)$
-      windowrule = animation slide,title:^(Plexamp)$
+      windowrule = match:title ^(Plexamp)$, float yes
+      windowrule = match:title ^(Plexamp)$, move 100%-488 6%
+      windowrule = match:title ^(Plexamp)$, size 400 560
+      windowrule = match:title ^(Plexamp)$, animation slide
 
-      windowrule = float,class:^(org.wezfurlong.wezterm)$
-      windowrule = tile,class:^(org.wezfurlong.wezterm)$
+      windowrule = match:class ^(org.wezfurlong.wezterm)$, float yes
+      windowrule = match:class ^(org.wezfurlong.wezterm)$, tile yes
 
       windowrulev2 = opacity 0.94, class:(firefox)
 
@@ -148,7 +148,7 @@
       }
 
       animations {
-          enabled = yes
+          enabled = no
           animation = windows, 1, 2, default, slide down
           animation = windowsOut, 1, 2, default, slide
           animation = border, 1, 2, default
@@ -275,14 +275,10 @@
       splash = true
       preload = ${builtins.toString config.colorScheme.wallpaper}
 
-      ${lib.optionalString (config.system.name == "skate") ''
-        wallpaper = DP-1,${builtins.toString config.colorScheme.config.wallpaper}
-      ''}
-
-      wallpaper = DP-7,${builtins.toString config.colorScheme.wallpaper}
-      wallpaper = DP-8,${builtins.toString config.colorScheme.wallpaper}
-      wallpaper = eDP-1,${builtins.toString config.colorScheme.wallpaper}
-      wallpaper = HDMI-A-1,${builtins.toString config.colorScheme.wallpaper}
+      wallpaper {
+          monitor =
+          path = ${builtins.toString config.colorScheme.wallpaper}
+      }
     '';
   };
 
