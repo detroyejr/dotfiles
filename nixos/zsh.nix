@@ -43,7 +43,7 @@ in
     kubectl
     lsof
     nitch
-    nixfmt-rfc-style
+    nixfmt
     ollama
     openssh
     qsv
