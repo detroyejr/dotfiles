@@ -1,8 +1,8 @@
 { ... }:
 {
   imports = [
-    ./packages.nix
     ./lila.nix
     ./nginx.nix
+    ./packages.nix
   ];
 }

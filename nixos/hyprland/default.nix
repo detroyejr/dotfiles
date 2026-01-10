@@ -7,11 +7,11 @@
 }:
 {
   imports = [
-    ./firefox.nix
+    ../apps/firefox.nix
     ./gtk.nix
     ./hyprlock.nix
     ./mako.nix
-    ./rofi.nix
+    ../apps/rofi.nix
     ./waybar.nix
     ./xdg.nix
   ];
@@ -69,7 +69,7 @@
       monitor=HDMI-A-1,preferred,auto,2
       monitor=,highres,auto,1
 
-      ${lib.optionalString (config.system.name == "potato") ''
+      ${lib.optionalString (config.system.name == "pelican") ''
         monitor=eDP-1,preferred,auto,1
       ''}
 
@@ -95,9 +95,9 @@
       windowrule = match:title ^(Rofi)$, float yes
       windowrule = match:title ^(Rofi)$, center yes
 
-      windowrule = match:title thunar, float yes
-      windowrule = match:title thunar, center yes
-      windowrule = match:title thunar, size 70% 70%
+      windowrule = match:class thunar, float yes
+      windowrule = match:class thunar, center yes
+      windowrule = match:class thunar, size 70% 70%
 
       windowrule = match:title ^(Volume Control)$, float yes
       windowrule = match:title ^(Volume Control)$, move 100%-488 6%

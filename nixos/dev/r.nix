@@ -8,7 +8,7 @@ let
         surveytools = buildRPackage {
           name = "EchelonSurveyTools";
           src = builtins.fetchGit {
-            url = "git@github.com:echeloninsights/EchelonSurveyTools.git";
+            url = "git@github.com:EchelonInsights/EchelonSurveyTools.git";
             rev = "d850dc2b4ed9e05cc30a0cd0b06fdc159261a06d";
             allRefs = true;
           };

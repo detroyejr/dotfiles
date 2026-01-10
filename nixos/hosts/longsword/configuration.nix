@@ -2,25 +2,24 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../default.nix
-    ../brightness.nix
-    ../cataclysm-dda.nix
-    ../devices.nix
-    ../docker.nix
-    ../fonts.nix
-    ../hyprland.nix
-    ../openrgb.nix
-    ../rclone.nix
-    ../sops.nix
-    ../steam.nix
-    ../syncthing.nix
-    ../thunar.nix
-    ../wireshark.nix
-    ../virtualization.nix
-    # ../lichess
+    ../../apps/brightness.nix
+    ../../apps/cataclysm-dda.nix
+    ../../apps/fonts.nix
+    ../../apps/steam.nix
+    ../../apps/thunar.nix
+    ../../apps/wireshark.nix
+    ../../default.nix
+    ../../devices.nix
+    ../../hyprland/default.nix
+    ../../services/docker.nix
+    ../../services/openrgb.nix
+    ../../services/rclone.nix
+    ../../services/syncthing.nix
+    ../../services/virtualization.nix
+    ../../sops.nix
   ];
 
-  networking.hostName = "XPS-Nixos";
+  networking.hostName = "longsword";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

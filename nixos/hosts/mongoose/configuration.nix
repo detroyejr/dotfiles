@@ -3,12 +3,12 @@
 
   imports = [
     ./hardware-configuration.nix
-    ../default.nix
-    ../cataclysm-dda.nix
-    ../fonts.nix
-    ../firefox.nix
-    ../jovian.nix
-    ../syncthing.nix
+    ../../apps/cataclysm-dda.nix
+    ../../apps/firefox.nix
+    ../../apps/fonts.nix
+    ../../apps/jovian.nix
+    ../../default.nix
+    ../../services/syncthing.nix
   ];
 
   environment.systemPackages = with pkgs; [
@@ -48,12 +48,12 @@
   system.activationScripts = {
     nvimConfig = {
       text = ''
-        ln -sfn ${../../dotfiles/nvim/.} /home/detroyejr/.config/nvim
+        ln -sfn ${../../../dotfiles/nvim/.} /home/detroyejr/.config/nvim
       '';
     };
   };
 
-  networking.hostName = "skate";
+  networking.hostName = "mongoose";
   services.xserver.enable = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

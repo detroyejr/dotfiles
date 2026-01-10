@@ -4,13 +4,15 @@
   ...
 }:
 {
+  programs.zsh.enable = true;
+
   imports = [
     ../modules
+    ./apps/yazi.nix
     ./dev
-    ./tmux.nix
-    ./wezterm.nix
-    ./yazi.nix
-    ./zsh.nix
+    ./dev/tmux.nix
+    ./dev/wezterm.nix
+    ./dev/zsh.nix
   ];
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -39,19 +41,19 @@
         "flakes"
       ];
       substituters = [
-        "http://mini-1.lan/?priority=10"
-        "http://mini-2.lan/?priority=10"
-        "http://mini-3.lan/?priority=10"
-        "http://mini-4.lan/?priority=10"
-        "http://mini-5.lan/?priority=10"
+        "http://odp-1.lan/?priority=10"
+        "http://odp-2.lan/?priority=10"
+        "http://odp-3.lan/?priority=10"
+        "http://odp-4.lan/?priority=10"
+        "http://odp-5.lan/?priority=10"
         "https://cache.nixos.org"
       ];
       trusted-public-keys = [
-        "mini-1.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "mini-2.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "mini-3.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "mini-4.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "mini-5.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "odp-1.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "odp-2.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "odp-3.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "odp-4.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "odp-5.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
       ];
 
       trusted-users = [
@@ -75,10 +77,10 @@
           ];
         })
         [
-          "mini-2"
-          "mini-3"
-          "mini-4"
-          "mini-5"
+          "odp-2"
+          "odp-3"
+          "odp-4"
+          "odp-5"
         ];
   };
 
@@ -101,6 +103,7 @@
 
   users.users.detroyejr = {
     isNormalUser = true;
+    group = "detroyejr";
     shell = pkgs.zsh;
     # TODO: is gamemode needed?
     extraGroups = [
@@ -110,6 +113,7 @@
       "gamemode"
     ];
   };
+  users.groups.detroyejr = { };
 
   hardware.nvidia.open = pkgs.lib.mkDefault isNvidia;
 }

@@ -48,7 +48,7 @@
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
 
       nixosConfigurations = {
-        "xps" = nixpkgs.lib.nixosSystem {
+        "longsword" = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
             inherit
@@ -59,12 +59,12 @@
             isNvidia = true;
           };
           modules = [
-            ./nixos/xps/configuration.nix
+            ./nixos/hosts/longsword/configuration.nix
             nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
             sops-nix.nixosModules.sops
           ];
         };
-        "mini" = nixpkgs.lib.nixosSystem {
+        "odp-1" = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
             inherit
@@ -75,13 +75,14 @@
             isNvidia = false;
           };
           modules = [
-            ./nixos/mini/configuration.nix
+            ./nixos/hosts/odp-1/configuration.nix
+
             # Running the 3070, but I think this is close enough.
             nixos-hardware.nixosModules.dell-optiplex-3050
             sops-nix.nixosModules.sops
           ];
         };
-        "skate" = nixpkgs.lib.nixosSystem {
+        "mongoose" = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
             inherit
@@ -92,26 +93,12 @@
             isNvidia = false;
           };
           modules = [
-            ./nixos/skate/configuration.nix
+            ./nixos/hosts/mongoose/configuration.nix
             jovian.nixosModules.default
             sops-nix.nixosModules.sops
           ];
         };
-        "tower" = nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
-          specialArgs = {
-            inherit
-              inputs
-              outputs
-              system
-              ;
-            isNvidia = false;
-          };
-          modules = [
-            ./nixos/tower/configuration.nix
-          ];
-        };
-        "brick" = nixpkgs.lib.nixosSystem {
+        "scorpion" = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
             inherit
@@ -122,11 +109,11 @@
             isNvidia = true;
           };
           modules = [
-            ./nixos/brick/configuration.nix
+            ./nixos/hosts/scorpion/configuration.nix
             nixos-hardware.nixosModules.dell-xps-15-9570-nvidia
           ];
         };
-        "potato" = nixpkgs.lib.nixosSystem {
+        "pelican" = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
             inherit
@@ -137,17 +124,17 @@
             isNvidia = false;
           };
           modules = [
-            ./nixos/potato/configuration.nix
+            ./nixos/hosts/pelican/configuration.nix
             sops-nix.nixosModules.sops
           ];
         };
       };
       colmena = {
         meta.nixpkgs = pkgs;
-        mini-2 = import ./nixos/minis/mini-2.nix;
-        mini-3 = import ./nixos/minis/mini-3.nix;
-        mini-4 = import ./nixos/minis/mini-4.nix;
-        mini-5 = import ./nixos/minis/mini-5.nix;
+        odp-2 = import ./nixos/hosts/odp/odp-2.nix;
+        odp-3 = import ./nixos/hosts/odp/odp-3.nix;
+        odp-4 = import ./nixos/hosts/odp/odp-4.nix;
+        odp-5 = import ./nixos/hosts/odp/odp-5.nix;
       };
     };
 }

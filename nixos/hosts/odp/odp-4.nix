@@ -1,7 +1,4 @@
 {
-  name,
-  nodes,
-  pkgs,
   config,
   lib,
   ...
@@ -12,15 +9,15 @@
     ./default.nix
   ];
 
-  networking.hostName = "mini-5";
+  networking.hostName = "odp-4";
 
   # Hardware
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"
     "nvme"
-    "usb_storage"
     "usbhid"
+    "usb_storage"
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
@@ -28,16 +25,16 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/86ab7b80-9ee4-42fb-98f3-9189dd55ef19";
+    device = "/dev/disk/by-uuid/5e4937c2-2a8f-453a-9c3c-69b428090296";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/A488-42DE";
+    device = "/dev/disk/by-uuid/173F-3560";
     fsType = "vfat";
     options = [
-      "fmask=0022"
-      "dmask=0022"
+      "fmask=0077"
+      "dmask=0077"
     ];
   };
 

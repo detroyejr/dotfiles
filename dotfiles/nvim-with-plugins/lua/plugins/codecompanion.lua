@@ -10,7 +10,7 @@ return {
         ollama = function()
           return require("codecompanion.adapters").extend("openai_compatible", {
             env = {
-              url = "http://mini-1.lan:11434",
+              url = "http://odp-1.lan:11434",
             },
             parameters = {
               sync = true,

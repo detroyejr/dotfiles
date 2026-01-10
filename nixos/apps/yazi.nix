@@ -1,8 +1,8 @@
 { pkgs, config, ... }:
 
 let
-  yaziConfig = ../dotfiles/yazi/yazi.toml;
-  yaziKeymaps = ../dotfiles/yazi/keymap.toml;
+  yaziConfig = ../../dotfiles/yazi/yazi.toml;
+  yaziKeymaps = ../../dotfiles/yazi/keymap.toml;
   yaziTheme =
     with config.colorScheme.colors;
     pkgs.writeText "theme.toml" ''

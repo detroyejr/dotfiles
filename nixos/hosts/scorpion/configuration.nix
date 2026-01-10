@@ -2,9 +2,9 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../default.nix
-    ../docker.nix
-    ../plex.nix
+    ../../default.nix
+    ../../services/docker.nix
+    ../../services/plex.nix
   ];
 
   # Bootloader.
@@ -13,7 +13,7 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   networking.networkmanager.enable = true;
-  networking.hostName = "BrickOS";
+  networking.hostName = "scorpion";
 
   services.xserver = {
     xkb = {
@@ -44,7 +44,7 @@
     settings.PasswordAuthentication = false;
   };
 
-  services.logind.lidSwitch = "ignore";
+  services.logind.settings.Login.HandleLidSwitch = "Ignore";
 
   system.stateVersion = "23.11";
 }

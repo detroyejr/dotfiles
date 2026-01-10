@@ -2,7 +2,8 @@
 {
 
   imports = [
-    ../binary-cache.nix
+    ../../../modules/theme.nix
+    ../../services/binary-cache.nix
   ];
 
   nix = {
@@ -22,21 +23,19 @@
         "flakes"
       ];
       substituters = [
-        "http://mini-1.lan/?priority=10"
-        "http://mini-2.lan/?priority=10"
-        "http://mini-3.lan/?priority=10"
-        "http://mini-4.lan/?priority=10"
-        "http://mini-5.lan/?priority=10"
+        "http://odp-1.lan/?priority=10"
+        "http://odp-2.lan/?priority=10"
+        "http://odp-3.lan/?priority=10"
+        "http://odp-4.lan/?priority=10"
+        "http://odp-5.lan/?priority=10"
         "https://cache.nixos.org"
-        "https://cosmic.cachix.org/"
       ];
       trusted-public-keys = [
-        "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-        "mini-1.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "mini-2.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "mini-3.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "mini-4.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "mini-5.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "odp-1.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "odp-2.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "odp-3.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "odp-4.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "odp-5.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
       ];
 
       trusted-users = [
@@ -94,6 +93,6 @@
 
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
-  system.stateVersion = "24.11";
 
+  system.stateVersion = "24.11";
 }

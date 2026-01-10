@@ -25,7 +25,10 @@ in
 {
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
-  environment.systemPackages = [ pkgs.tree-sitter pkgs.copilot-language-server ];
+  environment.systemPackages = [
+    pkgs.tree-sitter
+    pkgs.copilot-language-server
+  ];
   environment.etc = {
     "xdg/nvim".source = neovimConfig;
   };

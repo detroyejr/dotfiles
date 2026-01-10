@@ -3,3 +3,4 @@ vim/.vim/bundle/*
 nvim/plugin/packer_compiled.lua
 result/
 dotfiles/nvim/lazy-lock.json
+AGENTS.md

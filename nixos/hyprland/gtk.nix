@@ -6,7 +6,6 @@
 }:
 
 let
-
   repo = builtins.fetchGit {
     url = "https://github.com/Misterio77/nix-colors";
     rev = "37227f274b34a3b51649166deb94ce7fec2c6a4c";

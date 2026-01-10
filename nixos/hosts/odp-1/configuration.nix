@@ -2,26 +2,25 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../default.nix
-    ../actual.nix
-    ../binary-cache.nix
-    ../brightness.nix
-    ../custom-whisper-server.nix
-    ../cataclysm-dda.nix
-    ../devices.nix
-    ../fonts.nix
-    ../hyprland.nix
-    ../openrgb.nix
-    ../rclone.nix
-    ../sops.nix
-    ../steam.nix
-    ../syncthing.nix
-    ../thunar.nix
-    # ../veikk.nix
-    ../virtualization.nix
+    ../../apps/brightness.nix
+    ../../apps/cataclysm-dda.nix
+    ../../apps/fonts.nix
+    ../../apps/steam.nix
+    ../../apps/thunar.nix
+    ../../default.nix
+    ../../devices.nix
+    ../../hyprland/default.nix
+    ../../services/actual.nix
+    ../../services/custom-whisper-server.nix
+    ../../services/openrgb.nix
+    ../../services/rclone.nix
+    ../../services/syncthing.nix
+    ../../services/virtualization.nix
+    ../../sops.nix
+    # ../../veikk.nix
   ];
 
-  networking.hostName = "mini-1";
+  networking.hostName = "odp-1";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -66,9 +65,7 @@
     8080
     11434
   ];
-  networking.firewall.allowedUDPPorts = [
-    53
-  ];
+  networking.firewall.allowedUDPPorts = [ 53 ];
 
   systemd = {
     targets = {
@@ -122,5 +119,6 @@
     };
     wantedBy = [ "timers.target" ];
   };
+
   system.stateVersion = "23.11";
 }

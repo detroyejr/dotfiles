@@ -4,7 +4,7 @@ let
   custom-scripts = pkgs.stdenv.mkDerivation {
     name = "custom-bash-scripts";
     version = "1.0";
-    src = ../dotfiles/bash;
+    src = ../../dotfiles/bash;
     hash = "";
 
     installPhase = ''
