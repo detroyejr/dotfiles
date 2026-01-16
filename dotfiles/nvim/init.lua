@@ -321,33 +321,17 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-require("sidekick").setup({
-  cli = {
-    mux = {
-      backend = "tmux",
-      enabled = true,
-      split = { size = 0.33 },
-    },
-  },
-})
+vim.g.opencode_opts = {
+  provider = {
+    enabled = "terminal",
+  }
+}
 
 vim.keymap.set('i', '<Tab>', function()
   if not vim.lsp.inline_completion.get() then
     return '<Tab>'
   end
 end, { expr = true, desc = 'Accept the current inline completion' })
-
-vim.keymap.set(
-  "n",
-  "<tab>",
-  function()
-    -- if there is a next edit, jump to it, otherwise apply it if any
-    if not require("sidekick").nes_jump_or_apply() then
-      return "<Tab>" -- fallback to normal tab
-    end
-  end,
-  opts
-)
 
 local toggle_copilot = function()
   local clients = vim.lsp.get_clients({ name = "copilot" })
@@ -372,41 +356,20 @@ vim.keymap.set(
 vim.keymap.set(
   "n",
   "<Leader>aa",
-  function() require("sidekick.cli").toggle({ name = "opencode", focus = true }) end,
-  opts
-)
-
-vim.keymap.set(
-  { "x", "n" },
-  "<leader>ap",
-  function() require("sidekick.cli").prompt() end,
+  function() require("opencode").toggle() end,
   opts
 )
 
 vim.keymap.set(
   { "x", "n" },
   "<leader>at",
-  function() require("sidekick.cli").send({ msg = "{this}", name = "opencode" }) end,
+  function() require("opencode").ask("@this: ", { submit = true }) end,
   opts
 )
 
 vim.keymap.set(
-  { "i", "x", "n" },
-  "<leader>af",
-  function() require("sidekick.cli").send({ msg = "{file}", name = "opencode" }) end,
-  opts
-)
-
-vim.keymap.set(
-  "x",
-  "<leader>av",
-  function() require("sidekick.cli").send({ msg = "{selection}", name = "opencode" }) end,
-  opts
-)
-
-vim.keymap.set(
-  { "i", "x", "n" },
-  "<leader>ad",
-  function() require("sidekick.cli").close() end,
+  { "x", "n" },
+  "<leader>ap",
+  function() require("opencode").select() end,
   opts
 )

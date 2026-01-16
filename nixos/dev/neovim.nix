@@ -21,6 +21,12 @@ let
     rev = "c2bdf8cfcd87a6be5f8b84322c1b5052e78e302e";
     hash = "sha256-ABuILCcKfYViZoFHaCepgIMLjvMEb/SBmGqGHUBucAM=";
   };
+  opencodeNvim = pkgs.fetchFromGitHub {
+    owner = "NickvanDyke";
+    repo = "opencode.nvim";
+    rev = "990c062d4036877a047cb3f5372e2f261a889f0a";
+    hash = "sha256-hnGsLiBlpwHKWh7L+uiWOFXzjjryoOMjDBaiX1aT7+U=";
+  };
 in
 {
   programs.neovim.enable = true;
@@ -45,6 +51,9 @@ in
 
         mkdir -p ''${DIR}/nvim/site/pack/plugins/start/sidekick
         ln -sfn ${sidekick}/* ''${DIR}/nvim/site/pack/plugins/start/sidekick
+
+        mkdir -p ''${DIR}/nvim/site/pack/plugins/start/opencode
+        ln -sfn ${opencodeNvim}/* ''${DIR}/nvim/site/pack/plugins/start/opencode
       '';
     };
   };
