@@ -49,11 +49,11 @@
         "https://cache.nixos.org"
       ];
       trusted-public-keys = [
-        "odp-1.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "odp-2.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "odp-3.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "odp-4.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "odp-5.lan:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "odp-1:U5ym3uCiHpEA1SSLWbP/l1JNc+HvalgeIwM3Q/ysv1k="
+        "odp-1:U5ym3uCiHpEA1SSLWbP/l1JNc+HvalgeIwM3Q/ysv1k="
+        "odp-1:U5ym3uCiHpEA1SSLWbP/l1JNc+HvalgeIwM3Q/ysv1k="
+        "odp-1:U5ym3uCiHpEA1SSLWbP/l1JNc+HvalgeIwM3Q/ysv1k="
+        "odp-1:U5ym3uCiHpEA1SSLWbP/l1JNc+HvalgeIwM3Q/ysv1k="
       ];
 
       trusted-users = [
@@ -62,7 +62,7 @@
       ];
     };
     buildMachines =
-      builtins.map
+      map
         (name: {
           hostName = name;
           sshUser = "detroyejr";
