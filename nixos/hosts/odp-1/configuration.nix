@@ -11,13 +11,14 @@
     ../../devices.nix
     ../../hyprland/default.nix
     ../../services/actual.nix
+    ../../services/binary-cache.nix
     ../../services/custom-whisper-server.nix
+    ../../services/freshrss.nix
     ../../services/openrgb.nix
     ../../services/rclone.nix
     ../../services/syncthing.nix
     ../../services/virtualization.nix
     ../../sops.nix
-    # ../../veikk.nix
   ];
 
   networking.hostName = "odp-1";
@@ -40,6 +41,21 @@
       "relatime"
       "user"
     ];
+  };
+
+  sops.secrets = {
+    "rootCA/ODPCA.crt" = {
+      owner = "detroyejr";
+      group = "nginx";
+    };
+    "rootCA/ODPCA.key" = {
+      owner = "detroyejr";
+      group = "nginx";
+    };
+    "rootCA/san.cnf" = {
+      owner = "detroyejr";
+      group = "nginx";
+    };
   };
 
   networking = {
