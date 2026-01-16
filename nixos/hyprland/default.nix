@@ -90,7 +90,10 @@
       exec-once = $TERMINAL
       exec-once = [workspace 2 silent;] firefox
       exec-once = [workspace 3 silent;] obsidian
-      exec-once = [workspace 9 silent;] keepassxc
+      exec-once = [workspace 9 silent;] keepass
+
+      windowrule = match:title .*KeePass$, float yes
+      windowrule = match:title .*KeePass$, center yes
 
       windowrule = match:title ^(Rofi)$, float yes
       windowrule = match:title ^(Rofi)$, center yes
@@ -189,7 +192,7 @@
       bind = $mainMod SHIFT, PRINT, exec, grim -g "$(slurp)"
       bind = $mainMod SHIFT, E, exec, bash -c "if pgrep -x wofi-emoji > /dev/null; then pkill wofi-emoji; else wofi-emoji; fi"
       bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @obsidian > /dev/null; then pkill obsidian; else obsidian; fi"
-      bind = $mainMod SHIFT, K, exec, bash -c "if pgrep -x .keepassxc-wrap > /dev/null; then pkill keepassxc; else keepassxc; fi"
+      bind = $mainMod SHIFT, K, exec, bash -c "if pgrep -x mono > /dev/null; then pkill mono; else keepass; fi"
       bind = $mainMod, C, killactive,
       bind = $mainMod, E, exec, thunar
       bind = $mainMod, F, togglefloating,
@@ -314,7 +317,7 @@
     hyprpaper
     hyprpicker
     kanshi
-    keepassxc
+    keepass
     libnotify
     libreoffice
     lutris
