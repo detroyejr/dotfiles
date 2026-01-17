@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   isNvidia,
   ...
 }:
@@ -91,6 +92,8 @@
       gcr-ssh-agent.enable = true;
     };
   };
+
+  security.pki.certificateFiles = [ ../dotfiles/ca/ca.crt ];
 
   time.timeZone = "America/New_York";
 
