@@ -15,7 +15,8 @@ in
       "browser.ml.enable" = false;
       "browser.tabs.allow_transparent_browser" = true;
       "browser.tabs.insertAfterCurrent" = true;
-      "browser.startup.homepage" = "${config.services.glance.settings.server.host}:${toString config.services.glance.settings.server.port}";
+      "browser.startup.homepage" =
+        "${config.services.glance.settings.server.host}:${toString config.services.glance.settings.server.port}";
       "gwfox.plus" = true;
       "sidebar.animation.enabled" = false;
       "svg.context-properties.content.enabled" = true;

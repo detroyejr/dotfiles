@@ -14,6 +14,7 @@
     ../../services/binary-cache.nix
     ../../services/custom-whisper-server.nix
     ../../services/freshrss.nix
+    ../../services/grafana.nix
     ../../services/openrgb.nix
     ../../services/prometheus.nix
     ../../services/rclone.nix
