@@ -15,6 +15,7 @@
     ../../services/custom-whisper-server.nix
     ../../services/freshrss.nix
     ../../services/openrgb.nix
+    ../../services/prometheus.nix
     ../../services/rclone.nix
     ../../services/syncthing.nix
     ../../services/virtualization.nix

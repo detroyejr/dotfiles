@@ -4,6 +4,7 @@
   imports = [
     ../../../modules/theme.nix
     ../../services/binary-cache.nix
+    ../../services/prometheus.nix
   ];
 
   nix = {
