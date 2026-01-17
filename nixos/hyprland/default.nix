@@ -12,6 +12,7 @@
     ./hyprlock.nix
     ./mako.nix
     ../apps/rofi.nix
+    ../services/glance.nix
     ./waybar.nix
     ./xdg.nix
   ];
