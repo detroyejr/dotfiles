@@ -16,7 +16,10 @@
     enable = true;
     openFirewall = lib.mkIf (config.system.name == "odp-1") true;
     settings = {
-      server.port = 5678;
+      server = {
+        host = "0.0.0.0";
+        port = 5678;
+      };
       pages = [
         {
           name = "Home";
