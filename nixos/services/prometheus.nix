@@ -7,7 +7,7 @@ in
 
   services.prometheus = {
     enable = lib.mkIf (config.system.name == "odp-2") true;
-    retentionTime = "12m";
+    retentionTime = "365d";
   };
 
   services.prometheus.scrapeConfigs = [
