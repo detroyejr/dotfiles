@@ -32,11 +32,7 @@
         "https://cache.nixos.org"
       ];
       trusted-public-keys = [
-        "odp-1:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "odp-2:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "odp-3:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "odp-4:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
-        "odp-5:Qaw4+6mWCHqNCNL7Vnbo7KXFjjbyl64RaAMdCSEGzKI="
+        "odp-1:ep03YNVn5yTQNfdD9ATHGvgfG1kiwACJxyCOXoI96bU="
       ];
 
       trusted-users = [

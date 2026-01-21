@@ -42,19 +42,15 @@
         "flakes"
       ];
       substituters = [
-        "http://odp-1.lan/?priority=10"
-        "http://odp-2.lan/?priority=10"
-        "http://odp-3.lan/?priority=10"
-        "http://odp-4.lan/?priority=10"
-        "http://odp-5.lan/?priority=10"
+        "http://odp-1/?priority=10"
+        "http://odp-2/?priority=10"
+        "http://odp-3/?priority=10"
+        "http://odp-4/?priority=10"
+        "http://odp-5/?priority=10"
         "https://cache.nixos.org"
       ];
       trusted-public-keys = [
-        "odp-1:U5ym3uCiHpEA1SSLWbP/l1JNc+HvalgeIwM3Q/ysv1k="
-        "odp-1:U5ym3uCiHpEA1SSLWbP/l1JNc+HvalgeIwM3Q/ysv1k="
-        "odp-1:U5ym3uCiHpEA1SSLWbP/l1JNc+HvalgeIwM3Q/ysv1k="
-        "odp-1:U5ym3uCiHpEA1SSLWbP/l1JNc+HvalgeIwM3Q/ysv1k="
-        "odp-1:U5ym3uCiHpEA1SSLWbP/l1JNc+HvalgeIwM3Q/ysv1k="
+        "odp-1:ep03YNVn5yTQNfdD9ATHGvgfG1kiwACJxyCOXoI96bU="
       ];
 
       trusted-users = [
