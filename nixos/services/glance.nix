@@ -10,6 +10,10 @@
       owner = "detroyejr";
       group = "detroyejr";
     };
+    "glance/freshrssUrl" = {
+      owner = "detroyejr";
+      group = "detroyejr";
+    };
   };
 
   services.glance = {
@@ -51,6 +55,7 @@
                   type = "bookmarks";
                   groups = [
                     {
+                      title = "Work";
                       links = [
                         {
                           title = "Outlook";
@@ -63,7 +68,7 @@
                       ];
                     }
                     {
-                      title = "Entertainment";
+                      title = "Play";
                       color = "10 70 50";
                       links = [
                         {
@@ -94,22 +99,50 @@
                         }
                       ];
                     }
+                    {
+                      title = "Services";
+                      color = "280 50 40";
+                      links = [
+                        {
+                          title = "Plex";
+                          url = "http://scorpion:32400/web";
+
+                        }
+                        {
+                          title = "Pi-hole";
+                          url = "http://pi.hole";
+
+                        }
+                        {
+                          title = "Actual Budget";
+                          url = "https://odp-1:3000";
+
+                        }
+                        {
+                          title = "Grafana";
+                          url = "http://odp-1:3001";
+
+                        }
+                      ];
+                    }
                   ];
                 }
                 {
-                  type = "hacker-news";
-                  count = 5;
+                  type = "rss";
+                  title = "FreshRSS";
+                  limit = 20;
+                  style = "detailed-list";
+                  collapse-after = 10;
+                  cache = "20m";
+                  feeds = [
+                    {
+                      url = {
+                        _secret = config.sops.secrets."glance/freshrssUrl".path;
+                      };
+                      title = "FreshRSS";
+                    }
+                  ];
                 }
-                {
-                  type = "dns-stats";
-                  service = "pihole-v6";
-                  url = "http://pi.hole";
-                  username = "detroyejr";
-                  password = {
-                    _secret = config.sops.secrets."glance/piholePassword".path;
-                  };
-                }
-
               ];
             }
             {
@@ -138,6 +171,16 @@
                     </div>
                   '';
                 }
+              ];
+            }
+          ];
+        }
+        {
+          name = "Services";
+          columns = [
+            {
+              size = "full";
+              widgets = [
                 {
                   type = "monitor";
                   cache = "1m";
@@ -155,7 +198,31 @@
                       title = "Pi-hole";
                       url = "http://pi.hole";
                     }
+                    {
+                      title = "Actual Budget";
+                      url = "https://odp-1:3000";
+                      alt-status-codes = [
+                        200
+                        302
+                      ];
+                      allow-insecure = true;
+                    }
+                    {
+                      title = "Grafana";
+                      url = "http://odp-1:3001";
+                    }
                   ];
+                }
+
+                {
+                  type = "dns-stats";
+                  service = "pihole-v6";
+                  url = "https://pi.hole";
+                  allow-insecure = true;
+                  username = "detroyejr";
+                  password = {
+                    _secret = config.sops.secrets."glance/piholePassword".path;
+                  };
                 }
               ];
             }
