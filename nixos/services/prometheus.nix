@@ -71,6 +71,18 @@ in
         }
       ];
     }
+    {
+      job_name = "pihole";
+      scrape_interval = "20s";
+      static_configs = [
+        {
+          targets = [ "pi.hole:9100" ];
+          labels = {
+            alias = "pi.hole";
+          };
+        }
+      ];
+    }
   ];
 
   services.prometheus.exporters.node = {
