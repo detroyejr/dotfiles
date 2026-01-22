@@ -8,6 +8,7 @@
   ];
 
   nix = {
+    maxJobs = 6;
     optimise = {
       automatic = true;
     };

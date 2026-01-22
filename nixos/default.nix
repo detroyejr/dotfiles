@@ -68,7 +68,6 @@
           maxJobs = 6;
           supportedFeatures = [
             "benchmark"
-            "big-parallel"
             "kvm"
             "nixos-test"
           ];
