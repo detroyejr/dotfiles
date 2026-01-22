@@ -5,6 +5,7 @@
     ../../default.nix
     ../../services/docker.nix
     ../../services/plex.nix
+    ../../services/prometheus.nix
   ];
 
   # Bootloader.

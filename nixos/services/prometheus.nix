@@ -83,6 +83,18 @@ in
         }
       ];
     }
+    {
+      job_name = "scorpion";
+      scrape_interval = "20s";
+      static_configs = [
+        {
+          targets = [ "scorpion:9100" ];
+          labels = {
+            alias = "scorpion";
+          };
+        }
+      ];
+    }
   ];
 
   services.prometheus.exporters.node = {
