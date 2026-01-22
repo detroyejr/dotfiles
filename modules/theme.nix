@@ -39,6 +39,7 @@ in
         scale = "1";
       };
       type = lib.types.attrs;
+      description = "Font settings used across the UI (name, size, scale).";
     };
     cursor = lib.mkOption {
       default = {
@@ -47,27 +48,33 @@ in
         package = pkgs.bibata-cursors;
       };
       type = lib.types.attrs;
+      description = "Cursor theme settings (cursor name, size and package).";
     };
     colorScheme = {
       name = lib.mkOption {
         default = "rose-pine";
         type = lib.types.str;
+        description = "Human-friendly color scheme name.";
       };
       slug = lib.mkOption {
         default = "rose-pine";
         type = lib.types.str;
+        description = "Machine-friendly color scheme identifier (slug).";
       };
       wallpaper = lib.mkOption {
         default = "${walls}/wallpaper.jpg";
         type = lib.types.path;
+        description = "Default wallpaper path used by various modules.";
       };
       rofi = lib.mkOption {
         default = "${walls}/rofi.jpg";
         type = lib.types.path;
+        description = "Wallpaper variant for rofi/menus.";
       };
       profile = lib.mkOption {
         default = ../assets/profile.png;
         type = lib.types.path;
+        description = "User profile image used by modules (e.g. hyprlock).";
       };
       colors = lib.mkOption {
         default = {
@@ -88,8 +95,51 @@ in
           base0E = "f6c177";
           base0F = "524f67";
         };
-        type = lib.types.attrs;
+        type = lib.types.attrsOf lib.types.str;
+        description = "Palette of hex color values (without '#') used by the theme.";
       };
+    };
+
+    # Hyprlock options (user-overridable)
+    hyprlock = {
+      imageSize = lib.mkOption {
+        default = "400";
+        type = lib.types.str;
+        description = "Profile image size used by hyprlock (px).";
+      };
+      imagePosition = lib.mkOption {
+        default = "0,270";
+        type = lib.types.str;
+        description = "Profile image position for hyprlock (x,y).";
+      };
+      inputFieldSize = lib.mkOption {
+        default = "350, 90";
+        type = lib.types.str;
+        description = "Input-field size used by hyprlock (width, height).";
+      };
+
+      inputFieldPosition = lib.mkOption {
+        default = "0, -130";
+        type = lib.types.str;
+        description = "Input-field position used by hyprlock (x, y).";
+      };
+
+      labelPosition = lib.mkOption {
+        default = "0,550";
+        type = lib.types.str;
+        description = "Label position used by hyprlock (x,y).";
+      };
+    };
+  };
+
+  # Computed hyprlock defaults for specific systems.
+  config = lib.mkIf (config.system.name == "pelican") {
+    hyprlock = {
+      imageSize = lib.mkDefault "300";
+      imagePosition = lib.mkDefault "0,100";
+      inputFieldSize = lib.mkDefault "250, 80";
+      inputFieldPosition = lib.mkDefault "0, -130";
+      labelPosition = lib.mkDefault "0,350";
     };
   };
 }
