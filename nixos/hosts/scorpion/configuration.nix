@@ -44,7 +44,12 @@
     settings.PasswordAuthentication = false;
   };
 
-  services.logind.settings.Login.HandleLidSwitch = "Ignore";
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=no
+    AllowHibernation=no
+    AllowHybridSleep=no
+    AllowSuspendThenHibernate=no
+  '';
 
   system.stateVersion = "23.11";
 }
