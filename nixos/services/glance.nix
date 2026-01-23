@@ -123,6 +123,16 @@
                           url = "http://odp-1:3001";
 
                         }
+                        {
+                          title = "FreshRSS";
+                          url = "https://odp-1:8443";
+
+                        }
+                        {
+                          title = "Prometheus";
+                          url = "http://odp-2:9090";
+
+                        }
                       ];
                     }
                   ];
