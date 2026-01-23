@@ -181,6 +181,13 @@
                     </div>
                   '';
                 }
+                {
+                  type = "repository";
+                  repository = "NixOS/nixpkgs";
+                  pull-requests-limit = 5;
+                  issues-limit = 5;
+                  commits-limit = 3;
+                }
               ];
             }
           ];
