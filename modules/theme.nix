@@ -121,11 +121,18 @@ let
 
       phases = [ "installPhase" ];
       installPhase = ''
-        mkdir -p $out/hypr
+        mkdir -p $out/hypr $out/waybar $out/mako
         ln -sfn ${wall} $out/wallpaper
         ln -sfn ${mkRofiTheme wall colorScheme font} $out/rofi
         ln -sfn ${mkLockscreen wall} $out/hypr/hyprlock.conf
         ln -sfn ${mkHyprpaper wall} $out/hypr/hyprpaper.conf
+
+        ln -sfn ${pkgs.writeText "config.css" ''
+          @define-color accent #${config.colorScheme.colors.base08};
+        ''} $out/waybar/config.css
+        ln -sfn ${../dotfiles/waybar/config} $out/waybar/config
+        ln -sfn ${../dotfiles/waybar/style.css} $out/waybar/style.css
+        ln -sfn ${../dotfiles/mako/mako.ini} $out/mako/mako.ini
       '';
     };
 

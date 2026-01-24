@@ -10,7 +10,6 @@
     ../services/glance.nix
     ./gtk.nix
     ./mako.nix
-    ./waybar.nix
     ./xdg.nix
   ];
 
@@ -30,6 +29,8 @@
       enable = true;
     };
   };
+
+  programs.waybar.enable = true;
 
   services = {
     displayManager = {
@@ -73,14 +74,15 @@
       # toolkit-specific scale
       env = BROWSER,firefox;
       env = TERMINAL,$TERMINAL;
+      env = THEME,/etc/xdg/CURRENT_THEME
 
       exec-once = hyprctl dispatch dpms on &
       exec-once = kanshi
-      exec-once = waybar
-      exec-once = mako -- --config /etc/xdg/mako/mako.ini
+      exec-once = waybar --config $THEME/waybar/config --style $THEME/waybar/style.css
+      exec-once = mako -- --config $THEME/mako/mako.ini
       exec-once = blueman-applet
-      exec-once = hyprpaper --config /etc/xdg/CURRENT_THEME/hypr/hyprpaper.conf 
-      exec-once = hyprlock --config /etc/xdg/CURRENT_THEME/hypr/hyprlock.conf
+      exec-once = hyprpaper --config $THEME/hypr/hyprpaper.conf 
+      exec-once = hyprlock --config $THEME/hypr/hyprlock.conf
 
       exec-once = $TERMINAL
       exec-once = [workspace 2 silent;] firefox
@@ -195,12 +197,12 @@
       bind = $mainMod, F, togglefloating,
       bind = $mainMod, G, fullscreen
       bind = $mainMod, J, togglesplit, # dwindle
-      bind = $mainMod, L, exec, bash -c "hyprlock --config /etc/xdg/CURRENT_THEME/hypr/hyprlock.conf"
+      bind = $mainMod, L, exec, bash -c "hyprlock --config $THEME/hypr/hyprlock.conf"
       bind = $mainMod, N, exec, bash -c "swaync-client -t"
       bind = $mainMod, P, pseudo, # dwindle
       bind = $mainMod, PRINT, exec, grim
       bind = $mainMod, Q, exec, wezterm
-      bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else /etc/xdg/CURRENT_THEME/rofi/bin/rofi-launcher; fi"
+      bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else $THEME/rofi/bin/rofi-launcher; fi"
       bind = CTRL ALT, Delete, exit
 
       # Move focus with mainMod + arrow keys
