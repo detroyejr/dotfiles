@@ -3,7 +3,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../apps/brightness.nix
     ../../apps/cataclysm-dda.nix
     ../../apps/fonts.nix
     ../../apps/steam.nix

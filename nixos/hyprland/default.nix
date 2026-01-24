@@ -292,6 +292,7 @@
     anki
     blueman
     bluez
+    brightnessctl
     calibre
     chromium
     colorz
