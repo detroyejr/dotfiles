@@ -105,7 +105,7 @@ let
     '';
 in
 {
-  users.users.detroyejr.packages = with pkgs; [ wezterm ];
+  users.users.${config.defaultUser}.packages = with pkgs; [ wezterm ];
   environment.etc = {
     "xdg/wezterm/wezterm.lua".source = weztermConfig;
     "xdg/wezterm/colors/custom.toml".source = weztermColors;

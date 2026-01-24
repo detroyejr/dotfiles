@@ -1,51 +1,141 @@
 {
   pkgs,
-  lib,
   config,
+  lib,
   ...
 }:
 let
-  wallpaperSources = [
-    {
-      name = "etna";
-      url = "https://unsplash.com/photos/m96cH5FOXOM/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzY2MTE1MDU3fA&force=true";
-      sha256 = "sha256:02ml53yb27qssn4sgfdp6f3xx4yvy8bwciqzpdzm21lwjal0kylq";
-    }
-    {
-      name = "poon-hill";
-      url = "https://unsplash.com/photos/v7daTKlZzaw/download?force=true";
-      sha256 = "sha256:1ijl3rhjyg161b2zbg541l3f5nj8yqvr2vxnjjyyj4izs7y8vgdc";
-    }
-  ];
+  nextWallpaper = pkgs.writeScriptBin "next-wallpaper" ''
+    # Collect paths into an array.
+    export themePaths=(${lib.concatStringsSep " " config.themes})
+    export index=''$((RANDOM % ''${#themePaths[@]}))
+    currentTheme="''${themePaths[''$index]}"
+    if [ -d /etc/xdg/CURRENT_THEME ]; then 
+      unlink /etc/xdg/CURRENT_THEME; 
+    fi;
+    ln -s $currentTheme /etc/xdg/CURRENT_THEME
+    hyprctl hyprpaper wallpaper ,''$currentTheme/wallpaper/wallpaper.jpg
+  '';
 
-  mkWall =
-    image:
-    let
-      src = builtins.fetchurl {
-        inherit (image) name url sha256;
-      };
-    in
-    pkgs.stdenv.mkDerivation {
-      name = "wall-${image.name}";
+  mkHyprpaper =
+    wall:
+    pkgs.writeText "hyprpaper.conf" ''
+      splash = true
+      preload = ${toString wall}
+
+      wallpaper {
+          monitor =
+          path = ${toString wall}
+      }
+    '';
+
+  mkLockscreen =
+    wall:
+    pkgs.writeText "hyprlock.conf" ''
+      background {
+        monitor=
+        blur_passes=1
+        blur_size=7
+        path=${wall}/wallpaper.jpg
+      }
+
+      image {
+        monitor=
+        size=${config.hyprlock.imageSize}
+        halign=center
+        path=${config.hyprlock.profile}
+        position=${config.hyprlock.imagePosition}
+        rounding=-1
+        valign=center
+      }
+
+      input-field {
+        monitor=
+        size=${config.hyprlock.inputFieldSize}
+        dots_size=0.300000
+        dots_spacing=0.400000
+        font_color=rgba(${config.colorScheme.colors.base04}FF)
+        halign=center
+        inner_color=rgba(${config.colorScheme.colors.base02}FF)
+        outer_color=rgba(${config.colorScheme.colors.base09}FF)
+        outline_thickness=2
+         position=${config.hyprlock.inputFieldPosition}
+        valign=center
+      }
+
+      label {
+        monitor=
+        color=rgba(${config.colorScheme.colors.base04}FF)
+        font_family=${config.font.name}
+        font_size=65
+        halign=center
+        position=${config.hyprlock.labelPosition}
+        rotate=0
+        text=$TIME
+        text_align=center
+        valign=center
+      }
+    '';
+
+  mkRofiTheme =
+    walls: colorScheme: font:
+    pkgs.rofi-themes.overrideAttrs (attrs: {
+      pname = "rofi-theme-${walls.name}";
       version = "1.0";
-      inherit src;
+      src = pkgs.rofi-themes;
+      buildInputs = [ pkgs.imagemagick ];
+
+      patchPhase = ''
+        # Rofi opens much faster when the wallpaper is a more manageable size.
+        magick "${walls}/wallpaper.jpg" -resize 800x600^ "rofi.png"
+
+        # Patch font, colors, and wallpaper.
+        find files -type f -name "*.rasi" -exec sed -i 's/font:.*$/font: "${font.name} ${font.size}";/g' {} ';';
+        find files -type f -name "*.rasi" -exec sed -i 's/background:.*$/background: #${colorScheme.colors.base00};/g' {} ';';
+        find files -type f -name "*.rasi" -exec sed -i 's/background-alt:.*$/background-alt: #${colorScheme.colors.base01};/g' {} ';';
+        find files -type f -name "*.rasi" -exec sed -i 's/foreground:.*$/foreground: #${colorScheme.colors.base06};/g' {} ';';
+        find files -type f -name "*.rasi" -exec sed -i 's/selected:.*$/selected: #${colorScheme.colors.base02};/g' {} ';';
+        find files -type f -name "*.rasi" -exec sed -i 's/active:.*$/active: #${colorScheme.colors.base04};/g' {} ';';
+        find files -type f -name "*.rasi" -exec sed -i 's/urgent:.*$/urgent: #${colorScheme.colors.base01};/g' {} ';';
+        find files -type f -name "*.rasi" -exec sed -i 's/[a-j].png/wallpaper.png/g' {} ';';
+        find files -type f -name "*.rasi" -exec sed -i 's/[a-j].jpg/wallpaper.png/g' {} ';';
+        find files -type f -name "*.rasi" -exec \
+          sed -i "s,~/.config/rofi/images/wallpaper.png,$out/rofi.png,g" {} ';';
+
+        mkdir -p $out/bin
+        cat << EOF > $out/bin/rofi-launcher
+          rofi \
+            -show drun \
+            -theme $out/files/launchers/type-6/style-3.rasi
+        EOF
+        chmod +x $out/bin/rofi-launcher
+      '';
+    });
+
+  mkTheme =
+    wall: colorScheme: font:
+    pkgs.stdenv.mkDerivation {
+      name = "theme-${wall.name}";
+      version = "1.0";
+      src = null;
 
       phases = [ "installPhase" ];
-      buildInputs = [ pkgs.imagemagick ];
       installPhase = ''
-        mkdir -p $out
-
-        magick "${src}" -resize 800x600^ "$out/rofi.jpg"
-        magick "${src}" -resize 1920x1080^ "$out/medium.jpg"
-        cp "${src}" "$out/wallpaper.jpg"
+        mkdir -p $out/hypr
+        ln -sfn ${wall} $out/wallpaper
+        ln -sfn ${mkRofiTheme wall colorScheme font} $out/rofi
+        ln -sfn ${mkLockscreen wall} $out/hypr/hyprlock.conf
+        ln -sfn ${mkHyprpaper wall} $out/hypr/hyprpaper.conf
       '';
     };
 
-  walls = map (image: mkWall image) wallpaperSources;
-
 in
-
 {
+  imports = [
+    ./hyprlock.nix
+    ./rofi.nix
+    ./wallpaper.nix
+  ];
 
   options = {
     font = lib.mkOption {
@@ -77,26 +167,6 @@ in
         type = lib.types.str;
         description = "Machine-friendly color scheme identifier (slug).";
       };
-      walls = lib.mkOption {
-        default = walls;
-        type = lib.types.listOf lib.types.path;
-        description = "List of wallpaper paths used by the theme.";
-      };
-      wallpaper = lib.mkOption {
-        default = "${builtins.head walls}/wallpaper.jpg";
-        type = lib.types.path;
-        description = "Default wallpaper path used by various modules.";
-      };
-      rofi = lib.mkOption {
-        default = "${builtins.head walls}/rofi.jpg";
-        type = lib.types.path;
-        description = "Wallpaper variant for rofi/menus.";
-      };
-      profile = lib.mkOption {
-        default = ../assets/profile.png;
-        type = lib.types.path;
-        description = "User profile image used by modules (e.g. hyprlock).";
-      };
       colors = lib.mkOption {
         default = {
           base00 = "191724";
@@ -120,43 +190,26 @@ in
         description = "Palette of hex color values (without '#') used by the theme.";
       };
     };
-
-    hyprlock = {
-      imageSize = lib.mkOption {
-        default = "400";
-        type = lib.types.str;
-        description = "Profile image size used by hyprlock (px).";
-      };
-      imagePosition = lib.mkOption {
-        default = "0,270";
-        type = lib.types.str;
-        description = "Profile image position for hyprlock (x,y).";
-      };
-      inputFieldSize = lib.mkOption {
-        default = "350, 90";
-        type = lib.types.str;
-        description = "Input-field size used by hyprlock (width, height).";
-      };
-      inputFieldPosition = lib.mkOption {
-        default = "0, -130";
-        type = lib.types.str;
-        description = "Input-field position used by hyprlock (x, y).";
-      };
-      labelPosition = lib.mkOption {
-        default = "0,550";
-        type = lib.types.str;
-        description = "Label position used by hyprlock (x,y).";
-      };
+    themes = lib.mkOption {
+      default = map (wall: mkTheme wall config.colorScheme config.font) config.walls;
+      type = lib.types.listOf lib.types.package;
+      description = "List of wallpaper derivations with resized variants.";
     };
   };
 
-  config = lib.mkIf (config.system.name == "pelican") {
-    hyprlock = {
-      imageSize = lib.mkDefault "300";
-      imagePosition = lib.mkDefault "0,100";
-      inputFieldSize = lib.mkDefault "250, 80";
-      inputFieldPosition = lib.mkDefault "0, -130";
-      labelPosition = lib.mkDefault "0,350";
+  config = {
+    environment.systemPackages = [ nextWallpaper ];
+    system.activationScripts = {
+      setTheme = ''
+        # Collect paths into an array.
+        export themePaths=(${lib.concatStringsSep " " config.themes})
+        export index=''$((RANDOM % ''${#themePaths[@]}))
+        currentTheme="''${themePaths[''$index]}"
+        if [ -d /etc/xdg/CURRENT_THEME ]; then 
+          unlink /etc/xdg/CURRENT_THEME; 
+        fi;
+        ln -s $currentTheme /etc/xdg/CURRENT_THEME
+      '';
     };
   };
 }

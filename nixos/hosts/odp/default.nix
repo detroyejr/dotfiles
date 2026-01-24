@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
 
   imports = [
@@ -38,7 +38,7 @@
 
       trusted-users = [
         "root"
-        "detroyejr"
+        config.defaultUser
       ];
     };
   };
@@ -67,7 +67,7 @@
     variant = "";
   };
 
-  users.users.detroyejr = {
+  users.users.${config.defaultUser} = {
     isNormalUser = true;
     description = "Jonathan De Troye";
     extraGroups = [

@@ -6,7 +6,7 @@
 }:
 
 let
-  repo = builtins.fetchGit {
+  repo = fetchGit {
     url = "https://github.com/Misterio77/nix-colors";
     rev = "37227f274b34a3b51649166deb94ce7fec2c6a4c";
   };
@@ -16,7 +16,7 @@ let
   gtkTheme = nix-colors-lib.gtkThemeFromScheme { scheme = config.colorScheme; };
 in
 {
-  users.users.detroyejr.packages = [
+  users.users.${config.defaultUser}.packages = [
     gtkTheme
     config.cursor.package
   ];

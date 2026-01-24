@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -23,7 +23,7 @@
     };
   };
 
-  users.users.detroyejr = {
+  users.users.${config.defaultUser} = {
     isNormalUser = true;
     description = "Jonathan De Troye";
     extraGroups = [

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   programs.wireshark = {
     enable = true;
@@ -6,7 +6,7 @@
     dumpcap.enable = true;
   };
 
-  users.users.detroyejr.extraGroups = [
+  users.users.${config.defaultUser}.extraGroups = [
     "wireshark"
     "dumpcap"
   ];

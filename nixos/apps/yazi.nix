@@ -328,7 +328,7 @@ let
     '';
 in
 {
-  users.users.detroyejr.packages = with pkgs; [ yazi ];
+  users.users.${config.defaultUser}.packages = with pkgs; [ yazi ];
   environment.etc = {
     "xdg/yazi/yazi.toml".source = yaziConfig;
     "xdg/yazi/keymaps.toml".source = yaziKeymaps;

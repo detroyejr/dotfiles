@@ -5,23 +5,11 @@
   isNvidia,
   ...
 }:
-let
-  nextWallpaper = pkgs.writeScriptBin "next-wallpaper" ''
-    # Collect paths into an array.
-    export wallPaths=(
-      ${lib.concatStringsSep " " config.colorScheme.walls}
-    )
-    wallpaper="''${wallPaths[''$((RANDOM % ''${#wallPaths[@]}))]}/wallpaper.jpg"
-    hyprctl hyprpaper wallpaper ,''$wallpaper
-  '';
-in
 {
   imports = [
     ../apps/firefox.nix
-    ../apps/rofi.nix
     ../services/glance.nix
     ./gtk.nix
-    ./hyprlock.nix
     ./mako.nix
     ./waybar.nix
     ./xdg.nix
@@ -61,7 +49,6 @@ in
       usePercentageForPolicy = true;
     };
   };
-  security.pam.services.hyprlock.fprintAuth = config.services.fprintd.enable;
 
   environment.sessionVariables = {
     XDG_CURRENT_DESKTOP = "Hyprland";
@@ -91,17 +78,16 @@ in
 
       exec-once = hyprctl dispatch dpms on &
       exec-once = kanshi
-      exec-once = hyprpaper
       exec-once = waybar
-      exec-once = hyprlock
-      exec-once = hyprctl dispatch exec mako -- --config /etc/xdg/mako/mako.ini
-      exec-once = hyprctl dispatch exec easyeffects -- -w
+      exec-once = mako -- --config /etc/xdg/mako/mako.ini
       exec-once = blueman-applet
+      exec-once = hyprpaper --config /etc/xdg/CURRENT_THEME/hypr/hyprpaper.conf 
+      exec-once = hyprlock --config /etc/xdg/CURRENT_THEME/hypr/hyprlock.conf
 
       exec-once = $TERMINAL
       exec-once = [workspace 2 silent;] firefox
       exec-once = [workspace 3 silent;] obsidian
-      exec-once = [workspace 9 silent;] keepass
+      exec-once = [workspace 9 silent;] sleep 30 && keepass
 
       windowrule = match:title .*KeePass$, float yes
       windowrule = match:title .*KeePass$, center yes
@@ -199,23 +185,24 @@ in
       $mainMod = SUPER
 
       bind = $mainMod CTRL, P, exec, hyprpicker | wl-copy
-      bind = $mainMod, PRINT, exec, grim
-      bind = $mainMod SHIFT, PRINT, exec, grim -g "$(slurp)"
       bind = $mainMod SHIFT, E, exec, bash -c "if pgrep -x wofi-emoji > /dev/null; then pkill wofi-emoji; else wofi-emoji; fi"
       bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @obsidian > /dev/null; then pkill obsidian; else obsidian; fi"
       bind = $mainMod SHIFT, K, exec, bash -c "if pgrep -x mono > /dev/null; then pkill mono; else keepass; fi"
+      bind = $mainMod SHIFT, PRINT, exec, grim -g "$(slurp)"
+      bind = $mainMod SHIFT, T, exec, next-wallpaper
       bind = $mainMod, C, killactive,
       bind = $mainMod, E, exec, thunar
-      bind = $mainMod, F, togglefloating,
-      bind = $mainMod, F, resizeactive, exact 1300 850
       bind = $mainMod, F, centerwindow
+      bind = $mainMod, F, resizeactive, exact 1300 850
+      bind = $mainMod, F, togglefloating,
       bind = $mainMod, G, fullscreen
       bind = $mainMod, J, togglesplit, # dwindle
-      bind = $mainMod, L, exec, bash -c "hyprlock"
+      bind = $mainMod, L, exec, bash -c "hyprlock --config /etc/xdg/CURRENT_THEME/hypr/hyprlock.conf"
       bind = $mainMod, N, exec, bash -c "swaync-client -t"
       bind = $mainMod, P, pseudo, # dwindle
+      bind = $mainMod, PRINT, exec, grim
       bind = $mainMod, Q, exec, wezterm
-      bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else rofi-launcher; fi"
+      bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else /etc/xdg/CURRENT_THEME/rofi/bin/rofi-launcher; fi"
       bind = CTRL ALT, Delete, exit
 
       # Move focus with mainMod + arrow keys
@@ -284,16 +271,6 @@ in
       bindl  = , XF86AudioNext,           exec, playerctl next
       bindl  = , XF86AudioPlay,           exec, playerctl play-pause
     '';
-
-    "xdg/hypr/hyprpaper.conf".text = ''
-      splash = true
-      preload = ${builtins.toString config.colorScheme.wallpaper}
-
-      wallpaper {
-          monitor =
-          path = ${builtins.toString config.colorScheme.wallpaper}
-      }
-    '';
   };
 
   # TODO: should these remain in hyprland or move to another file?
@@ -310,7 +287,7 @@ in
     ];
   };
 
-  users.users.detroyejr.packages = with pkgs; [
+  users.users.${config.defaultUser}.packages = with pkgs; [
     acpi
     alsa-utils
     anki
@@ -354,6 +331,5 @@ in
     wpgtk
     xdo
     xdotool
-    nextWallpaper
   ];
 }

@@ -99,9 +99,9 @@
     gcr
   ];
 
-  users.users.detroyejr = {
+  users.users.${config.defaultUser} = {
     isNormalUser = true;
-    group = "detroyejr";
+    group = config.defaultUser;
     shell = pkgs.zsh;
     # TODO: is gamemode needed?
     extraGroups = [

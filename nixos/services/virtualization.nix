@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   virtualisation = {
     docker.enable = true;
@@ -6,7 +6,7 @@
   };
   programs.virt-manager.enable = true;
 
-  users.users.detroyejr.extraGroups = [
+  users.users.${config.defaultUser}.extraGroups = [
     "docker"
     "libvirtd"
   ];
