@@ -1,7 +1,6 @@
 {
   pkgs,
-  lib,
-  isNvidia,
+  config,
   ...
 }:
 {
@@ -10,7 +9,7 @@
       enable = true;
       package = pkgs.steam.override {
         extraEnv =
-          if isNvidia then
+          if (config.hardware.nvidia.enabled) then
             {
               __NV_PRIME_RENDER_OFFLOAD = 1;
               __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";

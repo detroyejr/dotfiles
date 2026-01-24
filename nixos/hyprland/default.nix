@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  isNvidia,
   ...
 }:
 {
@@ -42,7 +41,6 @@
     };
     xserver = {
       enable = true;
-      videoDrivers = lib.mkIf isNvidia [ "nvidia" ];
     };
     upower = {
       enable = true;

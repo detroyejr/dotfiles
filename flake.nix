@@ -56,7 +56,6 @@
               outputs
               system
               ;
-            isNvidia = true;
           };
           modules = [
             ./nixos/hosts/longsword/configuration.nix
@@ -72,7 +71,6 @@
               outputs
               system
               ;
-            isNvidia = false;
           };
           modules = [
             ./nixos/hosts/odp-1/configuration.nix
@@ -90,7 +88,6 @@
               outputs
               system
               ;
-            isNvidia = false;
           };
           modules = [
             ./nixos/hosts/mongoose/configuration.nix
@@ -106,7 +103,6 @@
               outputs
               system
               ;
-            isNvidia = true;
           };
           modules = [
             ./nixos/hosts/scorpion/configuration.nix
@@ -121,7 +117,6 @@
               outputs
               system
               ;
-            isNvidia = false;
           };
           modules = [
             ./nixos/hosts/pelican/configuration.nix

@@ -1,7 +1,7 @@
 {
   pkgs,
   config,
-  isNvidia,
+  lib,
   ...
 }:
 {
@@ -113,5 +113,5 @@
   };
   users.groups.detroyejr = { };
 
-  hardware.nvidia.open = pkgs.lib.mkDefault isNvidia;
+  hardware.nvidia.open = lib.mkDefault config.hardware.nvidia.enabled;
 }

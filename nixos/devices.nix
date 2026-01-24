@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  isNvidia,
   ...
 }:
 {
@@ -17,14 +16,10 @@
     graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = lib.mkIf (!isNvidia) [
+      extraPackages = lib.mkIf (config.hardware.nvidia.enabled) [
         pkgs.intel-compute-runtime
         pkgs.intel-media-driver
       ];
-    };
-    nvidia = lib.mkIf isNvidia {
-      modesetting.enable = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
   };
   services = {
