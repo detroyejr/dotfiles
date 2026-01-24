@@ -5,14 +5,24 @@
   isNvidia,
   ...
 }:
+let
+  nextWallpaper = pkgs.writeScriptBin "next-wallpaper" ''
+    # Collect paths into an array.
+    export wallPaths=(
+      ${lib.concatStringsSep " " config.colorScheme.walls}
+    )
+    wallpaper="''${wallPaths[''$((RANDOM % ''${#wallPaths[@]}))]}/wallpaper.jpg"
+    hyprctl hyprpaper wallpaper ,''$wallpaper
+  '';
+in
 {
   imports = [
     ../apps/firefox.nix
+    ../apps/rofi.nix
+    ../services/glance.nix
     ./gtk.nix
     ./hyprlock.nix
     ./mako.nix
-    ../apps/rofi.nix
-    ../services/glance.nix
     ./waybar.nix
     ./xdg.nix
   ];
@@ -344,5 +354,6 @@
     wpgtk
     xdo
     xdotool
+    nextWallpaper
   ];
 }

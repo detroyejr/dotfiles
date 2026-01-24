@@ -5,30 +5,46 @@
   ...
 }:
 let
-  walls = pkgs.stdenv.mkDerivation {
-    name = "walls";
-    version = "1.0";
-    src = builtins.fetchurl {
-      name = "wallpaper";
+  wallpaperSources = [
+    {
+      name = "etna";
       url = "https://unsplash.com/photos/m96cH5FOXOM/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzY2MTE1MDU3fA&force=true";
       sha256 = "sha256:02ml53yb27qssn4sgfdp6f3xx4yvy8bwciqzpdzm21lwjal0kylq";
+    }
+    {
+      name = "poon-hill";
+      url = "https://unsplash.com/photos/v7daTKlZzaw/download?force=true";
+      sha256 = "sha256:1ijl3rhjyg161b2zbg541l3f5nj8yqvr2vxnjjyyj4izs7y8vgdc";
+    }
+  ];
+
+  mkWall =
+    image:
+    let
+      src = builtins.fetchurl {
+        inherit (image) name url sha256;
+      };
+    in
+    pkgs.stdenv.mkDerivation {
+      name = "wall-${image.name}";
+      version = "1.0";
+      inherit src;
+
+      phases = [ "installPhase" ];
+      buildInputs = [ pkgs.imagemagick ];
+      installPhase = ''
+        mkdir -p $out
+
+        magick "${src}" -resize 800x600^ "$out/rofi.jpg"
+        magick "${src}" -resize 1920x1080^ "$out/medium.jpg"
+        cp "${src}" "$out/wallpaper.jpg"
+      '';
     };
 
-    phases = [ "installPhase" ];
-    buildInputs = [ pkgs.imagemagick ];
-    installPhase = ''
-      mkdir $out
+  walls = map (image: mkWall image) wallpaperSources;
 
-      magick $src -resize 800x600^ rofi.jpg
-      magick $src -resize 1920x1080^ medium.jpg
-
-      mv rofi.jpg $out
-      cp medium.jpg $out/medium.jpg
-      cp $src $out/wallpaper.jpg
-
-    '';
-  };
 in
+
 {
 
   options = {
@@ -61,13 +77,18 @@ in
         type = lib.types.str;
         description = "Machine-friendly color scheme identifier (slug).";
       };
+      walls = lib.mkOption {
+        default = walls;
+        type = lib.types.listOf lib.types.path;
+        description = "List of wallpaper paths used by the theme.";
+      };
       wallpaper = lib.mkOption {
-        default = "${walls}/wallpaper.jpg";
+        default = "${builtins.head walls}/wallpaper.jpg";
         type = lib.types.path;
         description = "Default wallpaper path used by various modules.";
       };
       rofi = lib.mkOption {
-        default = "${walls}/rofi.jpg";
+        default = "${builtins.head walls}/rofi.jpg";
         type = lib.types.path;
         description = "Wallpaper variant for rofi/menus.";
       };
@@ -100,7 +121,6 @@ in
       };
     };
 
-    # Hyprlock options (user-overridable)
     hyprlock = {
       imageSize = lib.mkOption {
         default = "400";
@@ -117,13 +137,11 @@ in
         type = lib.types.str;
         description = "Input-field size used by hyprlock (width, height).";
       };
-
       inputFieldPosition = lib.mkOption {
         default = "0, -130";
         type = lib.types.str;
         description = "Input-field position used by hyprlock (x, y).";
       };
-
       labelPosition = lib.mkOption {
         default = "0,550";
         type = lib.types.str;
@@ -132,7 +150,6 @@ in
     };
   };
 
-  # Computed hyprlock defaults for specific systems.
   config = lib.mkIf (config.system.name == "pelican") {
     hyprlock = {
       imageSize = lib.mkDefault "300";
