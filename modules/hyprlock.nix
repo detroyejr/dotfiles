@@ -45,7 +45,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.hyprlock.enable = true;
 
-    security.pam.services.hyprlock.fprintAuth = config.services.fprintd.enable true;
+    security.pam.services.hyprlock.fprintAuth = lib.mkIf config.services.fprintd.enable true;
 
     hyprlock = lib.mkIf (config.system.name == "pelican") {
       imageSize = lib.mkDefault "300";
