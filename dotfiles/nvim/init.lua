@@ -270,7 +270,6 @@ vim.lsp.enable({
   "air",
   "ark",
   "clangd",
-  "copilot",
   "jarl",
   "lua_ls",
   "nixd",
@@ -333,25 +332,6 @@ vim.keymap.set('i', '<Tab>', function()
   end
 end, { expr = true, desc = 'Accept the current inline completion' })
 
-local toggle_copilot = function()
-  local clients = vim.lsp.get_clients({ name = "copilot" })
-  for _, client in pairs(clients) do
-    if not client:is_stopped() then
-      client:stop()
-      print("Copilot LSP stopped.")
-      return
-    end
-  end
-  print("Copilot LSP is starting.")
-  vim.lsp.enable("copilot")
-end
-
-vim.keymap.set(
-  "n",
-  "<Leader>ae",
-  function() toggle_copilot() end,
-  opts
-)
 
 vim.keymap.set(
   "n",
