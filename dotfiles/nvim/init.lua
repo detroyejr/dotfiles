@@ -32,7 +32,6 @@ vim.opt.updatetime = 50
 vim.opt.wrap = false
 vim.opt.writebackup = false
 
-
 local opts = { silent = true }
 vim.g.mapleader = " "
 vim.keymap.set("i", "jj", "<Esc>")
@@ -315,6 +314,13 @@ vim.keymap.set(
   { "x", "n" },
   "<leader>at",
   function() require("opencode").ask("@this: ", { submit = true }) end,
+  opts
+)
+
+vim.keymap.set(
+  { "x", "n" },
+  "<leader>ac",
+  function() require("opencode").ask("", { submit = true }) end,
   opts
 )
 
