@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  imports = [ ./theme.nix ];
+  imports = [ ./theme.nix ./xdg.nix ];
   options = {
     defaultUser = lib.mkOption {
       type = lib.types.str;
