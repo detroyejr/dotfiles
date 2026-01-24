@@ -281,6 +281,16 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+
+-- Setup for opencode
+require("snacks").setup({
+  styles = { enabled = true },
+  input = { enabled = true },
+  picker = { enabled = true },
+  bigfile = { enabled = true },
+  terminal = { enabled = true },
+})
+
 vim.g.opencode_opts = {
   provider = {
     enabled = "terminal",

@@ -27,6 +27,12 @@ let
     rev = "990c062d4036877a047cb3f5372e2f261a889f0a";
     hash = "sha256-hnGsLiBlpwHKWh7L+uiWOFXzjjryoOMjDBaiX1aT7+U=";
   };
+  snacks = pkgs.fetchFromGitHub {
+    owner = "folke";
+    repo = "snacks.nvim";
+    rev = "fe7cfe9800a182274d0f868a74b7263b8c0c020b";
+    hash = "sha256-vRedYg29QGPGW0hOX9qbRSIImh1d/SoDZHImDF2oqKM=";
+  };
 in
 {
   programs.neovim.enable = true;
@@ -54,6 +60,9 @@ in
 
         mkdir -p ''${DIR}/nvim/site/pack/plugins/start/opencode
         ln -sfn ${opencodeNvim}/* ''${DIR}/nvim/site/pack/plugins/start/opencode
+
+        mkdir -p ''${DIR}/nvim/site/pack/plugins/start/snacks
+        ln -sfn ${snacks}/* ''${DIR}/nvim/site/pack/plugins/start/snacks
       '';
     };
   };
