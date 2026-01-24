@@ -330,3 +330,16 @@ vim.keymap.set(
   function() require("opencode").select() end,
   opts
 )
+
+vim.keymap.set(
+  { "x", "n" },
+  "<S-C-u>",
+  function() require("opencode").command("session.half.page.up") end,
+  { desc = "Scroll opencode up" }
+)
+
+vim.keymap.set({ "x", "n" },
+  "<S-C-d>",
+  function() require("opencode").command("session.half.page.down") end,
+  { desc = "Scroll opencode down" }
+)

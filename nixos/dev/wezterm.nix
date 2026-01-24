@@ -10,6 +10,13 @@ let
         color_scheme = "custom",
         cursor_blink_rate = 0,
         enable_wayland = true,
+        keys = {
+          {
+            key = 'u',
+            mods = 'SHIFT|CTRL',
+            action = wezterm.action.DisableDefaultAssignment
+          },
+        },
         font = wezterm.font("Input Mono"),
         font_size = 14,
         use_fancy_tab_bar = false,
