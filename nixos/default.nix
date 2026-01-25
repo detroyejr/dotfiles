@@ -12,7 +12,6 @@
     ./apps/yazi.nix
     ./dev
     ./dev/tmux.nix
-    ./dev/wezterm.nix
     ./dev/zsh.nix
   ];
 

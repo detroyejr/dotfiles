@@ -10,8 +10,6 @@
     ../../apps/wireshark.nix
     ../../default.nix
     ../../devices.nix
-    ../../hyprland.nix
-    ../../../modules/xdg.nix
     ../../services/docker.nix
     ../../services/openrgb.nix
     ../../services/rclone.nix
@@ -19,6 +17,9 @@
     ../../services/virtualization.nix
     ../../sops.nix
   ];
+
+  programs.hyprland.enable = true;
+  programs.firefox.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

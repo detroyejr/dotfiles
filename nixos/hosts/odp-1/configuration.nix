@@ -8,7 +8,6 @@
     ../../apps/thunar.nix
     ../../default.nix
     ../../devices.nix
-    ../../hyprland.nix
     ../../services/actual.nix
     ../../services/binary-cache.nix
     ../../services/custom-whisper-server.nix
@@ -21,6 +20,9 @@
     ../../services/virtualization.nix
     ../../sops.nix
   ];
+
+  programs.hyprland.enable = true;
+  programs.firefox.enable = true;
 
   networking.hostName = "odp-1";
 

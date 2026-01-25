@@ -1,6 +1,10 @@
 { lib, ... }:
 {
-  imports = [ ./theme.nix ./xdg.nix ];
+  imports = [
+    ./firefox.nix
+    ./hyprland.nix
+    ./xdg.nix
+  ];
   options = {
     defaultUser = lib.mkOption {
       type = lib.types.str;

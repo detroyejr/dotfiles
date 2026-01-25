@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -9,7 +9,6 @@
     ../../apps/wireshark.nix
     ../../default.nix
     ../../devices.nix
-    ../../hyprland.nix
     ../../services/docker.nix
     ../../services/openrgb.nix
     ../../services/rclone.nix
@@ -17,6 +16,9 @@
     ../../services/virtualization.nix
     ../../sops.nix
   ];
+
+  programs.hyprland.enable = true;
+  programs.firefox.enable = true;
 
   networking.hostName = "longsword";
 

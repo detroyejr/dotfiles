@@ -1,6 +1,8 @@
 @import "config.css";
 
 #waybar {
+  background-color: @background;
+  color: @foreground;
   font-family: "Input Mono, monospace";
   font-weight: bold;
   min-height: 30px;
@@ -13,8 +15,18 @@
   font-size: 11px;
 }
 
+#workspaces button {
+  color: inherit;
+}
+
 #workspaces button.active {
-  color: @accent
+  color: @accent;
+}
+
+#workspaces box:hover {
+  background: none;
+  box-shadow: none;
+  border: none;
 }
 
 #custom-power, #clock, #battery, #bluetooth {
@@ -27,26 +39,58 @@
   margin-right: 5px;
 }
 
+slider {
+  background: none;
+  border: none;
+  box-shadow: none;
+  min-height: 0;
+  min-width: 0;
+  opacity: 0;
+}
+
 #pulseaudio-slider trough {
     min-width: 50px;
     min-height: 10px;
     border-radius: 5px;
+    border: none;
     background-color: black;
 }
 
 #pulseaudio-slider highlight {
     min-width: 5px;
     border-radius: 5px;
+    border: none;
+    background-color: @highlight;
 }
 
 #backlight-slider trough {
     min-width: 50px;
     min-height: 10px;
     border-radius: 5px;
+    border: none;
     background-color: black;
 }
 
 #backlight-slider highlight {
     min-width: 5px;
     border-radius: 5px;
+    border: none;
+    background-color: @highlight;
+}
+
+#workspaces button,
+#workspaces button:hover,
+#workspaces button:focus,
+#workspaces button:active {
+  background-color: transparent;
+  background-image: none;
+  border-color: transparent;
+  box-shadow: none;
+  outline: none;
+  transition: none;
+  text-shadow: none;
+}
+#workspaces button > * {
+  background: none;
+  box-shadow: none;
 }

@@ -8,7 +8,7 @@ let
       sha256 = "sha256:02ml53yb27qssn4sgfdp6f3xx4yvy8bwciqzpdzm21lwjal0kylq";
     }
     {
-      name = "poon-hill";
+      name = "blue-mountain";
       url = "https://unsplash.com/photos/v7daTKlZzaw/download?force=true";
       sha256 = "sha256:1ijl3rhjyg161b2zbg541l3f5nj8yqvr2vxnjjyyj4izs7y8vgdc";
     }

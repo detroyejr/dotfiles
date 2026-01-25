@@ -3,329 +3,327 @@
 let
   yaziConfig = ../../dotfiles/yazi/yazi.toml;
   yaziKeymaps = ../../dotfiles/yazi/keymap.toml;
-  yaziTheme =
-    with config.colorScheme.colors;
-    pkgs.writeText "theme.toml" ''
-      # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to
-      # validate your config. If you encounter any issues, please make an issue
-      # at https://github.com/yazi-rs/schemas.
+  yaziTheme = pkgs.writeText "theme.toml" ''
+    # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to
+    # validate your config. If you encounter any issues, please make an issue
+    # at https://github.com/yazi-rs/schemas.
 
-      "$schema" = "https://yazi-rs.github.io/schemas/theme.json"
+    "$schema" = "https://yazi-rs.github.io/schemas/theme.json"
 
-      # vim:fileencoding=utf-8:foldmethod=marker
+    # vim:fileencoding=utf-8:foldmethod=marker
 
-      # : Manager {{{
+    # : Manager {{{
 
-      [mgr]
-      cwd = { fg = "cyan" }
+    [mgr]
+    cwd = { fg = "cyan" }
 
-      # Hovered
-      hovered         = { fg = "#${base00}", bg = "#${base04}" }
-      preview_hovered = { underline = true }  
+    # Hovered
+    hovered         = { fg = "#191724", bg = "#908caa" }
+    preview_hovered = { underline = true }  
 
-      # Find
-      find_keyword  = { fg = "#${base03}", italic = true }
-      find_position = { fg = "#${base05}", bg = "reset", italic = true }
+    # Find
+    find_keyword  = { fg = "#6e6a86", italic = true }
+    find_position = { fg = "#e0def4", bg = "reset", italic = true }
 
-      # Marker
-      marker_selected = { fg = "#${base02}",  bg = "lightgreen" }
-      marker_copied   = { fg = "#${base03}", bg = "lightyellow" }
-      marker_cut      = { fg = "#${base01}",    bg = "lightred" }
+    # Marker
+    marker_selected = { fg = "#26233a",  bg = "lightgreen" }
+    marker_copied   = { fg = "#6e6a86", bg = "lightyellow" }
+    marker_cut      = { fg = "#1f1d2e",    bg = "lightred" }
 
-      # Tab
-      tab_active   = { fg = "#${base00}", bg = "lightblue" }
-      tab_inactive = { fg = "white", bg = "darkgray" }
-      tab_width    = 1
+    # Tab
+    tab_active   = { fg = "#191724", bg = "lightblue" }
+    tab_inactive = { fg = "white", bg = "darkgray" }
+    tab_width    = 1
 
-      # Border
-      border_symbol = "│"
-      border_style  = { fg = "gray" }
+    # Border
+    border_symbol = "│"
+    border_style  = { fg = "gray" }
 
-      # Highlighting
-      syntect_theme = ""
+    # Highlighting
+    syntect_theme = ""
 
-      # : }}}
+    # : }}}
 
 
-      # : Status {{{
+    # : Status {{{
 
-      [status]
-      separator_open  = ""
-      separator_close = ""
-      separator_style = { fg = "darkgray", bg = "darkgray" }
+    [status]
+    separator_open  = ""
+    separator_close = ""
+    separator_style = { fg = "darkgray", bg = "darkgray" }
 
-      # Mode
-      mode_normal = { fg = "#${base00}", bg = "lightblue", bold = true }
-      mode_select = { fg = "#${base00}", bg = "lightgreen", bold = true }
-      mode_unset  = { fg = "#${base00}", bg = "lightmagenta", bold = true }
+    # Mode
+    mode_normal = { fg = "#191724", bg = "lightblue", bold = true }
+    mode_select = { fg = "#191724", bg = "lightgreen", bold = true }
+    mode_unset  = { fg = "#191724", bg = "lightmagenta", bold = true }
 
-      # Progress
-      progress_label  = { bold = true }
-      progress_normal = { fg = "blue", bg = "#${base00}" }
-      progress_error  = { fg = "red", bg = "#${base00}" }
+    # Progress
+    progress_label  = { bold = true }
+    progress_normal = { fg = "blue", bg = "#191724" }
+    progress_error  = { fg = "red", bg = "#191724" }
 
-      # Permissions
-      permissions_t = { fg = "lightgreen" }
-      permissions_r = { fg = "lightyellow" }
-      permissions_w = { fg = "lightred" }
-      permissions_x = { fg = "lightcyan" }
-      permissions_s = { fg = "darkgray" }
+    # Permissions
+    permissions_t = { fg = "lightgreen" }
+    permissions_r = { fg = "lightyellow" }
+    permissions_w = { fg = "lightred" }
+    permissions_x = { fg = "lightcyan" }
+    permissions_s = { fg = "darkgray" }
 
-      # : }}}
+    # : }}}
 
 
-      # : Select {{{
+    # : Select {{{
 
-      [select]
-      border   = { fg = "blue" }
-      active   = { fg = "magenta" }
-      inactive = {}
+    [select]
+    border   = { fg = "blue" }
+    active   = { fg = "magenta" }
+    inactive = {}
 
-      # : }}}
+    # : }}}
 
 
-      # : Input {{{
+    # : Input {{{
 
-      [input]
-      border   = { fg = "blue" }
-      title    = {}
-      value    = {}
-      selected = { reversed = true }
+    [input]
+    border   = { fg = "blue" }
+    title    = {}
+    value    = {}
+    selected = { reversed = true }
 
-      # : }}}
+    # : }}}
 
 
-      # : Completion {{{
+    # : Completion {{{
 
-      [completion]
-      border   = { fg = "blue" }
-      active   = { bg = "darkgray" }
-      inactive = {}
+    [completion]
+    border   = { fg = "blue" }
+    active   = { bg = "darkgray" }
+    inactive = {}
 
-      # Icons
-      icon_file    = ""
-      icon_folder  = ""
-      icon_command = ""
-
-      # : }}}
-
-
-      # : Tasks {{{
-
-      [tasks]
-      border  = { fg = "blue" }
-      title   = {}
-      hovered = { underline = true }
-
-      # : }}}
-
-
-      # : Which {{{
-
-      [which]
-      cols            = 3
-      mask            = { bg = "#${base00}" }
-      cand            = { fg = "lightcyan" }
-      rest            = { fg = "darkgray" }
-      desc            = { fg = "magenta" }
-      separator       = "  "
-      separator_style = { fg = "darkgray" }
-
-      # : }}}
-
-
-      # : Help {{{
-
-      [help]
-      on      = { fg = "magenta" }
-      exec    = { fg = "cyan" }
-      desc    = { fg = "gray" }
-      hovered = { bg = "darkgray", bold = true }
-      footer  = { fg = "#${base00}", bg = "white" }
-
-      # : }}}
-
-
-      # : File-specific styles {{{
-
-      [filetype]
-
-      rules = [
-        # Images
-        { mime = "image/*", fg = "cyan" },
-
-        # Videos
-        { mime = "video/*", fg = "yellow" },
-        { mime = "audio/*", fg = "yellow" },
-
-        # Archives
-        { mime = "application/zip",             fg = "magenta" },
-        { mime = "application/gzip",            fg = "magenta" },
-        { mime = "application/x-tar",           fg = "magenta" },
-        { mime = "application/x-bzip",          fg = "magenta" },
-        { mime = "application/x-bzip2",         fg = "magenta" },
-        { mime = "application/x-7z-compressed", fg = "magenta" },
-        { mime = "application/x-rar",           fg = "magenta" },
-        { mime = "application/xz",              fg = "magenta" },
-
-        # Documents
-        { mime = "application/doc",   fg = "green" },
-        { mime = "application/pdf",   fg = "green" },
-        { mime = "application/rtf",   fg = "green" },
-        { mime = "application/vnd.*", fg = "green" },
-
-        # Fallback
-        # { name = "*", fg = "white" },
-        { name = "*/", fg = "blue" }
-      ]
-
-      [icon]
-
-      rules = [
-        # Programming
-        { name = "*.c"    , text = "" },
-        { name = "*.cpp"  , text = "" },
-        { name = "*.css"  , text = "" },
-        { name = "*.fish" , text = "" },
-        { name = "*.go"   , text = "" },
-        { name = "*.h"    , text = "" },
-        { name = "*.hpp"  , text = "" },
-        { name = "*.html" , text = "" },
-        { name = "*.java" , text = "" },
-        { name = "*.js"   , text = "" },
-        { name = "*.jsx"  , text = "" },
-        { name = "*.lua"  , text = "" },
-        { name = "*.nix"  , text = "" },
-        { name = "*.php"  , text = "" },
-        { name = "*.py"   , text = "" },
-        { name = "*.rb"   , text = "" },
-        { name = "*.rs"   , text = "" },
-        { name = "*.scss" , text = "" },
-        { name = "*.sh"   , text = "" },
-        { name = "*.swift", text = "" },
-        { name = "*.ts"   , text = "" },
-        { name = "*.tsx"  , text = "" },
-        { name = "*.vim"  , text = "" },
-        { name = "*.vue"  , text = "󰡄" },
-
-        # Text
-        { name = "*.conf", text = "" },
-        { name = "*.ini" , text = "" },
-        { name = "*.json", text = "" },
-        { name = "*.md" ,  text = "" },
-        { name = "*.toml", text = "" },
-        { name = "*.txt",  text = "" },
-        { name = "*.yaml", text = "" },
-        { name = "*.yml" , text = "" },
-
-        # Archives
-        { name = "*.7z" , text = "" },
-        { name = "*.bz2", text = "" },
-        { name = "*.gz" , text = "" },
-        { name = "*.rar", text = "" },
-        { name = "*.tar", text = "" },
-        { name = "*.xz" , text = "" },
-        { name = "*.zip", text = "" },
-
-        # Images
-        { name = "*.HEIC", text = "" },
-        { name = "*.avif", text = "" },
-        { name = "*.bmp" , text = "" },
-        { name = "*.gif" , text = "" },
-        { name = "*.ico" , text = "" },
-        { name = "*.jpeg", text = "" },
-        { name = "*.jpg" , text = "" },
-        { name = "*.png" , text = "" },
-        { name = "*.svg" , text = "" },
-        { name = "*.webp", text = "" },
-
-        # Movies
-        { name = "*.avi" , text = "" },
-        { name = "*.mkv" , text = "" },
-        { name = "*.mov" , text = "" },
-        { name = "*.mp4" , text = "" },
-        { name = "*.webm", text = "" },
-
-        # Audio
-        { name = "*.aac" , text = "" },
-        { name = "*.flac", text = "" },
-        { name = "*.m4a" , text = "" },
-        { name = "*.mp3" , text = "" },
-        { name = "*.ogg" , text = "" },
-        { name = "*.wav" , text = "" },
-
-        # Documents
-        { name = "*.csv" , text = "" },
-        { name = "*.doc" , text = "" },
-        { name = "*.doct", text = "" },
-        { name = "*.docx", text = "" },
-        { name = "*.dot" , text = "" },
-        { name = "*.ods" , text = "" },
-        { name = "*.ots" , text = "" },
-        { name = "*.pdf" , text = "" },
-        { name = "*.pom" , text = "" },
-        { name = "*.pot" , text = "" },
-        { name = "*.potx", text = "" },
-        { name = "*.ppm" , text = "" },
-        { name = "*.ppmx", text = "" },
-        { name = "*.pps" , text = "" },
-        { name = "*.ppsx", text = "" },
-        { name = "*.ppt" , text = "" },
-        { name = "*.pptx", text = "" },
-        { name = "*.xlc" , text = "" },
-        { name = "*.xlm" , text = "" },
-        { name = "*.xls" , text = "" },
-        { name = "*.xlsm", text = "" },
-        { name = "*.xlsx", text = "" },
-        { name = "*.xlt" , text = "" },
-
-        # Lockfiles
-        { name = "*.lock", text = "" },
-
-        # Misc
-        { name = "*.bin", text = "" },
-        { name = "*.exe", text = "" },
-        { name = "*.pkg", text = "" },
-
-        # Dotfiles
-        { name = ".DS_Store"     , text = "" },
-        { name = ".bashprofile"  , text = "" },
-        { name = ".bashrc"       , text = "" },
-        { name = ".gitattributes", text = "" },
-        { name = ".gitignore"    , text = "" },
-        { name = ".gitmodules"   , text = "" },
-        { name = ".vimrc"        , text = "" },
-        { name = ".zprofile"     , text = "" },
-        { name = ".zshenv"       , text = "" },
-        { name = ".zshrc"        , text = "" },
-
-        # Named files
-        { name = "COPYING"      , text = "󰿃" },
-        { name = "Containerfile", text = "󰡨" },
-        { name = "Dockerfile"   , text = "󰡨" },
-        { name = "LICENSE"      , text = "󰿃" },
-
-        # Directories
-        { name = ".config/"    , text = "" },
-        { name = ".git/"       , text = "" },
-        { name = "Desktop/"    , text = "" },
-        { name = "Development/", text = "" },
-        { name = "Documents/"  , text = "" },
-        { name = "Downloads/"  , text = "" },
-        { name = "Library/"    , text = "" },
-        { name = "Movies/"     , text = "" },
-        { name = "Music/"      , text = "" },
-        { name = "Pictures/"   , text = "" },
-        { name = "Public/"     , text = "" },
-        { name = "Videos/"     , text = "" },
-
-        # Default
-        { name = "*" , text = "" },
-        { name = "*/", text = "" },
-      ]
-
-      # : }}}
-    '';
+    # Icons
+    icon_file    = ""
+    icon_folder  = ""
+    icon_command = ""
+
+    # : }}}
+
+
+    # : Tasks {{{
+
+    [tasks]
+    border  = { fg = "blue" }
+    title   = {}
+    hovered = { underline = true }
+
+    # : }}}
+
+
+    # : Which {{{
+
+    [which]
+    cols            = 3
+    mask            = { bg = "#191724" }
+    cand            = { fg = "lightcyan" }
+    rest            = { fg = "darkgray" }
+    desc            = { fg = "magenta" }
+    separator       = "  "
+    separator_style = { fg = "darkgray" }
+
+    # : }}}
+
+
+    # : Help {{{
+
+    [help]
+    on      = { fg = "magenta" }
+    exec    = { fg = "cyan" }
+    desc    = { fg = "gray" }
+    hovered = { bg = "darkgray", bold = true }
+    footer  = { fg = "#191724", bg = "white" }
+
+    # : }}}
+
+
+    # : File-specific styles {{{
+
+    [filetype]
+
+    rules = [
+      # Images
+      { mime = "image/*", fg = "cyan" },
+
+      # Videos
+      { mime = "video/*", fg = "yellow" },
+      { mime = "audio/*", fg = "yellow" },
+
+      # Archives
+      { mime = "application/zip",             fg = "magenta" },
+      { mime = "application/gzip",            fg = "magenta" },
+      { mime = "application/x-tar",           fg = "magenta" },
+      { mime = "application/x-bzip",          fg = "magenta" },
+      { mime = "application/x-bzip2",         fg = "magenta" },
+      { mime = "application/x-7z-compressed", fg = "magenta" },
+      { mime = "application/x-rar",           fg = "magenta" },
+      { mime = "application/xz",              fg = "magenta" },
+
+      # Documents
+      { mime = "application/doc",   fg = "green" },
+      { mime = "application/pdf",   fg = "green" },
+      { mime = "application/rtf",   fg = "green" },
+      { mime = "application/vnd.*", fg = "green" },
+
+      # Fallback
+      # { name = "*", fg = "white" },
+      { name = "*/", fg = "blue" }
+    ]
+
+    [icon]
+
+    rules = [
+      # Programming
+      { name = "*.c"    , text = "" },
+      { name = "*.cpp"  , text = "" },
+      { name = "*.css"  , text = "" },
+      { name = "*.fish" , text = "" },
+      { name = "*.go"   , text = "" },
+      { name = "*.h"    , text = "" },
+      { name = "*.hpp"  , text = "" },
+      { name = "*.html" , text = "" },
+      { name = "*.java" , text = "" },
+      { name = "*.js"   , text = "" },
+      { name = "*.jsx"  , text = "" },
+      { name = "*.lua"  , text = "" },
+      { name = "*.nix"  , text = "" },
+      { name = "*.php"  , text = "" },
+      { name = "*.py"   , text = "" },
+      { name = "*.rb"   , text = "" },
+      { name = "*.rs"   , text = "" },
+      { name = "*.scss" , text = "" },
+      { name = "*.sh"   , text = "" },
+      { name = "*.swift", text = "" },
+      { name = "*.ts"   , text = "" },
+      { name = "*.tsx"  , text = "" },
+      { name = "*.vim"  , text = "" },
+      { name = "*.vue"  , text = "󰡄" },
+
+      # Text
+      { name = "*.conf", text = "" },
+      { name = "*.ini" , text = "" },
+      { name = "*.json", text = "" },
+      { name = "*.md" ,  text = "" },
+      { name = "*.toml", text = "" },
+      { name = "*.txt",  text = "" },
+      { name = "*.yaml", text = "" },
+      { name = "*.yml" , text = "" },
+
+      # Archives
+      { name = "*.7z" , text = "" },
+      { name = "*.bz2", text = "" },
+      { name = "*.gz" , text = "" },
+      { name = "*.rar", text = "" },
+      { name = "*.tar", text = "" },
+      { name = "*.xz" , text = "" },
+      { name = "*.zip", text = "" },
+
+      # Images
+      { name = "*.HEIC", text = "" },
+      { name = "*.avif", text = "" },
+      { name = "*.bmp" , text = "" },
+      { name = "*.gif" , text = "" },
+      { name = "*.ico" , text = "" },
+      { name = "*.jpeg", text = "" },
+      { name = "*.jpg" , text = "" },
+      { name = "*.png" , text = "" },
+      { name = "*.svg" , text = "" },
+      { name = "*.webp", text = "" },
+
+      # Movies
+      { name = "*.avi" , text = "" },
+      { name = "*.mkv" , text = "" },
+      { name = "*.mov" , text = "" },
+      { name = "*.mp4" , text = "" },
+      { name = "*.webm", text = "" },
+
+      # Audio
+      { name = "*.aac" , text = "" },
+      { name = "*.flac", text = "" },
+      { name = "*.m4a" , text = "" },
+      { name = "*.mp3" , text = "" },
+      { name = "*.ogg" , text = "" },
+      { name = "*.wav" , text = "" },
+
+      # Documents
+      { name = "*.csv" , text = "" },
+      { name = "*.doc" , text = "" },
+      { name = "*.doct", text = "" },
+      { name = "*.docx", text = "" },
+      { name = "*.dot" , text = "" },
+      { name = "*.ods" , text = "" },
+      { name = "*.ots" , text = "" },
+      { name = "*.pdf" , text = "" },
+      { name = "*.pom" , text = "" },
+      { name = "*.pot" , text = "" },
+      { name = "*.potx", text = "" },
+      { name = "*.ppm" , text = "" },
+      { name = "*.ppmx", text = "" },
+      { name = "*.pps" , text = "" },
+      { name = "*.ppsx", text = "" },
+      { name = "*.ppt" , text = "" },
+      { name = "*.pptx", text = "" },
+      { name = "*.xlc" , text = "" },
+      { name = "*.xlm" , text = "" },
+      { name = "*.xls" , text = "" },
+      { name = "*.xlsm", text = "" },
+      { name = "*.xlsx", text = "" },
+      { name = "*.xlt" , text = "" },
+
+      # Lockfiles
+      { name = "*.lock", text = "" },
+
+      # Misc
+      { name = "*.bin", text = "" },
+      { name = "*.exe", text = "" },
+      { name = "*.pkg", text = "" },
+
+      # Dotfiles
+      { name = ".DS_Store"     , text = "" },
+      { name = ".bashprofile"  , text = "" },
+      { name = ".bashrc"       , text = "" },
+      { name = ".gitattributes", text = "" },
+      { name = ".gitignore"    , text = "" },
+      { name = ".gitmodules"   , text = "" },
+      { name = ".vimrc"        , text = "" },
+      { name = ".zprofile"     , text = "" },
+      { name = ".zshenv"       , text = "" },
+      { name = ".zshrc"        , text = "" },
+
+      # Named files
+      { name = "COPYING"      , text = "󰿃" },
+      { name = "Containerfile", text = "󰡨" },
+      { name = "Dockerfile"   , text = "󰡨" },
+      { name = "LICENSE"      , text = "󰿃" },
+
+      # Directories
+      { name = ".config/"    , text = "" },
+      { name = ".git/"       , text = "" },
+      { name = "Desktop/"    , text = "" },
+      { name = "Development/", text = "" },
+      { name = "Documents/"  , text = "" },
+      { name = "Downloads/"  , text = "" },
+      { name = "Library/"    , text = "" },
+      { name = "Movies/"     , text = "" },
+      { name = "Music/"      , text = "" },
+      { name = "Pictures/"   , text = "" },
+      { name = "Public/"     , text = "" },
+      { name = "Videos/"     , text = "" },
+
+      # Default
+      { name = "*" , text = "" },
+      { name = "*/", text = "" },
+    ]
+
+    # : }}}
+  '';
 in
 {
   users.users.${config.defaultUser}.packages = with pkgs; [ yazi ];
