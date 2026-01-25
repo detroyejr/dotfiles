@@ -12,6 +12,12 @@ let
       url = "https://unsplash.com/photos/v7daTKlZzaw/download?force=true";
       sha256 = "sha256:1ijl3rhjyg161b2zbg541l3f5nj8yqvr2vxnjjyyj4izs7y8vgdc";
     }
+    {
+      name = "orange-mountain";
+      url = "https://unsplash.com/photos/MuB8snLj2xQ/download?force=true&w=2400";
+      sha256 = "sha256:0z3v17v5wwkx8fnp3q2v87rbb6sb20yasz9dgn4f503glg33n5dl";
+
+    }
   ];
 
   mkWall =
