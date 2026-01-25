@@ -8,7 +8,7 @@
     ../../apps/thunar.nix
     ../../default.nix
     ../../devices.nix
-    ../../hyprland/default.nix
+    ../../hyprland.nix
     ../../services/actual.nix
     ../../services/binary-cache.nix
     ../../services/custom-whisper-server.nix

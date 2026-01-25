@@ -10,8 +10,8 @@
     ../../apps/wireshark.nix
     ../../default.nix
     ../../devices.nix
-    ../../hyprland/default.nix
-    ../../hyprland/xdg.nix
+    ../../hyprland.nix
+    ../../../modules/xdg.nix
     ../../services/docker.nix
     ../../services/openrgb.nix
     ../../services/rclone.nix

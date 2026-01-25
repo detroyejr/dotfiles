@@ -139,6 +139,7 @@ let
 in
 {
   imports = [
+    ./gtk.nix
     ./hyprlock.nix
     ./rofi.nix
     ./wallpaper.nix

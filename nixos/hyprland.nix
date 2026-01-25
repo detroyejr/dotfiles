@@ -5,13 +5,7 @@
   ...
 }:
 {
-  imports = [
-    ../apps/firefox.nix
-    ../services/glance.nix
-    ./gtk.nix
-    ./mako.nix
-    ./xdg.nix
-  ];
+  imports = [ ./apps/firefox.nix ];
 
   xdg.portal.config.common.default = "*";
 
