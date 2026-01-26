@@ -71,6 +71,7 @@
     plasmadeck-vapor-theme
     plex-htpc
     protonup-ng
+    wezterm
     (pkgs.makeDesktopItem {
       name = "Return to Gaming Mode";
       desktopName = "Return to Gaming Mode";
