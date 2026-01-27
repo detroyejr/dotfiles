@@ -153,7 +153,6 @@ in
         export themeName=(${lib.concatStringsSep " " (lib.attrNames themeNames)})
         export index=''$((RANDOM % ''${#themePaths[@]}))
         currentTheme="''${themePaths[''$index]}"
-
         if [ -d /etc/xdg/CURRENT_THEME ]; then
           unlink /etc/xdg/CURRENT_THEME
         fi;

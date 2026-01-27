@@ -114,10 +114,12 @@ let
         ln -s "$currentTheme/$path" "/etc/xdg/$path"
       done;
 
-      # GTK_THEME="''${themeName[''$index]}"
-
       hyprctl hyprpaper wallpaper ,''$currentTheme/wallpaper/wallpaper.jpg
       pkill waybar && hyprctl dispatch exec -- waybar --config $THEME/waybar/config --style $THEME/waybar/style.css
+
+      # Hyprland will reload environment variables (GTK_THEME) in
+      # hyprland.conf.
+      hyprctl reload
     '';
 
   mkHyprpaper =
@@ -181,7 +183,7 @@ let
     '';
 
   mkHyprlandConfig =
-    config:
+    config: themeName:
     pkgs.writeText "hyprland.conf" ''
       # change monitor to high resolution, the last argument is the scale factor
 
@@ -198,6 +200,8 @@ let
       # toolkit-specific scale
       env = TERMINAL,$TERMINAL;
       env = THEME,/etc/xdg/CURRENT_THEME
+      env = GTK_DATA_PREFIX,/etc/xdg/CURRENT_THEME/gtk
+      env = GTK_THEME,${themeName}
 
 
       exec-once = hyprctl dispatch dpms on &
@@ -529,7 +533,7 @@ let
   mkTheme =
     config: wall: scheme: font:
     let
-      hyprlandConfig = mkHyprlandConfig config;
+      hyprlandConfig = mkHyprlandConfig config scheme.slug;
     in
     pkgs.stdenv.mkDerivation {
       name = "theme-${wall.name}";
@@ -557,8 +561,6 @@ let
         ln -sfn ${../dotfiles/mako/mako.ini} $out/mako/mako.ini
         ln -sfn ${mkWeztermConfig scheme font} $out/wezterm/wezterm.lua
         ln -sfn ${nix-colors-lib.gtkThemeFromScheme { scheme = schemes.${scheme.slug}; }} $out/gtk
-
-        echo "${scheme.slug}" > $out/THEME
       '';
     };
 
