@@ -13,6 +13,7 @@
     ../../services/custom-whisper-server.nix
     ../../services/freshrss.nix
     ../../services/grafana.nix
+    ../../services/glance.nix
     ../../services/openrgb.nix
     ../../services/prometheus.nix
     ../../services/rclone.nix
