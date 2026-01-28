@@ -240,8 +240,6 @@ let
       windowrule = match:class ^(org.wezfurlong.wezterm)$, float yes
       windowrule = match:class ^(org.wezfurlong.wezterm)$, tile yes
 
-      windowrulev2 = opacity 0.94, class:(firefox)
-
       # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
       input {
           kb_layout = us
