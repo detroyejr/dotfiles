@@ -6,7 +6,13 @@
     "xdg/opencode/opencode.jsonc".text = ''
       {
         "$schema": "https://opencode.ai/config.jsonc",
-        "theme": "system"
+        "theme": "system",
+        "lsp": {
+          "ruff": {
+            "command": ["ruff", "server"],
+            "extensions": [".py"]
+          }
+        }
       }
     '';
     "xdg/opencode/agent".source = ../../dotfiles/opencode/agent;
