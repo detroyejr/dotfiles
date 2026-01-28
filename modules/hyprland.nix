@@ -5,8 +5,8 @@
   ...
 }:
 let
-  helpers = import ./hyprland-helpers.nix { inherit pkgs lib; };
-  inherit (helpers)
+  utils = import ./utils.nix { inherit pkgs lib; };
+  inherit (utils)
     themeNames
     schemes
     mkNextWallpaper
