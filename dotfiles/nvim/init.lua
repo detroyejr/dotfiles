@@ -311,6 +311,13 @@ vim.keymap.set(
 )
 
 vim.keymap.set(
+  "n",
+  "<Leader>an",
+  ":tabnew | terminal opencode --port<CR>",
+  opts
+)
+
+vim.keymap.set(
   { "x", "n" },
   "<leader>at",
   function() require("opencode").ask("@this: ", { submit = true }) end,
