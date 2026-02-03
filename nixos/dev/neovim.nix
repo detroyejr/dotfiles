@@ -15,17 +15,11 @@ let
     rev = "4fc09bee78e91bf4ba471cdab4bf9dfa37fde51c";
     hash = "sha256-PBiYshT9p5l4YZHv8DHvcB396mKwRIfa8F2y0VgUuI4=";
   };
-  sidekick = pkgs.fetchFromGitHub {
-    owner = "folke";
-    repo = "sidekick.nvim";
-    rev = "c2bdf8cfcd87a6be5f8b84322c1b5052e78e302e";
-    hash = "sha256-ABuILCcKfYViZoFHaCepgIMLjvMEb/SBmGqGHUBucAM=";
-  };
   opencodeNvim = pkgs.fetchFromGitHub {
     owner = "NickvanDyke";
     repo = "opencode.nvim";
-    rev = "990c062d4036877a047cb3f5372e2f261a889f0a";
-    hash = "sha256-hnGsLiBlpwHKWh7L+uiWOFXzjjryoOMjDBaiX1aT7+U=";
+    tag = "v0.1.0";
+    hash = "sha256-awG2mJYGQEf7U3+UsCB5X1Hb5eCgD8x2DojiDiXrHpw=";
   };
   snacks = pkgs.fetchFromGitHub {
     owner = "folke";
@@ -54,9 +48,6 @@ in
           ''${DIR}/nvim/site/queries \
           ''${DIR}/nvim/site/parser
         ln -sfn ${nvim-treesitter}/* ''${DIR}/nvim/site/pack/plugins/start/nvim-treesitter
-
-        mkdir -p ''${DIR}/nvim/site/pack/plugins/start/sidekick
-        ln -sfn ${sidekick}/* ''${DIR}/nvim/site/pack/plugins/start/sidekick
 
         mkdir -p ''${DIR}/nvim/site/pack/plugins/start/opencode
         ln -sfn ${opencodeNvim}/* ''${DIR}/nvim/site/pack/plugins/start/opencode
