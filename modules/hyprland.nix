@@ -158,7 +158,7 @@ in
         fi;
         ln -s $currentTheme /etc/xdg/CURRENT_THEME
 
-        for path in wezterm waybar hypr; do
+        for path in wezterm waybar hypr mako; do
           if [ -d "/etc/xdg/$path" ]; then
             unlink "/etc/xdg/$path"
           fi;

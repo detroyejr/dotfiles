@@ -465,6 +465,37 @@ let
       return config
     '';
 
+  mkMakoConfig =
+    scheme: font:
+    with scheme.colors;
+    pkgs.writeText "mako.ini" ''
+      text-color=#${base05}
+      border-color=#${base08}
+      background-color=#${base00}
+
+      anchor=top-right
+      default-timeout=5000
+      width=420
+      outer-margin=20
+      padding=10,15
+      border-size=2
+      max-icon-size=32
+      font=${font.name} 14px
+
+      [app-name=Plexamp]
+      invisible=1
+
+      [mode=do-not-disturb]
+      invisible=true
+
+      [mode=do-not-disturb app-name=notify-send]
+      invisible=false
+
+      [urgency=critical]
+      default-timeout=0
+      layer=overlay
+    '';
+
   mkRofiTheme =
     walls: scheme: font:
     pkgs.rofi-themes.overrideAttrs (attrs: {
@@ -525,7 +556,7 @@ let
 
         ln -sfn ${../dotfiles/waybar/config} $out/waybar/config
         ln -sfn ${../dotfiles/waybar/style.css} $out/waybar/style.css
-        ln -sfn ${../dotfiles/mako/mako.ini} $out/mako/mako.ini
+        ln -sfn ${mkMakoConfig scheme font} $out/mako/mako.ini
         ln -sfn ${mkWeztermConfig scheme font} $out/wezterm/wezterm.lua
         ln -sfn ${nix-colors-lib.gtkThemeFromScheme { scheme = schemes.${scheme.slug}; }} $out/gtk
 
