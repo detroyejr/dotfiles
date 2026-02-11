@@ -18,14 +18,14 @@ let
   opencodeNvim = pkgs.fetchFromGitHub {
     owner = "NickvanDyke";
     repo = "opencode.nvim";
-    tag = "v0.1.0";
-    hash = "sha256-awG2mJYGQEf7U3+UsCB5X1Hb5eCgD8x2DojiDiXrHpw=";
+    tag = "v0.2.0";
+    hash = "sha256-ShAot7XV5IgXIeb6FDo8Md4Y3KFHzNEaKOM2k7tXvxs=";
   };
   snacks = pkgs.fetchFromGitHub {
     owner = "folke";
     repo = "snacks.nvim";
-    rev = "fe7cfe9800a182274d0f868a74b7263b8c0c020b";
-    hash = "sha256-vRedYg29QGPGW0hOX9qbRSIImh1d/SoDZHImDF2oqKM=";
+    tag = "v2.30.0";
+    hash = "sha256-5m65Gvc6DTE9v7noOfm0+iQjDrqnrXYYV9QPnmr1JGY=";
   };
 in
 {
