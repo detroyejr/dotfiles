@@ -3,6 +3,7 @@
   imports = [
     ./firefox.nix
     ./hyprland.nix
+    ./opencode.nix
     ./xdg.nix
   ];
   options = {

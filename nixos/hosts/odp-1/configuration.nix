@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -36,7 +36,7 @@
   services.openssh.authorizedKeysFiles = [
     "/home/detroyejr/.ssh/main_server_ed25519.pub"
   ];
-
+  
   fileSystems."/run/mount/Media" = {
     device = "192.168.1.107:/mnt/nas0/Media";
     fsType = "nfs";
@@ -60,7 +60,14 @@
       owner = "detroyejr";
       group = "nginx";
     };
+    "opencode/password" = {
+      owner = "detroyejr";
+      group = "detroyejr";
+    };
   };
+
+  services.opencode.enable = true;
+  services.opencode.passwordFile = config.sops.secrets."opencode/password".path;
 
   networking = {
     networkmanager.enable = lib.mkForce false;
