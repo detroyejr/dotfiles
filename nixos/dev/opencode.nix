@@ -11,6 +11,11 @@
           "ruff": {
             "command": ["ruff", "server"],
             "extensions": [".py"]
+          },
+
+          "jarl": {
+            "command": ["jarl", "server"],
+            "extensions": [".r", ".R"]
           }
         }
       }
