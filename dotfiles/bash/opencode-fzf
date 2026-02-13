@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+session_root="${XDG_DATA_HOME:-$HOME/.local/share}/opencode/storage/session"
+
+if [[ ! -d "$session_root" ]]; then
+  printf 'Session dir not found: %s\n' "$session_root" >&2
+  exit 1
+fi
+
+shopt -s globstar nullglob
+
+selection=$(
+  for file in "$session_root"/**/ses_*.json; do
+    jq -r --arg file "$file" '
+      def trunc($n): if length > $n then .[0:($n-3)] + "..." else . end;
+      def pad($n): if length < $n then . + (" " * ($n - length)) else . end;
+      def fmt_time($ms): if $ms == 0 then "" else ($ms / 1000 | floor | strftime("%Y-%m-%d %H:%M")) end;
+      (.time.updated // .time.created // 0) as $updated |
+      (fmt_time($updated)) as $updated_fmt |
+      (.title // .slug // .id // "unknown") as $title |
+      ("title: " + ($title | tostring | trunc(40))) as $label |
+      [($updated | tostring), $updated_fmt, ($label | pad(47)), ("dir: " + (.directory // "")), $file] | @tsv
+    ' "$file" || continue
+  done | sort -rn -t $'\t' -k1,1 | fzf --delimiter=$'\t' --with-nth=2,3,4 --tabstop=2
+) || exit 0
+
+if [[ -z "$selection" ]]; then
+  exit 0
+fi
+
+IFS=$'\t' read -r _ _ _ _ selected_file <<< "$selection"
+
+if [[ -z "$selected_file" ]]; then
+  printf 'No session selected.\n' >&2
+  exit 1
+fi
+
+session_id=$(jq -r '.id // empty' "$selected_file")
+session_dir=$(jq -r '.directory // empty' "$selected_file")
+tmux_session="opencode-${session_id}"
+
+if [[ -z "$session_id" ]]; then
+  printf 'Session id not found in %s\n' "$selected_file" >&2
+  exit 1
+fi
+
+if [[ -z "$session_dir" ]]; then
+  printf 'Session directory not found in %s\n' "$selected_file" >&2
+  exit 1
+fi
+
+if [[ ! -d "$session_dir" ]]; then
+  printf 'Session directory missing: %s\n' "$session_dir" >&2
+  exit 1
+fi
+
+if [[ -z "${TMUX:-}" ]] && command -v tmux >/dev/null 2>&1; then
+  exec tmux new-session -A -s "$tmux_session" -c "$session_dir" opencode -s "$session_id"
+fi
+
+cd "$session_dir"
+exec opencode -s "$session_id"
