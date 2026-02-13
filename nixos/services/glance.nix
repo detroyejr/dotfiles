@@ -133,6 +133,11 @@
                           url = "http://odp-2:9090";
 
                         }
+                        {
+                          title = "OpenCode";
+                          url = "http://odp-1:46279";
+
+                        }
                       ];
                     }
                   ];
