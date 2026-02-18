@@ -12,14 +12,14 @@ let
   nvim-treesitter = pkgs.fetchFromGitHub {
     owner = "nvim-treesitter";
     repo = "nvim-treesitter";
-    rev = "4fc09bee78e91bf4ba471cdab4bf9dfa37fde51c";
-    hash = "sha256-PBiYshT9p5l4YZHv8DHvcB396mKwRIfa8F2y0VgUuI4=";
+    rev = "2bd9b9b4f12eed175fba35ca2db8e8584546a4ec";
+    hash = "sha256-riJj1ol45LhgDP0BxboNyG3ed/dT6KgmdYK6rzyFsAw=";
   };
   opencodeNvim = pkgs.fetchFromGitHub {
     owner = "NickvanDyke";
     repo = "opencode.nvim";
-    tag = "v0.2.0";
-    hash = "sha256-ShAot7XV5IgXIeb6FDo8Md4Y3KFHzNEaKOM2k7tXvxs=";
+    tag = "v0.3.0";
+    hash = "sha256-fYXMLg702MAGpfoIYmFDQ5TkC+EWtuv0r3t0supsV7E=";
   };
   snacks = pkgs.fetchFromGitHub {
     owner = "folke";
