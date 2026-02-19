@@ -296,11 +296,12 @@ vim.g.opencode_opts = {
   }
 }
 
-vim.keymap.set('i', '<Tab>', function()
-  if not vim.lsp.inline_completion.get() then
-    return '<Tab>'
-  end
-end, { expr = true, desc = 'Accept the current inline completion' })
+-- FIXME: Remove till neovim 12.
+-- vim.keymap.set('i', '<Tab>', function()
+--   if not vim.lsp.inline_completion.get() then
+--     return '<Tab>'
+--   end
+-- end, { expr = true, desc = 'Accept the current inline completion' })
 
 
 vim.keymap.set(
