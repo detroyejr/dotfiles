@@ -1,5 +1,13 @@
-{ ... }:
+{ config, ... }:
 {
+
+  sops.secrets = {
+    "grafana/secret_key" = {
+      owner = "detroyejr";
+      group = "detroyejr";
+    };
+  };
+
   networking.firewall.allowedTCPPorts = [ 3001 ];
 
   services.grafana = {
@@ -8,6 +16,9 @@
       server = {
         http_addr = "0.0.0.0";
         http_port = 3001;
+      };
+      security = {
+        secret_key = config.sops.secrets."grafana/secret_key".path;
       };
     };
 
