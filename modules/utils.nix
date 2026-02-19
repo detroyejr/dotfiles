@@ -550,12 +550,33 @@ let
           sed -i "s,~/.config/rofi/images/wallpaper.png,$out/rofi.png,g" {} ';';
 
         mkdir -p $out/bin
-        cat << EOF > $out/bin/rofi-launcher
-          rofi \
-            -show drun \
-            -theme $out/files/launchers/type-6/style-3.rasi
+        cat << EOF > ''$out/bin/rofi-bluetooth
+          #!/usr/bin/env bash
+          if [ "\$ROFI_RETV" = "0" ]; then
+            bluetoothctl devices | sed 's/^Device //'
+            exit 0
+          fi
+
+          dev="\$1"
+          [ -z "\$dev" ] && exit 0
+          mac="''${dev%% *}"
+          bluetoothctl info "\$mac" | grep -q "Connected: yes" \
+            && bluetoothctl disconnect "\$mac" \
+            || bluetoothctl connect "\$mac"
         EOF
-        chmod +x $out/bin/rofi-launcher
+        chmod +x ''$out/bin/rofi-bluetooth
+
+        cat << EOF > ''$out/bin/rofi-launcher
+          #!/usr/bin/env bash
+          bluetoothctl power on
+          theme="''$out/files/launchers/type-6/style-3.rasi"
+
+          modi="drun,Bluetooth:''$out/bin/rofi-bluetooth,ssh"
+          rofi -show drun -modi "\$modi" -p "Rofi" -theme "\$theme" \
+            -terminal "wezterm" \
+            -ssh-command '{terminal} start -- {ssh-client} {host}'
+        EOF
+        chmod +x ''$out/bin/rofi-launcher
       '';
     });
 

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+session_name="dev"
+window_dir="$PWD"
+
+if [[ -n "$TMUX" ]]; then
+  session_id=$(tmux display-message -p "#{session_id}")
+  current_window=$(tmux display-message -p "#{window_id}")
+
+  tmux rename-window -t "$current_window" nvim
+  tmux send-keys -t "$current_window" 'nvim' Enter
+  tmux new-window -t "$session_id" -n opencode -c "$window_dir"
+  tmux send-keys -t "$session_id:2" 'opencode --port' Enter
+  tmux select-window -t "$current_window"
+  exit 0
+fi
+
+tmux new-session -d -s "$session_name" -n nvim -c "$window_dir"
+tmux send-keys -t "$session_name:1" 'nvim' Enter
+tmux new-window -t "$session_name" -n opencode -c "$window_dir"
+tmux send-keys -t "$session_name:2" 'opencode --port' Enter
+tmux attach -t "$session_name:1"
