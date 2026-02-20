@@ -38,8 +38,9 @@ let
 in
 {
   environment.systemPackages = [
-    python-with-packages
-    pkgs.ruff
     pkgs.basedpyright
+    pkgs.cookiecutter
+    pkgs.ruff
+    python-with-packages
   ];
 }
