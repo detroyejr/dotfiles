@@ -5,6 +5,7 @@ let
       aioboto3
       boto3
       boto3-stubs
+      cookiecutter
       fsspec
       ipykernel
       isort
@@ -17,6 +18,7 @@ let
       pytest-asyncio
       python-lsp-ruff
       python-lsp-server
+      pyyaml
       redshift-connector
       requests
       s3fs
@@ -39,7 +41,6 @@ in
 {
   environment.systemPackages = [
     pkgs.basedpyright
-    pkgs.cookiecutter
     pkgs.ruff
     python-with-packages
   ];

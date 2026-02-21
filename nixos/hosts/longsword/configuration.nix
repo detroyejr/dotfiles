@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   imports = [
-    ./hardware-configuration.nix
     ../../apps/cataclysm-dda.nix
     ../../apps/fonts.nix
     ../../apps/steam.nix
@@ -15,6 +14,7 @@
     ../../services/syncthing.nix
     ../../services/virtualization.nix
     ../../sops.nix
+    ./hardware-configuration.nix
   ];
 
   programs.hyprland.enable = true;
