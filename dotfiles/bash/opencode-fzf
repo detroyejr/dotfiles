@@ -1,53 +1,72 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p sqlite
 
 set -euo pipefail
 
-session_root="${XDG_DATA_HOME:-$HOME/.local/share}/opencode/storage/session"
+db_path="${XDG_DATA_HOME:-$HOME/.local/share}/opencode/opencode.db"
 
-if [[ ! -d "$session_root" ]]; then
-  printf 'Session dir not found: %s\n' "$session_root" >&2
+if [[ ! -f "$db_path" ]]; then
+  printf 'Database not found: %s\n' "$db_path" >&2
   exit 1
 fi
 
-shopt -s globstar nullglob
+sql_query=$(cat <<'SQL'
+SELECT
+  session.id AS session_id,
+  replace(replace(COALESCE(session.title, session.slug, session.id, 'unknown'), char(9), ' '), char(10), ' ') AS title,
+  replace(replace(COALESCE(session.directory, ''), char(9), ' '), char(10), ' ') AS directory,
+  replace(replace(COALESCE(project.worktree, session.directory, ''), char(9), ' '), char(10), ' ') AS project_dir,
+  COALESCE(session.time_updated, session.time_created, 0) AS updated
+FROM session
+LEFT JOIN project ON project.id = session.project_id
+WHERE time_archived IS NULL
+ORDER BY updated DESC;
+SQL
+)
 
-selection=$(
-  for file in "$session_root"/**/ses_*.json; do
-    jq -r --arg file "$file" '
-      def trunc($n): if length > $n then .[0:($n-3)] + "..." else . end;
-      def pad($n): if length < $n then . + (" " * ($n - length)) else . end;
-      def fmt_time($ms): if $ms == 0 then "" else ($ms / 1000 | floor | strftime("%Y-%m-%d %H:%M")) end;
-      (.time.updated // .time.created // 0) as $updated |
-      (fmt_time($updated)) as $updated_fmt |
-      (.title // .slug // .id // "unknown") as $title |
-      ("title: " + ($title | tostring | trunc(40))) as $label |
-      [($updated | tostring), $updated_fmt, ($label | pad(47)), ("dir: " + (.directory // "")), $file] | @tsv
-    ' "$file" || continue
-  done | sort -rn -t $'\t' -k1,1 | fzf --delimiter=$'\t' --with-nth=2,3,4 --tabstop=2
-) || exit 0
+selection=""
+if ! IFS= read -r selection < <(
+  {
+    printf '%-32s\t%-70s\t%-30s\t%s\n' "Session ID" "Title" "Project" "Updated"
+    printf '%*s\n' 140 '' | tr ' ' '-'
+    sqlite3 -readonly -noheader -separator $'\t' "$db_path" "$sql_query" | while IFS=$'\t' read -r session_id title directory project_dir updated; do
+      if [[ -z "$session_id" ]]; then
+        continue
+      fi
+
+      updated_display=""
+      if [[ -n "$updated" && "$updated" != "0" ]]; then
+        updated_sec=$((updated / 1000))
+        today=$(date +%Y-%m-%d)
+        updated_date=$(date -d "@${updated_sec}" +%Y-%m-%d)
+        if [[ "$updated_date" == "$today" ]]; then
+          updated_display=$(date -d "@${updated_sec}" +"%-I:%M %p")
+        else
+          updated_display=$(date -d "@${updated_sec}" +"%-I:%M %p - %-m/%-d/%Y")
+        fi
+      fi
+
+      printf '%-32s\t%-70.70s\t%-30.30s\t%s\t%s\t%s\n' "$session_id" "$title" "$project_dir" "$updated_display" "$session_id" "$project_dir"
+    done
+  } | fzf --delimiter=$'\t' --with-nth=1,2,3,4 --tabstop=2 --header-lines=2
+); then
+  exit 0
+fi
 
 if [[ -z "$selection" ]]; then
   exit 0
 fi
 
-IFS=$'\t' read -r _ _ _ _ selected_file <<< "$selection"
+IFS=$'\t' read -r _ _ _ _ session_id session_dir <<< "$selection"
 
-if [[ -z "$selected_file" ]]; then
+if [[ -z "$session_id" ]]; then
   printf 'No session selected.\n' >&2
   exit 1
 fi
-
-session_id=$(jq -r '.id // empty' "$selected_file")
-session_dir=$(jq -r '.directory // empty' "$selected_file")
 tmux_session="opencode-${session_id}"
 
-if [[ -z "$session_id" ]]; then
-  printf 'Session id not found in %s\n' "$selected_file" >&2
-  exit 1
-fi
-
 if [[ -z "$session_dir" ]]; then
-  printf 'Session directory not found in %s\n' "$selected_file" >&2
+  printf 'Session directory not found for %s\n' "$session_id" >&2
   exit 1
 fi
 
