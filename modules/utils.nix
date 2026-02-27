@@ -513,6 +513,9 @@ let
       [app-name=Plexamp]
       invisible=1
 
+      [app-name=Thunderbird]
+      invisible=1
+
       [mode=do-not-disturb]
       invisible=true
 
