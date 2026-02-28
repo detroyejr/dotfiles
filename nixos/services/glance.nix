@@ -129,6 +129,11 @@
 
                         }
                         {
+                          title = "Paperless";
+                          url = "http://odp-1:28981";
+
+                        }
+                        {
                           title = "Prometheus";
                           url = "http://odp-2:9090";
 

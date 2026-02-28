@@ -1,7 +1,6 @@
 { pkgs, lib, config, ... }:
 {
   imports = [
-    ./hardware-configuration.nix
     ../../apps/cataclysm-dda.nix
     ../../apps/fonts.nix
     ../../apps/steam.nix
@@ -12,14 +11,16 @@
     ../../services/binary-cache.nix
     ../../services/custom-whisper-server.nix
     ../../services/freshrss.nix
-    ../../services/grafana.nix
     ../../services/glance.nix
+    ../../services/grafana.nix
     ../../services/openrgb.nix
+    ../../services/paperless.nix
     ../../services/prometheus.nix
     ../../services/rclone.nix
     ../../services/syncthing.nix
     ../../services/virtualization.nix
     ../../sops.nix
+    ./hardware-configuration.nix
   ];
 
   programs.hyprland.enable = true;
