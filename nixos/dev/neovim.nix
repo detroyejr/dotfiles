@@ -12,20 +12,20 @@ let
   nvim-treesitter = pkgs.fetchFromGitHub {
     owner = "nvim-treesitter";
     repo = "nvim-treesitter";
-    rev = "2bd9b9b4f12eed175fba35ca2db8e8584546a4ec";
-    hash = "sha256-riJj1ol45LhgDP0BxboNyG3ed/dT6KgmdYK6rzyFsAw=";
+    rev = "995b75fd5129726c2ac922227944ab51871b05a5";
+    hash = "sha256-ZpEsy5/lVrLd5iiaxhGT5XBRIizQt1hPk+e5qFk3uL4=";
   };
   opencodeNvim = pkgs.fetchFromGitHub {
     owner = "NickvanDyke";
     repo = "opencode.nvim";
-    tag = "v0.3.0";
-    hash = "sha256-fYXMLg702MAGpfoIYmFDQ5TkC+EWtuv0r3t0supsV7E=";
+    tag = "v0.5.0";
+    hash = "sha256-4rdqglvsnf7BWd5eXHL+/KGV92puz1ZDmeCdFuR+Qjs=";
   };
   snacks = pkgs.fetchFromGitHub {
     owner = "folke";
     repo = "snacks.nvim";
-    tag = "v2.30.0";
-    hash = "sha256-5m65Gvc6DTE9v7noOfm0+iQjDrqnrXYYV9QPnmr1JGY=";
+    rev = "9912042fc8bca2209105526ac7534e9a0c2071b2";
+    hash = "sha256-987hqjUll8ICGC6NRP2AKGNVpZODejyiwcVAecdKGl8=";
   };
 in
 {
@@ -33,7 +33,6 @@ in
   programs.neovim.defaultEditor = true;
   environment.systemPackages = [
     pkgs.tree-sitter
-    pkgs.copilot-language-server
   ];
   environment.etc = {
     "xdg/nvim".source = neovimConfig;

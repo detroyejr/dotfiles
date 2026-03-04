@@ -280,7 +280,6 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-
 -- Setup for opencode
 require("snacks").setup({
   styles = { enabled = true },
@@ -289,12 +288,6 @@ require("snacks").setup({
   bigfile = { enabled = true },
   terminal = { enabled = true },
 })
-
-vim.g.opencode_opts = {
-  provider = {
-    enabled = "terminal",
-  }
-}
 
 -- FIXME: Remove till neovim 12.
 -- vim.keymap.set('i', '<Tab>', function()
