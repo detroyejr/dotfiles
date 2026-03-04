@@ -9,7 +9,7 @@ let
           name = "EchelonSurveyTools";
           src = builtins.fetchGit {
             url = "git@github.com:EchelonInsights/EchelonSurveyTools.git";
-            rev = "d850dc2b4ed9e05cc30a0cd0b06fdc159261a06d";
+            rev = "3318011607fede5786de2f8db4c8c975982c51b4";
             allRefs = true;
           };
           buildInputs = [
@@ -17,12 +17,14 @@ let
             RPostgres
             haven
             httr2
+            jsonlite
             pkgs.R
             relaimpo
             scales
             sjlabelled
             stringi
             tibble
+            xml2
           ];
         };
         topline = buildRPackage {
@@ -60,6 +62,7 @@ let
         httpuv
         httr
         huxtable
+        jsonlite
         magick
         officer
         readxl
@@ -71,6 +74,7 @@ let
         surveytools
         topline
         usethis
+        xml2
       ];
   };
 in
