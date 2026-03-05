@@ -3,6 +3,34 @@
   lib,
 }:
 let
+  # sass = pkgs.buildNpmPackage rec {
+  #   name = "sass";
+  #   version = "1.97.3";
+  #   src = pkgs.fetchFromGitHub {
+  #     owner = "sass";
+  #     repo = "dart-sass";
+  #     tag = "1.97.3";
+  #     hash = "sha256-9yhjqkWmtSqdLcmZWvHcz46xqN7yd27Quygg/I+WHag=";
+  #   };
+  #
+  #   patchPhase = ''
+  #     cp ${../dotfiles/package-lock.json} package-lock.json
+  #     substituteInPlace package.json --replace-fail '"name": "sass",' '"name": "sass","version": 1.0,'
+  #     HOME=/build
+  #     mkdir node_modules
+  #   '';
+  #
+  #   npmDepsHash = "sha256-pG2nLPmMluR2aYH4+POs/SuksnLLk1Xlba/cY6Cx11I=";
+  #   dontNpmBuild = true;
+  #   npmBuildScript = "dev";
+  #
+  #   npmInstallFlags = "--ignore-scripts --legacy-peer-deps --offline";
+  # };
+  rendersvg = pkgs.runCommand "rendersvg" { } ''
+    mkdir -p $out/bin
+    ln -s ${pkgs.resvg}/bin/resvg $out/bin/rendersvg
+  '';
+
   themeNames = {
     wall-etna = "rose-pine";
     wall-blue-mountain = "nord";
@@ -83,14 +111,81 @@ let
     };
   };
 
-  repo = fetchGit {
-    url = "https://github.com/Misterio77/nix-colors";
-    rev = "37227f274b34a3b51649166deb94ce7fec2c6a4c";
-  };
+  # From https://github.com/Misterio77/nix-colors/blob/main/lib/contrib/gtk-theme.nix
+  gtkThemeFromScheme =
+    scheme:
+    pkgs.stdenv.mkDerivation {
+      name = "generated-gtk-theme-${scheme.slug}";
+      src = pkgs.fetchFromGitHub {
+        owner = "nana-4";
+        repo = "materia-theme";
+        rev = "76cac96ca7fe45dc9e5b9822b0fbb5f4cad47984";
+        sha256 = "sha256-0eCAfm/MWXv6BbCl2vbVbvgv8DiUH09TAUhoKq7Ow0k=";
+      };
+      buildInputs = [
+        pkgs.bc
+        pkgs.gtk4.dev
+        pkgs.meson
+        pkgs.ninja
+        pkgs.nodejs
+        pkgs.optipng
+        pkgs.sassc
+        pkgs.which
+        rendersvg
+      ];
+      phases = [
+        "unpackPhase"
+        "patchPhase"
+        "installPhase"
+      ];
 
-  nix-colors-lib = {
-    gtkThemeFromScheme = import "${repo}/lib/contrib/gtk-theme.nix" { inherit pkgs; };
-  };
+      patchPhase = with pkgs; ''
+        substituteInPlace \
+          meson.build \
+          --replace-fail \
+          "find_program('./node_modules/.bin/sass')" \
+          "find_program('${dart-sass}/bin/sass')"
+      '';
+
+      installPhase = ''
+        HOME=/build
+        chmod 777 -R .
+        patchShebangs .
+        mkdir -p $out/share/themes
+        mkdir bin
+        sed -e 's/handle-horz-.*//' -e 's/handle-vert-.*//' -i ./src/gtk-2.0/assets.txt
+
+        cat > /build/gtk-colors << EOF
+          BTN_BG=${scheme.colors.base02}
+          BTN_FG=${scheme.colors.base06}
+          FG=${scheme.colors.base05}
+          BG=${scheme.colors.base00}
+          HDR_BTN_BG=${scheme.colors.base01}
+          HDR_BTN_FG=${scheme.colors.base05}
+          ACCENT_BG=${scheme.colors.base0B}
+          ACCENT_FG=${scheme.colors.base00}
+          HDR_FG=${scheme.colors.base05}
+          HDR_BG=${scheme.colors.base02}
+          MATERIA_SURFACE=${scheme.colors.base02}
+          MATERIA_VIEW=${scheme.colors.base01}
+          MENU_BG=${scheme.colors.base02}
+          MENU_FG=${scheme.colors.base06}
+          SEL_BG=${scheme.colors.base0D}
+          SEL_FG=${scheme.colors.base0E}
+          TXT_BG=${scheme.colors.base02}
+          TXT_FG=${scheme.colors.base06}
+          WM_BORDER_FOCUS=${scheme.colors.base05}
+          WM_BORDER_UNFOCUS=${scheme.colors.base03}
+          UNITY_DEFAULT_LAUNCHER_STYLE=False
+          NAME=${scheme.slug}
+          MATERIA_STYLE_COMPACT=True
+        EOF
+
+        echo "Changing colours:"
+        ./change_color.sh -o ${scheme.slug} /build/gtk-colors -i False -t "$out/share/themes"
+        chmod 555 -R .
+      '';
+    };
 
   mkNextWallpaper =
     config:
@@ -613,7 +708,7 @@ let
         ln -sfn ${../dotfiles/waybar/style.css} $out/waybar/style.css
         ln -sfn ${mkMakoConfig scheme font} $out/mako/mako.ini
         ln -sfn ${mkWeztermConfig scheme font} $out/wezterm/wezterm.lua
-        ln -sfn ${nix-colors-lib.gtkThemeFromScheme { scheme = schemes.${scheme.slug}; }} $out/gtk
+        ln -sfn ${gtkThemeFromScheme scheme} $out/gtk
       '';
     };
 
@@ -622,7 +717,6 @@ in
   inherit
     themeNames
     schemes
-    nix-colors-lib
     mkNextWallpaper
     mkHyprpaper
     mkLockscreen

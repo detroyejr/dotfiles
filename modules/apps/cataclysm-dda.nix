@@ -1,0 +1,71 @@
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  cfg = config.programs.cataclysmdda;
+
+  cddaLib = {
+    inherit (pkgs.cataclysmDDA)
+      attachPkgs
+      buildMod
+      buildSoundPack
+      buildTileSet
+      pkgs
+      wrapCDDA
+      ;
+  };
+
+  base-cdda = pkgs.cataclysm-dda-git.override {
+    version = "cdda-0.I-2025-10-26-0731";
+    sha256 = "sha256-t9R0QPky7zvjgGMq4kV8DdQFToJ/qngbJCw+8FlQztM=";
+  };
+
+  cdda-no-mod = base-cdda.overrideAttrs (super: {
+    # patch doesn't cleanly apply anymore
+    patches = [ ];
+
+    passthru = super.passthru // {
+      pkgs = pkgs.override { build = cdda-no-mod; };
+      withMods = cddaLib.wrapCDDA cdda-no-mod;
+    };
+  });
+
+  customMods =
+    self: super:
+    let
+      version = "2024-10-27";
+    in
+    lib.recursiveUpdate super {
+      soundpack.CC-Sounds = cddaLib.buildSoundPack {
+        inherit version;
+        modName = "CC-Sounds";
+        src = pkgs.fetchzip {
+          url = "https://github.com/Fris0uman/CDDA-Soundpacks/releases/download/${version}/CC-Sounds.zip";
+          hash = "sha256-Or2gXcaVtcS7NPWKPvy5Lo4BgyrrU1kZpYLcyOuVxZM=";
+        };
+      };
+    };
+
+  cdda = (cddaLib.attachPkgs cddaLib.pkgs cdda-no-mod).withMods (
+    mods: with mods.extend customMods; [
+      soundpack.CC-Sounds
+    ]
+  );
+
+  cdda-desktop = pkgs.makeDesktopItem {
+    name = "cataclysm-dda";
+    desktopName = "Cataclysm Dark Days Ahead (Post-apocalyptic survival game)";
+    exec = "${cdda}/bin/cataclysm-tiles";
+    icon = "${cdda}/share/icons/hicolor/scalable/apps/org.cataclysmdda.CataclysmDDA.svg";
+  };
+in
+{
+  options.programs.cataclysmdda.enable = lib.mkEnableOption "Cataclysm Dark Days Ahead";
+
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ cdda-desktop ];
+  };
+}

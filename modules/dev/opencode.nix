@@ -1,0 +1,37 @@
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+let
+  cfg = config.programs.opencode;
+in
+{
+  options.programs.opencode.enable = lib.mkEnableOption "Opencode CLI config";
+
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ pkgs.opencode ];
+
+    environment.etc = {
+      "xdg/opencode/opencode.jsonc".text = ''
+        {
+          "$schema": "https://opencode.ai/config.jsonc",
+          "theme": "system",
+          "lsp": {
+            "ruff": {
+              "command": ["ruff", "server"],
+              "extensions": [".py"]
+            },
+
+            "jarl": {
+              "command": ["jarl", "server"],
+              "extensions": [".r", ".R"]
+            }
+          }
+        }
+      '';
+      "xdg/opencode/agent".source = ../../dotfiles/opencode/agent;
+    };
+  };
+}

@@ -1,0 +1,23 @@
+{ ... }:
+{
+  imports = [
+    ./actual.nix
+    ./binary-cache.nix
+    ./custom-whisper-server.nix
+    ./docker.nix
+    ./flatpak.nix
+    ./freshrss.nix
+    ./glance.nix
+    ./grafana.nix
+    ./llm.nix
+    ./opencode-server.nix
+    ./openrgb.nix
+    ./paperless.nix
+    ./plex.nix
+    ./prometheus.nix
+    ./rclone.nix
+    ./syncthing.nix
+    ./veikk.nix
+    ./virtualization.nix
+  ];
+}

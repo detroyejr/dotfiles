@@ -58,7 +58,9 @@
               ;
           };
           modules = [
-            ./nixos/hosts/longsword/configuration.nix
+            ./hosts/longsword/configuration.nix
+            ./hosts/longsword/hardware-configuration.nix
+            ./modules
             nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
             sops-nix.nixosModules.sops
           ];
@@ -73,7 +75,9 @@
               ;
           };
           modules = [
-            ./nixos/hosts/odp-1/configuration.nix
+            ./hosts/odp-1/configuration.nix
+            ./hosts/odp-1/hardware-configuration.nix
+            ./modules
 
             # Running the 3070, but I think this is close enough.
             nixos-hardware.nixosModules.dell-optiplex-3050
@@ -90,7 +94,9 @@
               ;
           };
           modules = [
-            ./nixos/hosts/mongoose/configuration.nix
+            ./hosts/mongoose/configuration.nix
+            ./hosts/mongoose/hardware-configuration.nix
+            ./modules
             jovian.nixosModules.default
             sops-nix.nixosModules.sops
           ];
@@ -105,8 +111,11 @@
               ;
           };
           modules = [
-            ./nixos/hosts/scorpion/configuration.nix
+            ./hosts/scorpion/configuration.nix
+            ./hosts/scorpion/hardware-configuration.nix
+            ./modules
             nixos-hardware.nixosModules.dell-xps-15-9570-nvidia
+            sops-nix.nixosModules.sops
           ];
         };
         "pelican" = nixpkgs.lib.nixosSystem {
@@ -119,17 +128,19 @@
               ;
           };
           modules = [
-            ./nixos/hosts/pelican/configuration.nix
+            ./hosts/pelican/configuration.nix
+            ./hosts/pelican/hardware-configuration.nix
+            ./modules
             sops-nix.nixosModules.sops
           ];
         };
       };
       colmena = {
         meta.nixpkgs = pkgs;
-        odp-2 = import ./nixos/hosts/odp/odp-2.nix;
-        odp-3 = import ./nixos/hosts/odp/odp-3.nix;
-        odp-4 = import ./nixos/hosts/odp/odp-4.nix;
-        odp-5 = import ./nixos/hosts/odp/odp-5.nix;
+        odp-2 = import ./hosts/odp/odp-2.nix;
+        odp-3 = import ./hosts/odp/odp-3.nix;
+        odp-4 = import ./hosts/odp/odp-4.nix;
+        odp-5 = import ./hosts/odp/odp-5.nix;
       };
     };
 }

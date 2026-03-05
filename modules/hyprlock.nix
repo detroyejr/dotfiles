@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   ...
@@ -10,7 +11,7 @@ in
   options = {
     hyprlock = {
       profile = lib.mkOption {
-        default = ../assets/profile.png;
+        default = ../dotfiles/profile.png;
         type = lib.types.path;
         description = "User profile image used by modules (e.g. hyprlock).";
       };
@@ -45,7 +46,25 @@ in
   config = lib.mkIf cfg.enable {
     programs.hyprlock.enable = true;
 
-    security.pam.services.hyprlock.fprintAuth = lib.mkIf config.services.fprintd.enable true;
+    security.pam.services.hyprlock = lib.mkIf config.services.fprintd.enable {
+      fprintAuth = true;
+      text = ''
+        # Account management.
+        account required pam_unix.so
+
+        # Authentication management.
+        auth sufficient pam_unix.so   likeauth try_first_pass nullok
+        auth sufficient ${pkgs.fprintd}/lib/security/pam_fprintd.so # fprintd (order 11400)
+        auth required pam_deny.so
+
+        # Password management.
+        password sufficient pam_unix.so nullok sha512
+
+        # Session management.
+        session required pam_env.so conffile=/etc/pam/environment readenv=0
+        session required pam_unix.so
+      '';
+    };
 
     hyprlock = lib.mkIf (config.system.name == "pelican") {
       imageSize = lib.mkDefault "300";

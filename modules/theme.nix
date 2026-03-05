@@ -67,7 +67,7 @@ in
     ./hyprlock.nix
     ./rofi.nix
     ./wallpaper.nix
-    ./wezterm.nix
+    ./dev/wezterm.nix
   ];
 
   options = {
