@@ -18,7 +18,7 @@
   config = {
     i18n.defaultLocale = "en_US.UTF-8";
     networking.networkmanager.enable = true;
-    hardware = lib.mkIf (config.system == "x86_64-linux") {
+    hardware = {
       bluetooth = {
         enable = true;
         powerOnBoot = false;
@@ -26,7 +26,7 @@
           configureFlags = oldAttrs.configureFlags ++ [ "--enable-sixaxis" ];
         });
       };
-      graphics = {
+      graphics = lib.mkIf (config.system.name != "razorback") {
         enable = true;
         enable32Bit = true;
         extraPackages = [
