@@ -13,6 +13,7 @@
     ./opencode-server.nix
     ./openrgb.nix
     ./paperless.nix
+    ./pihole.nix
     ./plex.nix
     ./prometheus.nix
     ./rclone.nix

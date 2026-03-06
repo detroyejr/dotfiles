@@ -134,7 +134,36 @@
             sops-nix.nixosModules.sops
           ];
         };
+        "razorback" = nixpkgs.lib.nixosSystem {
+          pkgs = import nixpkgs {
+            system = "aarch64-linux";
+            config = {
+              allowUnfree = true;
+              allowBroken = true;
+              cudaSupport = false;
+              input-fonts.acceptLicense = true;
+            };
+            overlays = map import packages;
+          };
+
+          system = "aarch64-linux";
+          specialArgs = {
+            inherit
+              inputs
+              outputs
+              system
+              ;
+          };
+          modules = [
+            ./hosts/razorback/configuration.nix
+            ./hosts/razorback/hardware-configuration.nix
+            ./modules
+            nixos-hardware.nixosModules.raspberry-pi-4
+            sops-nix.nixosModules.sops
+          ];
+        };
       };
+
       colmena = {
         meta.nixpkgs = pkgs;
         odp-2 = import ./hosts/odp/odp-2.nix;

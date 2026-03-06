@@ -5,6 +5,7 @@
   ...
 }:
 let
+  cfg = config.programs.hyprland;
   utils = import ./utils.nix { inherit pkgs lib; };
   inherit (utils)
     themeNames
@@ -50,7 +51,7 @@ in
     };
   };
 
-  config = lib.mkIf config.programs.hyprland.enable {
+  config = lib.mkIf cfg.enable {
     xdg.portal.config.common.default = "*";
 
     xdg.portal = {

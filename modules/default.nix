@@ -18,7 +18,7 @@
   config = {
     i18n.defaultLocale = "en_US.UTF-8";
     networking.networkmanager.enable = true;
-    hardware = {
+    hardware = lib.mkIf (config.system == "x86_64-linux") {
       bluetooth = {
         enable = true;
         powerOnBoot = false;
@@ -29,7 +29,7 @@
       graphics = {
         enable = true;
         enable32Bit = true;
-        extraPackages = lib.mkIf (config.hardware.nvidia.enabled) [
+        extraPackages = [
           pkgs.intel-compute-runtime
           pkgs.intel-media-driver
         ];
@@ -154,8 +154,6 @@
       ];
     };
     users.groups.detroyejr = { };
-
-    hardware.nvidia.open = lib.mkDefault config.hardware.nvidia.enabled;
 
     sops = {
       defaultSopsFile = ../secrets/secrets.yaml;
