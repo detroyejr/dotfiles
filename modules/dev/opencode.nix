@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.programs.opencode;
+  defaultModel = "opencode/gpt-5.3-codex";
 in
 {
   options.programs.opencode.enable = lib.mkEnableOption "Opencode CLI config";
@@ -17,6 +18,7 @@ in
       "xdg/opencode/opencode.jsonc".text = ''
         {
           "$schema": "https://opencode.ai/config.jsonc",
+          "model": "${defaultModel}",
           "theme": "system",
           "lsp": {
             "ruff": {

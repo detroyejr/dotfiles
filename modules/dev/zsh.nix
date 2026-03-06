@@ -35,15 +35,16 @@ in
       enableCompletion = true;
       autosuggestions.enable = true;
       shellAliases = {
+        ask = "opencode --agent research run";
+        btop = "btop --config ${btop-conf}";
         k = "kubectl";
         ll = "eza -l";
         ls = "eza";
         pwsh = "pwsh.exe";
+        rm = "rm -I";
         ssh = "TERM=xterm-256color ssh";
         st = "set-title";
         tf = "tmux-fzf";
-        rm = "rm -I";
-        btop = "btop --config ${btop-conf}";
       };
       ohMyZsh = {
         enable = true;
