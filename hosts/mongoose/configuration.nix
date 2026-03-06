@@ -7,6 +7,7 @@
     tmux.enable = true;
     opencode.enable = true;
     wezterm.enable = true;
+    yazi.enable = true;
     zsh.enable = true;
     firefox.enable = true;
     cataclysmdda.enable = true;

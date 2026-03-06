@@ -53,6 +53,7 @@
     tmux.enable = true;
     wezterm.enable = true;
     wireshark.enable = true;
+    yazi.enable = true;
     zsh.enable = true;
   };
 

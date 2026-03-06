@@ -15,6 +15,7 @@
     tmux.enable = true;
     opencode.enable = true;
     wezterm.enable = true;
+    yazi.enable = true;
     zsh.enable = true;
     hyprland.enable = true;
     firefox.enable = true;

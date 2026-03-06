@@ -13,7 +13,10 @@
   networking.networkmanager.enable = true;
   networking.hostName = "scorpion";
 
-  programs.zsh.enable = true;
+  programs = {
+    yazi.enable = true;
+    zsh.enable = true;
+  };
 
   services = {
     docker.enable = false;

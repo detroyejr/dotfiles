@@ -11,7 +11,10 @@
     prometheus.enable = true;
   };
 
-  programs.zsh.enable = true;
+  programs = {
+    yazi.enable = true;
+    zsh.enable = true;
+  };
 
   nix = {
     maxJobs = 6;
