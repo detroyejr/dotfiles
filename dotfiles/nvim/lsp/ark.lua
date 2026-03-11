@@ -1,6 +1,6 @@
 return {
   cmd = { "ark-lsp" },
-  filetypes = { 'r', 'R' },
+  filetypes = { 'r' },
   root_markers = {
     '.rproj',
     '.Rproj',
