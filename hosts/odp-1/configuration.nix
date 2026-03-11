@@ -54,6 +54,7 @@
       };
       authorizedKeysFiles = [
         "/home/detroyejr/.ssh/main_server_ed25519.pub"
+        "/home/detroyejr/.ssh/ios.pub"
       ];
     };
 
