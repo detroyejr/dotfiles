@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.programs.opencode;
-  defaultModel = "opencode/gpt-5.3-codex";
+  defaultModel = "opencode/gpt-5.4";
 in
 {
   options.programs.opencode.enable = lib.mkEnableOption "Opencode CLI config";
