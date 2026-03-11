@@ -58,6 +58,7 @@
   };
 
   services = {
+    docker.enable = true;
     hardware.openrgb.enable = true;
     rclone = {
       onedrive.enable = true;
