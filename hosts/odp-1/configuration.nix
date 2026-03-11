@@ -32,6 +32,12 @@
   services = {
     actual.enable = true;
     binaryCache.enable = true;
+    changedetection-io = {
+      enable = true;
+      listenAddress = "0.0.0.0";
+      port = 5001;
+      playwrightSupport = true;
+    };
     customWhisperServer.enable = true;
     freshrss.enable = true;
     glance.enable = true;
@@ -45,7 +51,6 @@
     };
     syncthing.enable = true;
     virtualization.enable = false;
-
     openssh = {
       enable = true;
       settings = {
@@ -57,7 +62,6 @@
         "/home/detroyejr/.ssh/ios.pub"
       ];
     };
-
     opencode = {
       enable = true;
       passwordFile = config.sops.secrets."opencode/password".path;
@@ -110,6 +114,7 @@
       allowedTCPPorts = [
         22
         80
+        5001
         5678
         7878
         8000

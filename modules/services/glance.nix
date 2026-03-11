@@ -136,6 +136,11 @@ in
 
                           }
                           {
+                            title = "ChangeDetection";
+                            url = "http://odp-1:5001";
+
+                          }
+                          {
                             title = "Prometheus";
                             url = "http://odp-2:9090";
 
@@ -239,6 +244,10 @@ in
                       {
                         title = "Grafana";
                         url = "http://odp-1:3001";
+                      }
+                      {
+                        title = "ChangeDetection";
+                        url = "http://odp-1:5001";
                       }
                     ];
                   }
