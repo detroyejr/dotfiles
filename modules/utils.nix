@@ -305,12 +305,12 @@ let
       exec-once = mako --config /etc/xdg/mako/mako.ini
       exec-once = blueman-applet
       exec-once = hyprpaper
-      exec-once = hyprlock
 
       exec-once = $TERMINAL
       ${lib.optionalString config.programs.firefox.enable "exec-once = [workspace 2 silent;] firefox"}
       exec-once = [workspace 3 silent;] obsidian
       exec-once = [workspace 9 silent;] sleep 30 && keepass
+      exec-once = hyprlock
 
       windowrule = match:title .*KeePass$, float yes
       windowrule = match:title .*KeePass$, center yes
