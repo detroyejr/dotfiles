@@ -23,8 +23,8 @@ in
     systemd.services.onedrive = lib.mkIf cfg.onedrive.enable {
       path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
       script = ''
-        FILE=/root/.config/rclone/rclone.conf
-        mkdir -p /home/detroyejr/OneDrive/
+        FILE=/home/${config.defaultUser}/.config/rclone/rclone.conf
+        mkdir -p /home/${config.defaultUser}/OneDrive/
         if test -f $FILE; then
           sleep 20
           ${pkgs.rclone}/bin/rclone mount \
@@ -40,7 +40,7 @@ in
             --file-perms=0777 \
             --allow-other \
             --config=$FILE \
-            "OneDrive:" "/home/detroyejr/OneDrive/"
+            "OneDrive:" "/home/${config.defaultUser}/OneDrive/"
         fi
       '';
       wantedBy = [ "multi-user.target" ];
@@ -49,7 +49,7 @@ in
     systemd.services.google_drive = lib.mkIf cfg.googleDrive.enable {
       path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
       script = ''
-        FILE=/root/.config/rclone/rclone.conf
+        FILE=/home/${config.defaultUser}/.config/rclone/rclone.conf
         mkdir -p "/home/detroyejr/Google Drive"
         if test -f $FILE; then
           sleep 20
@@ -66,7 +66,7 @@ in
             --gid 1000 \
             --allow-other \
             --config=$FILE \
-            "Google Drive 2:" "/home/detroyejr/Google Drive/"
+            "Google Drive 2:" "/home/${config.defaultUser}/Google Drive/"
         fi
       '';
       wantedBy = [ "multi-user.target" ];
