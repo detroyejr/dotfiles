@@ -135,10 +135,11 @@
     time.timeZone = "America/New_York";
 
     environment.systemPackages = with pkgs; [
+      cryptsetup
+      gcr
       usbutils
       wget
       wl-clipboard
-      gcr
     ];
 
     users.users.${config.defaultUser} = {
