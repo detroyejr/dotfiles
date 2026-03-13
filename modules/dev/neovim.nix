@@ -36,6 +36,7 @@ in
           vim.opt.scrolloff = 10
           vim.opt.shiftwidth = 2
           vim.opt.signcolumn = "yes"
+          vim.opt.smartindent = false
           vim.opt.softtabstop = 2
           vim.opt.splitright = true
           vim.opt.swapfile = false
