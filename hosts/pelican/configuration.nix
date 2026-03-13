@@ -1,37 +1,98 @@
-{ pkgs, ... }:
+{ lib, config, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    ../../modules/apps/cataclysm-dda.nix
-    ../../modules/apps/steam.nix
-    ../../modules/apps/thunar.nix
-    ../../modules/apps/wireshark.nix
-    ../../modules
-  ];
-
-  programs = {
-    git.enable = true;
-    tmux.enable = true;
-    opencode.enable = true;
-    wezterm.enable = true;
-    yazi.enable = true;
-    zsh.enable = true;
-    hyprland.enable = true;
-    firefox.enable = true;
-    cataclysmdda.enable = true;
-    steam.enable = true;
-    thunar.enable = true;
-    wireshark.enable = true;
-    neovim.enable = true;
-    python.enable = true;
-    r.enable = true;
+  boot = {
+    initrd = {
+      availableKernelModules = [
+        "xhci_pci"
+        "nvme"
+        "usb_storage"
+        "sd_mod"
+      ];
+      kernelModules = [ ];
+    };
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
   };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  networking = {
+    useDHCP = lib.mkDefault true;
+    hostName = "pelican";
+  };
 
-  networking.hostName = "pelican";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware = {
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    enableRedistributableFirmware = lib.mkDefault true;
+  };
+
+  disko.devices = {
+    disk.main = {
+      type = "disk";
+      device = "/dev/nvme0n1";
+      content = {
+        type = "gpt";
+        partitions = {
+          boot = {
+            name = "boot";
+            label = "boot";
+            size = "1G";
+            type = "EF00";
+            content = {
+              type = "filesystem";
+              format = "vfat";
+              mountpoint = "/boot";
+              mountOptions = [ "umask=0077" ];
+            };
+          };
+          nixos = {
+            name = "nixos";
+            label = "nixos";
+            end = "-8G";
+            content = {
+              type = "luks";
+              name = "nixos";
+              settings.allowDiscards = true;
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/";
+              };
+            };
+          };
+          swap = {
+            name = "swap";
+            label = "swap";
+            size = "100%";
+            content = {
+              type = "swap";
+              randomEncryption = true;
+            };
+          };
+        };
+      };
+    };
+  };
+
+  programs = {
+    cataclysmdda.enable = true;
+    firefox.enable = true;
+    git.enable = true;
+    hyprland.enable = true;
+    neovim.enable = true;
+    opencode.enable = true;
+    steam.enable = true;
+    thunar.enable = true;
+    tmux.enable = true;
+    wezterm.enable = true;
+    wireshark.enable = true;
+    yazi.enable = true;
+    zsh.enable = true;
+  };
 
   services = {
     docker.enable = false;
@@ -44,9 +105,8 @@
     syncthing.enable = true;
     tlp.enable = true;
     virtualization.enable = false;
-
     libinput.touchpad.disableWhileTyping = true;
   };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 }

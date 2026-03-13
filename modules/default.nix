@@ -152,6 +152,7 @@
         "dialout"
         "gamemode"
       ];
+      initialPassword = "detroyejr";
     };
     users.groups.detroyejr = { };
 

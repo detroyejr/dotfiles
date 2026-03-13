@@ -15,6 +15,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -24,6 +29,7 @@
       nixos-hardware,
       jovian,
       sops-nix,
+      disko,
       ...
     }@inputs:
     let
@@ -129,8 +135,8 @@
           };
           modules = [
             ./hosts/pelican/configuration.nix
-            ./hosts/pelican/hardware-configuration.nix
             ./modules
+            disko.nixosModules.disko
             sops-nix.nixosModules.sops
           ];
         };
