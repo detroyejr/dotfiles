@@ -265,7 +265,7 @@ let
       monitor=,highres,auto,1
 
       ${lib.optionalString (config.system.name == "pelican") ''
-        monitor=eDP-1,preferred,auto,1
+        monitor=eDP-1,preferred,auto,1.2
       ''}
 
       debug:disable_logs = false
