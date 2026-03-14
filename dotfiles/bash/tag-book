@@ -1,0 +1,68 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -i bash -p curl jq yq
+
+ISBN=$1
+
+curl https://openlibrary.org/isbn/$ISBN.yml -sSL | \
+  sed 's/-.0[0-9]*//' > /tmp/book
+
+title=$(yq -r '.title' /tmp/book)
+subtitle=$(yq -r '.subtitle' /tmp/book)
+
+
+author=$(yq -r '.authors[0].key' /tmp/book)
+
+sleep 1
+
+if [[ -n "$author" ]]; then
+  curl -sSL "https://openlibrary.org$author.yml" | sed 's/000[0-9]*//' > /tmp/author
+  author_info=$(cat /tmp/author)
+  author_name=$(yq -r '.name' /tmp/author)
+  author_bio=$(yq -r '.bio' /tmp/author)
+
+  cat <<EOF > "$HOME/Personal/Sources/Authors/${author_name}.md"
+  ---
+  $author_info
+  ---
+
+EOF
+
+fi;
+
+yq -iY '. + {"cover": ["https://covers.openlibrary.org/book/id/", .covers[0], "-L.jpg"] | join("")}' /tmp/book
+yq -iY ". + {\"author\": \"$author_name\"}" /tmp/book
+yq -iY '. + {"url": ["https://openlibrary.org", .key] | join("") }' /tmp/book
+yq -iY '. + {'isbn': .isbn_13[0] }' /tmp/book
+yq -iY '. + {'isbn': if .isbn == null then .isbn_10[0] else .isbn }' /tmp/book
+yq -iY '. + {"status": "Unread" }' /tmp/book
+yq -iY '
+  del(.covers) | 
+  del(.created) | 
+  del(.latest_revision) |
+  del(.lc_classifications) |
+  del(.authors) |
+  del(.last_modified) |
+  del(.languages) |
+  del(.key) |
+  del(.isbn_13) |
+  del(.isbn_10) |
+  del(.type) |
+  del(.works) |
+  del(.weight)
+' /tmp/book
+
+export output=$(cat /tmp/book)
+
+if [[ -n "$subtitle" ]]; then
+  title="$title - $subtitle"
+fi
+
+title=$(echo $title | sed s/://)
+
+cat <<EOF > "$HOME/Personal/Sources/Books/${title}.md"
+---
+$output
+---
+
+$author_bio
+EOF
