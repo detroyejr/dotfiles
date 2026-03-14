@@ -17,7 +17,7 @@ switch system:
   nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#{{system}}
 
 core:
-  just build longsword build odp-1 build mongoose
+  just build longsword build odp-1 build mongoose build pelican build razorback
 
 checkout-lockfile:
   git checkout origin/update_flake_lock_action --detach
