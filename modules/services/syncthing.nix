@@ -31,6 +31,8 @@ in
             id = "fccwj-dffex";
             name = "sync";
             devices = builtins.attrNames devices;
+            ignorePerms = true;
+            copyOwnershipFromParent = true;
           };
         };
       };
@@ -41,10 +43,17 @@ in
       config.services.syncthing.relay.statusPort
     ];
 
+    systemd.services.syncthing = {
+      serviceConfig = {
+        AmbientCapabilities = "CAP_CHOWN";
+        CapabilityBoundingSet = "CAP_CHOWN";
+      };
+    };
+
     system.activationScripts.syncthingPermissions = {
       text = ''
         mkdir -p /var/lib/syncthing/sync
-        chown -R syncthing:syncthing /var/lib/syncthing
+        chown -R syncthing:syncthing /var/lib/syncthing/sync
         chmod -R 2770 /var/lib/syncthing
         ln -sfn /var/lib/syncthing/sync /home/${config.defaultUser}/Sync
       '';
