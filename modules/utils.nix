@@ -3,29 +3,6 @@
   lib,
 }:
 let
-  # sass = pkgs.buildNpmPackage rec {
-  #   name = "sass";
-  #   version = "1.97.3";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "sass";
-  #     repo = "dart-sass";
-  #     tag = "1.97.3";
-  #     hash = "sha256-9yhjqkWmtSqdLcmZWvHcz46xqN7yd27Quygg/I+WHag=";
-  #   };
-  #
-  #   patchPhase = ''
-  #     cp ${../dotfiles/package-lock.json} package-lock.json
-  #     substituteInPlace package.json --replace-fail '"name": "sass",' '"name": "sass","version": 1.0,'
-  #     HOME=/build
-  #     mkdir node_modules
-  #   '';
-  #
-  #   npmDepsHash = "sha256-pG2nLPmMluR2aYH4+POs/SuksnLLk1Xlba/cY6Cx11I=";
-  #   dontNpmBuild = true;
-  #   npmBuildScript = "dev";
-  #
-  #   npmInstallFlags = "--ignore-scripts --legacy-peer-deps --offline";
-  # };
   rendersvg = pkgs.runCommand "rendersvg" { } ''
     mkdir -p $out/bin
     ln -s ${pkgs.resvg}/bin/resvg $out/bin/rendersvg
