@@ -151,6 +151,7 @@
         "input"
         "dialout"
         "gamemode"
+        config.services.syncthing.group
       ];
       initialPassword = "detroyejr";
     };
