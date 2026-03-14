@@ -137,6 +137,7 @@
             ./hosts/pelican/configuration.nix
             ./modules
             disko.nixosModules.disko
+            nixos-hardware.nixosModules.lenovo-thinkpad-x1-nano
             sops-nix.nixosModules.sops
           ];
         };
