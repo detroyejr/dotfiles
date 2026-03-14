@@ -30,7 +30,7 @@
 
   services = {
     flatpak.enable = true;
-    syncthing.enable = true;
+    syncthing.enable = false;
     desktopManager.plasma6.enable = true;
     openssh = {
       enable = true;
