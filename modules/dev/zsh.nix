@@ -86,6 +86,8 @@ in
       ollama
       openssh
       qsv
+      sops
+      ssh-to-age
       tree
       unzip
       wget
