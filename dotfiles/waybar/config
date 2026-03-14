@@ -71,7 +71,7 @@
     },
     "custom/power": {
       "format": "⏻",
-      "on-click": "bash -c 'hyprctl dispatch exec powermenu'"
+      "on-click": "bash -c '/etc/xdg/CURRENT_THEME/rofi/files/powermenu/type-6/powermenu.sh'"
     },
     "pulseaudio/slider": {
       "min": 0,

@@ -11,6 +11,7 @@ final: prev: {
       cp -r . $out;
                                                                                                                     
       # Patch powermenu icons.
+      find $out/files -type f -name "powermenu.sh" -exec sed -i 's,\$HOME/.config/rofi,/etc/xdg/CURRENT_THEME/rofi/files,g' {} ';';
       find $out/files -type f -name "powermenu.sh" -exec sed -i "s/hibernate='.*'/hibernate='󰤄'/g" {} ';';
       find $out/files -type f -name "powermenu.sh" -exec sed -i "s/shutdown='.*'/shutdown='⏻'/g" {} ';';
       find $out/files -type f -name "powermenu.sh" -exec sed -i "s/reboot='.*'/reboot='󰜉'/g" {} ';';
