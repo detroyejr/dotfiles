@@ -5,6 +5,25 @@
   ...
 }:
 {
+
+  users.users.${config.defaultUser}.packages = with pkgs; [
+    anki
+    calibre
+    discord
+    element-desktop
+    hyperion-ng
+    libreoffice
+    lutris
+    nfs-utils
+    obsidian
+    plex-desktop
+    plex-htpc
+    plexamp
+    slack
+    vlc
+    yt-dlp
+  ];
+
   programs = {
     bash.enable = true;
     cataclysmdda.enable = true;
@@ -22,11 +41,6 @@
     wezterm.enable = true;
     yazi.enable = true;
     zsh.enable = true;
-  };
-
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
   };
 
   services = {
@@ -176,6 +190,11 @@
       };
       wantedBy = [ "timers.target" ];
     };
+  };
+
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
 
   system.stateVersion = "23.11";

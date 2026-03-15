@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   networking = {
     hostName = "longsword";
@@ -33,7 +33,7 @@
     };
   };
 
-  programs = {
+  programs.programs = {
     cataclysmdda.enable = true;
     direnv = {
       enable = true;
@@ -44,6 +44,14 @@
     git.enable = true;
     hyprland.enable = true;
     neovim.enable = true;
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-pipewire-audio-capture
+        obs-hyperion
+      ];
+    };
     opencode.enable = true;
     python.enable = true;
     r.enable = true;
@@ -77,6 +85,25 @@
       efi.canTouchEfiVariables = true;
     };
   };
+
+  users.users.${config.defaultUser}.packages = with pkgs; [
+    anki
+    calibre
+    discord
+    element-desktop
+    hyperion-ng
+    libreoffice
+    lutris
+    nfs-utils
+    nvtopPackages.full
+    obsidian
+    plex-desktop
+    plex-htpc
+    plexamp
+    slack
+    vlc
+    yt-dlp
+  ];
 
   system.stateVersion = "23.11";
 }

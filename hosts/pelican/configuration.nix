@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
   boot = {
@@ -107,6 +112,21 @@
     virtualization.enable = false;
     libinput.touchpad.disableWhileTyping = true;
   };
+
+  users.users.${config.defaultUser}.packages = with pkgs; [
+    anki
+    discord
+    element-desktop
+    hyperion-ng
+    libreoffice
+    nfs-utils
+    obsidian
+    plex-desktop
+    plex-htpc
+    plexamp
+    vlc
+    yt-dlp
+  ];
 
   system.stateVersion = "25.05";
 }

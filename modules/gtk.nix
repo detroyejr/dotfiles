@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -7,14 +6,6 @@
 
 let
   cfg = config.programs.hyprland;
-  # repo = fetchGit {
-  #   url = "https://github.com/Misterio77/nix-colors";
-  #   rev = "37227f274b34a3b51649166deb94ce7fec2c6a4c";
-  # };
-  # nix-colors-lib = {
-  #   gtkThemeFromScheme = import "${repo}/lib/contrib/gtk-theme.nix" { inherit pkgs; };
-  # };
-  # gtkTheme = nix-colors-lib.gtkThemeFromScheme { scheme = config.colorScheme; };
 in
 {
   config = lib.mkIf cfg.enable {
@@ -43,7 +34,6 @@ in
             cursor-theme = config.cursor.name;
             document-font-name = "${config.font.name} ${config.font.size}";
             font-name = "${config.font.name} ${config.font.size}";
-            # gtk-theme = "rose-pine";
             monospace-font-name = "${config.font.name} ${config.font.size}";
             text-scaling-factor = lib.gvariant.mkDouble config.font.scale;
           };

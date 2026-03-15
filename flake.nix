@@ -54,6 +54,31 @@
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
 
       nixosConfigurations = {
+        "iso" = nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit
+              inputs
+              outputs
+              system
+              ;
+          };
+          modules = [
+            ./modules
+            sops-nix.nixosModules.sops
+            {
+              networking.networkmanager.enable = true;
+              programs = {
+                firefox.enable = true;
+                git.enable = true;
+                hyprland.enable = true;
+                wezterm.enable = true;
+                zsh.enable = true;
+              };
+              environment.systemPackages = with pkgs; [ neovim ];
+            }
+          ];
+        };
         "longsword" = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {

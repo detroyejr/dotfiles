@@ -1,19 +1,11 @@
 { pkgs, config, ... }:
 {
 
-  # Bootloader.
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi";
-    };
-  };
-
   networking.networkmanager.enable = true;
   networking.hostName = "scorpion";
 
   programs = {
+    git.enable = true;
     yazi.enable = true;
     zsh.enable = true;
   };
@@ -45,19 +37,20 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    git
-    home-manager
-    nfs-utils
-    nvtopPackages.full
-  ];
-
   systemd.sleep.extraConfig = ''
     AllowSuspend=no
     AllowHibernation=no
     AllowHybridSleep=no
     AllowSuspendThenHibernate=no
   '';
+
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot/efi";
+    };
+  };
 
   system.stateVersion = "23.11";
 }

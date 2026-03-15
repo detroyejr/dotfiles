@@ -57,7 +57,7 @@ in
       shellInit = ''
         # ZSH Options
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-        source $HOME/.p10k.zsh
+        source ${../../dotfiles/zsh/.p10k.zsh}
         source ${custom-scripts}/bin/functions
         ${lib.optionalString config.programs.direnv.enable ''eval "$(direnv hook zsh)"''}
       '';
@@ -83,7 +83,6 @@ in
       kubectl
       lsof
       nitch
-      ollama
       openssh
       qsv
       sops
@@ -92,7 +91,6 @@ in
       unzip
       wget
       xclip
-      yt-dlp
     ];
 
     environment.sessionVariables = {

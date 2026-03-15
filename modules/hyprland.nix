@@ -20,7 +20,6 @@ in
     ./hyprlock.nix
     ./rofi.nix
     ./wallpaper.nix
-    ./dev/wezterm.nix
   ];
 
   options = {
@@ -52,26 +51,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    xdg.portal.config.common.default = "*";
 
     xdg.portal = {
+      config.common.default = "*";
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
       xdgOpenUsePortal = true;
     };
 
-    programs.hyprland.xwayland.enable = true;
-    programs.waybar.enable = true;
-
-    programs.chromium.enable = true;
-
-    programs.obs-studio = {
-      enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-        obs-pipewire-audio-capture
-        obs-hyperion
-      ];
+    programs = {
+      hyprland.xwayland.enable = true;
+      waybar.enable = true;
     };
 
     services = {
@@ -90,52 +80,37 @@ in
     };
 
     environment.sessionVariables = {
-      TERMINAL = "wezterm";
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
     };
 
     users.users.${config.defaultUser}.packages = with pkgs; [
+      (mkNextWallpaper config)
       acpi
       alsa-utils
-      anki
       blueman
       bluez
       brightnessctl
-      calibre
-      chromium
       colorz
-      discord
       dmenu
       easyeffects
-      element-desktop
       grim
-      hyperion-ng
       hyprpaper
       hyprpicker
       kanshi
       keepass
       libnotify
-      libreoffice
-      lutris
       mako
       mp4v2
       networkmanager_dmenu
-      (mkNextWallpaper config)
       nfs-utils
-      obsidian
       pamixer
       pavucontrol
       playerctl
-      plex-desktop
-      plex-htpc
-      plexamp
       procps
-      slack
       slurp
       socat
-      vlc
       wireplumber
       wlr-randr
       wlsunset

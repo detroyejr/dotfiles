@@ -3,17 +3,10 @@
 
   networking.hostName = "mongoose";
   programs = {
-    git.enable = true;
-    tmux.enable = true;
-    opencode.enable = true;
-    wezterm.enable = true;
-    yazi.enable = true;
-    zsh.enable = true;
-    firefox.enable = true;
     cataclysmdda.enable = true;
+    firefox.enable = true;
+    git.enable = true;
     neovim.enable = true;
-    python.enable = true;
-    r.enable = true;
     obs-studio = {
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [
@@ -22,26 +15,29 @@
         wlrobs
       ];
     };
+    opencode.enable = true;
     steam = {
       enable = true;
       extest.enable = true;
     };
+    tmux.enable = true;
+    wezterm.enable = true;
+    yazi.enable = true;
+    zsh.enable = true;
   };
 
   services = {
-    flatpak.enable = true;
-    syncthing.enable = false;
     desktopManager.plasma6.enable = true;
+    flatpak.enable = true;
     openssh = {
       enable = true;
       settings = {
         PasswordAuthentication = false;
         X11Forwarding = true;
       };
-      authorizedKeysFiles = [
-        "/home/detroyejr/.ssh/main_server_ed25519.pub"
-      ];
+      authorizedKeysFiles = [ "/home/detroyejr/.ssh/main_server_ed25519.pub" ];
     };
+    syncthing.enable = false;
   };
 
   fileSystems."/home/detroyejr/SD" = {
