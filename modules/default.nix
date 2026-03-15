@@ -1,5 +1,4 @@
-{
-  pkgs,
+{ pkgs,
   config,
   lib,
   ...
@@ -82,6 +81,7 @@
             sshUser = "detroyejr";
             sshKey = "/home/detroyejr/.ssh/mini_rsa";
             system = pkgs.stdenv.hostPlatform.system;
+            systems = [ "aarch64-linux" ];
             maxJobs = 6;
             supportedFeatures = [
               "benchmark"

@@ -198,6 +198,11 @@
 
       colmena = {
         meta.nixpkgs = pkgs;
+        defaults = {
+          imports = [
+            sops-nix.nixosModules.sops
+          ];
+        };
         odp-2 = import ./hosts/odp/odp-2.nix;
         odp-3 = import ./hosts/odp/odp-3.nix;
         odp-4 = import ./hosts/odp/odp-4.nix;
