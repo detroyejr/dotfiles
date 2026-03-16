@@ -33,7 +33,7 @@
     };
   };
 
-  programs.programs = {
+  programs = {
     cataclysmdda.enable = true;
     direnv = {
       enable = true;
@@ -95,7 +95,6 @@
     libreoffice
     lutris
     nfs-utils
-    nvtopPackages.full
     obsidian
     plex-desktop
     plex-htpc
