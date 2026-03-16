@@ -65,6 +65,10 @@ in
       };
     };
 
+    environment.sessionVariables = {
+      BROWSER = "firefox";
+    };
+
     # Set the theme.
     system.activationScripts = {
       firefoxTheme = {

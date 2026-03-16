@@ -89,6 +89,7 @@
   users.users.${config.defaultUser}.packages = with pkgs; [
     anki
     calibre
+    chromium
     discord
     element-desktop
     hyperion-ng
