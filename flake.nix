@@ -51,59 +51,8 @@
       };
     in
     {
+      packages.${system}.default = import ./hosts/env.nix pkgs;
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
-
-      packages.x86_64-linux.default =
-        let
-          lib = pkgs.lib;
-          config =
-            (import <nixpkgs/nixos/lib/eval-config.nix> {
-              modules = [
-                ./modules/dev/neovim.nix
-                ./modules/dev/zsh.nix
-                ./modules/apps/firefox.nix
-                { programs.neovim.enable = true; }
-              ];
-            }).config;
-          nvimRuntime = pkgs.vimUtils.buildVimPlugin {
-            pname = "neovim-runtime";
-            version = "0.1.0";
-            src = pkgs.linkFarm "nvim-runtime" [
-              {
-                name = "lsp";
-                path = ./dotfiles/nvim/lsp;
-              }
-              {
-                name = "snippets";
-                path = ./dotfiles/nvim/snippets;
-              }
-            ];
-          };
-          neovim = pkgs.neovim.override {
-            configure = config.programs.neovim.configure // {
-              packages.myVimPackage.start =
-                (config.programs.neovim.configure.packages.myVimPackage.start or [ ])
-                ++ [ nvimRuntime ];
-            };
-          };
-        in
-        pkgs.buildEnv {
-          pname = "dots";
-          version = "0.1";
-          paths = [
-            (pkgs.wrapFirefox pkgs.firefox-unwrapped {
-              extraPrefs = lib.concatLines (
-                lib.mapAttrsToList (
-                  name: value: "lockPref(${lib.strings.toJSON name}, ${lib.strings.toJSON value});"
-                ) config.programs.firefox.preferences
-              );
-              extraPolicies = config.programs.firefox.policies;
-            })
-            neovim
-            pkgs.just
-            pkgs.nixd
-          ];
-        };
 
       nixosConfigurations = {
         "iso" = nixpkgs.lib.nixosSystem {
