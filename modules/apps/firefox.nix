@@ -60,8 +60,8 @@ in
         "widget.windows.mica.popups" = 2;
         "widget.windows.mica.toplevel-backdrop" = 2;
         # FIXME: These don't apply.
-        # "sidebar.verticalTabs" = true;
-        # "sidebar.verticalTabs.dragToPinPromo.dismissed" = true;
+        "sidebar.verticalTabs" = true;
+        "sidebar.verticalTabs.dragToPinPromo.dismissed" = true;
       };
     };
 

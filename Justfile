@@ -30,3 +30,6 @@ rebase-lockfile:
 		git push -u origin main
 
 ci: checkout-initial pull checkout-lockfile core rebase-lockfile
+
+profile:
+  nix profile upgrade dotfiles --impure
