@@ -9,6 +9,7 @@
     ./freshrss.nix
     ./glance.nix
     ./grafana.nix
+    ./immich.nix
     ./llm.nix
     ./opencode-server.nix
     ./openrgb.nix
