@@ -12,6 +12,7 @@ let
     wall-etna = "rose-pine";
     wall-blue-mountain = "nord";
     wall-orange-mountain = "everforest";
+    wall-ibm-background-1 = "ibm-thinkpad";
   };
 
   schemes = {
@@ -84,6 +85,30 @@ let
         base0D = "a7c080";
         base0E = "e67e80";
         base0F = "eaedc8";
+      };
+    };
+
+    ibm-thinkpad = {
+      slug = "ibm-thinkpad";
+      colors = rec {
+        background = base00;
+        foreground = base06;
+        base00 = "050709";
+        base01 = "4a4a4a";
+        base02 = "727272";
+        base03 = "4a4a4a";
+        base04 = "adadad";
+        base05 = "ffffff";
+        base06 = "ffffff";
+        base07 = "ffffff";
+        base08 = "d24646";
+        base09 = "993426";
+        base0A = "b4b47b";
+        base0B = "66a773";
+        base0C = "a360a3";
+        base0D = "727272";
+        base0E = "8686ba";
+        base0F = "c296c2";
       };
     };
   };

@@ -18,6 +18,11 @@ let
       sha256 = "sha256:0z3v17v5wwkx8fnp3q2v87rbb6sb20yasz9dgn4f503glg33n5dl";
 
     }
+    {
+      name = "ibm-background-1";
+      url = "https://raw.githubusercontent.com/DimaZbr/omarchy-ibm-theme/master/backgrounds/raycast-cube.png";
+      sha256 = "sha256:0c6i6cj7p9y1v3c9nvpmciya69rx3phz5lsda95ddn2bkwq2f10z";
+    }
   ];
 
   mkWall =
