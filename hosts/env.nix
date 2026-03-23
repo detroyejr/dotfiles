@@ -7,9 +7,9 @@ let
         ../modules/dev/neovim.nix
         ../modules/dev/zsh.nix
         ../modules/apps/firefox.nix
-        { 
+        {
           programs.firefox.enable = true;
-          programs.neovim.enable = true; 
+          programs.neovim.enable = true;
         }
       ];
     }).config;

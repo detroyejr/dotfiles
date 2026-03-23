@@ -167,6 +167,22 @@
             sops-nix.nixosModules.sops
           ];
         };
+        "sabre" = nixpkgs.lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = {
+            inherit
+              inputs
+              outputs
+              system
+              ;
+          };
+          modules = [
+            ./hosts/sabre/configuration.nix
+            ./modules
+            disko.nixosModules.disko
+            sops-nix.nixosModules.sops
+          ];
+        };
         "razorback" = nixpkgs.lib.nixosSystem {
           pkgs = import nixpkgs {
             system = "aarch64-linux";

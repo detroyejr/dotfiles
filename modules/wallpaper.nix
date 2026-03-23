@@ -15,7 +15,7 @@ let
     {
       name = "orange-mountain";
       url = "https://unsplash.com/photos/MuB8snLj2xQ/download?force=true&w=2400";
-      sha256 = "sha256:0z3v17v5wwkx8fnp3q2v87rbb6sb20yasz9dgn4f503glg33n5dl";
+      sha256 = "sha256:137kbvqsmlirxg0bsb054jkk8f21ws11ac7js3jrikghf3cw95q4";
 
     }
     {

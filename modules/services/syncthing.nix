@@ -15,6 +15,9 @@ let
     pelican = {
       id = "KNU5VRJ-VGAQKWB-2KNMUEG-DIYA6EL-D2G2LQS-OVU6Z6G-ZPO2AV5-6RUGYAQ";
     };
+    sabre = {
+      id = "BB5CM3Y-JRX56Z4-6FUR3X5-53RWV6C-ZCQIE2Z-T5WFI2R-BM2S4AD-FJ4JZQR";
+    };
   };
 in
 {
