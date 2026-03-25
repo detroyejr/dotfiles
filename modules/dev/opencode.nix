@@ -12,7 +12,7 @@ in
   options.programs.opencode.enable = lib.mkEnableOption "Opencode CLI config";
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.opencode ];
+    environment.systemPackages = [ pkgs.opencode pkgs.opencode-desktop ];
 
     environment.etc = {
       "xdg/opencode/opencode.jsonc".text = ''
