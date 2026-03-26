@@ -3,7 +3,6 @@
 
   imports = [
     ../../modules
-    ../../modules/theme.nix
   ];
 
   services = {
@@ -54,6 +53,8 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   networking.networkmanager.enable = true;
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";
