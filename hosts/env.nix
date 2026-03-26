@@ -49,8 +49,11 @@ pkgs.buildEnv {
   paths = [
     firefox
     neovim
+    pkgs.bc
+    pkgs.gh
     pkgs.just
     pkgs.nixd
     pkgs.nixfmt
+    pkgs.rclone
   ];
 }
