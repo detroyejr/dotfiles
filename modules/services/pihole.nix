@@ -55,6 +55,9 @@ in
       settings = {
         dns = {
           interface = "end0";
+          ignoreLocalhost = true;
+          domainNeeded = true;
+          expandHosts = true;
           upstreams = [
             "1.1.1.1"
             "1.0.0.1"
@@ -62,7 +65,11 @@ in
             "2606:4700:4700::1001"
           ];
           hosts = [
+            "192.168.1.1 router.asus.com"
             "192.168.1.158 pi3"
+            "192.168.1.58 MainServer"
+            "192.168.1.107 Proxmox"
+            "192.168.1.55 pi4"
             "192.168.1.222 odp-1"
             "192.168.1.32 odp-2"
             "192.168.1.229 odp-3"
@@ -71,6 +78,11 @@ in
             "192.168.1.108 scorpion"
             "107.152.96.161 resources.zune.net"
           ];
+          reply.host = {
+            force4 = true;
+            IPv4 = "192.168.1.160";
+          };
+          rateLimit.count = 5000;
         };
         dhcp = {
           interface = "end0";
@@ -78,14 +90,15 @@ in
           start = "192.168.1.2";
           end = "192.168.1.254";
           router = "192.168.1.1";
+          leaseTime = "24h";
           ipv6 = true;
           rapidCommit = true;
           multiDNS = true;
+          hosts = [
+            "00:1C:C0:8F:63:30,192.168.1.107,MainServer"
+            "D0:37:45:A7:93:7B,192.168.1.108,Brick"
+          ];
         };
-        hosts = [
-          "00:1C:C0:8F:63:30,192.168.1.107,MainServer"
-          "D0:37:45:A7:93:7B,192.168.1.108,Brick"
-        ];
         webserver = {
           domain = "pi.hole";
           tls = {
