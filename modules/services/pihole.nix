@@ -109,6 +109,9 @@ in
           refreshNames = "ALL";
         };
         database = {
+          DBimport = true;
+          DBinterval = 60;
+          forceDisk = true;
           maxDBdays = 365;
         };
       };
