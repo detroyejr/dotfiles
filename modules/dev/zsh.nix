@@ -45,6 +45,8 @@ in
         ssh = "TERM=xterm-256color ssh";
         st = "set-title";
         tf = "tmux-fzf";
+        task = "obsidian task";
+        tasks = "obsidian tasks daily verbose";
       };
       ohMyZsh = {
         enable = true;

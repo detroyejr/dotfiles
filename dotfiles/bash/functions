@@ -7,3 +7,11 @@ function ya() {
   fi
   rm -f -- "$tmp"
 }
+
+def todo() { 
+  if [[ -n $(hyprctl clients -j | jq '.[].title' | grep 'Obsidian') ]]; then 
+    obsidian daily:append content="- [ ] $1"; 
+  else 
+    echo "Please make sure obsidian is running.";
+  fi;
+}
