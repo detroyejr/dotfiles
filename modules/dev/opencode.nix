@@ -36,7 +36,8 @@ in
           }
         }
       '';
-      "xdg/opencode/agent".source = ../../dotfiles/opencode/agent;
+      "xdg/opencode/agents".source = ../../dotfiles/opencode/agents;
+      "xdg/opencode/skills".source = ../../dotfiles/opencode/skills;
     };
   };
 }
