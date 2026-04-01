@@ -35,7 +35,6 @@ in
             name = "sync";
             devices = builtins.attrNames devices;
             ignorePerms = true;
-            copyOwnershipFromParent = true;
           };
         };
       };
