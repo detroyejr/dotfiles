@@ -16,6 +16,9 @@
   ];
 
   config = {
+    boot.binfmt.emulatedSystems = lib.optionals (pkgs.stdenv.hostPlatform.system != "aarch64-linux") [
+      "aarch64-linux"
+    ];
     i18n.defaultLocale = "en_US.UTF-8";
     networking.networkmanager.enable = true;
     hardware = {
@@ -26,7 +29,7 @@
           configureFlags = oldAttrs.configureFlags ++ [ "--enable-sixaxis" ];
         });
       };
-      graphics = lib.mkIf (config.system.name != "razorback") {
+      graphics = lib.mkIf (pkgs.stdenv.hostPlatform.system != "aarch64-linux") {
         enable = true;
         enable32Bit = true;
         extraPackages = [
@@ -82,8 +85,8 @@
             sshUser = "detroyejr";
             sshKey = "/home/detroyejr/.ssh/mini_rsa";
             systems = [
-              "x86_64-linux"
               "aarch64-linux"
+              "x86_64-linux"
             ];
             maxJobs = 6;
             supportedFeatures = [
