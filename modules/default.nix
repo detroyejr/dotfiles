@@ -102,7 +102,6 @@
             "odp-5"
           ];
     };
-
     services = {
       ntp.enable = true;
       gnome = {
@@ -128,18 +127,13 @@
         jack.enable = true;
       };
     };
-
-    # Recommended with pipewire.
-    security.rtkit.enable = true;
     security = {
+      rtkit.enable = true;
       polkit.enable = true;
       pam.sshAgentAuth.enable = true;
+      pki.certificateFiles = [ ../dotfiles/ca/ca.crt ];
     };
-
-    security.pki.certificateFiles = [ ../dotfiles/ca/ca.crt ];
-
     time.timeZone = "America/New_York";
-
     environment.systemPackages = with pkgs; [
       cryptsetup
       gcr
@@ -147,17 +141,14 @@
       wget
       wl-clipboard
     ];
-
     users.users.${config.defaultUser} = {
       isNormalUser = true;
       group = config.defaultUser;
       shell = pkgs.zsh;
-      # TODO: is gamemode needed?
       extraGroups = [
         "wheel"
         "input"
         "dialout"
-        "gamemode"
         config.services.syncthing.group
       ];
       initialPassword = "detroyejr";
@@ -166,12 +157,15 @@
 
     sops = {
       defaultSopsFile = ../secrets/secrets.yaml;
-
       age = {
         sshKeyPaths = [ "/home/detroyejr/.ssh/main_server_ed25519" ];
         keyFile = "/home/detroyejr/.config/sops/age/keys.txt";
         generateKey = true;
       };
+    };
+    systemd.services.nix-daemon.serviceConfig = {
+      Nice = lib.mkForce 15;
+      IOSchedulingClass = lib.mkForce "idle";
     };
   };
 
