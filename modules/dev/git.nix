@@ -13,10 +13,11 @@ in
     programs.git = {
       config = {
         core = {
-          editor = "nvim";
-          core.autocrlf = true;
           autocrlf = "input";
+          core.autocrlf = true;
+          editor = "nvim";
           eol = "lf";
+          fileMode = false;
         };
         merge = {
           tool = "nvimdiff";
