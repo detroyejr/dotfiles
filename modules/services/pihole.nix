@@ -114,6 +114,7 @@ in
           forceDisk = true;
           maxDBdays = 365;
         };
+        misc.readOnly = false;
       };
       useDnsmasqConfig = true;
     };
