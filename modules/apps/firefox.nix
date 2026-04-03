@@ -9,18 +9,46 @@ let
   gwfox = pkgs.fetchFromGitHub {
     owner = "akkva";
     repo = "gwfox";
-    rev = "ba265484492b2f173f5d638e0170301130600a9b";
-    hash = "sha256-bawCWWhgbP++n1X1805vcjSJJ4SUaYjmazbZgPcHM6k=";
+    rev = "32ed3a4234619bfeeb96b5a72439f27374666879";
+    hash = "sha256-ciwPy9dsj9v1J9iV75Bux5AmtXGg6IWgGBF8+zjlGfQ=";
+  };
+  preferenceStr =
+    preferences:
+    lib.concatLines (
+      lib.mapAttrsToList (
+        key:
+        (
+          value:
+          "pref(\"${key}\", ${if (builtins.isBool value) then lib.boolToString value else "\"${value}\""});"
+        )
+      ) preferences
+    );
+  preferences = {
+    "browser.ai.control.default" = "blocked";
+    "browser.ml.enable" = false;
+    "browser.newtabpage.activity-stream.showWeather" = false;
+    "browser.startup.homepage" = "http://odp-1:5678";
+    "browser.tabs.insertAfterCurrent" = true;
+    "browser.urlbar.placeholderName" = "DuckDuckGo";
+    "browser.urlbar.placeholderName.private" = "DuckDuckGo";
+    "datareporting.healthreport.uploadEnabled" = false;
+    "datareporting.policy.dataSubmissionEnabled" = false;
+    "datareporting.usage.uploadEnabled" = false;
+    "gwfox.ac" = true;
+    "gwfox.blur" = true;
+    "gwfox.bms" = true;
+    "gwfox.db" = true;
+    "gwfox.icons" = true;
+    "gwfox.plus" = true;
+    "sidebar.main.tools" = "";
+    "sidebar.verticalTabs" = true;
+    "svg.context-properties.content.enabled" = true;
   };
 in
 {
   config = lib.mkIf cfg.enable {
     programs.firefox = {
-      autoConfig = ''
-        pref("general.config.filename", "firefox.cfg");
-        pref("general.config.obscure_value", 0);
-        pref("gwfox.plus", 1);
-      '';
+      autoConfig = preferenceStr preferences;
       policies = {
         GenerativeAI = {
           Enabled = false;
@@ -44,25 +72,7 @@ in
           Locked = false;
         };
       };
-      preferences = {
-        "browser.ai.control.default" = "blocked";
-        "browser.ml.enable" = false;
-        "browser.startup.homepage" = "http://odp-1:5678";
-        "browser.tabs.allow_transparent_browser" = true;
-        "browser.tabs.insertAfterCurrent" = true;
-        "sidebar.animation.enabled" = false;
-        "svg.context-properties.content.enabled" = true;
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        "widget.macos.titlebar-blend-mode.behind-window" = true;
-        "widget.transparent-windows" = true;
-        "widget.windows.mica" = true;
-        "widget.windows.mica.extra" = true;
-        "widget.windows.mica.popups" = 2;
-        "widget.windows.mica.toplevel-backdrop" = 2;
-        # FIXME: These don't apply.
-        "sidebar.verticalTabs" = true;
-        "sidebar.verticalTabs.dragToPinPromo.dismissed" = true;
-      };
+      preferences = preferences;
     };
 
     environment.sessionVariables = {
@@ -74,13 +84,26 @@ in
       firefoxTheme = {
         deps = [ "specialfs" ];
         text = ''
-          mkdir -p /home/${config.defaultUser}/.mozilla/firefox \
-            && chown -R ${config.defaultUser} /home/${config.defaultUser}/.mozilla/firefox
+          mkdir -p /etc/xdg/mozilla/firefox \
+            && chown -R ${config.defaultUser} /etc/xdg/mozilla/firefox
 
-          if [[ -n /home/${config.defaultUser}/.mozilla/firefox/profiles.ini ]]; then
-            PROFILE=$(grep "Path=.*.default" /home/${config.defaultUser}/.mozilla/firefox/profiles.ini | cut -d= -f2)
-            ln -sfn ${gwfox}/chrome /home/${config.defaultUser}/.mozilla/firefox/''${PROFILE}/chrome
-          fi
+          cat <<EOF >> /etc/xdg/mozilla/firefox/profiles.ini
+            [Profile0]
+            Name=default
+            IsRelative=1
+            Path=d3cgob0q.default
+            Default=1
+
+            [General]
+            StartWithLastProfile=1
+            Version=2
+          EOF
+
+          rm -rf /etc/xdg/mozilla/firefox/d3cgob0q.default/chrome && \
+            mkdir -p /etc/xdg/mozilla/firefox/d3cgob0q.default/chrome && \
+            ln -sfn ${gwfox}/*.css /etc/xdg/mozilla/firefox/d3cgob0q.default/chrome
+
+          chown -R ${config.defaultUser} /etc/xdg/mozilla/firefox
         '';
       };
     };
