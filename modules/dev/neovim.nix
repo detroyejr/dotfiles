@@ -14,6 +14,8 @@ in
       configure = {
         customLuaRC = ''
           -- Minimal Lua Config
+          vim.cmd.packadd('nvim.undotree')
+          vim.cmd.packadd('nvim.difftool')
 
           vim.g.netrw_altv = 1
           vim.g.netrw_banner = 0
