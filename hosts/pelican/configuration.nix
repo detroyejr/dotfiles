@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   config,
@@ -6,6 +7,7 @@
 }:
 
 {
+  imports = [ inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-nano ];
   boot = {
     initrd = {
       availableKernelModules = [

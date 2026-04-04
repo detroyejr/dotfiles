@@ -1,5 +1,6 @@
-{ pkgs, config, ... }:
+{ inputs, config, ... }:
 {
+  import = [ inputs.nixos-hardware.nixosModules.dell-xps-15-9570-nvidia ];
 
   networking.networkmanager.enable = true;
   networking.hostName = "scorpion";

@@ -19,12 +19,20 @@ let
         key:
         (
           value:
-          "pref(\"${key}\", ${if (builtins.isBool value) then lib.boolToString value else "\"${value}\""});"
+          "pref(\"${key}\", ${
+            if (builtins.isBool value) then
+              lib.boolToString value
+            else if (builtins.isInt value) then
+              toString value
+            else
+              "\"${value}\""
+          });"
         )
       ) preferences
     );
   preferences = {
     "browser.ai.control.default" = "blocked";
+    "browser.link.open_newwindow" = 3;
     "browser.ml.enable" = false;
     "browser.newtabpage.activity-stream.showWeather" = false;
     "browser.startup.homepage" = "http://odp-1:5678";

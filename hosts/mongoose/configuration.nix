@@ -1,6 +1,12 @@
-{ pkgs, config, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
 {
 
+  imports = [ inputs.jovian.nixosModules.default ];
   networking.hostName = "mongoose";
   programs = {
     cataclysmdda.enable = true;

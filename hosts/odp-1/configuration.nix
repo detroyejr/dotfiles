@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   config,
@@ -6,6 +7,7 @@
 }:
 {
 
+  imports = [ inputs.nixos-hardware.nixosModules.dell-optiplex-3050 ];
   users.users.${config.defaultUser}.packages = with pkgs; [
     anki
     calibre
