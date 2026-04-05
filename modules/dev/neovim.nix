@@ -230,18 +230,9 @@ in
             "snippets_lsp",
           })
 
-
           vim.lsp.inlay_hint.enable()
 
           vim.diagnostic.config({ virtual_text = true })
-
-
-          -- Plugins
-          require 'nvim-treesitter'.install({
-            "c", "csv", "cpp", "nix", "python", "r", "rust", "javascript", "json", "lua", "vim",
-            "vimdoc", "query", "markdown", "markdown_inline"
-          }):wait(300000)
-
 
           local makeprg_map = {
             py = "python3 %",
@@ -338,10 +329,28 @@ in
         '';
         packages.myVimPackage = with pkgs.vimPlugins; {
           start = [
-            nvim-treesitter
             opencode-nvim
             snacks-nvim
             todo-comments-nvim
+            (nvim-treesitter.withPlugins (
+              ps: with ps; [
+                c
+                cpp
+                csv
+                javascript
+                json
+                lua
+                markdown
+                markdown_inline
+                nix
+                python
+                query
+                r
+                rust
+                vim
+                vimdoc
+              ]
+            ))
           ];
         };
       };

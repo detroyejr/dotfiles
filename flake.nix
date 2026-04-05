@@ -97,11 +97,15 @@
             firefox
             neovim
             pkgs.bc
+            pkgs.clang-tools
             pkgs.gh
             pkgs.just
+            pkgs.lua-language-server
             pkgs.nixd
             pkgs.nixfmt
             pkgs.rclone
+            pkgs.ripgrep
+            pkgs.tree-sitter
           ];
         };
       };
