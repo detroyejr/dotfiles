@@ -33,4 +33,4 @@ ci: checkout-initial pull checkout-lockfile core rebase-lockfile
 
 # Upgrade after nix profile add --impure.
 profile:
-  nix profile upgrade dotfiles --impure
+  nix profile upgrade dotfiles
