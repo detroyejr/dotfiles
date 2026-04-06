@@ -20,8 +20,8 @@ let
     }
     {
       name = "ibm-background-1";
-      url = "https://raw.githubusercontent.com/DimaZbr/omarchy-ibm-theme/master/backgrounds/raycast-cube.png";
-      sha256 = "sha256:0c6i6cj7p9y1v3c9nvpmciya69rx3phz5lsda95ddn2bkwq2f10z";
+      url = "https://raw.githubusercontent.com/DimaZbr/omarchy-ibm-theme/refs/heads/master/backgrounds/1TPKB.png";
+      sha256 = "sha256:0j19g16q7qs1jbrig0kqwhw6qmxgw93cn6xrqiilj0vvazphq2kc";
     }
   ];
 
