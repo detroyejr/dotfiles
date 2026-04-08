@@ -24,11 +24,12 @@ in
           vim.g.netrw_preview = 1
           vim.g.netrw_winsize = 30
 
+          vim.opt.autocomplete = true
           vim.opt.autoread = true
           vim.opt.backup = false
           vim.opt.clipboard = "unnamedplus"
           vim.opt.colorcolumn = "89"
-          vim.opt.completeopt = { "menu", "menuone", "popup", "fuzzy", "noinsert" }
+          vim.opt.completeopt = 'menu,menuone,noselect,nearest'
           vim.opt.expandtab = true
           vim.opt.fileformat = "unix"
           vim.opt.fixendofline = true
