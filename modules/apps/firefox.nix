@@ -9,8 +9,8 @@ let
   gwfox = pkgs.fetchFromGitHub {
     owner = "akkva";
     repo = "gwfox";
-    rev = "32ed3a4234619bfeeb96b5a72439f27374666879";
-    hash = "sha256-ciwPy9dsj9v1J9iV75Bux5AmtXGg6IWgGBF8+zjlGfQ=";
+    rev = "d563889a6aa158410305d08bc70a25e1b9182e9d";
+    hash = "sha256-iDpzBTuaJcxXJnaoLSMDg3x8a9ipM45GC0yERC+my0E=";
   };
   preferenceStr =
     preferences:
@@ -42,6 +42,7 @@ let
     "datareporting.healthreport.uploadEnabled" = false;
     "datareporting.policy.dataSubmissionEnabled" = false;
     "datareporting.usage.uploadEnabled" = false;
+    "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
     "gwfox.ac" = true;
     "gwfox.blur" = true;
     "gwfox.bms" = true;
