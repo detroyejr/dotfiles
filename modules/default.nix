@@ -149,6 +149,7 @@
         "wheel"
         "input"
         "dialout"
+        config.services.immich.group
         config.services.syncthing.group
       ];
       initialPassword = "detroyejr";
