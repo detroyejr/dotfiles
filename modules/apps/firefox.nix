@@ -52,6 +52,7 @@ let
     "sidebar.main.tools" = "";
     "sidebar.verticalTabs" = true;
     "svg.context-properties.content.enabled" = true;
+    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
   };
 in
 {
