@@ -15,6 +15,13 @@ let
     wall-ibm-background-1 = "ibm-thinkpad";
   };
 
+  themeLabels = {
+    rose-pine = "Rose Pine";
+    nord = "Nord";
+    everforest = "Everforest";
+    ibm-thinkpad = "IBM ThinkPad";
+  };
+
   schemes = {
     rose-pine = {
       slug = "rose-pine";
@@ -191,32 +198,90 @@ let
 
   mkNextWallpaper =
     config:
+    let
+      setTheme = mkSetTheme config;
+    in
     pkgs.writeScriptBin "next-wallpaper" ''
       #!/usr/bin/env bash
 
-      # Collect paths into an array.
-      export themePaths=(${lib.concatStringsSep " " config.themes})
-      export themeName=(${lib.concatStringsSep " " (lib.attrNames themeNames)})
-      export index=''$((RANDOM % ''${#themePaths[@]}))
-      currentTheme="''${themePaths[''$index]}"
-      if [ -d /etc/xdg/CURRENT_THEME ]; then
-        unlink /etc/xdg/CURRENT_THEME
-      fi;
-      ln -s $currentTheme /etc/xdg/CURRENT_THEME
+      exec ${setTheme}/bin/set-theme --random
+    '';
 
-      for path in wezterm waybar hypr; do
-        if [ -d "/etc/xdg/$path" ]; then
-          unlink "/etc/xdg/$path"
-        fi;
-        ln -s "$currentTheme/$path" "/etc/xdg/$path"
-      done;
+  mkSetTheme =
+    config:
+    pkgs.writeScriptBin "set-theme" ''
+      #!/usr/bin/env bash
+      set -euo pipefail
 
-      hyprctl hyprpaper wallpaper ,''$currentTheme/wallpaper/wallpaper.jpg
-      pkill waybar && hyprctl dispatch exec -- waybar --config $THEME/waybar/config --style $THEME/waybar/style.css
+      themePaths=(${lib.concatMapStringsSep " " toString config.themes})
 
-      # Hyprland will reload environment variables (GTK_THEME) in
-      # hyprland.conf.
-      hyprctl reload
+      activate_theme() {
+        local currentTheme="$1"
+
+        [ -z "$currentTheme" ] && exit 1
+
+        if [ -L /etc/xdg/CURRENT_THEME ]; then
+          unlink /etc/xdg/CURRENT_THEME
+        fi
+        ln -s "$currentTheme" /etc/xdg/CURRENT_THEME
+
+        for path in wezterm waybar hypr mako; do
+          if [ -L "/etc/xdg/$path" ]; then
+            unlink "/etc/xdg/$path"
+          fi
+          ln -s "$currentTheme/$path" "/etc/xdg/$path"
+        done
+
+        if command -v hyprctl > /dev/null 2>&1; then
+          hyprctl hyprpaper wallpaper ,"$currentTheme/wallpaper/wallpaper.jpg"
+          pkill waybar || true
+          hyprctl dispatch exec --quiet -- waybar --config /etc/xdg/CURRENT_THEME/waybar/config --style /etc/xdg/CURRENT_THEME/waybar/style.css
+
+          # Hyprland will reload environment variables (GTK_THEME) in
+          # hyprland.conf.
+          hyprctl reload --quiet
+        fi
+      }
+
+      case "''${1:-}" in
+        --random)
+          index=$((RANDOM % ''${#themePaths[@]}))
+          activate_theme "''${themePaths[$index]}"
+          ;;
+        *)
+          activate_theme "''${1:-}"
+          ;;
+      esac
+    '';
+
+  mkRofiThemeSelector =
+    config:
+    let
+      setTheme = mkSetTheme config;
+      labels = map (wall: themeLabels.${themeNames.${wall.name}}) config.walls;
+    in
+    pkgs.writeScriptBin "rofi-theme-mode" ''
+      #!/usr/bin/env bash
+      set -euo pipefail
+
+      themePaths=(${lib.concatMapStringsSep " " toString config.themes})
+      themeLabels=(${lib.concatMapStringsSep " " lib.escapeShellArg labels})
+
+      if [ "''${ROFI_RETV:-0}" = "0" ]; then
+        printf '\0no-custom\x1ftrue\n'
+        printf '\0prompt\x1fTheme\n'
+        printf '%s\n' "''${themeLabels[@]}"
+        exit 0
+      fi
+
+      selection="''${1:-}"
+      [ -z "$selection" ] && exit 0
+
+      for index in "''${!themeLabels[@]}"; do
+        if [ "''${themeLabels[$index]}" = "$selection" ]; then
+          exec ${setTheme}/bin/set-theme "''${themePaths[$index]}"
+        fi
+      done
     '';
 
   mkHyprpaper =
@@ -671,7 +736,7 @@ let
           bluetoothctl power on
           theme="''$out/files/launchers/type-6/style-3.rasi"
 
-          modi="drun,Bluetooth:''$out/bin/rofi-bluetooth,ssh"
+          modi="drun,Bluetooth:''$out/bin/rofi-bluetooth,ssh,Theme:rofi-theme-mode"
           rofi -show drun -modi "\$modi" -p "Rofi" -theme "\$theme" \
             -terminal "wezterm" \
             -ssh-command '{terminal} start -- {ssh-client} {host}'
@@ -718,8 +783,11 @@ in
 {
   inherit
     themeNames
+    themeLabels
     schemes
     mkNextWallpaper
+    mkSetTheme
+    mkRofiThemeSelector
     mkHyprpaper
     mkLockscreen
     mkHyprlandConfig

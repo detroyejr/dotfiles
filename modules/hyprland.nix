@@ -11,6 +11,8 @@ let
     themeNames
     schemes
     mkNextWallpaper
+    mkSetTheme
+    mkRofiThemeSelector
     mkTheme
     ;
 in
@@ -87,6 +89,8 @@ in
 
     users.users.${config.defaultUser}.packages = with pkgs; [
       (mkNextWallpaper config)
+      (mkSetTheme config)
+      (mkRofiThemeSelector config)
       acpi
       alsa-utils
       blueman
