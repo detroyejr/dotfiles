@@ -235,10 +235,10 @@ let
         if command -v hyprctl > /dev/null 2>&1; then
           hyprctl hyprpaper wallpaper ,"$currentTheme/wallpaper/wallpaper.jpg"
           pkill waybar || true
-          hyprctl dispatch exec --quiet -- waybar --config /etc/xdg/CURRENT_THEME/waybar/config --style /etc/xdg/CURRENT_THEME/waybar/style.css
+          hyprctl dispatch 'hl.dsp.exec_cmd("waybar --config /etc/xdg/CURRENT_THEME/waybar/config --style /etc/xdg/CURRENT_THEME/waybar/style.css")'
 
           # Hyprland will reload environment variables (GTK_THEME) in
-          # hyprland.conf.
+          # hyprland.lua.
           hyprctl reload --quiet
         fi
       }
@@ -343,221 +343,214 @@ let
         valign=center
       }
     '';
-
   mkHyprlandConfig =
     config: themeName:
-    pkgs.writeText "hyprland.conf" ''
-      # change monitor to high resolution, the last argument is the scale factor
+    pkgs.writeText "hyprland.lua" ''
+      local terminal = "wezterm"
+      local mainMod = "SUPER"
 
-      $TERMINAL = wezterm
+      hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = 2 })
+      hl.monitor({ output = "", mode = "highres", position = "auto", scale = 1 })
 
-      monitor=eDP-1,preferred,auto,2
-      monitor=,highres,auto,1
+      if "${config.system.name}" == "pelican" then
+        hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = 1.2 })
+      end
 
-      ${lib.optionalString (config.system.name == "pelican") ''
-        monitor=eDP-1,preferred,auto,1.2
-      ''}
+      hl.env("TERMINAL", terminal)
+      hl.env("THEME", "/etc/xdg/CURRENT_THEME")
+      hl.env("GTK_DATA_PREFIX", "/etc/xdg/CURRENT_THEME/gtk")
+      hl.env("GTK_THEME", "${themeName}")
 
-      debug:disable_logs = false
-      # toolkit-specific scale
-      env = TERMINAL,$TERMINAL;
-      env = THEME,/etc/xdg/CURRENT_THEME
-      env = GTK_DATA_PREFIX,/etc/xdg/CURRENT_THEME/gtk
-      env = GTK_THEME,${themeName}
+      hl.on("hyprland.start", function () 
+        hl.exec_cmd(terminal)
+        hl.exec_cmd("kanshi & waybar & mako --config /etc/xdg/mako/mako.ini & blueman-applet & hyprpaper")
+        hl.exec_cmd("hyprctl dispatch dpms on")
 
+        ${lib.optionalString config.programs.firefox.enable ''
+          hl.exec_cmd("firefox", { workspace = "2 silent" })
+        ''}
 
-      exec-once = hyprctl dispatch dpms on &
-      exec-once = kanshi
-      exec-once = waybar
-      exec-once = mako --config /etc/xdg/mako/mako.ini
-      exec-once = blueman-applet
-      exec-once = hyprpaper
+        hl.exec_cmd("obsidian", { workspace = "3 silent" })
+        hl.exec_cmd("sleep 30 && keepass", { workspace = "9 silent" })
+        hl.exec_cmd("hyprlock")
+      end)
 
-      exec-once = $TERMINAL
-      ${lib.optionalString config.programs.firefox.enable "exec-once = [workspace 2 silent;] firefox"}
-      exec-once = [workspace 3 silent;] obsidian
-      exec-once = [workspace 9 silent;] sleep 30 && keepass
-      exec-once = hyprlock
+      hl.device({
+        name = "steelseries-steelseries-sensei-310-esports-mouse",
+        sensitivity = -0.7,
+      })
 
-      windowrule = match:title .*KeePass$, float yes
-      windowrule = match:title .*KeePass$, center yes
+      hl.window_rule({
+        name = "keepass-float",
+        match = { title = ".*KeePass$" },
+        float = true,
+        center = true,
+      })
 
-      windowrule = match:title ^(Rofi)$, float yes
-      windowrule = match:title ^(Rofi)$, center yes
+      hl.window_rule({
+        name = "rofi-float",
+        match = { title = "^(Rofi)$" },
+        float = true,
+        center = true,
+      })
 
-      windowrule = match:class thunar, float yes
-      windowrule = match:class thunar, center yes
-      windowrule = match:class thunar, size 70% 70%
+      hl.window_rule({
+        name = "thunar-float",
+        match = { class = "thunar" },
+        float = true,
+        center = true,
+        size = "70% 70%",
+      })
 
-      windowrule = match:title ^(Volume Control)$, float yes
-      windowrule = match:title ^(Volume Control)$, move 100%-488 6%
-      windowrule = match:title ^(Volume Control)$, size 400 560
-      windowrule = match:title ^(Volume Control)$, animation slide
+      hl.window_rule({
+        name = "volume-control-float",
+        match = { title = "^(Volume Control)$" },
+        float = true,
+        move = "100%-488 6%",
+        size = "400 560",
+        animation = "slide",
+      })
 
-      windowrule = match:title ^(Plexamp)$, float yes
-      windowrule = match:title ^(Plexamp)$, move 100%-488 6%
-      windowrule = match:title ^(Plexamp)$, size 400 560
-      windowrule = match:title ^(Plexamp)$, animation slide
+      hl.window_rule({
+        name = "plexamp-float",
+        match = { title = "^(Plexamp)$" },
+        float = true,
+        move = "100%-488 6%",
+        size = "400 560",
+        animation = "slide",
+      })
 
-      windowrule = match:class ^(org.wezfurlong.wezterm)$, float yes
-      windowrule = match:class ^(org.wezfurlong.wezterm)$, tile yes
+      hl.window_rule({
+        name = "wezterm-tile",
+        match = { class = "^(org.wezfurlong.wezterm)$" },
+        float = true,
+        tile = true,
+      })
 
-      # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
-      input {
-          kb_layout = us
-          kb_variant =
-          kb_model =
-          kb_options =
-          kb_rules =
-          follow_mouse = 1
-          sensitivity = 0
-          repeat_rate = 80
-          repeat_delay = 300
-          touchpad {
-              natural_scroll = ${if config.services.libinput.touchpad.naturalScrolling then "0" else "1"}
-              scroll_factor = ${config.services.libinput.touchpad.accelSpeed}
-              drag_lock = ${if config.services.libinput.touchpad.tappingDragLock then "1" else "0"}
-          }
-      }
+      hl.bind("CTRL + ALT + Delete", hl.dsp.exit())
+      hl.bind(mainMod .. " + CTRL + P", hl.dsp.exec_cmd("hyprpicker | wl-copy"))
+      hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("bash -c \"if pgrep -x wofi-emoji > /dev/null; then pkill wofi-emoji; else wofi-emoji; fi\""))
+      hl.bind(mainMod .. " + SHIFT + J", hl.dsp.exec_cmd("bash -c \"if pgrep -x @obsidian > /dev/null; then pkill obsidian; else obsidian; fi\""))
+      hl.bind(mainMod .. " + SHIFT + K", hl.dsp.exec_cmd("bash -c \"if pgrep -x mono > /dev/null; then pkill mono; else keepass; fi\""))
+      hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd("grim -g \"$(slurp)\""))
+      hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("next-wallpaper"))
+      hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
+      hl.bind(mainMod .. " + C", hl.dsp.window.close())
+      hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("thunar"))
+      hl.bind(mainMod .. " + F", function()
+        hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+        hl.dispatch(hl.dsp.window.center())
+        hl.dispatch(hl.dsp.window.resize({ x = 1300, y = 850 }))
+      end)
+      hl.bind(mainMod .. " + G", hl.dsp.window.fullscreen())
+      hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
+      hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"hyprlock\""))
+      hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("bash -c \"swaync-client -t\""))
+      hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+      hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("grim"))
 
-      general {
-          gaps_in = 2
-          gaps_out = 7
-          border_size = 2
-          col.active_border = rgba(524f6766)
-          col.inactive_border = rgb(191724)
-          layout = dwindle
-          allow_tearing = true
-      }
+      hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else $THEME/rofi/bin/rofi-launcher; fi"))
 
-      decoration {
-          rounding = 5
-          dim_inactive = false
-      }
+      hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
+      hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
+      hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
+      hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
 
-      animations {
-          enabled = no
-          animation = windows, 1, 2, default, slide down
-          animation = windowsOut, 1, 2, default, slide
-          animation = border, 1, 2, default
-          animation = borderangle, 1, 2, default
-          animation = fade, 1, 2, default
-          animation = workspaces, 1, 2, default
-      }
+      hl.bind(mainMod .. " + CTRL + h", hl.dsp.focus({ direction = "left" }))
+      hl.bind(mainMod .. " + CTRL + l", hl.dsp.focus({ direction = "right" }))
+      hl.bind(mainMod .. " + CTRL + k", hl.dsp.focus({ direction = "up" }))
+      hl.bind(mainMod .. " + CTRL + j", hl.dsp.focus({ direction = "down" }))
 
-      binds {
-          allow_workspace_cycles = true
-      }
+      -- Move active window to a workspace with mainMod + SHIFT + [0-9]
+      for i = 1, 10 do
+          local key = i % 10
+          hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i}))
+           hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+      end
 
-      dwindle {
-          pseudotile = yes
-          preserve_split = yes
-      }
+      hl.bind(mainMod .. " + CTRL + up", hl.dsp.window.resize({ x = 0, y = -20 }), { repeating = true })
+      hl.bind(mainMod .. " + CTRL + down", hl.dsp.window.resize({ x = 0, y = 20 }), { repeating = true })
+      hl.bind(mainMod .. " + CTRL + right", hl.dsp.window.resize({ x = 20, y = 0 }), { repeating = true })
+      hl.bind(mainMod .. " + CTRL + left", hl.dsp.window.resize({ x = -20, y = 0 }), { repeating = true })
+      hl.bind(mainMod .. " + ALT + up", hl.dsp.window.move({ x = 0, y = -20 }), { repeating = true })
+      hl.bind(mainMod .. " + ALT + down", hl.dsp.window.move({ x = 0, y = 20 }), { repeating = true })
+      hl.bind(mainMod .. " + ALT + right", hl.dsp.window.move({ x = 20, y = 0 }), { repeating = true })
+      hl.bind(mainMod .. " + ALT + left", hl.dsp.window.move({ x = -20, y = 0 }), { repeating = true })
 
-      master {
-          new_status = "slave"
-      }
+      hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("$HOME/.local/bin/bash/minimize"))
+      hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+      hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+      hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+      hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-      misc {
-        disable_hyprland_logo = true
-        disable_splash_rendering = false
-        col.splash = rgb(c4a7e7)
-        focus_on_activate = true
-      }
+      hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set '10%+'"), { locked = true, repeating = true })
+      hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set '10%-'"), { locked = true, repeating = true })
+      hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pamixer --increase 10 --set-limit 100"), { locked = true, repeating = true })
+      hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pamixer --decrease 10"), { locked = true, repeating = true })
+      hl.bind("XF86AudioMute", hl.dsp.exec_cmd("pamixer --toggle-mute"), { locked = true, repeating = true })
+      hl.bind("XF86AudioStop", hl.dsp.exec_cmd("playerctl stop"), { locked = true })
+      hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl pause"), { locked = true })
+      hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+      hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+      hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 
-      device {
-        name = steelseries-steelseries-sensei-310-esports-mouse
-        sensitivity = -0.7
-      }
-
-      $mainMod = SUPER
-
-      bind = $mainMod CTRL, P, exec, hyprpicker | wl-copy
-      bind = $mainMod SHIFT, E, exec, bash -c "if pgrep -x wofi-emoji > /dev/null; then pkill wofi-emoji; else wofi-emoji; fi"
-      bind = $mainMod SHIFT, J, exec, bash -c "if pgrep -x @obsidian > /dev/null; then pkill obsidian; else obsidian; fi"
-      bind = $mainMod SHIFT, K, exec, bash -c "if pgrep -x mono > /dev/null; then pkill mono; else keepass; fi"
-      bind = $mainMod SHIFT, PRINT, exec, grim -g "$(slurp)"
-      bind = $mainMod SHIFT, T, exec, source next-wallpaper
-      bind = $mainMod, C, killactive,
-      bind = $mainMod, E, exec, thunar
-      bind = $mainMod, F, centerwindow
-      bind = $mainMod, F, resizeactive, exact 1300 850
-      bind = $mainMod, F, togglefloating,
-      bind = $mainMod, G, fullscreen
-      bind = $mainMod, J, togglesplit, # dwindle
-      bind = $mainMod, L, exec, bash -c "hyprlock"
-      bind = $mainMod, N, exec, bash -c "swaync-client -t"
-      bind = $mainMod, P, pseudo, # dwindle
-      bind = $mainMod, PRINT, exec, grim
-      bind = $mainMod, Q, exec, wezterm
-      bind = $mainMod, R, exec, bash -c "if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else $THEME/rofi/bin/rofi-launcher; fi"
-      bind = CTRL ALT, Delete, exit
-
-      # Move focus with mainMod + arrow keys
-      bind = $mainMod, left, movefocus, l
-      bind = $mainMod, right, movefocus, r
-      bind = $mainMod, up, movefocus, u
-      bind = $mainMod, down, movefocus, d
-
-      bind = $mainMod CTRL, h, movefocus, l
-      bind = $mainMod CTRL, l, movefocus, r
-      bind = $mainMod CTRL, k, movefocus, u
-      bind = $mainMod CTRL, j, movefocus, d
-      # Switch workspaces with mainMod + [0-9]
-      bind = $mainMod, 1, workspace, 1
-      bind = $mainMod, 2, workspace, 2
-      bind = $mainMod, 3, workspace, 3
-      bind = $mainMod, 4, workspace, 4
-      bind = $mainMod, 5, workspace, 5
-      bind = $mainMod, 6, workspace, 6
-      bind = $mainMod, 7, workspace, 7
-      bind = $mainMod, 8, workspace, 8
-      bind = $mainMod, 9, workspace, 9
-      bind = $mainMod, 0, workspace, 10
-
-      # Window
-      binde = $mainMod CTRL, up,    resizeactive, 0 -20
-      binde = $mainMod CTRL, down,  resizeactive, 0 20
-      binde = $mainMod CTRL, right, resizeactive, 20 0
-      binde = $mainMod CTRL, left,  resizeactive, -20 0
-      binde = $mainMod ALT,  up,    moveactive, 0 -20
-      binde = $mainMod ALT,  down,  moveactive, 0 20
-      binde = $mainMod ALT,  right, moveactive, 20 0
-      binde = $mainMod ALT,  left,  moveactive, -20 0
-      # Move active window to a workspace with mainMod + SHIFT + [0-9]
-      bind = $mainMod SHIFT, 1, movetoworkspace, 1
-      bind = $mainMod SHIFT, 2, movetoworkspace, 2
-      bind = $mainMod SHIFT, 3, movetoworkspace, 3
-      bind = $mainMod SHIFT, 4, movetoworkspace, 4
-      bind = $mainMod SHIFT, 5, movetoworkspace, 5
-      bind = $mainMod SHIFT, 6, movetoworkspace, 6
-      bind = $mainMod SHIFT, 7, movetoworkspace, 7
-      bind = $mainMod SHIFT, 8, movetoworkspace, 8
-      bind = $mainMod SHIFT, 9, movetoworkspace, 9
-      bind = $mainMod SHIFT, 0, movetoworkspace, 10
-
-      # Minimize
-      bind = $mainMod, m, exec, $HOME/.local/bin/bash/minimize
-
-      # Scroll through existing workspaces with mainMod + scroll
-      bind = $mainMod, mouse_down, workspace, e+1
-      bind = $mainMod, mouse_up, workspace, e-1
-
-      # Move/resize windows with mainMod + LMB/RMB and dragging
-      bindm = $mainMod, mouse:272, movewindow
-      bindm = $mainMod, mouse:273, resizewindow
-
-      # Laptop
-      bindl = , XF86MonBrightnessUp,     exec, brightnessctl set "10%+"
-      bindl = , XF86MonBrightnessDown,   exec, brightnessctl set "10%-"
-      bindl = , XF86AudioRaiseVolume,    exec, pamixer --increase 10 --set-limit 100
-      bindl = , XF86AudioLowerVolume,    exec, pamixer --decrease 10
-      bindl = , XF86AudioMute,           exec, pamixer --toggle-mute
-      bindl  = , XF86AudioStop,           exec, playerctl stop
-      bindl  = , XF86AudioPause,          exec, playerctl pause
-      bindl  = , XF86AudioPrev,           exec, playerctl previous
-      bindl  = , XF86AudioNext,           exec, playerctl next
-      bindl  = , XF86AudioPlay,           exec, playerctl play-pause
+      hl.config({
+          input = {
+            kb_layout = "us",
+            kb_variant = "",
+            kb_model = "",
+            kb_options = "",
+            kb_rules = "",
+            follow_mouse = 1,
+            sensitivity = 0,
+            repeat_rate = 80,
+            repeat_delay = 300,
+            touchpad = {
+              natural_scroll = ${
+                if config.services.libinput.touchpad.naturalScrolling then "false" else "true"
+              },
+              scroll_factor = ${toString config.services.libinput.touchpad.accelSpeed},
+              drag_lock = ${
+                if config.services.libinput.touchpad.tappingDragLock then "true" else "false"
+              },
+            },
+          },
+          general = {
+              gaps_in  = 2,
+              gaps_out = 7,
+              border_size = 2,
+              col = {
+                  active_border = "rgba(524f6766)",
+                  inactive_border = "rgb(191724)",
+              },
+              layout = "dwindle",
+              allow_tearing = true,
+          },
+          decoration = {
+              rounding = 5,
+              dim_inactive = false,
+          },
+          animations = {
+              enabled = false,
+          },
+          binds = {
+              allow_workspace_cycles = true,
+          },
+          dwindle = {
+              preserve_split = true,
+          },
+          master = {
+              new_status = "slave",
+          },
+          misc = {
+              disable_hyprland_logo = true,
+              disable_splash_rendering = false,
+              col = {
+                  splash = "rgb(c4a7e7)",
+              },
+              focus_on_activate = true,
+          },
+      })
     '';
 
   mkWeztermConfig =
@@ -762,7 +755,7 @@ let
         ln -sfn ${mkRofiTheme wall scheme font} $out/rofi
         ln -sfn ${mkLockscreen config wall scheme} $out/hypr/hyprlock.conf
         ln -sfn ${mkHyprpaper wall} $out/hypr/hyprpaper.conf
-        ln -sfn ${hyprlandConfig} $out/hypr/hyprland.conf
+        ln -sfn ${hyprlandConfig} $out/hypr/hyprland.lua
 
         cat << EOF > $out/waybar/config.css
           @define-color background #${scheme.colors.background};
