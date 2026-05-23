@@ -465,7 +465,7 @@ let
       for i = 1, 10 do
           local key = i % 10
           hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i}))
-           hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+          hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
       end
 
       hl.bind(mainMod .. " + CTRL + up", hl.dsp.window.resize({ x = 0, y = -20 }), { repeating = true })

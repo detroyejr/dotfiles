@@ -15,7 +15,6 @@
     "hyprland/workspaces": {
       "format": "{icon}",
       "on-click": "activate",
-      "active_only": "true",
       "format-icons": {
         "1": "",
         "2": "",
@@ -23,7 +22,7 @@
         "urgent": "",
         "default": ""
       },
-      "sort-by-number": true
+      "sort-by": "number"
     },
     "hyprland/window": {
       "max-length": 120
