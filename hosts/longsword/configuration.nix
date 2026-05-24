@@ -59,8 +59,8 @@
       ];
     };
     opencode.enable = true;
-    python.enable = true;
-    r.enable = true;
+    python.enable = false;
+    r.enable = false;
     steam.enable = true;
     thunar.enable = true;
     thunderbird.enable = false;
