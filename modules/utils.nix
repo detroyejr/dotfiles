@@ -363,7 +363,7 @@ let
 
       hl.on("hyprland.start", function () 
         hl.exec_cmd(terminal)
-        hl.exec_cmd("kanshi & waybar & mako --config /etc/xdg/mako/mako.ini & blueman-applet & hyprpaper")
+        hl.exec_cmd("kanshi & mako --config /etc/xdg/mako/mako.ini & blueman-applet & hyprpaper")
         hl.exec_cmd("hyprctl dispatch dpms on")
 
         ${lib.optionalString config.programs.firefox.enable ''
@@ -494,9 +494,9 @@ let
       hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
       hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 
-      hl.config({
-          input = {
-            kb_layout = "us",
+       hl.config({
+           input = {
+             kb_layout = "us",
             kb_variant = "",
             kb_model = "",
             kb_options = "",
@@ -542,15 +542,15 @@ let
           master = {
               new_status = "slave",
           },
-          misc = {
-              disable_hyprland_logo = true,
-              disable_splash_rendering = false,
-              col = {
-                  splash = "rgb(c4a7e7)",
-              },
-              focus_on_activate = true,
-          },
-      })
+           misc = {
+               disable_hyprland_logo = true,
+               disable_splash_rendering = false,
+               col = {
+                   splash = "rgb(c4a7e7)",
+               },
+               focus_on_activate = true,
+           }
+       })
     '';
 
   mkWeztermConfig =
