@@ -64,7 +64,6 @@
     prometheus.enable = true;
     rclone = {
       onedrive.enable = true;
-      googleDrive.enable = true;
     };
     syncthing.enable = true;
     virtualization.enable = false;

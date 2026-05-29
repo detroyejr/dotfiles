@@ -105,7 +105,6 @@
     openrgb.enable = true;
     rclone = {
       onedrive.enable = true;
-      googleDrive.enable = true;
     };
     syncthing.enable = true;
     tlp.enable = true;
