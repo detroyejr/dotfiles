@@ -22,7 +22,7 @@ in
     systemd.services.onedrive = lib.mkIf cfg.onedrive.enable {
       path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
       script = ''
-        FILE=/home/${config.defaultUser}/.config/rclone/rclone.conf
+        FILE=/etc/xdg/rclone/rclone.conf
         mkdir -p /home/${config.defaultUser}/OneDrive/
         if test -f $FILE; then
           sleep 20
@@ -44,5 +44,33 @@ in
       '';
       wantedBy = [ "multi-user.target" ];
     };
+
+    systemd.services.keypass-sync =
+      lib.mkIf (lib.and cfg.onedrive.enable config.services.syncthing.enable)
+        {
+          path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
+          script = ''
+            FILE=/etc/xdg/rclone/rclone.conf
+            if test -f $FILE; then
+
+              ${pkgs.rclone}/bin/rclone \
+                copyto \
+                --update \
+                --config=$FILE \
+                "OneDrive:Apps/KeyPass/Personal_KeyPass.kdbx" \
+                "/var/lib/syncthing/sync/Personal_KeyPass.kdbx "
+
+              ${pkgs.rclone}/bin/rclone \
+                copyto \
+                --update \
+                --config=$FILE \
+                "/var/lib/syncthing/sync/Personal_KeyPass.kdbx" \
+                "OneDrive:Apps/KeyPass/Personal_KeyPass.kdbx"
+            fi
+          '';
+          wantedBy = [ "multi-user.target" ];
+          serviceConfig.Type = "oneshot";
+          startAt = "hourly";
+        };
   };
 }
