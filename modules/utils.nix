@@ -420,13 +420,6 @@ let
         animation = "slide",
       })
 
-      hl.window_rule({
-        name = "wezterm-tile",
-        match = { class = "^(org.wezfurlong.wezterm)$" },
-        float = true,
-        tile = true,
-      })
-
       hl.bind("CTRL + ALT + Delete", hl.dsp.exit())
       hl.bind(mainMod .. " + CTRL + P", hl.dsp.exec_cmd("hyprpicker | wl-copy"))
       hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("bash -c \"if pgrep -x wofi-emoji > /dev/null; then pkill wofi-emoji; else wofi-emoji; fi\""))
