@@ -2,10 +2,85 @@
   inputs,
   pkgs,
   config,
+  lib,
   ...
 }:
 {
+  
   imports = [ inputs.nixos-hardware.nixosModules.dell-xps-15-9520-nvidia ];
+
+  boot = {
+    initrd = {
+      availableKernelModules = [
+        "xhci_pci"
+        "nvme"
+        "usb_storage"
+        "sd_mod"
+      ];
+      kernelModules = [ ];
+    };
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware = {
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    enableRedistributableFirmware = lib.mkDefault true;
+  };
+
+  disko.devices = {
+    disk.main = {
+      type = "disk";
+      device = "/dev/nvme0n1";
+      content = {
+        type = "gpt";
+        partitions = {
+          boot = {
+            name = "boot";
+            label = "boot";
+            size = "1G";
+            type = "EF00";
+            content = {
+              type = "filesystem";
+              format = "vfat";
+              mountpoint = "/boot";
+              mountOptions = [ "umask=0077" ];
+            };
+          };
+          nixos = {
+            name = "nixos";
+            label = "nixos";
+            end = "-8G";
+            content = {
+              type = "luks";
+              name = "nixos";
+              settings.allowDiscards = true;
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/";
+              };
+            };
+          };
+          swap = {
+            name = "swap";
+            label = "swap";
+            size = "100%";
+            content = {
+              type = "swap";
+              randomEncryption = true;
+            };
+          };
+        };
+      };
+    };
+  };
+
   networking = {
     hostName = "longsword";
 
@@ -84,13 +159,6 @@
     udev.packages = [ pkgs.rtl-sdr-librtlsdr ];
   };
 
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-  };
-
   users.users.${config.defaultUser}.packages = with pkgs; [
     anki
     calibre
@@ -110,5 +178,5 @@
     yt-dlp
   ];
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "25.05";
 }
