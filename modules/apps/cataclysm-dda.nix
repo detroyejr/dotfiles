@@ -19,7 +19,7 @@ let
   };
 
   base-cdda = pkgs.cataclysm-dda-git.override {
-    version = "cdda-0.I-2025-10-26-0731";
+    version = "cdda-experimental-2026-05-31-1918";
     sha256 = "sha256-t9R0QPky7zvjgGMq4kV8DdQFToJ/qngbJCw+8FlQztM=";
   };
 
