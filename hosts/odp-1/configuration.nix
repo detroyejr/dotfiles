@@ -8,6 +8,15 @@
 {
 
   imports = [ inputs.nixos-hardware.nixosModules.dell-optiplex-3050 ];
+
+  hyprlock = {
+    bottomInfoFontSize = "16";
+    inputFieldSize = "300, 70";
+    inputFieldPosition = "0, -96";
+    labelPosition = "0, 120";
+    splashFontSize = "14";
+  };
+
   users.users.${config.defaultUser}.packages = with pkgs; [
     anki
     calibre

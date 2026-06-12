@@ -1,11 +1,11 @@
 @import "config.css";
 
 #waybar {
-  background-color: @background;
+  background-color: alpha(@surface, 0.72);
   color: @foreground;
   font-family: "Input Mono, monospace";
   font-weight: bold;
-  min-height: 30px;
+  min-height: 32px;
   font-size: 11px;
 }
 
@@ -16,10 +16,16 @@
 }
 
 #workspaces button {
-  color: inherit;
+  color: alpha(@muted, 0.82);
+  margin: 3px 2px;
+  padding: 0 7px;
 }
 
 #workspaces button.active {
+  color: @warning;
+}
+
+#workspaces button.urgent {
   color: @accent;
 }
 
@@ -31,12 +37,20 @@
 
 #custom-power, #clock, #battery, #bluetooth {
   font-family: "Input Mono, monospace";
-  margin-right: 22px;
+  color: alpha(@foreground, 0.92);
+  margin: 3px 8px 3px 0;
+  padding: 0 10px;
 }
 
 #pulseaudio, #backlight {
   font-family: "Input Mono, monospace";
-  margin-right: 5px;
+  color: alpha(@foreground, 0.9);
+  margin: 3px 5px 3px 0;
+  padding: 0 8px;
+}
+
+#custom-power {
+  margin-right: 12px;
 }
 
 slider {
@@ -49,33 +63,33 @@ slider {
 }
 
 #pulseaudio-slider trough {
+    background-color: alpha(@surface-alt, 0.58);
+    border: 1px solid alpha(@muted, 0.1);
+    border-radius: 999px;
+    min-height: 8px;
     min-width: 50px;
-    min-height: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: black;
 }
 
 #pulseaudio-slider highlight {
-    min-width: 5px;
-    border-radius: 5px;
-    border: none;
     background-color: @highlight;
+    border: none;
+    border-radius: 999px;
+    min-width: 5px;
 }
 
 #backlight-slider trough {
+    background-color: alpha(@surface-alt, 0.58);
+    border: 1px solid alpha(@muted, 0.1);
+    border-radius: 999px;
+    min-height: 8px;
     min-width: 50px;
-    min-height: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: black;
 }
 
 #backlight-slider highlight {
-    min-width: 5px;
-    border-radius: 5px;
+    background-color: @warning;
     border: none;
-    background-color: @highlight;
+    border-radius: 999px;
+    min-width: 5px;
 }
 
 #workspaces button,

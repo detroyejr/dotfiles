@@ -8,6 +8,15 @@
 
 {
   imports = [ inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-nano ];
+
+  hyprlock = {
+    imageSize = "300";
+    imagePosition = "0,100";
+    inputFieldSize = "250, 80";
+    inputFieldPosition = "0, -130";
+    labelPosition = "0,350";
+  };
+
   boot = {
     initrd = {
       availableKernelModules = [

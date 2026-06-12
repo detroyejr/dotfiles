@@ -298,35 +298,97 @@ let
 
   mkLockscreen =
     config: wall: scheme:
+    let
+      lockTime = pkgs.writeShellScript "hyprlock-time" ''
+        ${pkgs.coreutils}/bin/date +%H:%M:%S
+      '';
+      lockDate = pkgs.writeShellScript "hyprlock-date" ''
+        ${pkgs.coreutils}/bin/date '+%A, %B %d'
+      '';
+      lockWeather = pkgs.writeShellScript "hyprlock-weather" ''
+        weather="$(${pkgs.curl}/bin/curl -fsS --max-time 2 'https://wttr.in/?format=%c|%t&u' 2>/dev/null || true)"
+        icon="''${weather%%|*}"
+        temperature="''${weather#*|}"
+        icon="''${icon// /}"
+        temperature="''${temperature//+/}"
+        temperature="''${temperature// /}"
+        [ -n "$icon" ] && [ -n "$temperature" ] && printf 'Outside%s %s\n' "$icon" "$temperature"
+      '';
+      lockSplash = pkgs.writeShellScript "hyprlock-splash" ''
+        ${pkgs.hyprland}/bin/hyprctl splash 2>/dev/null | ${pkgs.coreutils}/bin/fold -s -w 90 || true
+      '';
+      lockMedia = pkgs.writeShellScript "hyprlock-media" ''
+        status="$(${pkgs.playerctl}/bin/playerctl status 2>/dev/null || true)"
+        case "$status" in
+          Playing|Paused) ;;
+          *) exit 0 ;;
+        esac
+
+        artist="$(${pkgs.playerctl}/bin/playerctl metadata --format '{{artist}}' 2>/dev/null || true)"
+        title="$(${pkgs.playerctl}/bin/playerctl metadata --format '{{title}}' 2>/dev/null || true)"
+
+        if [ -n "$artist" ] && [ -n "$title" ]; then
+          printf 'Now Playing  %s - %s\n' "$artist" "$title" | ${pkgs.coreutils}/bin/fold -s -w 56
+        elif [ -n "$title" ]; then
+          printf 'Now Playing  %s\n' "$title" | ${pkgs.coreutils}/bin/fold -s -w 56
+        else
+          printf 'Now Playing\n'
+        fi
+      '';
+      lockMediaButton = pkgs.writeShellScript "hyprlock-media-button" ''
+        status="$(${pkgs.playerctl}/bin/playerctl status 2>/dev/null || true)"
+        case "$status" in
+          Playing|Paused) ;;
+          *) exit 0 ;;
+        esac
+
+        case "''${1:-}" in
+          previous) printf '⏮\n' ;;
+          toggle)
+            if [ "$status" = "Playing" ]; then
+              printf '⏸\n'
+            else
+              printf '▶\n'
+            fi
+            ;;
+          next) printf '⏭\n' ;;
+        esac
+      '';
+      lockMediaControl = pkgs.writeShellScript "hyprlock-media-control" ''
+        ${pkgs.playerctl}/bin/playerctl "''${1:-}" 2>/dev/null || true
+        ${pkgs.procps}/bin/pkill -USR2 hyprlock 2>/dev/null || true
+      '';
+    in
     pkgs.writeText "hyprlock.conf" ''
       background {
         monitor=
-        blur_passes=1
-        blur_size=7
+        blur_passes=3
+        blur_size=8
+        brightness=0.62
+        contrast=0.98
+        noise=0.0117
         path=${wall}/wallpaper.jpg
-      }
-
-      image {
-        monitor=
-        size=${config.hyprlock.imageSize}
-        halign=center
-        path=${config.hyprlock.profile}
-        position=${config.hyprlock.imagePosition}
-        rounding=-1
-        valign=center
+        vibrancy=0.22
+        vibrancy_darkness=0.45
       }
 
       input-field {
         monitor=
         size=${config.hyprlock.inputFieldSize}
-        dots_size=0.300000
-        dots_spacing=0.400000
-        font_color=rgba(${scheme.colors.base04}FF)
+        check_color=rgba(${scheme.colors.base0B}CC)
+        dots_center=true
+        dots_size=0.22
+        dots_spacing=0.28
+        fade_on_empty=false
+        fail_color=rgba(${scheme.colors.base08}CC)
+        font_color=rgba(${scheme.colors.base06}FF)
         halign=center
-        inner_color=rgba(${scheme.colors.base02}FF)
-        outer_color=rgba(${scheme.colors.base09}FF)
-        outline_thickness=2
-         position=${config.hyprlock.inputFieldPosition}
+        inner_color=rgba(${scheme.colors.base00}99)
+        outer_color=rgba(${scheme.colors.base09}D9)
+        outline_thickness=1
+        placeholder_text=<span foreground="##${scheme.colors.base04}">enter password</span>
+        position=${config.hyprlock.inputFieldPosition}
+        rounding=18
         valign=center
       }
 
@@ -334,13 +396,120 @@ let
         monitor=
         color=rgba(${scheme.colors.base06}FF)
         font_family=${config.font.name}
-        font_size=65
+        font_size=78
         halign=center
         position=${config.hyprlock.labelPosition}
         rotate=0
-        text=$TIME
+        text=cmd[update:1000] ${lockTime}
         text_align=center
         valign=center
+      }
+
+      label {
+        monitor=
+        color=rgba(${scheme.colors.base04}FF)
+        font_family=${config.font.name}
+        font_size=22
+        halign=center
+        position=0, -44
+        rotate=0
+        text=cmd[update:60000] ${lockDate}
+        text_align=center
+        valign=top
+      }
+
+      label {
+        monitor=
+        color=rgba(${scheme.colors.base04}EE)
+        font_family=${config.font.name}
+        font_size=12
+        halign=center
+        position=0, -205
+        rotate=0
+        text=cmd[update:1000] ${lockMedia}
+        text_align=center
+        valign=center
+      }
+
+      label {
+        monitor=
+        color=rgba(${scheme.colors.base06}EE)
+        font_family=${config.font.name}
+        font_size=16
+        halign=center
+        onclick=${lockMediaControl} previous
+        position=-48, -235
+        rotate=0
+        text=cmd[update:1000] ${lockMediaButton} previous
+        text_align=center
+        valign=center
+      }
+
+      label {
+        monitor=
+        color=rgba(${scheme.colors.base09}EE)
+        font_family=${config.font.name}
+        font_size=16
+        halign=center
+        onclick=${lockMediaControl} play-pause
+        position=0, -235
+        rotate=0
+        text=cmd[update:1000] ${lockMediaButton} toggle
+        text_align=center
+        valign=center
+      }
+
+      label {
+        monitor=
+        color=rgba(${scheme.colors.base06}EE)
+        font_family=${config.font.name}
+        font_size=16
+        halign=center
+        onclick=${lockMediaControl} next
+        position=48, -235
+        rotate=0
+        text=cmd[update:1000] ${lockMediaButton} next
+        text_align=center
+        valign=center
+      }
+
+      label {
+        monitor=
+        color=rgba(${scheme.colors.base04}DD)
+        font_family=${config.font.name}
+        font_size=${config.hyprlock.bottomInfoFontSize}
+        halign=left
+        position=32, 20
+        rotate=0
+        text=${config.system.name}
+        text_align=left
+        valign=bottom
+      }
+
+      label {
+        monitor=
+        color=rgba(${scheme.colors.base09}EE)
+        font_family=${config.font.name}
+        font_size=${config.hyprlock.bottomInfoFontSize}
+        halign=right
+        position=-32, 20
+        rotate=0
+        text=cmd[update:600000] ${lockWeather}
+        text_align=right
+        valign=bottom
+      }
+
+      label {
+        monitor=
+        color=rgba(${scheme.colors.base04}CC)
+        font_family=${config.font.name}
+        font_size=${config.hyprlock.splashFontSize}
+        halign=center
+        position=0, 20
+        rotate=0
+        text=cmd[update:0] ${lockSplash}
+        text_align=center
+        valign=bottom
       }
     '';
   mkHyprlandConfig =
@@ -755,6 +924,11 @@ let
           @define-color foreground #${scheme.colors.foreground};
           @define-color accent #${scheme.colors.base08};
           @define-color highlight #${scheme.colors.base0D};
+          @define-color surface #${scheme.colors.base00};
+          @define-color surface-alt #${scheme.colors.base01};
+          @define-color muted #${scheme.colors.base04};
+          @define-color success #${scheme.colors.base0B};
+          @define-color warning #${scheme.colors.base09};
         EOF
 
         ln -sfn ${../dotfiles/waybar/config} $out/waybar/config

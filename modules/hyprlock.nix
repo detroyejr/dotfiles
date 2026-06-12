@@ -40,6 +40,16 @@ in
         type = lib.types.str;
         description = "Label position used by hyprlock (x,y).";
       };
+      bottomInfoFontSize = lib.mkOption {
+        default = "20";
+        type = lib.types.str;
+        description = "Font size for bottom-corner hyprlock labels.";
+      };
+      splashFontSize = lib.mkOption {
+        default = "18";
+        type = lib.types.str;
+        description = "Font size for the bottom-center hyprlock splash label.";
+      };
     };
   };
 
@@ -64,14 +74,6 @@ in
         session required pam_env.so conffile=/etc/pam/environment readenv=0
         session required pam_unix.so
       '';
-    };
-
-    hyprlock = lib.mkIf (config.system.name == "pelican") {
-      imageSize = lib.mkDefault "300";
-      imagePosition = lib.mkDefault "0,100";
-      inputFieldSize = lib.mkDefault "250, 80";
-      inputFieldPosition = lib.mkDefault "0, -130";
-      labelPosition = lib.mkDefault "0,350";
     };
   };
 }
