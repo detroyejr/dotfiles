@@ -23,6 +23,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     services.syncthing = {
+      group = "syncthing";
       openDefaultPorts = true;
       key = config.sops.secrets."syncthing/${config.system.name}-key".path;
       cert = config.sops.secrets."syncthing/${config.system.name}-cert".path;
