@@ -1,11 +1,15 @@
 {
+  inputs,
   pkgs,
-  lib,
   config,
+  lib,
   ...
 }:
 
 {
+
+  imports = [ inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p15v-intel-gen3 ];
+
   boot = {
     initrd = {
       availableKernelModules = [
