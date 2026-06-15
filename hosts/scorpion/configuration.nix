@@ -1,6 +1,6 @@
 { inputs, config, ... }:
 {
-  import = [ inputs.nixos-hardware.nixosModules.dell-xps-15-9570-nvidia ];
+  imports = [ inputs.nixos-hardware.nixosModules.dell-xps-15-9570-nvidia ];
 
   networking.networkmanager.enable = true;
   networking.hostName = "scorpion";
@@ -12,7 +12,7 @@
   };
 
   services = {
-    docker.enable = false;
+    docker.enable = true;
     plex.enable = true;
     prometheus.enable = true;
 
@@ -38,12 +38,12 @@
     ];
   };
 
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=no
-    AllowHibernation=no
-    AllowHybridSleep=no
-    AllowSuspendThenHibernate=no
-  '';
+  systemd.sleep.settings.Sleep = {
+    AllowSuspend = "no";
+    AllowHibernation = "no";
+    AllowHybridSleep = "no";
+    AllowSuspendThenHibernate = "no";
+  };
 
   boot.loader = {
     systemd-boot.enable = true;

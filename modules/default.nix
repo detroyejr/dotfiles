@@ -33,7 +33,7 @@
         enable = true;
         enable32Bit = true;
         extraPackages = [
-          pkgs.intel-compute-runtime
+          # pkgs.intel-compute-runtime
           pkgs.intel-media-driver
         ];
       };
