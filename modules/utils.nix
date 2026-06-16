@@ -279,7 +279,7 @@ let
 
       for index in "''${!themeLabels[@]}"; do
         if [ "''${themeLabels[$index]}" = "$selection" ]; then
-          exec ${setTheme}/bin/set-theme "''${themePaths[$index]}"
+          exec ${setTheme}/bin/set-theme "''${themePaths[$index]}" >/dev/null 2>&1
         fi
       done
     '';
