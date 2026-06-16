@@ -920,14 +920,12 @@ let
         ln -sfn ${hyprlandConfig} $out/hypr/hyprland.lua
 
         cat << EOF > $out/waybar/config.css
-          @define-color background #${scheme.colors.background};
           @define-color foreground #${scheme.colors.foreground};
           @define-color accent #${scheme.colors.base08};
           @define-color highlight #${scheme.colors.base0D};
           @define-color surface #${scheme.colors.base00};
           @define-color surface-alt #${scheme.colors.base01};
           @define-color muted #${scheme.colors.base04};
-          @define-color success #${scheme.colors.base0B};
           @define-color warning #${scheme.colors.base09};
         EOF
 

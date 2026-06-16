@@ -62,21 +62,7 @@ slider {
   opacity: 0;
 }
 
-#pulseaudio-slider trough {
-    background-color: alpha(@surface-alt, 0.58);
-    border: 1px solid alpha(@muted, 0.1);
-    border-radius: 999px;
-    min-height: 8px;
-    min-width: 50px;
-}
-
-#pulseaudio-slider highlight {
-    background-color: @highlight;
-    border: none;
-    border-radius: 999px;
-    min-width: 5px;
-}
-
+#pulseaudio-slider trough,
 #backlight-slider trough {
     background-color: alpha(@surface-alt, 0.58);
     border: 1px solid alpha(@muted, 0.1);
@@ -85,7 +71,10 @@ slider {
     min-width: 50px;
 }
 
-#backlight-slider highlight {
+#pulseaudio-slider highlight,
+#pulseaudio-slider progress,
+#backlight-slider highlight,
+#backlight-slider progress {
     background-color: @warning;
     border: none;
     border-radius: 999px;
