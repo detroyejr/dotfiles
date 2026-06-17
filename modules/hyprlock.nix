@@ -41,12 +41,12 @@ in
         description = "Label position used by hyprlock (x,y).";
       };
       bottomInfoFontSize = lib.mkOption {
-        default = "20";
+        default = "28";
         type = lib.types.str;
         description = "Font size for bottom-corner hyprlock labels.";
       };
       splashFontSize = lib.mkOption {
-        default = "18";
+        default = "24";
         type = lib.types.str;
         description = "Font size for the bottom-center hyprlock splash label.";
       };
