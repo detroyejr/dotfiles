@@ -10,6 +10,7 @@ let
 
   themeNames = {
     wall-etna = "rose-pine";
+    wall-summer = "rose-pine-dawn";
     wall-blue-mountain = "nord";
     wall-orange-mountain = "everforest";
     wall-ibm-background-1 = "ibm-thinkpad";
@@ -17,6 +18,7 @@ let
 
   themeLabels = {
     rose-pine = "Rose Pine";
+    rose-pine-dawn = "Rose Pine Dawn";
     nord = "Nord";
     everforest = "Everforest";
     ibm-thinkpad = "IBM ThinkPad";
@@ -28,22 +30,46 @@ let
       colors = rec {
         background = base00;
         foreground = base06;
-        base00 = "191724";
-        base01 = "1f1d2e";
-        base02 = "26233a";
-        base03 = "6e6a86";
-        base04 = "908caa";
-        base05 = "e0def4";
-        base06 = "e0def4";
-        base07 = "524f67";
-        base08 = "eb6f92";
-        base09 = "f6c177";
-        base0A = "ebbcba";
-        base0B = "31748f";
-        base0C = "9ccfd8";
-        base0D = "c4a7e7";
-        base0E = "f6c177";
-        base0F = "524f67";
+        base00 = "faf4ed";
+        base01 = "fffaf3";
+        base02 = "f2e9de";
+        base03 = "9893a5";
+        base04 = "797593";
+        base05 = "575279";
+        base06 = "575279";
+        base07 = "cecacd";
+        base08 = "b4637a";
+        base09 = "ea9d34";
+        base0A = "d7827e";
+        base0B = "286983";
+        base0C = "56949f";
+        base0D = "907aa9";
+        base0E = "ea9d34";
+        base0F = "cecacd";
+      };
+    };
+
+    rose-pine-dawn = {
+      slug = "rose-pine-dawn";
+      colors = rec {
+        background = base00;
+        foreground = base06;
+        base00 = "faf4ed";
+        base01 = "fffaf3";
+        base02 = "f2e9e1";
+        base03 = "9893a5";
+        base04 = "797593";
+        base05 = "575279";
+        base06 = "575279";
+        base07 = "cecacd";
+        base08 = "b4637a";
+        base09 = "ea9d34";
+        base0A = "d7827e";
+        base0B = "286983";
+        base0C = "56949f";
+        base0D = "907aa9";
+        base0E = "ea9d34";
+        base0F = "cecacd";
       };
     };
 
@@ -912,12 +938,35 @@ let
 
       phases = [ "installPhase" ];
       installPhase = ''
-        mkdir -p $out/hypr $out/waybar $out/mako $out/wezterm/colors
+        mkdir -p $out/hypr $out/waybar $out/mako $out/nvim $out/wezterm/colors
         ln -sfn ${wall} $out/wallpaper
         ln -sfn ${mkRofiTheme wall scheme font} $out/rofi
         ln -sfn ${mkLockscreen config wall scheme} $out/hypr/hyprlock.conf
         ln -sfn ${mkHyprpaper wall} $out/hypr/hyprpaper.conf
         ln -sfn ${hyprlandConfig} $out/hypr/hyprland.lua
+
+        cat << EOF > $out/nvim/colors.lua
+          return {
+            background = "#${scheme.colors.background}",
+            foreground = "#${scheme.colors.foreground}",
+            base00 = "#${scheme.colors.base00}",
+            base01 = "#${scheme.colors.base01}",
+            base02 = "#${scheme.colors.base02}",
+            base03 = "#${scheme.colors.base03}",
+            base04 = "#${scheme.colors.base04}",
+            base05 = "#${scheme.colors.base05}",
+            base06 = "#${scheme.colors.base06}",
+            base07 = "#${scheme.colors.base07}",
+            base08 = "#${scheme.colors.base08}",
+            base09 = "#${scheme.colors.base09}",
+            base0A = "#${scheme.colors.base0A}",
+            base0B = "#${scheme.colors.base0B}",
+            base0C = "#${scheme.colors.base0C}",
+            base0D = "#${scheme.colors.base0D}",
+            base0E = "#${scheme.colors.base0E}",
+            base0F = "#${scheme.colors.base0F}",
+          }
+        EOF
 
         cat << EOF > $out/waybar/config.css
           @define-color foreground #${scheme.colors.foreground};

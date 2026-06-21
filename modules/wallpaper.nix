@@ -23,6 +23,11 @@ let
       url = "https://raw.githubusercontent.com/DimaZbr/omarchy-ibm-theme/refs/heads/master/backgrounds/1TPKB.png";
       sha256 = "sha256:0j19g16q7qs1jbrig0kqwhw6qmxgw93cn6xrqiilj0vvazphq2kc";
     }
+    {
+      name = "summer";
+      url = "https://unsplash.com/photos/Y5CfLR8sqzE/download?force=true&w=2400";
+      sha256 = "sha256:0fwc704ya7ss4vngyjccvy8x4vxybw7j4vd9mykv6y5hdxv6wf3l";
+    }
   ];
 
   mkWall =

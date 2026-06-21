@@ -110,25 +110,55 @@ in
           vim.keymap.set("n", "<C-A-x>", "yy<C-w>p<C-\\><C-n>pi<CR><C-\\><CR>")
           vim.keymap.set("v", "<C-A-x>", "y<C-w>p<C-\\><C-n>pi<CR><C-\\><CR>")
 
+          local load_theme_colors = function()
+            local ok, colors = pcall(dofile, "/etc/xdg/CURRENT_THEME/nvim/colors.lua")
+            if ok and type(colors) == "table" then
+              return colors
+            end
+
+            return {
+              background = "#191724",
+              foreground = "#e0def4",
+              base00 = "#191724",
+              base01 = "#1f1d2e",
+              base02 = "#26233a",
+              base03 = "#6e6a86",
+              base04 = "#908caa",
+              base05 = "#e0def4",
+              base06 = "#e0def4",
+              base07 = "#524f67",
+              base08 = "#eb6f92",
+              base09 = "#f6c177",
+              base0A = "#ebbcba",
+              base0B = "#95b1ac",
+              base0C = "#9ccfd8",
+              base0D = "#c4a7e7",
+              base0E = "#31748f",
+              base0F = "#403d52",
+            }
+          end
+
+          local colors = load_theme_colors()
           local palette = {
-            _nc = "#16141f",
-            base = "#191724",
-            foam = "#9ccfd8",
-            gold = "#f6c177",
-            highlight_high = "#524f67",
-            highlight_low = "#21202e",
-            highlight_med = "#403d52",
-            iris = "#c4a7e7",
-            leaf = "#95b1ac",
-            love = "#eb6f92",
-            muted = "#6e6a86",
+            _nc = colors.base01,
+            base = colors.base00,
+            foam = colors.base0C,
+            gold = colors.base09,
+            highlight_high = colors.base03,
+            highlight_low = colors.base01,
+            highlight_med = colors.base02,
+            iris = colors.base0D,
+            leaf = colors.base0B,
+            love = colors.base08,
+            muted = colors.base03,
             none = "NONE",
-            overlay = "#26233a",
-            pine = "#31748f",
-            rose = "#ebbcba",
-            subtle = "#908caa",
-            surface = "#1f1d2e",
-            text = "#e0def4",
+            overlay = colors.base02,
+            pine = colors.base0E,
+            rose = colors.base0A,
+            subtle = colors.base04,
+            surface = colors.base01,
+            text = colors.base06,
+            warn = colors.base09,
           }
 
           -- NOTE: Custom highlights need two versions to work with CommentString
