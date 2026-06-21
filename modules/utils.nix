@@ -545,7 +545,9 @@ let
       local mainMod = "SUPER"
 
       hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = 2 })
-      hl.monitor({ output = "", mode = "highres", position = "auto", scale = 1 })
+
+      -- ODP 
+      hl.monitor({ output = "HDMI-A-1", mode="2560x1440@59.95Hz", scale = 1.33 })
 
       if "${config.system.name}" == "pelican" then
         hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = 1.2 })
