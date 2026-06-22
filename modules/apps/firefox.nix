@@ -9,8 +9,8 @@ let
   gwfox = pkgs.fetchFromGitHub {
     owner = "akkva";
     repo = "gwfox";
-    rev = "b847c75bbda51d894d794a9105140e6deca786ac";
-    hash = "sha256-gJWHfMjZt04BIEm2kJycQvSeN9tMEox1BF1gMpo6F/o=";
+    rev = "7a26ddc044a40d48cdd81417e31ac1c5e3f3c97e";
+    hash = "sha256-WgZkiNiRhyKkqJUeVVRoIpiHivqBOnY2gnhRqx8qm6o=";
   };
   preferenceStr =
     preferences:
@@ -34,6 +34,7 @@ let
     "browser.ai.control.default" = "blocked";
     "browser.link.open_newwindow" = 3;
     "browser.ml.enable" = false;
+    "browser.newtabpage.activity-stream.nova.enabled" = false;
     "browser.newtabpage.activity-stream.showWeather" = false;
     "browser.startup.homepage" = "http://odp-1:5678";
     "browser.tabs.insertAfterCurrent" = true;
@@ -46,13 +47,12 @@ let
     "gwfox.ac" = true;
     "gwfox.blur" = true;
     "gwfox.bms" = true;
-    "gwfox.db" = true;
     "gwfox.icons" = true;
-    "gwfox.plus" = true;
     "sidebar.main.tools" = "";
     "sidebar.verticalTabs" = true;
     "svg.context-properties.content.enabled" = true;
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+    "widget.gtk.rounded-bottom-corners.enabled" = true;
   };
 in
 {
