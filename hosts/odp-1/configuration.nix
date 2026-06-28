@@ -63,7 +63,7 @@
       port = 5001;
       playwrightSupport = true;
     };
-    customWhisperServer.enable = true;
+    customWhisperServer.enable = false;
     freshrss.enable = true;
     glance.enable = true;
     grafana.enable = true;
