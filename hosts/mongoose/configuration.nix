@@ -68,11 +68,6 @@
         autoUpdate = true;
       };
     };
-    decky-loader = {
-      enable = true;
-      user = config.defaultUser;
-      stateDir = "/var/lib/decky-loader";
-    };
     steamos = {
       useSteamOSConfig = true;
       enableAutoMountUdevRules = true;
