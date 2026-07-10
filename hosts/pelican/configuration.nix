@@ -15,6 +15,8 @@
     inputFieldSize = "250, 80";
     inputFieldPosition = "0, -130";
     labelPosition = "0,350";
+    splashFontSize = "18";
+    bottomInfoFontSize = "20";
   };
 
   boot = {
