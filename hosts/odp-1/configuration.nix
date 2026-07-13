@@ -169,7 +169,7 @@
         openssh
       ];
       script = ''
-        gh workflow run --repo detroyejr/dotfiles flake.yml
+        GH_CONFIG_DIR=/etc/xdg/gh gh workflow run --repo detroyejr/dotfiles flake.yml
 
         export ISDENIED=$(
           ncat -l 0.0.0.0 \
