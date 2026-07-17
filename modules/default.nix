@@ -87,12 +87,14 @@
             systems = [
               "aarch64-linux"
               "x86_64-linux"
+              "i686-linux"
             ];
             maxJobs = 6;
             supportedFeatures = [
               "benchmark"
               "kvm"
               "nixos-test"
+              "big-parallel"
             ];
           })
           [
