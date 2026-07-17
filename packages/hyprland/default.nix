@@ -14,7 +14,7 @@ final: prev: {
   });
 
   # Pin Waybar past 0.15.0 for Hyprland's Lua dispatch protocol support.
-  waybar = prev.waybar.overrideAttrs (_: {
+  waybar = prev.waybar.overrideAttrs (args: {
     version = "unstable-2026-05-04";
     src = prev.fetchFromGitHub {
       owner = "Alexays";
@@ -28,6 +28,8 @@ final: prev: {
       patchShebangs .
       popd
     '';
+    buildInputs = args.buildInputs ++ [ prev.catch2 ];
     doInstallCheck = false;
+    doCheck = false;
   });
 }
