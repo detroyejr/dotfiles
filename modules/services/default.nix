@@ -6,6 +6,7 @@
     ./custom-whisper-server.nix
     ./docker.nix
     ./flatpak.nix
+    ./fwupd.nix
     ./freshrss.nix
     ./glance.nix
     ./grafana.nix
