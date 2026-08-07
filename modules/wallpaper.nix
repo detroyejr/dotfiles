@@ -25,8 +25,8 @@ let
     }
     {
       name = "summer";
-      url = "https://unsplash.com/photos/Y5CfLR8sqzE/download?force=true&w=2400";
-      sha256 = "sha256:0fwc704ya7ss4vngyjccvy8x4vxybw7j4vd9mykv6y5hdxv6wf3l";
+      url = "https://unsplash.com/photos/wMr41_LZp0k/download?force=true&w=2400";
+      sha256 = "sha256:08af0jxw56m4lsgq97nc9w491dhsssdh0qh44nyx2n1lw76g5mwg";
     }
   ];
 
