@@ -55,6 +55,10 @@ stash-apply:
 cleanup:
   rm result
 
+copy-cache system:
+  nix copy --to ssh://detroyejr@odp-3 .#nixosConfigurations.{{system}}.config.system.build.toplevel
+  nix copy --to ssh://detroyejr@odp-4 .#nixosConfigurations.{{system}}.config.system.build.toplevel
+
 ci: stash checkout-initial pull checkout-lockfile core cleanup rebase-lockfile stash-apply
 
 # Upgrade after nix profile add --impure.
