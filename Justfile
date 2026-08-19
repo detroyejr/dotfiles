@@ -64,3 +64,6 @@ ci: stash checkout-initial pull checkout-lockfile core cleanup rebase-lockfile s
 # Upgrade after nix profile add --impure.
 profile:
   nix profile upgrade dotfiles
+
+link-omarchy:
+  ln -sfn $HOME/.config/dotfiles/dotfiles/omarchy/hypr $HOME/.config/hypr
