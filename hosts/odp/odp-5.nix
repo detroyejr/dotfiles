@@ -11,6 +11,8 @@
 
   networking.hostName = "odp-5";
 
+  services.immich.enable = true;
+
   # Hardware
   boot.initrd.availableKernelModules = [
     "xhci_pci"

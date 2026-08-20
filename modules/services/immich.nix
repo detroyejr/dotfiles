@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.immich;
 in
@@ -8,6 +13,8 @@ in
       openFirewall = true;
       host = "0.0.0.0";
     };
+    services.postgresql = {
+      package = pkgs.postgresql_18;
+    };
   };
-
 }

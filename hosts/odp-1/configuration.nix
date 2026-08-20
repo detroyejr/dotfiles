@@ -67,7 +67,6 @@
     freshrss.enable = true;
     glance.enable = true;
     grafana.enable = true;
-    immich.enable = true;
     openrgb.enable = true;
     paperless.enable = true;
     prometheus.enable = true;

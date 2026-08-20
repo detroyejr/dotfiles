@@ -68,7 +68,10 @@ in
                 "OneDrive:Apps/KeyPass/Personal_KeyPass.kdbx"
             fi
           '';
-          wantedBy = [ "multi-user.target" "network-online.target" ];
+          wantedBy = [
+            "multi-user.target"
+            "network-online.target"
+          ];
           serviceConfig.Type = "oneshot";
           startAt = "hourly";
         };
