@@ -750,6 +750,7 @@ let
       local wezterm = require 'wezterm'
 
       config = {
+        front_end = "WebGpu",
         colors = {
           ansi = {
               "#${base00}",
