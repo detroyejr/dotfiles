@@ -10,7 +10,7 @@ let
   };
 in
 {
-  omarchy-bar = prev.stdenv.mkDerivation {
+  omarchy-shell = prev.stdenv.mkDerivation {
     pname = "omarchy-quickshell";
     inherit src version;
 
@@ -40,6 +40,9 @@ in
         -exec sed -Ei "s,(omarchy-.*),$out/bin/\1," "{}" \; \
         && cp -r bin/* "$out/bin/"
 
+      substituteInPlace $out/bin/omarchy-launch-shell \
+        --replace-fail "quickshell"  "${prev.quickshell}/bin/qs"
+
       patchShebangs "$out/bin" "$out/share/omarchy/shell"
 
       for p in "$out"/bin/omarchy-*; do
@@ -48,11 +51,6 @@ in
           wrapProgram "$p" --set OMARCHY_PATH "$out/share/omarchy"
         fi
       done
-
-      makeWrapper ${prev.quickshell}/bin/qs "$out/bin/omarchy-bar" \
-        --set OMARCHY_PATH "$out/share/omarchy" \
-        --prefix PATH : "$out/bin" \
-        --add-flags "--path $out/share/omarchy/shell"
 
       runHook postInstall
     '';

@@ -268,7 +268,7 @@ let
           ''}
           
           ${lib.optionalString config.programs.quickshell.enable ''
-            hyprctl dispatch 'hl.dsp.exec_cmd("omarchy-bar")'
+            hyprctl dispatch 'hl.dsp.exec_cmd("omarchy-launch-shell")'
           ''}
 
           # Hyprland will reload environment variables (GTK_THEME) in
@@ -574,7 +574,7 @@ let
         ''}
 
         ${lib.optionalString config.programs.quickshell.enable ''
-          hl.exec_cmd("omarchy-bar")
+          hl.exec_cmd("omarchy-launch-shell")
         ''}
 
         hl.exec_cmd("kanshi & mako --config /etc/xdg/mako/mako.ini & blueman-applet & hyprpaper")

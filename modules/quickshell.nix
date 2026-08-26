@@ -14,6 +14,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.${config.defaultUser}.packages = with pkgs; [ omarchy-bar ];
+    users.users.${config.defaultUser}.packages = with pkgs; [ omarchy-shell ];
   };
 }
