@@ -261,14 +261,13 @@ let
         if command -v hyprctl > /dev/null 2>&1; then
           hyprctl hyprpaper wallpaper ,"$currentTheme/wallpaper/wallpaper.jpg"
           pkill waybar || true
-          pkill quickshell || true
 
           ${lib.optionalString config.programs.waybar.enable ''
             hyprctl dispatch 'hl.dsp.exec_cmd("waybar --config /etc/xdg/CURRENT_THEME/waybar/config --style /etc/xdg/CURRENT_THEME/waybar/style.css")'
           ''}
           
           ${lib.optionalString config.programs.quickshell.enable ''
-            hyprctl dispatch 'hl.dsp.exec_cmd("omarchy-launch-shell")'
+            hyprctl dispatch 'hl.dsp.exec_cmd("omarchy restart shell")'
           ''}
 
           # Hyprland will reload environment variables (GTK_THEME) in

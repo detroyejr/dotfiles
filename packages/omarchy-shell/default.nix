@@ -26,8 +26,7 @@ in
           "$out/share/omarchy/"
 
       rm -rf \
-        "$out/share/omarchy/shell/plugins/background" \
-        "$out/share/omarchy/shell/plugins/menu"
+        "$out/share/omarchy/shell/plugins/background"
 
         substituteInPlace $out/share/omarchy/shell/Commons/Color.qml \
           --replace-fail \
