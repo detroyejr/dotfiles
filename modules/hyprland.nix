@@ -67,7 +67,8 @@ in
         xwayland.enable = true;
       };
       uwsm.enable = true;
-      waybar.enable = true;
+      waybar.enable = false;
+      quickshell.enable = true;
     };
 
     services = {

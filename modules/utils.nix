@@ -261,7 +261,15 @@ let
         if command -v hyprctl > /dev/null 2>&1; then
           hyprctl hyprpaper wallpaper ,"$currentTheme/wallpaper/wallpaper.jpg"
           pkill waybar || true
-          hyprctl dispatch 'hl.dsp.exec_cmd("waybar --config /etc/xdg/CURRENT_THEME/waybar/config --style /etc/xdg/CURRENT_THEME/waybar/style.css")'
+          pkill quickshell || true
+
+          ${lib.optionalString config.programs.waybar.enable ''
+            hyprctl dispatch 'hl.dsp.exec_cmd("waybar --config /etc/xdg/CURRENT_THEME/waybar/config --style /etc/xdg/CURRENT_THEME/waybar/style.css")'
+          ''}
+          
+          ${lib.optionalString config.programs.quickshell.enable ''
+            hyprctl dispatch 'hl.dsp.exec_cmd("omarchy-bar")'
+          ''}
 
           # Hyprland will reload environment variables (GTK_THEME) in
           # hyprland.lua.
@@ -871,6 +879,143 @@ let
       [urgency=critical]
       default-timeout=0
       layer=overlay
+     '';
+
+  mkQuickShellTheme =
+    scheme:
+    with scheme.colors;
+    pkgs.writeText "shell.toml" ''
+      [bar]
+      background       = "#${background}"
+      background-alpha = 1.0
+      text             = "#${foreground}"
+      active           = "#${base08}"
+      scale-with-font  = true
+      size-horizontal  = 26
+      size-vertical    = 28
+
+      [hyprland]
+      active-border            = "rgba(${base07}66)"
+      active-border-foreground = "#${foreground}"
+
+      [controls]
+      normal-color        = "#${foreground}"
+      normal-fill-alpha   = 0.04
+      normal-border       = "#${foreground}"
+      normal-border-width = 1
+      normal-border-alpha = 0.4
+
+      hover-cursor-color        = "#${foreground}"
+      hover-cursor-fill-alpha   = 0.08
+      hover-cursor-border       = "#${foreground}"
+      hover-cursor-border-width = 1
+      hover-cursor-border-alpha = 0.25
+
+      focus-color        = "#${foreground}"
+      focus-fill-alpha   = 0.08
+      focus-border       = "#${foreground}"
+      focus-border-width = 1
+      focus-border-alpha = 0.25
+
+      selected-color        = "#${foreground}"
+      selected-fill-alpha   = 0.18
+      selected-border       = "#${foreground}"
+      selected-border-width = 0
+      selected-border-alpha = 1.0
+
+      pressed-fill-alpha   = 0.22
+      selection-fill-alpha = 0.35
+
+      [spacing]
+      scale = 1.0
+      scale-with-font = true
+
+      [font]
+      base-size = 12
+
+      [popups]
+      background       = "#${background}"
+      background-alpha = 1.0
+      text             = "#${foreground}"
+      border           = "rgba(${base07}66)"
+      border-alpha     = 1.0
+
+      [tooltip]
+      background       = "#${background}"
+      background-alpha = 0.97
+      text             = "#${foreground}"
+      border           = "#${foreground}"
+      border-alpha     = 1.0
+
+      [notifications]
+      background       = "#${background}"
+      background-alpha = 1.0
+      text             = "#${foreground}"
+      border           = "rgba(${base07}66)"
+      border-alpha     = 1.0
+      countdown        = "#${base0D}"
+
+      [launcher]
+      background                = "#${background}"
+      background-alpha          = 0.95
+      text                      = "#${foreground}"
+      border                    = "#${foreground}"
+      border-alpha              = 1.0
+      scrim                     = "#${background}"
+      scrim-alpha               = 0.5
+      selected-background       = "#${foreground}"
+      selected-background-alpha = 0.08
+      selected-text             = "#${base0D}"
+      selected-border           = "#${foreground}"
+      selected-border-alpha     = 0.25
+
+      [menu]
+      background                = "#${background}"
+      background-alpha          = 1.0
+      text                      = "#${foreground}"
+      border                    = "#${foreground}"
+      border-alpha              = 1.0
+      scrim                     = "#${background}"
+      scrim-alpha               = 0.5
+      selected-background       = "#${foreground}"
+      selected-background-alpha = 0.08
+      selected-text             = "#${base0D}"
+      selected-border           = "#${foreground}"
+      selected-border-alpha     = 0.25
+
+      [polkit]
+      background       = "#${background}"
+      background-alpha = 1.0
+      text             = "#${foreground}"
+      text-error       = "#${base08}"
+      border           = "rgba(${base07}66)"
+      border-error     = "#${base08}"
+      border-alpha     = 1.0
+      scrim            = "#${background}"
+      scrim-alpha      = 0.5
+      accent           = "#${base0D}"
+
+      [lock]
+      background       = "#${background}"
+      background-alpha = 0.8
+      text             = "#${foreground}"
+      placeholder      = "#${base04}"
+      text-error       = "#${base08}"
+      border           = "rgba(${base07}66)"
+      border-active    = "rgba(${base07}66)"
+      border-error     = "#${base08}"
+      border-alpha     = 1.0
+      selection        = "#${base0D}"
+      selection-alpha  = 0.45
+
+      [image-picker]
+      scrim                   = "#${background}"
+      scrim-alpha             = 0.5
+      text                    = "#${foreground}"
+      selected-border         = "#${base0D}"
+      selected-border-alpha   = 1.0
+      unselected-border       = "#${foreground}"
+      unselected-border-alpha = 0.28
     '';
 
   mkRofiTheme =
@@ -941,9 +1086,10 @@ let
 
       phases = [ "installPhase" ];
       installPhase = ''
-        mkdir -p $out/hypr $out/waybar $out/mako $out/nvim $out/wezterm/colors
+        mkdir -p $out/hypr $out/waybar $out/mako $out/nvim $out/wezterm/colors $out/quickshell
         ln -sfn ${wall} $out/wallpaper
         ln -sfn ${mkRofiTheme wall scheme font} $out/rofi
+        ln -sfn ${mkQuickShellTheme scheme} $out/quickshell/shell.toml
         ln -sfn ${mkLockscreen config wall scheme} $out/hypr/hyprlock.conf
         ln -sfn ${mkHyprpaper wall} $out/hypr/hyprpaper.conf
         ln -sfn ${hyprlandConfig} $out/hypr/hyprland.lua
@@ -1002,6 +1148,7 @@ in
     mkLockscreen
     mkHyprlandConfig
     mkWeztermConfig
+    mkQuickShellTheme
     mkRofiTheme
     mkTheme
     ;

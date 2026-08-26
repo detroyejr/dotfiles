@@ -12,6 +12,7 @@
     ./hyprland.nix
     ./kde.nix
     ./services
+    ./quickshell.nix
     ./xdg.nix
   ];
 
