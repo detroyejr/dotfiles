@@ -568,6 +568,15 @@ let
 
       hl.on("hyprland.start", function () 
         hl.exec_cmd(terminal)
+
+        ${lib.optionalString config.programs.waybar.enable ''
+          hl.exec_cmd("waybar --config /etc/xdg/CURRENT_THEME/waybar/config --style /etc/xdg/CURRENT_THEME/waybar/style.css")
+        ''}
+
+        ${lib.optionalString config.programs.quickshell.enable ''
+          hl.exec_cmd("omarchy-bar")
+        ''}
+
         hl.exec_cmd("kanshi & mako --config /etc/xdg/mako/mako.ini & blueman-applet & hyprpaper")
         hl.exec_cmd("hyprctl dispatch dpms on")
 
@@ -879,7 +888,7 @@ let
       [urgency=critical]
       default-timeout=0
       layer=overlay
-     '';
+    '';
 
   mkQuickShellTheme =
     scheme:
@@ -891,7 +900,7 @@ let
       text             = "#${foreground}"
       active           = "#${base08}"
       scale-with-font  = true
-      size-horizontal  = 26
+      size-horizontal  = 30
       size-vertical    = 28
 
       [hyprland]
@@ -931,7 +940,7 @@ let
       scale-with-font = true
 
       [font]
-      base-size = 12
+      base-size = 16
 
       [popups]
       background       = "#${background}"
