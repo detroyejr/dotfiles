@@ -19,6 +19,11 @@
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    omarchy-quickshell = {
+      url = "github:detroyejr/omarchy-quickshell-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -28,6 +33,7 @@
       nixos-hardware,
       sops-nix,
       disko,
+      omarchy-quickshell,
       ...
     }@inputs:
     let
@@ -58,6 +64,7 @@
             mods
             disko.nixosModules.disko
             sops-nix.nixosModules.sops
+            omarchy-quickshell.nixosModules.omarchy-quickshell
             (optional (!isNull hostFiles) hostFiles)
           ];
         in

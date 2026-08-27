@@ -266,7 +266,7 @@ let
             hyprctl dispatch 'hl.dsp.exec_cmd("waybar --config /etc/xdg/CURRENT_THEME/waybar/config --style /etc/xdg/CURRENT_THEME/waybar/style.css")'
           ''}
           
-          ${lib.optionalString config.programs.quickshell.enable ''
+          ${lib.optionalString config.programs.omarchy-quickshell.enable ''
             hyprctl dispatch 'hl.dsp.exec_cmd("omarchy restart shell")'
           ''}
 
@@ -572,8 +572,13 @@ let
           hl.exec_cmd("waybar --config /etc/xdg/CURRENT_THEME/waybar/config --style /etc/xdg/CURRENT_THEME/waybar/style.css")
         ''}
 
-        ${lib.optionalString config.programs.quickshell.enable ''
-          hl.exec_cmd("omarchy-launch-shell")
+        ${lib.optionalString config.programs.omarchy-quickshell.enable ''
+          hl.exec_cmd("omarchy launch shell")
+          hl.exec_cmd("omarchy system lock")
+        ''}
+
+        ${lib.optionalString (!config.programs.omarchy-quickshell.enable) ''
+          hl.exec_cmd("hyprlock")
         ''}
 
         hl.exec_cmd("kanshi & mako --config /etc/xdg/mako/mako.ini & blueman-applet & hyprpaper")
@@ -585,12 +590,18 @@ let
 
         hl.exec_cmd("obsidian", { workspace = "3 silent" })
         hl.exec_cmd("sleep 30 && keepass", { workspace = "9 silent" })
-        hl.exec_cmd("hyprlock")
       end)
 
       hl.device({
         name = "steelseries-steelseries-sensei-310-esports-mouse",
         sensitivity = -0.7,
+      })
+
+
+      hl.window_rule({
+        name = "omarchy-screensaver",
+        match = { class = "org.omarchy.screensaver" },
+        fullscreen = true,
       })
 
       hl.window_rule({
@@ -650,12 +661,28 @@ let
       end)
       hl.bind(mainMod .. " + G", hl.dsp.window.fullscreen())
       hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
+
+      ${lib.optionalString (!config.programs.omarchy-quickshell.enable) ''
       hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"hyprlock\""))
+      ''}
+      
+      ${lib.optionalString (config.programs.omarchy-quickshell.enable) ''
+      hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"omarchy system lock\""))
+      ''}
+
       hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("bash -c \"swaync-client -t\""))
       hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
       hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("grim"))
 
+
+      ${lib.optionalString (!config.programs.omarchy-quickshell.enable) ''
       hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else $THEME/rofi/bin/rofi-launcher; fi"))
+      ''}
+      
+      ${lib.optionalString (config.programs.omarchy-quickshell.enable) ''
+      hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("omarchy menu"))
+      ''}
+
 
       hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
       hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))

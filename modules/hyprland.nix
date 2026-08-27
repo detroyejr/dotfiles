@@ -68,7 +68,8 @@ in
       };
       uwsm.enable = true;
       waybar.enable = false;
-      quickshell.enable = true;
+      quickshell.enable = false;
+      omarchy-quickshell.enable = true;
     };
 
     services = {

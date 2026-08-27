@@ -10,7 +10,7 @@ let
   };
 in
 {
-  omarchy-shell = prev.stdenv.mkDerivation {
+  omarchy-quickshell = prev.stdenv.mkDerivation {
     pname = "omarchy-quickshell";
     inherit src version;
 

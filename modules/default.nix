@@ -13,6 +13,7 @@
     ./kde.nix
     ./services
     ./quickshell.nix
+    ./omarchy-quickshell.nix
     ./xdg.nix
   ];
 
