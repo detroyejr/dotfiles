@@ -6,6 +6,11 @@
 }:
 let
   cfg = config.programs.omarchy-quickshell;
+  inherit (import ./utils.nix { inherit pkgs lib; })
+    mkTheme
+    schemes
+    themeNames
+    ;
   omarchy = pkgs.omarchy-quickshell.overrideAttrs (attrs: {
     # Use /etc/xdg/CURRENT_THEME so that we can use nix defined themes.
     patchPhase = ''
@@ -34,10 +39,10 @@ in
         omarchy-theme-manager
       ];
       settings.bar.layout.right = lib.mkBefore [
-        { "id" = "io.github.thoughtlesslabs.omarchy-bbs"; }
-        { "id" = "io.github.detroyejr.omarchy-pihole"; }
-        { "id" = "remco.wireguard"; }
-        { "id" = "io.github.mtolhuys.theme-manager"; }
+        { "id" = pkgs.omarchyPlugins.omarchy-bbs.id; }
+        { "id" = pkgs.omarchyPlugins.omarchy-pihole.id; }
+        { "id" = pkgs.omarchyPlugins.omarchy-wireguard.id; }
+        { "id" = pkgs.omarchyPlugins.omarchy-theme-manager.id; }
       ];
 
     };
@@ -47,7 +52,9 @@ in
       chromium
     ];
 
-    programs.chromium.enable = true;
+    themes = [
+      (mkTheme config (builtins.head config.walls) schemes.${themeNames.${(builtins.head config.walls).name}} config.font)
+    ];
 
     fonts.packages = lib.mkBefore [ omarchy ];
   };
