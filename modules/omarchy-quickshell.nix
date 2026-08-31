@@ -12,17 +12,16 @@ let
     themeNames
     ;
   omarchy = pkgs.omarchy-quickshell.overrideAttrs (attrs: {
-    # Use /etc/xdg/CURRENT_THEME so that we can use nix defined themes.
-    patchPhase = ''
-      # substituteInPlace "shell/Commons/Color.qml" \
-      #   --replace-fail \
-      #   "path: root.home + \"/.config/omarchy/shell.toml\"" \
-      #   "path: \"/etc/xdg/CURRENT_THEME/quickshell/shell.toml\""
-
+    postPatch = (attrs.postPatch or "") + ''
       # Hyprpaper doesn't work with  webp so we'll convert.
       find themes -type f -iname "*.webp" -exec sh -c '${lib.getBin pkgs.imagemagick}/bin/magick "$1" "''${1%.*}.jpg"' _ {} \; \
         && find themes -type f -iname "*.webp" -delete
 
+    '';
+
+    postInstall = (attrs.postInstall or "") + ''
+      install -d "$out/share/omarchy/shell/plugins/splash"
+      cp -r ${../dotfiles/omarchy/plugins/splash}/. "$out/share/omarchy/shell/plugins/splash"
     '';
   });
 in
@@ -53,7 +52,10 @@ in
     ];
 
     themes = [
-      (mkTheme config (builtins.head config.walls) schemes.${themeNames.${(builtins.head config.walls).name}} config.font)
+      (mkTheme config (builtins.head config.walls)
+        schemes.${themeNames.${(builtins.head config.walls).name}}
+        config.font
+      )
     ];
 
     fonts.packages = lib.mkBefore [ omarchy ];

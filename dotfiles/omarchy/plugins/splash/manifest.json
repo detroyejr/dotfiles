@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "omarchy.splash",
+  "name": "Splash",
+  "version": "1.0.0",
+  "author": "detroyejr",
+  "description": "Displays the current Hyprland splash over Omarchy's Quickshell background",
+  "kinds": [
+    "service"
+  ],
+  "entryPoints": {
+    "service": "Splash.qml"
+  }
+}
