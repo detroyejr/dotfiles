@@ -9,8 +9,8 @@ let
   gwfox = pkgs.fetchFromGitHub {
     owner = "akkva";
     repo = "gwfox";
-    rev = "f0760b9be419a932fb6b7dd0666fd0144bc03e72";
-    hash = "sha256-8xJ70UscbR0wxhPOmmPS68VIzDN4WiRCapszCoz1tXQ=";
+    rev = "b065dbffcb487c31f14ea9ba6c2d5c5f7e103727";
+    hash = "sha256-7k2VsEzkO734KirvsBHSB1rzBS3DVtY94Pj0ZwPDknY=";
   };
   preferenceStr =
     preferences:
@@ -34,6 +34,7 @@ let
     "browser.ai.control.default" = "blocked";
     "browser.link.open_newwindow" = 3;
     "browser.ml.enable" = false;
+    "browser.nova.enabled" = false;
     "browser.newtabpage.activity-stream.nova.enabled" = false;
     "browser.newtabpage.activity-stream.showWeather" = false;
     "browser.startup.homepage" = "http://odp-1:5678";
