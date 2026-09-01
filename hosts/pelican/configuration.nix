@@ -126,7 +126,7 @@
   };
 
   services = {
-    docker.enable = false;
+    docker.enable = true;
     fprintd.enable = true;
     openrgb.enable = true;
     rclone = {
