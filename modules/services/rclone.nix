@@ -43,22 +43,27 @@ in
         fi
       '';
       wantedBy = [ "multi-user.target" ];
+      after = [
+        "multi-user.target"
+        "network-online.target"
+      ];
     };
 
-    systemd.services.keypass-sync =
+    systemd.services.keepass-sync =
       lib.mkIf (lib.and cfg.onedrive.enable config.services.syncthing.enable)
         {
           path = [ "${pkgs.fuse}/bin:/run/wrappers/bin/:$PATH" ];
           script = ''
             FILE=/etc/xdg/rclone/rclone.conf
             if test -f $FILE; then
+              sleep 20
 
               ${pkgs.rclone}/bin/rclone \
                 copyto \
                 --update \
                 --config=$FILE \
                 "OneDrive:Apps/KeyPass/Personal_KeyPass.kdbx" \
-                "/var/lib/syncthing/sync/Personal_KeyPass.kdbx "
+                "/var/lib/syncthing/sync/Personal_KeyPass.kdbx"
 
               ${pkgs.rclone}/bin/rclone \
                 copyto \
@@ -68,7 +73,8 @@ in
                 "OneDrive:Apps/KeyPass/Personal_KeyPass.kdbx"
             fi
           '';
-          wantedBy = [
+          wantedBy = [ "multi-user.target" ];
+          after = [
             "multi-user.target"
             "network-online.target"
           ];
