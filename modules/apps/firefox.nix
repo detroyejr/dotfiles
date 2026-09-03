@@ -9,8 +9,8 @@ let
   gwfox = pkgs.fetchFromGitHub {
     owner = "akkva";
     repo = "gwfox";
-    rev = "b065dbffcb487c31f14ea9ba6c2d5c5f7e103727";
-    hash = "sha256-7k2VsEzkO734KirvsBHSB1rzBS3DVtY94Pj0ZwPDknY=";
+    rev = "de0aed94ea4ff0dfc99b49d9457e470685e00742";
+    hash = "sha256-hQWcMDYVTpz7bKqy7WyjpwDNBUxLAw2nB2DUvN5xwMQ=";
   };
   preferenceStr =
     preferences:
@@ -46,14 +46,27 @@ let
     "datareporting.usage.uploadEnabled" = false;
     "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
     "gwfox.ac" = true;
+    "gwfox.atbc" = true;
     "gwfox.blur" = true;
     "gwfox.bms" = true;
     "gwfox.icons" = true;
+    "gwfox.fsi" = true;
+    "gwfox.msc" = true;
+    "gwfox.mwc" = true;
+    "gwfox.newtab" = true;
+    "gwfox.noborder" = true;
+    "gwfox.sidebar" = 1;
+    "gwfox.toolbar" = true;
+    "gwfox.urlbar" = true;
+    "gwfox.urlbar.ac" = true;
     "sidebar.main.tools" = "";
     "sidebar.verticalTabs" = true;
     "svg.context-properties.content.enabled" = true;
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "widget.gtk.rounded-bottom-corners.enabled" = true;
+    "widget.macos.native-context-menus" = false;
+    "widget.windows.mica" = true;
+    "widget.windows.mica.toplevel-backdrop" = 2;
   };
 in
 {
