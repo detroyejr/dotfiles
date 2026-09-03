@@ -131,6 +131,11 @@ in
 
                           }
                           {
+                            title = "ArchiveBox";
+                            url = "https://odp-4";
+
+                          }
+                          {
                             title = "Paperless";
                             url = "http://odp-1:28981";
 
@@ -248,6 +253,10 @@ in
                       {
                         title = "ChangeDetection";
                         url = "http://odp-1:5001";
+                      }
+                      {
+                        title = "ArchiveBox";
+                        url = "https://odp-4";
                       }
                     ];
                   }
