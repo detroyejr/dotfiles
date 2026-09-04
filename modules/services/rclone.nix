@@ -42,7 +42,10 @@ in
             "OneDrive:" "/home/${config.defaultUser}/OneDrive/"
         fi
       '';
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = [
+        "multi-user.target"
+        "network-online.target"
+      ];
       after = [
         "multi-user.target"
         "network-online.target"
@@ -73,7 +76,10 @@ in
                 "OneDrive:Apps/KeyPass/Personal_KeyPass.kdbx"
             fi
           '';
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = [
+            "multi-user.target"
+            "network-online.target"
+          ];
           after = [
             "multi-user.target"
             "network-online.target"
