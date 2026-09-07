@@ -9,6 +9,10 @@ in
         owner = "detroyejr";
         group = "detroyejr";
       };
+      "glance/changedetectionToken" = {
+        owner = "detroyejr";
+        group = "detroyejr";
+      };
       "glance/location" = {
         owner = "detroyejr";
         group = "detroyejr";
@@ -157,23 +161,47 @@ in
                           }
                         ];
                       }
+
                     ];
                   }
                   {
-                    type = "rss";
-                    title = "FreshRSS";
-                    limit = 20;
-                    style = "detailed-list";
-                    collapse-after = 10;
-                    cache = "20m";
-                    feeds = [
+                    type = "split-column";
+                    widgets = [
                       {
-                        url = {
-                          _secret = config.sops.secrets."glance/freshrssUrl".path;
-                        };
+                        type = "rss";
                         title = "FreshRSS";
+                        limit = 20;
+                        style = "detailed-list";
+                        collapse-after = 10;
+                        cache = "20m";
+                        feeds = [
+                          {
+                            url = {
+                              _secret = config.sops.secrets."glance/freshrssUrl".path;
+                            };
+                            title = "FreshRSS";
+                          }
+                        ];
+                      }
+                      {
+                        type = "change-detection";
+                        instance-url = "http://odp-1:5001";
+                        token = {
+                          _secret = config.sops.secrets."glance/changedetectionToken".path;
+                        };
+                        limit = 10;
+                        collapse-after = 5;
                       }
                     ];
+                  }
+                  {
+                    type = "change-detection";
+                    instance-url = "http://odp-1:5001";
+                    token = {
+                      _secret = config.sops.secrets."glance/changedetectionToken".path;
+                    };
+                    limit = 10;
+                    collapse-after = 5;
                   }
                 ];
               }
@@ -260,7 +288,6 @@ in
                       }
                     ];
                   }
-
                   {
                     type = "dns-stats";
                     service = "pihole-v6";
