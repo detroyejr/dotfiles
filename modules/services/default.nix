@@ -2,6 +2,7 @@
 {
   imports = [
     ./actual.nix
+    ./archivebox.nix
     ./binary-cache.nix
     ./custom-whisper-server.nix
     ./docker.nix

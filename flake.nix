@@ -171,6 +171,7 @@
         defaults = {
           imports = [
             sops-nix.nixosModules.sops
+            omarchy-quickshell.nixosModules.omarchy-quickshell
           ];
         };
         odp-2 = import ./hosts/odp/odp-2.nix;

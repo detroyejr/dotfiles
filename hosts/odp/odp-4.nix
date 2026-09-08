@@ -11,6 +11,8 @@
 
   networking.hostName = "odp-4";
 
+  services.archivebox.enable = true;
+
   # Hardware
   boot.initrd.availableKernelModules = [
     "xhci_pci"
