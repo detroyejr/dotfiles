@@ -31,25 +31,10 @@ in
       openFirewallDHCP = true;
       lists = [
         {
-          url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt";
+          url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.plus.txt";
           type = "block";
           enabled = true;
-          description = "Sample blocklist by hagezi";
-        }
-        {
-          url = "https://v.firebog.net/hosts/AdguardDNS.txt";
-          type = "block";
-          enabled = true;
-        }
-        {
-          url = "https://v.firebog.net/hosts/Easylist.txt";
-          type = "block";
-          enabled = true;
-        }
-        {
-          url = "https://raw.githubusercontent.com/Sekhan/TheGreatWall/master/TheGreatWall.txt";
-          type = "block";
-          enabled = true;
+          description = "Sweeper - Aggressive cleans the Internet and protects your privacy! Blocks Ads, Affiliate, Tracking, Metrics, Telemetry, Phishing, Malware, Scam, Fake, Cryptojacking and other \"Crap\".";
         }
       ];
       settings = {
@@ -83,6 +68,7 @@ in
             IPv4 = "192.168.1.160";
           };
           rateLimit.count = 5000;
+          specialDomains.iCloudPrivateRelay = false;
         };
         dhcp = {
           interface = "end0";
@@ -100,6 +86,10 @@ in
           ];
         };
         webserver = {
+          api = {
+            pwhash = "$BALLOON-SHA256$v=1$s=1024,t=32$IpDO9LGhk3a1pZfgAU+U2Q==$h/b1Y8lEXTyRe3DSSg5SDtLfhj7fAPo2ZDbp0Tjs5Hg=";
+            max_sessions = 32;
+          };
           domain = "pi.hole";
           tls = {
             cert = lib.mkForce "/var/lib/pihole/pihole.pem";
@@ -114,7 +104,7 @@ in
           forceDisk = true;
           maxDBdays = 365;
         };
-        misc.readOnly = false;
+        misc.readOnly = true;
       };
       useDnsmasqConfig = true;
     };
@@ -132,6 +122,5 @@ in
         443
       ];
     };
-
   };
 }
