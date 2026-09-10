@@ -57,7 +57,7 @@
         dir: builtins.attrValues (builtins.mapAttrs (file: _: "${dir}/${file}") (builtins.readDir dir));
 
       mkSystem =
-        name: mods:
+        system: name: mods:
         let
           inherit (pkgs.lib) optional lists;
           hostFiles =
@@ -82,7 +82,9 @@
           };
         };
       getProgram =
-        name: (mkSystem "default" { programs.${name}.enable = true; }).config.programs.${name}.finalPackage;
+        name:
+        (mkSystem "linux_x86-64" "default" { programs.${name}.enable = true; })
+        .config.programs.${name}.finalPackage;
 
       neovim = getProgram "neovim";
       firefox = getProgram "firefox";
@@ -90,6 +92,10 @@
         "longsword"
         "mongoose"
         "odp-1"
+        "odp-2"
+        "odp-3"
+        "odp-4"
+        "odp-5"
         "pelican"
         "sabre"
         "scorpion"
@@ -124,11 +130,13 @@
         builtins.listToAttrs (
           map (name: {
             name = name;
-            value = mkSystem name { };
+            value = mkSystem "linux_x86-64" name { };
           }) hosts
         )
         // {
-          iso = mkSystem "iso" {
+          razorback = mkSystem "aarch64-linux" "razorback" { };
+          # FIXME: needs a boot option.
+          iso = mkSystem "linux_x86-64" "iso" {
             networking.networkmanager.enable = true;
             programs = {
               firefox.enable = true;
@@ -139,48 +147,6 @@
             };
             environment.systemPackages = [ pkgs.neovim ];
           };
-
-          "razorback" = nixpkgs.lib.nixosSystem {
-            pkgs = import nixpkgs {
-              system = "aarch64-linux";
-              config = {
-                allowUnfree = true;
-                allowBroken = true;
-                cudaSupport = false;
-                input-fonts.acceptLicense = true;
-              };
-            };
-
-            system = "aarch64-linux";
-            specialArgs = {
-              inherit
-                inputs
-                outputs
-                system
-                ;
-            };
-            modules = [
-              ./hosts/razorback/configuration.nix
-              ./hosts/razorback/hardware-configuration.nix
-              ./modules
-              nixos-hardware.nixosModules.raspberry-pi-4
-              sops-nix.nixosModules.sops
-            ];
-          };
         };
-
-      colmena = {
-        meta.nixpkgs = pkgs;
-        defaults = {
-          imports = [
-            sops-nix.nixosModules.sops
-            omarchy-quickshell.nixosModules.omarchy-quickshell
-          ];
-        };
-        odp-2 = import ./hosts/odp/odp-2.nix;
-        odp-3 = import ./hosts/odp/odp-3.nix;
-        odp-4 = import ./hosts/odp/odp-4.nix;
-        odp-5 = import ./hosts/odp/odp-5.nix;
-      };
     };
 }

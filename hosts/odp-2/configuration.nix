@@ -1,9 +1,12 @@
-{ pkgs, config, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
-  imports = [
-    ../../modules
-  ];
+{
+  networking.hostName = "odp-2";
 
   services = {
     binaryCache.enable = true;
@@ -16,41 +19,38 @@
     tmux.enable = true;
   };
 
-  nix = {
-    maxJobs = 6;
-    optimise = {
-      automatic = true;
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-      persistent = true;
-      randomizedDelaySec = "20min";
-    };
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      substituters = [
-        "http://odp-1/?priority=10"
-        "http://odp-2/?priority=10"
-        "http://odp-3/?priority=10"
-        "http://odp-4/?priority=10"
-        "http://odp-5/?priority=10"
-        "https://cache.nixos.org"
-      ];
-      trusted-public-keys = [
-        "odp-1:ep03YNVn5yTQNfdD9ATHGvgfG1kiwACJxyCOXoI96bU="
-      ];
+  # Hardware
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
 
-      trusted-users = [
-        "root"
-        config.defaultUser
-      ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/59699b4b-d58b-4f32-90b2-38c1b0c7e7dc";
+    fsType = "ext4";
   };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/F9D1-BFCB";
+    fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
+  };
+
+  swapDevices = [ ];
+
+  networking.useDHCP = lib.mkDefault true;
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

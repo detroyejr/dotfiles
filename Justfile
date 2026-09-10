@@ -16,6 +16,21 @@ build system:
 switch system:
   nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#{{system}}
 
+remote-odp-2:
+  nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#odp-2 --build-host detroyejr@odp-2 --target-host detroyejr@odp-2 --sudo --ask-elevate-password
+
+remote-odp-3:
+  nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#odp-3 --build-host detroyejr@odp-3 --target-host detroyejr@odp-3 --sudo --ask-elevate-password
+
+remote-odp-4:
+  nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#odp-4 --build-host detroyejr@odp-4 --target-host detroyejr@odp-4 --sudo --ask-elevate-password
+
+remote-odp-5:
+  nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#odp-5 --build-host detroyejr@odp-5 --target-host detroyejr@odp-5 --sudo --ask-elevate-password
+
+[parallel]
+remote-all: remote-odp-2 remote-odp-3 remote-odp-4 remote-odp-5
+
 core:
   just \
     build-keep-going longsword \

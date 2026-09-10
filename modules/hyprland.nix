@@ -20,6 +20,7 @@ in
   imports = [
     ./gtk.nix
     ./hyprlock.nix
+    ./omarchy-quickshell.nix
     ./rofi.nix
     ./wallpaper.nix
   ];

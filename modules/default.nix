@@ -12,7 +12,6 @@
     ./hyprland.nix
     ./kde.nix
     ./services
-    ./omarchy-quickshell.nix
     ./xdg.nix
   ];
 
@@ -62,6 +61,7 @@
           "nix-command"
           "flakes"
         ];
+        max-jobs = 6;
         substituters = [
           "http://odp-1/?priority=3"
           "http://odp-2/?priority=3"
@@ -73,7 +73,6 @@
         trusted-public-keys = [
           "odp-1:ep03YNVn5yTQNfdD9ATHGvgfG1kiwACJxyCOXoI96bU="
         ];
-
         trusted-users = [
           "root"
           "detroyejr"
