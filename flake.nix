@@ -135,8 +135,8 @@
         )
         // {
           razorback = mkSystem "aarch64-linux" "razorback" { };
-          # FIXME: needs a boot option.
           iso = mkSystem "linux_x86-64" "iso" {
+            imports = [ "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix" ];
             networking.networkmanager.enable = true;
             programs = {
               firefox.enable = true;
