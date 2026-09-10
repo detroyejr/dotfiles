@@ -42,14 +42,9 @@ in
             "OneDrive:" "/home/${config.defaultUser}/OneDrive/"
         fi
       '';
-      wantedBy = [
-        "multi-user.target"
-        "network-online.target"
-      ];
-      after = [
-        "multi-user.target"
-        "network-online.target"
-      ];
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network-online.target" ];
+      after = [ "network-online.target" ];
     };
 
     systemd.services.keepass-sync =
@@ -76,14 +71,9 @@ in
                 "OneDrive:Apps/KeyPass/Personal_KeyPass.kdbx"
             fi
           '';
-          wantedBy = [
-            "multi-user.target"
-            "network-online.target"
-          ];
-          after = [
-            "multi-user.target"
-            "network-online.target"
-          ];
+          wantedBy = [ "multi-user.target" ];
+          wants = [ "network-online.target" ];
+          after = [ "network-online.target" ];
           serviceConfig.Type = "oneshot";
           startAt = "hourly";
         };
