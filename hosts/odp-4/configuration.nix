@@ -116,7 +116,12 @@
         playwright-get-url https://heidelblog.net,https://heidelblog.net/feed > /tmp/heidelnews.xml
         grep -Eo "https://heidelblog.net/[0-9]+/[0-9]+/[-a-zA-Z0-9]+/" /tmp/heidelnews.xml | uniq | head -n 20 > /tmp/heidelnews.txt
         docker cp /tmp/heidelnews.txt archivebox:/heidelnews.txt
-        docker exec archivebox bash -c "cat /heidelnews.txt | archivebox add --only-new"
+        docker exec archivebox bash -c "
+          cat /heidelnews.txt | \
+          archivebox add \
+            --only-new \
+            --tag 'Theology' \
+            --persona 'Read Later'"
       '';
       serviceConfig = {
         User = "root";
