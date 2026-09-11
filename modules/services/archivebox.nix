@@ -28,6 +28,8 @@ let
                         "archivebox",
                         "archivebox",
                         "search",
+                        "--search",
+                        "meta",
                         term,
                         "--json",
                     ],
