@@ -105,5 +105,32 @@
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
 
+  systemd = {
+    services.archive-feeds = lib.mkIf config.services.archivebox.enable {
+      path = with pkgs; [
+        playwright-get-url
+        docker
+      ];
+      script = ''
+        playwright-get-url https://heidelblog.net,https://heidelblog.net/feed > /tmp/heidelnews.xml
+        grep -Eo "https://heidelblog.net/[0-9]+/[0-9]+/[-a-zA-Z0-9]+/" /tmp/heidelnews.xml | uniq | head -n 20 > /tmp/heidelnews.txt
+        docker cp /tmp/heidelnews.txt archivebox:/heidelnews.txt
+        docker exec archivebox bash -c "cat /heidelnews.txt | archivebox add --only-new"
+      '';
+      serviceConfig = {
+        User = "root";
+        Type = "oneshot";
+      };
+    };
+
+    timers.archive-feeds = {
+      timerConfig = {
+        OnCalendar = "daily";
+        Persistent = false;
+      };
+      wantedBy = [ "timers.target" ];
+    };
+  };
+
   system.stateVersion = "24.11";
 }
