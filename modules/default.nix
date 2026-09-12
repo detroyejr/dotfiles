@@ -138,7 +138,7 @@
     time.timeZone = "America/New_York";
     environment.systemPackages = with pkgs; [
       cryptsetup
-      gcr
+      gcr_4
       usbutils
       wget
       wl-clipboard
