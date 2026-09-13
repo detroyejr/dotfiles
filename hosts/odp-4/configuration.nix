@@ -109,8 +109,10 @@
   systemd = {
     services.archive-feeds = lib.mkIf config.services.archivebox.enable {
       path = with pkgs; [
-        playwright-get-url
+        curl
         docker
+        jq
+        playwright-get-url
       ];
       script = ''
         playwright-get-url --wait 60 https://heidelblog.net,https://heidelblog.net/feed > /tmp/heidelnews.xml
@@ -121,6 +123,15 @@
           archivebox add \
             --only-new \
             --tag 'Theology'"
+
+        # Archive Favorites
+        curl -sSL https://odp-1:8443/api/query.php\?user\=admin\&t\=4azi4KVOxTFqmna6d8KLqW\&f\=json | jq -r '.items[].canonical.[].href' | grep -Ev 'odp-4' > /tmp/favorites.txt
+        docker cp /tmp/favorites.txt archivebox:/favorites.txt
+        docker exec archivebox bash -c "
+          cat /favorites.txt | \
+          archivebox add \
+            --only-new \
+            --tag 'Favorites'"
       '';
       serviceConfig = {
         User = "root";

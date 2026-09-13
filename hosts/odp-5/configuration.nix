@@ -9,7 +9,6 @@
   networking.hostName = "odp-5";
 
   services = {
-    archivebox.enable = true;
     binaryCache.enable = true;
     immich.enable = true;
     prometheus.enable = true;
