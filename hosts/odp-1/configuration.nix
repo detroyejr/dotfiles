@@ -46,6 +46,7 @@
     opencode.enable = true;
     python.enable = false;
     r.enable = false;
+    mosh.enable = true;
     steam.enable = true;
     thunar.enable = true;
     tmux.enable = true;
@@ -64,6 +65,7 @@
       playwrightSupport = true;
     };
     customWhisperServer.enable = false;
+    docker.enable = true;
     freshrss.enable = true;
     glance.enable = true;
     grafana.enable = true;
@@ -157,49 +159,100 @@
       hybrid-sleep.enable = false;
     };
 
-    services.build-hook = {
-      path = with pkgs; [
-        bash
-        gh
-        git
-        just
-        nixos-rebuild
-        nmap
-        openssh
-      ];
-      script = ''
-        GH_CONFIG_DIR=/etc/xdg/gh gh workflow run --repo detroyejr/dotfiles flake.yml
+    services = {
+      build-hook = {
+        path = with pkgs; [
+          bash
+          gh
+          git
+          just
+          nixos-rebuild
+          nmap
+          openssh
+        ];
+        script = ''
+          GH_CONFIG_DIR=/etc/xdg/gh gh workflow run --repo detroyejr/dotfiles flake.yml
 
-        export ISDENIED=$(
-          ncat -l 0.0.0.0 \
-            --allow 192.30.252.0/22,185.199.108.0/22,140.82.112.0/20,143.55.64.0/20 \
-            -p 7878 \
-            -c "echo -e \"HTTP/1.1 204 No Content\\r\\nConnection: close\\r\\n\\r\"" \
-            -v 2>&1 | grep 'denied: not allowed'
-        )
+          export ISDENIED=$(
+            ncat -l 0.0.0.0 \
+              --allow 192.30.252.0/22,185.199.108.0/22,140.82.112.0/20,143.55.64.0/20 \
+              -p 7878 \
+              -c "echo -e \"HTTP/1.1 204 No Content\\r\\nConnection: close\\r\\n\\r\"" \
+              -v 2>&1 | grep 'denied: not allowed'
+          )
 
-        if [ -z "$DENIED" ]; then
-          cd /home/detroyejr/.config/dotfiles && \
-            eval $(ssh-agent) && \
-            ssh-add /home/detroyejr/.ssh/github_rsa && \
-            just ci
-        fi
+          if [ -z "$DENIED" ]; then
+            cd /home/detroyejr/.config/dotfiles && \
+              eval $(ssh-agent) && \
+              ssh-add /home/detroyejr/.ssh/github_rsa && \
+              just ci
+          fi
 
-        echo "Done!"
-      '';
-      serviceConfig = {
-        User = "root";
-        Type = "oneshot";
+          echo "Done!"
+        '';
+        serviceConfig = {
+          User = "root";
+          Type = "oneshot";
+        };
+      };
+
+      archivebox-obsidian-sync = {
+        path = with pkgs; [
+          bash
+          docker
+          jq
+          curl
+          openssh
+        ];
+        script = ''
+          #!/usr/bin/env bash
+          eval $(ssh-agent) && ssh-add -q /home/detroyejr/.ssh/mini_rsa
+
+          export DOCKER_HOST=ssh://detroyejr@odp-4
+          export VAULT=/home/detroyejr/Personal
+
+          PATHS=$(docker exec -it archivebox archivebox search --search meta "ReadLater" --json | \
+            grep -Ev "Listed .* snapshots" | \
+            jq '.[].archive_path' -r | \
+            sed 's,archive/users/admin,https://odp-4,')
+
+
+          for p in $PATHS; do
+            TITLE=$(curl -fsSL "$p/title/title.txt" | sed 's,/,,' || echo "$p" | cut -d'/' -f7).md
+            curl -sSL "$p/trafilatura/content.md" > "$TITLE"
+            if [[ -z $(find /home/detroyejr/Personal/ -name "$TITLE") ]]; then
+              echo "Saving $TITLE to Vault"
+              cp "$TITLE" "$VAULT/Sources/$TITLE"
+            fi
+
+            # Cleanup
+            rm "$TITLE"
+          done
+        '';
+        serviceConfig = {
+          User = "root";
+          Type = "oneshot";
+        };
       };
     };
 
-    timers.build-hook = {
-      timerConfig = {
-        OnCalendar = "Mon,Wed,Fri *-*-* 22:00:00";
-        Persistent = false;
+    timers = {
+      build-hook = {
+        timerConfig = {
+          OnCalendar = "Mon,Wed,Fri *-*-* 22:00:00";
+          Persistent = false;
+        };
+        wantedBy = [ "timers.target" ];
       };
-      wantedBy = [ "timers.target" ];
+      archivebox-obsidian-sync = {
+        timerConfig = {
+          OnCalendar = "daily";
+          Persistent = false;
+        };
+        wantedBy = [ "timers.target" ];
+      };
     };
+
   };
 
   boot.loader = {
