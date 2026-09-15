@@ -33,12 +33,11 @@ remote-all: remote-odp-2 remote-odp-3 remote-odp-4 remote-odp-5
 
 core:
   just \
-    build-keep-going longsword \
+    build-local longsword \
     build-keep-going odp-1 \
     build-keep-going mongoose \
     build-keep-going pelican \
     build-keep-going razorback \
-    build-local longsword \
     build-local odp-1 \
     build-local mongoose \
     build-local pelican \
