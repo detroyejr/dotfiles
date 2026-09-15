@@ -124,6 +124,20 @@
             --only-new \
             --tag 'Theology'"
 
+        # Modern Reformation
+        playwright-get-url "https://modernreformation.org/resources" | \
+          grep -oE '/resources/essays/[a-zA-Z-0-9]+' | \
+          sort | \
+          uniq | \
+          xargs -I "{}" echo "https://modernreformation.org{}" > /tmp/modref.txt
+
+        docker cp /tmp/modref.txt archivebox:/modref.txt
+        docker exec archivebox bash -c "
+          cat /modref.txt | \
+          archivebox add \
+            --only-new \
+            --tag 'Theology'"
+
         # Archive Favorites
         curl -sSL https://odp-1:8443/api/query.php\?user\=admin\&t\=4azi4KVOxTFqmna6d8KLqW\&f\=json | jq -r '.items[].canonical.[].href' | grep -Ev 'odp-4' > /tmp/favorites.txt
         docker cp /tmp/favorites.txt archivebox:/favorites.txt
