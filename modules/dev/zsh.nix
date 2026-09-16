@@ -69,7 +69,6 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      awscli2
       bat
       bc
       btop
@@ -85,7 +84,6 @@ in
       gh
       jq
       just
-      kubectl
       lsof
       nitch
       openssh
