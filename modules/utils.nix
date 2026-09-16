@@ -548,7 +548,7 @@ let
   mkHyprlandConfig =
     config: themeName:
     pkgs.writeText "hyprland.lua" ''
-      local terminal = "wezterm"
+      local terminal = "foot"
       local mainMod = "SUPER"
 
       hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = 2 })

@@ -40,6 +40,7 @@
     cataclysmdda.enable = true;
     direnv.enable = true;
     firefox.enable = true;
+    foot.enable = true;
     git.enable = true;
     hyprland.enable = true;
     neovim.enable = true;
@@ -50,7 +51,7 @@
     steam.enable = true;
     thunar.enable = true;
     tmux.enable = true;
-    wezterm.enable = true;
+    wezterm.enable = false;
     yazi.enable = true;
     zsh.enable = true;
   };

@@ -61,6 +61,9 @@ in
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
         source ${../../dotfiles/zsh/.p10k.zsh}
         source ${custom-scripts}/bin/functions
+        ${lib.optionalString (
+          config.programs.foot.enable && config.programs.omarchy-quickshell.enable
+        ) "eval $(omarchy-theme-set-foot)"}
         ${lib.optionalString config.programs.direnv.enable ''eval "$(direnv hook zsh)"''}
       '';
     };
