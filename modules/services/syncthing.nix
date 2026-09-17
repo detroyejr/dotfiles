@@ -64,7 +64,8 @@ in
         mkdir -p /var/lib/syncthing/sync
         chown -R detroyejr:syncthing /var/lib/syncthing/sync
         chmod -R 2770 /var/lib/syncthing
-        ln -sfn /var/lib/syncthing/sync /home/${config.defaultUser}/Sync
+        mkdir -p /home/${config.defaultUser}/Documents/Sync
+        ln -sfn /var/lib/syncthing/sync /home/${config.defaultUser}/Documents/Sync
       '';
     };
 
