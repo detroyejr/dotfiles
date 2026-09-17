@@ -42,24 +42,27 @@
     let
       inherit (self) outputs;
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-          allowBroken = true;
-          cudaSupport = false;
-          input-fonts.acceptLicense = true;
-        };
-        overlays = map import (getFiles ./packages);
-      };
-
       getFiles =
         dir: builtins.attrValues (builtins.mapAttrs (file: _: "${dir}/${file}") (builtins.readDir dir));
+      mkPkgs =
+        system:
+        import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+            allowBroken = true;
+            cudaSupport = false;
+            input-fonts.acceptLicense = true;
+          };
+          overlays = map import (getFiles ./packages);
+        };
+      pkgs = mkPkgs system;
 
       mkSystem =
         system: name: mods:
         let
           inherit (pkgs.lib) optional lists;
+          pkgs = mkPkgs system;
           hostFiles =
             if (builtins.pathExists (./. + "/hosts/${name}")) then getFiles (./hosts + "/${name}") else null;
           modules = lists.flatten [
@@ -83,7 +86,7 @@
         };
       getProgram =
         name:
-        (mkSystem "linux_x86-64" "default" { programs.${name}.enable = true; })
+        (mkSystem "x86_64-linux" "default" { programs.${name}.enable = true; })
         .config.programs.${name}.finalPackage;
 
       neovim = getProgram "neovim";
@@ -130,12 +133,12 @@
         builtins.listToAttrs (
           map (name: {
             name = name;
-            value = mkSystem "linux_x86-64" name { };
+            value = mkSystem "x86_64-linux" name { };
           }) hosts
         )
         // {
           razorback = mkSystem "aarch64-linux" "razorback" { };
-          iso = mkSystem "linux_x86-64" "iso" {
+          iso = mkSystem "x86_64-linux" "iso" {
             imports = [ "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix" ];
             networking.networkmanager.enable = true;
             programs = {
