@@ -27,6 +27,9 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    sops.secrets."glance/piholePassword" = {
+      owner = "detroyejr";
+    };
     programs.omarchy-quickshell = {
       package = omarchy;
       background.enable = true;
@@ -34,12 +37,10 @@ in
       plugins = with pkgs.omarchyPlugins; [
         omarchy-bbs
         omarchy-wireguard
-        omarchy-pihole
         omarchy-theme-manager
       ];
       settings.bar.layout.right = lib.mkBefore [
         { "id" = pkgs.omarchyPlugins.omarchy-bbs.id; }
-        { "id" = pkgs.omarchyPlugins.omarchy-pihole.id; }
         { "id" = pkgs.omarchyPlugins.omarchy-wireguard.id; }
         { "id" = pkgs.omarchyPlugins.omarchy-theme-manager.id; }
       ];
