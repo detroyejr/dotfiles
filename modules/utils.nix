@@ -549,6 +549,7 @@ let
     config: themeName:
     pkgs.writeText "hyprland.lua" ''
       local terminal = "foot"
+      local file_browser = "nautilus"
       local mainMod = "SUPER"
 
       hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = 2 })
@@ -627,6 +628,14 @@ let
       })
 
       hl.window_rule({
+        name = "nautilus-float",
+        match = { class = "org.gnome.Nautilus" },
+        float = true,
+        center = true,
+        size = "70% 70%",
+      })
+
+      hl.window_rule({
         name = "volume-control-float",
         match = { title = "^(Volume Control)$" },
         float = true,
@@ -653,7 +662,7 @@ let
       hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("next-wallpaper"))
       hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
       hl.bind(mainMod .. " + C", hl.dsp.window.close())
-      hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("thunar"))
+      hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(file_browser))
       hl.bind(mainMod .. " + F", function()
         hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
         hl.dispatch(hl.dsp.window.center())
@@ -663,11 +672,11 @@ let
       hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
 
       ${lib.optionalString (!config.programs.omarchy-quickshell.enable) ''
-      hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"hyprlock\""))
+        hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"hyprlock\""))
       ''}
-      
+
       ${lib.optionalString (config.programs.omarchy-quickshell.enable) ''
-      hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"omarchy system lock\""))
+        hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"omarchy system lock\""))
       ''}
 
       hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("bash -c \"swaync-client -t\""))
@@ -676,11 +685,11 @@ let
 
 
       ${lib.optionalString (!config.programs.omarchy-quickshell.enable) ''
-      hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else $THEME/rofi/bin/rofi-launcher; fi"))
+        hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else $THEME/rofi/bin/rofi-launcher; fi"))
       ''}
-      
+
       ${lib.optionalString (config.programs.omarchy-quickshell.enable) ''
-      hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("omarchy menu"))
+        hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("omarchy menu"))
       ''}
 
 

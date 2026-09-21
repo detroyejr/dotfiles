@@ -92,10 +92,10 @@
     firefox.enable = true;
     git.enable = true;
     hyprland.enable = true;
+    nautilus.enable = true;
     neovim.enable = true;
     opencode.enable = true;
     steam.enable = true;
-    thunar.enable = true;
     tmux.enable = true;
     wezterm.enable = true;
     wireshark.enable = true;

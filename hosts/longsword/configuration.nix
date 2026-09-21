@@ -125,6 +125,7 @@
     foot.enable = true;
     git.enable = true;
     hyprland.enable = true;
+    nautilus.enable = true;
     neovim.enable = true;
     obs-studio = {
       enable = true;
@@ -138,7 +139,6 @@
     python.enable = false;
     r.enable = false;
     steam.enable = true;
-    thunar.enable = true;
     thunderbird.enable = false;
     tmux.enable = true;
     wezterm.enable = false;
