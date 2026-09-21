@@ -58,6 +58,7 @@
 
   services = {
     actual.enable = true;
+    alloy.enable = true;
     binaryCache.enable = true;
     changedetection-io = {
       enable = true;
@@ -70,6 +71,7 @@
     freshrss.enable = true;
     glance.enable = true;
     grafana.enable = true;
+    loki.enable = true;
     openrgb.enable = true;
     paperless.enable = true;
     prometheus.enable = true;

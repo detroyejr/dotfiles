@@ -9,6 +9,7 @@
   networking.hostName = "odp-3";
 
   services = {
+    alloy.enable = true;
     binaryCache.enable = true;
     prometheus.enable = true;
   };

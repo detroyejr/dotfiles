@@ -2,6 +2,7 @@
 {
   imports = [
     ./actual.nix
+    ./alloy.nix
     ./archivebox.nix
     ./binary-cache.nix
     ./custom-whisper-server.nix
@@ -13,6 +14,7 @@
     ./grafana.nix
     ./immich.nix
     ./llm.nix
+    ./loki.nix
     ./opencode-server.nix
     ./openrgb.nix
     ./paperless.nix

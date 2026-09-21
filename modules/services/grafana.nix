@@ -35,11 +35,23 @@ in
             basicAuth = false;
             editable = false;
           }
+          {
+            name = "ODP Logs";
+            type = "loki";
+            orgId = 1;
+            url = "http://odp-1:3100";
+            basicAuth = false;
+            editable = false;
+          }
         ];
 
         deleteDatasources = [
           {
             name = "ODP";
+            orgId = 1;
+          }
+          {
+            name = "ODP Logs";
             orgId = 1;
           }
         ];
