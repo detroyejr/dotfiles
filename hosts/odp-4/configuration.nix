@@ -106,6 +106,11 @@
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
 
+  sops.secrets."freshrss/password" = {
+    owner = "detroyejr";
+    group = "detroyejr";
+  };
+
   systemd = {
     services.archive-feeds = lib.mkIf config.services.archivebox.enable {
       path = with pkgs; [
@@ -117,7 +122,7 @@
       script = ''
         playwright-get-url --wait 60 https://heidelblog.net,https://heidelblog.net/feed > /tmp/heidelnews.xml
         grep -Eo "https://heidelblog.net/[0-9]+/[0-9]+/[-a-zA-Z0-9]+/" /tmp/heidelnews.xml | uniq | head -n 20 > /tmp/heidelnews.txt
-        docker cp /tmp/heidelnews.txt archivebox:/heidelnews.txt
+        docker cp /tmp/heidelnews.txt archivebox:/heidelnews.txt && rm /tmp/heidelnews.txt
         docker exec archivebox bash -c "
           cat /heidelnews.txt | \
           archivebox add \
@@ -139,7 +144,14 @@
             --tag 'Theology'"
 
         # Archive Favorites
-        curl -sSL https://odp-1:8443/api/query.php\?user\=admin\&t\=4azi4KVOxTFqmna6d8KLqW\&f\=json | \
+        AUTH=$(
+          curl -X POST -d "Email=admin&Passwd=$(cat /run/secrets/freshrss/password)" 'https://odp-1:8443/api/greader.php/accounts/ClientLogin' | \
+          grep Auth | \
+          sed 's/A/a/'
+        )
+
+        curl -s -H "Authorization:GoogleLogin $AUTH" \
+          'https://odp-1:8443/api/greader.php/reader/api/0/stream/contents/user/-/state/com.google/starred?n=20' |
           jq -r '.items[].canonical.[].href' | \
           grep -Ev 'odp-4' > /tmp/favorites.txt
 
