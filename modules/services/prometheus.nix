@@ -11,67 +11,14 @@ in
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ port ];
 
-    services.prometheus.retentionTime = "365d";
-
-    services.prometheus.scrapeConfigs = [
+    services.prometheus.remoteWrite = [
       {
-        job_name = "odp";
-        scrape_interval = "20s";
-        static_configs = [
-          {
-            targets = map (x: "odp-${x}:9100") [
-              "1"
-              "2"
-              "3"
-              "4"
-              "5"
-            ];
-            labels = {
-              alias = "odp";
-            };
-          }
-        ];
-      }
-      {
-        job_name = "pihole";
-        scrape_interval = "20s";
-        static_configs = [
-          {
-            targets = [ "pi.hole:9100" ];
-            labels = {
-              alias = "pi.hole";
-            };
-          }
-        ];
-      }
-      {
-        job_name = "scorpion";
-        scrape_interval = "20s";
-        static_configs = [
-          {
-            targets = [ "scorpion:9100" ];
-            labels = {
-              alias = "scorpion";
-            };
-          }
-        ];
+        name = config.networking.hostName;
+        url = "http://odp-2:9091/api/v1/write";
       }
     ];
 
-    services.prometheus.exporters.node = {
-      enable = true;
-      port = port;
-      enabledCollectors = [
-        "cpu"
-        "diskstats"
-        "filesystem"
-        "ethtool"
-        "loadavg"
-        "meminfo"
-        "netdev"
-        "stat"
-        "time"
-      ];
-    };
+    services.prometheus.extraFlags = [ "--web.enable-remote-write-receiver" ];
+    services.prometheus.retentionTime = "365d";
   };
 }
