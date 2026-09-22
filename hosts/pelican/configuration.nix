@@ -111,6 +111,7 @@
 
   programs = {
     cataclysmdda.enable = true;
+    direnv.enable = true;
     firefox.enable = true;
     foot.enable = true;
     git.enable = true;
