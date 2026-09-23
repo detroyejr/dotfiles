@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   config,
   lib,
@@ -7,17 +8,21 @@
 let
   cfg = config.programs.opencode;
   defaultModel = "opencode/gpt-5.6-luna";
-  stable = import (fetchTarball {
-    url = "https://github.com/nixos/nixpkgs/tarball/nixos-26.05";
-    sha256 = "sha256:057izx0va3p74y74ga4381d5q1w700y9w9gw29m2y81zh9v9mri4";
-  }) { system = "x86_64-linux"; };
+  opencode = inputs.opencode.outputs.packages.x86_64-linux.opencode.overrideAttrs (old: {
+    postInstall = lib.optionalString (pkgs.stdenvNoCC.buildPlatform.canExecute pkgs.stdenvNoCC.hostPlatform) ''
+      # trick yargs into also generating zsh completions
+      installShellCompletion --cmd opencode \
+        --bash <($out/bin/opencode --completions bash) \
+        --zsh <(SHELL=/bin/zsh $out/bin/opencode --completions zsh)
+    '';
+  });
 in
 {
   options.programs.opencode.enable = lib.mkEnableOption "Opencode CLI config";
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
-      stable.opencode
+      opencode
       pkgs.opencode-desktop
     ];
 
