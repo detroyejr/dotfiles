@@ -21,7 +21,7 @@ in
 
       loki.write "grafana_loki" {
         endpoint {
-          url = "http://odp-1:3100/loki/api/v1/push"
+          url = "http://odp-2:3100/loki/api/v1/push"
         }
       }
 

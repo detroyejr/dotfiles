@@ -63,11 +63,10 @@
         ];
         max-jobs = 6;
         substituters = [
-          "http://odp-1/?priority=3"
-          "http://odp-2/?priority=3"
-          "http://odp-3/?priority=2"
-          "http://odp-4/?priority=2"
-          "http://odp-5/?priority=2"
+          "http://cache.odp-1/?priority=3"
+          "http://cache.odp-2/?priority=3"
+          "http://cache.odp-3/?priority=2"
+          "http://cache.odp-4/?priority=2"
           "https://cache.nixos.org?priority=1"
         ];
         trusted-public-keys = [
@@ -98,10 +97,10 @@
             ];
           })
           [
+            "odp-1"
             "odp-2"
             "odp-3"
             "odp-4"
-            "odp-5"
           ];
     };
     services = {

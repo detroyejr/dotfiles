@@ -37,7 +37,7 @@ let
     "browser.nova.enabled" = false;
     "browser.newtabpage.activity-stream.nova.enabled" = false;
     "browser.newtabpage.activity-stream.showWeather" = false;
-    "browser.startup.homepage" = "http://odp-1:5678";
+    "browser.startup.homepage" = "https://glance.odp-1";
     "browser.tabs.insertAfterCurrent" = true;
     "browser.urlbar.placeholderName" = "DuckDuckGo";
     "browser.urlbar.placeholderName.private" = "DuckDuckGo";

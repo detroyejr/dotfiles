@@ -11,7 +11,18 @@
   services = {
     alloy.enable = true;
     binaryCache.enable = true;
-    prometheus.enable = true;
+    glance.enable = true;
+    opencode = {
+      enable = true;
+      passwordFile = config.sops.secrets."opencode/password".path;
+    };
+  };
+
+  sops.secrets = {
+    "opencode/password" = {
+      owner = "detroyejr";
+      group = "detroyejr";
+    };
   };
 
   programs = {
@@ -98,7 +109,7 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPq36MnanxkOnpsouHzkGJtudcEZ+00i202DVfUXycjT detroyejr@XPS-Nixos"
   ];
 
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;

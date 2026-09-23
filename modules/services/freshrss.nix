@@ -55,7 +55,7 @@ in
 
     services.freshrss = {
       authType = "form";
-      baseUrl = "http://odp-1";
+      baseUrl = "https://freshrss.odp-1";
       dataDir = "/var/lib/freshrss";
       passwordFile = config.sops.secrets."freshrss/password".path;
 

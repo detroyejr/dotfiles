@@ -10,9 +10,11 @@
 
   services = {
     alloy.enable = true;
-    archivebox.enable = true;
+    archivebox = {
+      enable = true;
+      hostName = "archivebox.odp-1";
+    };
     binaryCache.enable = true;
-    prometheus.enable = true;
   };
 
   programs = {
@@ -102,7 +104,7 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPq36MnanxkOnpsouHzkGJtudcEZ+00i202DVfUXycjT detroyejr@XPS-Nixos"
   ];
 
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
@@ -146,7 +148,7 @@
 
         # Archive Favorites
         AUTH=$(
-          curl -X POST -d "Email=admin&Passwd=$(cat /run/secrets/freshrss/password)" 'https://odp-1:8443/api/greader.php/accounts/ClientLogin' | \
+          curl -X POST -d "Email=admin&Passwd=$(cat /run/secrets/freshrss/password)" 'https://freshrss.odp-1/api/greader.php/accounts/ClientLogin' | \
           grep Auth | \
           sed 's/A/a/'
         )

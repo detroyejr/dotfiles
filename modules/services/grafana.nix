@@ -1,9 +1,19 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.grafana;
 in
 {
   config = lib.mkIf cfg.enable {
+
+    environment.etc."grafana-dashboards/node-exporter-full.json".source = pkgs.fetchurl {
+      url = "https://grafana.com/api/dashboards/1860/revisions/latest/download";
+      hash = "sha256-GExrdAnzBtp1Ul13cvcZRbEM6iOtFrXXjEaY6g6lGYY=";
+    };
 
     sops.secrets = {
       "grafana/secret_key" = {
@@ -15,6 +25,16 @@ in
     networking.firewall.allowedTCPPorts = [ 3001 ];
 
     services.grafana = {
+      provision = {
+        enable = true;
+        dashboards.settings.providers = [
+          {
+            name = "default";
+            options.path = "/etc/grafana-dashboards";
+          }
+        ];
+      };
+
       settings = {
         server = {
           http_addr = "0.0.0.0";
@@ -39,7 +59,7 @@ in
             name = "ODP Logs";
             type = "loki";
             orgId = 1;
-            url = "http://odp-1:3100";
+            url = "http://odp-2:3100";
             basicAuth = false;
             editable = false;
           }

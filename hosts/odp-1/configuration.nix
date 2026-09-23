@@ -68,13 +68,11 @@
     };
     customWhisperServer.enable = false;
     docker.enable = true;
+    odpCA.enable = true;
+    odpProxy.enable = true;
     freshrss.enable = true;
-    glance.enable = true;
-    grafana.enable = true;
-    loki.enable = true;
     openrgb.enable = true;
     paperless.enable = true;
-    prometheus.enable = true;
     rclone = {
       onedrive.enable = true;
     };
@@ -88,13 +86,10 @@
       };
       authorizedKeysFiles = [
         "/home/detroyejr/.ssh/main_server_ed25519.pub"
-        "/home/detroyejr/.ssh/ios.pub"
+        "/home/detroyejr/.ssh/mini_rsa.pub"
       ];
     };
-    opencode = {
-      enable = true;
-      passwordFile = config.sops.secrets."opencode/password".path;
-    };
+    opencode.enable = false;
   };
 
   fileSystems."/run/mount/Media" = {
@@ -105,25 +100,6 @@
       "relatime"
       "user"
     ];
-  };
-
-  sops.secrets = {
-    "rootCA/ODPCA.crt" = {
-      owner = "detroyejr";
-      group = "nginx";
-    };
-    "rootCA/ODPCA.key" = {
-      owner = "detroyejr";
-      group = "nginx";
-    };
-    "rootCA/san.cnf" = {
-      owner = "detroyejr";
-      group = "nginx";
-    };
-    "opencode/password" = {
-      owner = "detroyejr";
-      group = "detroyejr";
-    };
   };
 
   networking = {
@@ -144,7 +120,6 @@
         22
         80
         5001
-        5678
         7878
         8000
         8080
@@ -217,7 +192,7 @@
           PATHS=$(docker exec -it archivebox archivebox search --search meta "ReadLater" --json | \
             grep -Ev "Listed .* snapshots" | \
             jq '.[].archive_path' -r | \
-            sed 's,archive/users/admin,https://odp-4,')
+            sed 's,archive/users/admin,https://archivebox.odp-1,')
 
 
           for p in $PATHS; do

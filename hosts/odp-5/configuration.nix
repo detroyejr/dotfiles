@@ -10,9 +10,7 @@
 
   services = {
     alloy.enable = true;
-    binaryCache.enable = true;
     immich.enable = true;
-    prometheus.enable = true;
   };
 
   programs = {
@@ -100,7 +98,7 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPq36MnanxkOnpsouHzkGJtudcEZ+00i202DVfUXycjT detroyejr@XPS-Nixos"
   ];
 
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;

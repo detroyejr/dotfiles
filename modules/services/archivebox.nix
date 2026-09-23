@@ -112,6 +112,7 @@ in
 
     sops.secrets = {
       "archivebox/adminPassword" = { };
+      "archivebox/secretKey" = { };
       "archivebox/sslCert" = {
         owner = "nginx";
         group = "nginx";
@@ -124,6 +125,7 @@ in
 
     sops.templates."archivebox.env".content = ''
       ADMIN_PASSWORD=${config.sops.placeholder."archivebox/adminPassword"}
+      SECRET_KEY=${config.sops.placeholder."archivebox/secretKey"}
     '';
 
     systemd.tmpfiles.rules = [
@@ -137,7 +139,6 @@ in
       backend = "docker";
       containers.archivebox = {
         image = cfg.image;
-        pull = "always";
         ports = [ "127.0.0.1:${toString cfg.archiveboxPort}:8000" ];
         volumes = [
           "${cfg.dataDir}/data:/data"
@@ -146,7 +147,7 @@ in
         ];
         environment = {
           ADMIN_USERNAME = cfg.adminUsername;
-          BASE_URL = "https://${cfg.hostName}";
+          BASE_URL = "https://archivebox.odp-1";
           PUBLIC_ADD_VIEW = "False";
         };
         environmentFiles = [ config.sops.templates."archivebox.env".path ];

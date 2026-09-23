@@ -7,6 +7,8 @@
     ./binary-cache.nix
     ./custom-whisper-server.nix
     ./docker.nix
+    ./ca.nix
+    ./proxy.nix
     ./flatpak.nix
     ./fwupd.nix
     ./freshrss.nix

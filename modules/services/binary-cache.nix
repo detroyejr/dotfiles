@@ -5,6 +5,7 @@
 }:
 let
   cfg = config.services.binaryCache;
+  cacheName = lib.removePrefix "odp-" config.networking.hostName;
 in
 {
   options.services.binaryCache.enable = lib.mkEnableOption "binary cache service module";
@@ -19,7 +20,7 @@ in
       enable = true;
       recommendedProxySettings = true;
       virtualHosts = {
-        "cache" = {
+        "cache.odp-${cacheName}" = {
           locations."/".proxyPass =
             "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
         };

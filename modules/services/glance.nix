@@ -24,7 +24,7 @@ in
     };
 
     services.glance = {
-      openFirewall = lib.mkIf (config.system.name == "odp-1") true;
+      openFirewall = true;
       settings = {
         server = {
           host = "0.0.0.0";
@@ -121,42 +121,42 @@ in
                           }
                           {
                             title = "Actual Budget";
-                            url = "https://odp-1:3000";
+                            url = "https://actual.odp-1";
 
                           }
                           {
                             title = "Grafana";
-                            url = "http://odp-1:3001";
+                            url = "https://grafana.odp-1";
 
                           }
                           {
                             title = "FreshRSS";
-                            url = "https://odp-1:8443";
+                            url = "https://freshrss.odp-1";
 
                           }
                           {
                             title = "ArchiveBox";
-                            url = "https://odp-4";
+                            url = "https://archivebox.odp-1";
 
                           }
                           {
                             title = "Paperless";
-                            url = "http://odp-1:28981";
+                            url = "https://paperless.odp-1";
 
                           }
                           {
                             title = "ChangeDetection";
-                            url = "http://odp-1:5001";
+                            url = "https://changedetection.odp-1";
 
                           }
                           {
                             title = "Prometheus";
-                            url = "http://odp-2:9090";
+                            url = "https://prometheus.odp-1";
 
                           }
                           {
                             title = "OpenCode";
-                            url = "http://odp-1:46279";
+                            url = "https://opencode.odp-1";
 
                           }
                         ];
@@ -185,7 +185,7 @@ in
                       }
                       {
                         type = "change-detection";
-                        instance-url = "http://odp-1:5001";
+                        instance-url = "https://changedetection.odp-1";
                         token = {
                           _secret = config.sops.secrets."glance/changedetectionToken".path;
                         };
@@ -196,7 +196,7 @@ in
                   }
                   {
                     type = "change-detection";
-                    instance-url = "http://odp-1:5001";
+                    instance-url = "https://changedetection.odp-1";
                     token = {
                       _secret = config.sops.secrets."glance/changedetectionToken".path;
                     };
@@ -267,7 +267,7 @@ in
                       }
                       {
                         title = "Actual Budget";
-                        url = "https://odp-1:3000";
+                        url = "https://actual.odp-1";
                         alt-status-codes = [
                           200
                           302
@@ -276,15 +276,15 @@ in
                       }
                       {
                         title = "Grafana";
-                        url = "http://odp-1:3001";
+                        url = "https://grafana.odp-1";
                       }
                       {
                         title = "ChangeDetection";
-                        url = "http://odp-1:5001";
+                        url = "https://changedetection.odp-1";
                       }
                       {
                         title = "ArchiveBox";
-                        url = "https://odp-4";
+                        url = "https://archivebox.odp-1";
                       }
                     ];
                   }
