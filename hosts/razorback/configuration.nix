@@ -78,6 +78,7 @@
   };
 
   services = {
+    alloy.enable = true;
     pihole.enable = true;
     openssh = {
       enable = true;
