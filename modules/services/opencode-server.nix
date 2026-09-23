@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   lib,
   config,
@@ -51,27 +50,16 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      path =
-        let
-          opencode = inputs.opencode.outputs.packages.x86_64-linux.opencode.overrideAttrs (old: {
-            postInstall = lib.optionalString (pkgs.stdenvNoCC.buildPlatform.canExecute pkgs.stdenvNoCC.hostPlatform) ''
-              # trick yargs into also generating zsh completions
-              installShellCompletion --cmd opencode \
-                --bash <($out/bin/opencode --completions bash) \
-                --zsh <(SHELL=/bin/zsh $out/bin/opencode --completions zsh)
-            '';
-          });
-        in
-        [
-          opencode
-        ];
+      path = with pkgs; [
+        opencode
+      ];
 
       script = ''
         ${lib.optionalString (
           cfg.passwordFile != null
         ) "export OPENCODE_SERVER_PASSWORD=$(cat ${lib.escapeShellArg (toString cfg.passwordFile)})"}
 
-        opencode serve --hostname 0.0.0.0 --port 46279 
+        opencode web --mdns --port ${toString cfg.port}
       '';
 
       serviceConfig = {

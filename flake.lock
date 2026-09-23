@@ -101,22 +101,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1776683584,
-        "narHash": "sha256-NuTLMrr10Tng72hurYG8jYQ4XKK8wnpJmOGcPiis96g=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "9dd5558b06dbdacbf635a3dd36dce1b1a7ee3a89",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "omarchy-quickshell": {
       "inputs": {
         "nixpkgs": [
@@ -137,25 +121,6 @@
         "type": "github"
       }
     },
-    "opencode": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1790128772,
-        "narHash": "sha256-Rbm8eC7Wdcr7cwmY20abnKAw20zUl/khARRb3RP3VkA=",
-        "owner": "anomalyco",
-        "repo": "opencode",
-        "rev": "53179daefaf465ea25669ceee021a8a664d9d84f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "anomalyco",
-        "ref": "v2",
-        "repo": "opencode",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "disko": "disko",
@@ -163,7 +128,6 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "omarchy-quickshell": "omarchy-quickshell",
-        "opencode": "opencode",
         "sops-nix": "sops-nix"
       }
     },

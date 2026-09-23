@@ -27,10 +27,6 @@
       url = "github:detroyejr/omarchy-quickshell-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    opencode = {
-      url = "github:anomalyco/opencode/v2";
-    };
   };
 
   outputs =
@@ -41,7 +37,6 @@
       sops-nix,
       disko,
       omarchy-quickshell,
-      opencode,
       ...
     }@inputs:
     let
