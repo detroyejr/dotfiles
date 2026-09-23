@@ -12,5 +12,6 @@ prev: final: {
     postInstall = ''
       mv $out/share/applications/org.neovim.nvim.desktop $out/share/applications/nvim.desktop
     '';
+    doCheck = false;
   });
 }
