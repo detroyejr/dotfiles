@@ -22,6 +22,7 @@
     ./plex.nix
     ./prometheus.nix
     ./rclone.nix
+    ./step-ca.nix
     ./syncthing.nix
     ./veikk.nix
     ./virtualization.nix

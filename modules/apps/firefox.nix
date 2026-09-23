@@ -74,6 +74,9 @@ in
     programs.firefox = {
       autoConfig = preferenceStr preferences;
       policies = {
+        Certificates = {
+          ImportEnterpriseRoots = true;
+        };
         GenerativeAI = {
           Enabled = false;
         };

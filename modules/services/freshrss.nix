@@ -43,31 +43,26 @@ in
       group = "freshrss";
     };
 
-    sops.secrets."freshrss/sslCert" = {
-      owner = "nginx";
-      group = "nginx";
-    };
-
-    sops.secrets."freshrss/sslKey" = {
-      owner = "nginx";
-      group = "nginx";
-    };
-
     services.freshrss = {
       authType = "form";
-      baseUrl = "http://odp-1";
+      baseUrl = "https://odp-1:8443";
       dataDir = "/var/lib/freshrss";
       passwordFile = config.sops.secrets."freshrss/password".path;
+      virtualHost = "odp-1";
 
       extensions = [ llmClassification ];
 
       api.enable = true;
     };
 
-    services.nginx.virtualHosts."freshrss" = {
+    security.acme = {
+      acceptTerms = true;
+      certs.${cfg.virtualHost}.server = "https://odp-5/acme/acme/directory";
+    };
+
+    services.nginx.virtualHosts.${cfg.virtualHost} = {
+      enableACME = true;
       forceSSL = true;
-      sslCertificate = config.sops.secrets."freshrss/sslCert".path;
-      sslCertificateKey = config.sops.secrets."freshrss/sslKey".path;
 
       listen = [
         {
@@ -79,7 +74,7 @@ in
     };
 
     networking.firewall.allowedTCPPorts = [
-      (builtins.head config.services.nginx.virtualHosts."freshrss".listen).port
+      (builtins.head config.services.nginx.virtualHosts.${cfg.virtualHost}.listen).port
     ];
   };
 }

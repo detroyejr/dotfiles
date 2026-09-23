@@ -13,6 +13,7 @@
     binaryCache.enable = true;
     immich.enable = true;
     prometheus.enable = true;
+    step-ca.enable = true;
   };
 
   programs = {
