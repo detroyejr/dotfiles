@@ -8,6 +8,7 @@ Item {
   id: root
 
   property string splashText: ""
+  property color accentColor: "white"
 
   function refreshSplash() {
     if (!splashProc.running) splashProc.running = true
@@ -22,7 +23,21 @@ Item {
     onExited: if (exitCode !== 0) root.splashText = ""
   }
 
-  Component.onCompleted: refreshSplash()
+  Process {
+    id: accentProc
+    command: ["omarchy-theme-color", "accent"]
+    stdout: StdioCollector {
+      onStreamFinished: {
+        const value = String(text || "").trim()
+        if (value !== "") root.accentColor = value
+      }
+    }
+  }
+
+  Component.onCompleted: {
+    refreshSplash()
+    accentProc.running = true
+  }
 
   Variants {
     model: Quickshell.screens
@@ -50,7 +65,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
-        color: Qt.rgba(1, 1, 1, 0.8)
+        color: root.accentColor
         font.family: "Sans"
         font.pixelSize: Math.max(12, Math.round(parent.height / 76))
         horizontalAlignment: Text.AlignHCenter
