@@ -6,6 +6,7 @@ final: prev: {
     postBuild = ''
       wrapProgram $out/bin/discord \
         --run 'export XDG_CONFIG_HOME="$HOME/.config"'
+      ln -sf discord $out/bin/Discord
     '';
   };
 }
