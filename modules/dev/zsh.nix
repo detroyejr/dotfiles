@@ -65,10 +65,6 @@ in
           config.programs.foot.enable && config.programs.omarchy-quickshell.enable
         ) "eval $(omarchy-theme-set-foot)"}
         ${lib.optionalString config.programs.direnv.enable ''eval "$(direnv hook zsh)"''}
-
-        if [[ -o interactive && -z "$TMUX" && ${lib.boolToString config.programs.tmux.enable} == true ]]; then
-          exec tmux attach
-        fi
       '';
     };
 
