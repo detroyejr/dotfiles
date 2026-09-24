@@ -34,6 +34,17 @@ in
       package = omarchy;
       background.enable = true;
       menu.enable = true;
+      launcher.hiddenEntries = [
+        "Basecamp"
+        "Discord"
+        "Google Contacts"
+        "Google Maps"
+        "Google Messages"
+        "Google Photos"
+        "HEY"
+        "WhatsApp"
+        "Zoom"
+      ];
       plugins = with pkgs.omarchyPlugins; [
         omarchy-bbs
         omarchy-wireguard
