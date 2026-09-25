@@ -16,6 +16,19 @@
       enable = true;
       passwordFile = config.sops.secrets."opencode/password".path;
     };
+
+    # Configure keymap in X11
+    xserver = {
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
+    };
+
+    openssh = {
+      enable = true;
+      settings.PasswordAuthentication = false;
+    };
   };
 
   sops.secrets = {
@@ -83,12 +96,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   users.users.${config.defaultUser} = {
     isNormalUser = true;
     description = "Jonathan De Troye";
@@ -110,9 +117,6 @@
   ];
 
   networking.firewall.enable = true;
-
-  services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = false;
 
   system.stateVersion = "24.11";
 }

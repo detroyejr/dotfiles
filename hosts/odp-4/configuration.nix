@@ -15,6 +15,19 @@
       hostName = "archivebox.odp-1";
     };
     binaryCache.enable = true;
+
+    # Configure keymap in X11
+    xserver = {
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
+    };
+
+    openssh = {
+      enable = true;
+      settings.PasswordAuthentication = false;
+    };
   };
 
   programs = {
@@ -76,12 +89,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   users.users.${config.defaultUser} = {
     isNormalUser = true;
     description = "Jonathan De Troye";
@@ -105,9 +112,6 @@
   ];
 
   networking.firewall.enable = true;
-
-  services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = false;
 
   sops.secrets."freshrss/password" = {
     owner = "detroyejr";
