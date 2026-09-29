@@ -25,6 +25,7 @@ in
       virtualHosts = {
         "actual.odp-1" = proxy "https://127.0.0.1:3000" true;
         "archivebox.odp-1" = proxy "https://192.168.1.14" true;
+        "calibre.odp-1" = proxy "http://127.0.0.1:8083" false;
         "changedetection.odp-1" = proxy "http://127.0.0.1:5001" false;
         "freshrss.odp-1" = proxy "https://127.0.0.1:8443" true;
         "glance.odp-1" = proxy "http://odp-3:5678" false;

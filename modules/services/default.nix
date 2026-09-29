@@ -5,6 +5,7 @@
     ./alloy.nix
     ./archivebox.nix
     ./binary-cache.nix
+    ./calibre-web.nix
     ./custom-whisper-server.nix
     ./docker.nix
     ./ca.nix

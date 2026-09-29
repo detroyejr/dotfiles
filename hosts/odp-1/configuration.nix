@@ -60,6 +60,7 @@
     actual.enable = true;
     alloy.enable = true;
     binaryCache.enable = true;
+    calibre-web.enable = true;
     changedetection-io = {
       enable = true;
       listenAddress = "0.0.0.0";
