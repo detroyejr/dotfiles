@@ -89,10 +89,6 @@ in
                             title = "Chessable";
                             url = "https://www.chessable.com/";
                           }
-                          {
-                            title = "BookOrbit";
-                            url = "https://bookorbit.app/";
-                          }
                         ];
                       }
                       {
@@ -141,6 +137,16 @@ in
                           {
                             title = "ArchiveBox";
                             url = "https://archivebox.odp-1";
+
+                          }
+                          {
+                            title = "BookOrbit";
+                            url = "https://bookorbit.odp-1";
+
+                          }
+                          {
+                            title = "Audiobookshelf";
+                            url = "https://audiobooks.odp-1";
 
                           }
                           {
@@ -289,6 +295,14 @@ in
                       {
                         title = "ArchiveBox";
                         url = "https://archivebox.odp-1";
+                      }
+                      {
+                        title = "BookOrbit";
+                        url = "https://bookorbit.odp-1";
+                      }
+                      {
+                        title = "Audiobookshelf";
+                        url = "https://audiobooks.odp-1";
                       }
                     ];
                   }
