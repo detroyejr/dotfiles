@@ -89,6 +89,10 @@ in
                             title = "Chessable";
                             url = "https://www.chessable.com/";
                           }
+                          {
+                            title = "BookOrbit";
+                            url = "https://bookorbit.app/";
+                          }
                         ];
                       }
                       {

@@ -10,6 +10,7 @@
 
   services = {
     alloy.enable = true;
+    bookorbit.enable = true;
     immich.enable = true;
 
     # Configure keymap in X11

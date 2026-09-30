@@ -68,6 +68,7 @@ in
             "192.168.1.222 prometheus.odp-1"
             "192.168.1.222 logs.odp-1"
             "192.168.1.222 archivebox.odp-1"
+            "192.168.1.222 bookorbit.odp-1"
             "192.168.1.222 calibre.odp-1"
             "192.168.1.222 actual.odp-1"
             "192.168.1.222 freshrss.odp-1"
