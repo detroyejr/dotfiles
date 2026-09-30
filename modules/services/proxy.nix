@@ -25,6 +25,7 @@ in
       virtualHosts = {
         "actual.odp-1" = proxy "https://127.0.0.1:3000" true;
         "archivebox.odp-1" = proxy "https://192.168.1.14" true;
+        "audiobooks.odp-1" = proxy "http://192.168.1.108:8000" true;
         "bookorbit.odp-1" = proxy "http://odp-5:3002" true;
         "calibre.odp-1" = proxy "http://127.0.0.1:8083" true;
         "changedetection.odp-1" = proxy "http://127.0.0.1:5001" false;

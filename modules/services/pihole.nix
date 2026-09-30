@@ -73,6 +73,7 @@ in
             "192.168.1.222 actual.odp-1"
             "192.168.1.222 freshrss.odp-1"
             "192.168.1.222 glance.odp-1"
+            "192.168.1.222 audiobooks.odp-1"
             "192.168.1.222 immich.odp-1"
             "192.168.1.222 paperless.odp-1"
             "192.168.1.222 changedetection.odp-1"

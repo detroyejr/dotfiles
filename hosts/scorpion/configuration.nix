@@ -14,6 +14,7 @@
   };
 
   services = {
+    audiobookshelf.enable = true;
     docker.enable = true;
     plex.enable = true;
     prometheus.enable = true;

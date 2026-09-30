@@ -1,10 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
-  cfg = config.services.plex;
+  cfg = config.services.audiobookshelf;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -19,9 +15,10 @@ in
         "wsize=524288"
       ];
     };
-    services.plex = {
+
+    services.audiobookshelf = {
+      host = "0.0.0.0";
       openFirewall = true;
-      accelerationDevices = [ "*" ];
     };
   };
 }

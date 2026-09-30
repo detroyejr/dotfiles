@@ -4,6 +4,7 @@
     ./actual.nix
     ./alloy.nix
     ./archivebox.nix
+    ./audiobookshelf.nix
     ./binary-cache.nix
     ./bookorbit.nix
     ./calibre-web.nix
