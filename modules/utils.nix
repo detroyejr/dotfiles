@@ -590,7 +590,7 @@ let
         ''}
 
         hl.exec_cmd("obsidian", { workspace = "3 silent" })
-        hl.exec_cmd("sleep 30 && keepass", { workspace = "9 silent" })
+        hl.exec_cmd("keepass $HOME/Documents/Sync/Personal_KeyPass.kdbx", { workspace = "9 silent" })
       end)
 
       hl.device({
