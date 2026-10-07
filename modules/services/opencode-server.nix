@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   config,
@@ -50,8 +51,8 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      path = with pkgs; [
-        opencode
+      path = [
+        inputs.opencode.outputs.packages.x86_64-linux.opencode
       ];
 
       script = ''
@@ -59,7 +60,7 @@ in
           cfg.passwordFile != null
         ) "export OPENCODE_SERVER_PASSWORD=$(cat ${lib.escapeShellArg (toString cfg.passwordFile)})"}
 
-        opencode web --mdns --port ${toString cfg.port}
+        opencode serve --hostname 0.0.0.0 --port 46279 
       '';
 
       serviceConfig = {
