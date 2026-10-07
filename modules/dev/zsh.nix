@@ -35,7 +35,7 @@ in
       enableCompletion = true;
       autosuggestions.enable = true;
       shellAliases = {
-        ask = "opencode --agent research run";
+        ask = "opencode --interactive --agent research run";
         btop = "btop --config ${btop-conf}";
         k = "kubectl";
         ll = "eza -l";
