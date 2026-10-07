@@ -110,64 +110,52 @@ in
                         color = "280 50 40";
                         links = [
                           {
-                            title = "Plex";
-                            url = "http://scorpion:32400/web";
-
-                          }
-                          {
-                            title = "Pi-hole";
-                            url = "http://pi.hole";
-
-                          }
-                          {
                             title = "Actual Budget";
                             url = "https://actual.odp-1";
-
-                          }
-                          {
-                            title = "Grafana";
-                            url = "https://grafana.odp-1";
-
-                          }
-                          {
-                            title = "FreshRSS";
-                            url = "https://freshrss.odp-1";
-
                           }
                           {
                             title = "ArchiveBox";
                             url = "https://archivebox.odp-1";
-
-                          }
-                          {
-                            title = "BookOrbit";
-                            url = "https://bookorbit.odp-1";
-
                           }
                           {
                             title = "Audiobookshelf";
                             url = "https://audiobooks.odp-1";
-
                           }
                           {
-                            title = "Paperless";
-                            url = "https://paperless.odp-1";
-
+                            title = "BookOrbit";
+                            url = "https://bookorbit.odp-1";
                           }
                           {
                             title = "ChangeDetection";
                             url = "https://changedetection.odp-1";
-
                           }
                           {
-                            title = "Prometheus";
-                            url = "https://prometheus.odp-1";
-
+                            title = "FreshRSS";
+                            url = "https://freshrss.odp-1";
+                          }
+                          {
+                            title = "Grafana";
+                            url = "https://grafana.odp-1";
                           }
                           {
                             title = "OpenCode";
                             url = "https://opencode.odp-1";
-
+                          }
+                          {
+                            title = "Paperless";
+                            url = "https://paperless.odp-1";
+                          }
+                          {
+                            title = "Pi-hole";
+                            url = "http://pi.hole";
+                          }
+                          {
+                            title = "Plex";
+                            url = "http://scorpion:32400/web";
+                          }
+                          {
+                            title = "Prometheus";
+                            url = "https://prometheus.odp-1";
                           }
                         ];
                       }
@@ -248,18 +236,6 @@ in
                     title = "Services";
                     sites = [
                       {
-                        title = "Plex";
-                        url = "http://scorpion:32400/web";
-                        alt-status-codes = [
-                          200
-                          403
-                        ];
-                      }
-                      {
-                        title = "Pi-hole";
-                        url = "http://pi.hole";
-                      }
-                      {
                         title = "Actual Budget";
                         url = "https://actual.odp-1";
                         alt-status-codes = [
@@ -269,24 +245,36 @@ in
                         allow-insecure = true;
                       }
                       {
-                        title = "Grafana";
-                        url = "https://grafana.odp-1";
-                      }
-                      {
-                        title = "ChangeDetection";
-                        url = "https://changedetection.odp-1";
-                      }
-                      {
                         title = "ArchiveBox";
                         url = "https://archivebox.odp-1";
+                      }
+                      {
+                        title = "Audiobookshelf";
+                        url = "https://audiobooks.odp-1";
                       }
                       {
                         title = "BookOrbit";
                         url = "https://bookorbit.odp-1";
                       }
                       {
-                        title = "Audiobookshelf";
-                        url = "https://audiobooks.odp-1";
+                        title = "ChangeDetection";
+                        url = "https://changedetection.odp-1";
+                      }
+                      {
+                        title = "Grafana";
+                        url = "https://grafana.odp-1";
+                      }
+                      {
+                        title = "Pi-hole";
+                        url = "http://pi.hole";
+                      }
+                      {
+                        title = "Plex";
+                        url = "http://scorpion:32400/web";
+                        alt-status-codes = [
+                          200
+                          403
+                        ];
                       }
                     ];
                   }
