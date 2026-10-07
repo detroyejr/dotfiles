@@ -25,13 +25,8 @@ let
   };
 
   cdda-no-mod = base-cdda.overrideAttrs (super: {
-    # Keep patches supplied by the nixpkgs Cataclysm derivation.
-    patches = super.patches or [ ];
-
-    # GCC 16 promotes Cataclysm's incomplete-type diagnostic to an error.
-    preBuild = (super.preBuild or "") + ''
-      export CXXFLAGS="$CXXFLAGS -Wno-error=sfinae-incomplete"
-    '';
+    # patch doesn't cleanly apply anymore
+    patches = [ ];
 
     passthru = super.passthru // {
       pkgs = pkgs.override { build = cdda-no-mod; };
