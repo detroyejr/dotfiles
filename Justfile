@@ -16,17 +16,20 @@ build system:
 switch:
   nixos-rebuild switch --elevate sudo --ask-elevate-password --flake /home/detroyejr/.config/dotfiles#$(hostnamectl hostname)
 
+boot:
+  nixos-rebuild boot --elevate sudo --ask-elevate-password --flake /home/detroyejr/.config/dotfiles#$(hostnamectl hostname)
+
 remote-odp-2:
-  nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#odp-2 --build-host root@odp-2 --target-host root@odp-2
+  nixos-rebuild switch --builders "root@odp-3 x86_64-linux; root@odp-4 x86_64-linux; root@odp-5 x86_64-linux" --flake /home/detroyejr/.config/dotfiles#odp-2 --build-host root@odp-2 --target-host root@odp-2
 
 remote-odp-3:
-  nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#odp-3 --build-host root@odp-3 --target-host root@odp-3
+  nixos-rebuild switch --builders "root@odp-2 x86_64-linux; root@odp-4 x86_64-linux; root@odp-5 x86_64-linux" --flake /home/detroyejr/.config/dotfiles#odp-3 --build-host root@odp-3 --target-host root@odp-3
 
 remote-odp-4:
-  nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#odp-4 --build-host root@odp-4 --target-host root@odp-4
+  nixos-rebuild switch --builders "root@odp-2 x86_64-linux; root@odp-3 x86_64-linux; root@odp-5 x86_64-linux" --flake /home/detroyejr/.config/dotfiles#odp-4 --build-host root@odp-4 --target-host root@odp-4
 
 remote-odp-5:
-  nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#odp-5 --build-host root@odp-5 --target-host root@odp-5
+  nixos-rebuild switch --builders "root@odp-2 x86_64-linux; root@odp-3 x86_64-linux; root@odp-4 x86_64-linux" --flake /home/detroyejr/.config/dotfiles#odp-5 --build-host root@odp-5 --target-host root@odp-5
 
 [parallel]
 remote-all: remote-odp-2 remote-odp-3 remote-odp-4 remote-odp-5
