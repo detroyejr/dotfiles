@@ -12,10 +12,6 @@
     alloy.enable = true;
     binaryCache.enable = true;
     glance.enable = true;
-    opencode = {
-      enable = true;
-      passwordFile = config.sops.secrets."opencode/password".path;
-    };
 
     # Configure keymap in X11
     xserver = {
@@ -29,13 +25,6 @@
       enable = true;
       openFirewall = true;
       settings.PasswordAuthentication = false;
-    };
-  };
-
-  sops.secrets = {
-    "opencode/password" = {
-      owner = "detroyejr";
-      group = "detroyejr";
     };
   };
 

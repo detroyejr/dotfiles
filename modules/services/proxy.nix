@@ -34,7 +34,7 @@ in
         "grafana.odp-1" = proxy "http://odp-2:3001" false;
         "immich.odp-1" = proxy "http://odp-5:2283" false;
         "logs.odp-1" = proxy "http://odp-2:3100" false;
-        "opencode.odp-1" = proxy "http://odp-3:46279" false;
+        "opencode.odp-1" = proxy "http://odp-1:46279" false;
         "paperless.odp-1" = proxy "http://127.0.0.1:28981" false;
         "prometheus.odp-1" = proxy "http://odp-2:9090" false;
       };

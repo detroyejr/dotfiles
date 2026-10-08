@@ -90,7 +90,17 @@
         "/home/detroyejr/.ssh/mini_rsa.pub"
       ];
     };
-    opencode.enable = false;
+    opencode = {
+      enable = true;
+      passwordFile = config.sops.secrets."opencode/password".path;
+    };
+  };
+
+  sops.secrets = {
+    "opencode/password" = {
+      owner = "detroyejr";
+      group = "detroyejr";
+    };
   };
 
   fileSystems."/run/mount/Media" = {

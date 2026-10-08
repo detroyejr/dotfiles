@@ -12,22 +12,6 @@ in
   options = {
     services.opencode = {
       enable = lib.mkEnableOption "Opencode Web Server";
-      user = lib.mkOption {
-        type = lib.types.str;
-        default = "opencode";
-        description = ''
-          User account under which Plex runs.
-        '';
-      };
-
-      group = lib.mkOption {
-        type = lib.types.str;
-        default = "opencode";
-        description = ''
-          Group under which Plex runs.
-        '';
-      };
-
       port = lib.mkOption {
         type = lib.types.int;
         default = 46279;
@@ -59,8 +43,8 @@ in
         ${lib.optionalString (
           cfg.passwordFile != null
         ) "export OPENCODE_SERVER_PASSWORD=$(cat ${lib.escapeShellArg (toString cfg.passwordFile)})"}
-
-        opencode serve --hostname 0.0.0.0 --port 46279 
+        
+        opencode serve --hostname 0.0.0.0 --port ${toString cfg.port} 
       '';
 
       serviceConfig = {
