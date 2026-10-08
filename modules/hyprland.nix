@@ -103,6 +103,7 @@ in
       grim
       hyprpaper
       hyprpicker
+      hyprsunset
       kanshi
       keepass
       libnotify
