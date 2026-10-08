@@ -27,6 +27,10 @@ let
   cdda-no-mod = base-cdda.overrideAttrs (super: {
     # patch doesn't cleanly apply anymore
     patches = [ ];
+    # GCC 16 promotes this warning to an error; upstream demotes it.
+    postPatch = (super.postPatch or "") + ''
+      sed -i '/^  -Wno-c++20-compat$/a CXX_WARNINGS += -Wno-error=sfinae-incomplete' Makefile
+    '';
 
     passthru = super.passthru // {
       pkgs = pkgs.override { build = cdda-no-mod; };
