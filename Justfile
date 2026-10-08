@@ -13,8 +13,8 @@ build-local system:
 build system:
   nixos-rebuild build --flake /home/detroyejr/.config/dotfiles#{{system}}
 
-switch system:
-  nixos-rebuild switch --elevate sudo --ask-elevate-password --flake /home/detroyejr/.config/dotfiles#{{system}}
+switch:
+  nixos-rebuild switch --elevate sudo --ask-elevate-password --flake /home/detroyejr/.config/dotfiles#$(hostnamectl hostname)
 
 remote-odp-2:
   nixos-rebuild switch --flake /home/detroyejr/.config/dotfiles#odp-2 --build-host root@odp-2 --target-host root@odp-2
