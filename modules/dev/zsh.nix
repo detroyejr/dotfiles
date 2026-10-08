@@ -40,6 +40,7 @@ in
         k = "kubectl";
         ll = "eza -l";
         ls = "eza";
+        opencode-remote = "export OPENCODE_PASSWORD=$(cat /run/secrets/opencode/password); opencode --server https://opencode.odp-1";
         pwsh = "pwsh.exe";
         rm = "rm -I";
         ssh = "TERM=xterm-256color ssh";
@@ -66,6 +67,11 @@ in
         ) "eval $(omarchy-theme-set-foot)"}
         ${lib.optionalString config.programs.direnv.enable ''eval "$(direnv hook zsh)"''}
       '';
+    };
+
+    sops.secrets."opencode/password" = {
+      owner = "detroyejr";
+      group = "detroyejr";
     };
 
     environment.systemPackages = with pkgs; [
