@@ -9,8 +9,8 @@ let
   gwfox = pkgs.fetchFromGitHub {
     owner = "akkva";
     repo = "gwfox";
-    rev = "de0aed94ea4ff0dfc99b49d9457e470685e00742";
-    hash = "sha256-hQWcMDYVTpz7bKqy7WyjpwDNBUxLAw2nB2DUvN5xwMQ=";
+    rev = "280b5ce90e15ca4296824768047b2fd167bf661c";
+    hash = "sha256-KhfyO+tDV76KePpCPeTGqtbPYNLqi4leDDQ81KUs3mw=";
   };
   preferenceStr =
     preferences:
