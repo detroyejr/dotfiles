@@ -1,9 +1,18 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.alloy;
 in
 {
   config = lib.mkIf cfg.enable {
+    services.alloy.package = pkgs.grafana-alloy.override {
+      systemdLibs = pkgs.systemdLibs.override { withCompression = true; };
+    };
+
     environment.etc."alloy/config.alloy".text = ''
       prometheus.exporter.unix "local_system" { }
 
