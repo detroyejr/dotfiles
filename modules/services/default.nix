@@ -7,6 +7,7 @@
     ./audiobookshelf.nix
     ./binary-cache.nix
     ./bookorbit.nix
+    ./bookorbit-annotations.nix
     ./calibre-web.nix
     ./custom-whisper-server.nix
     ./docker.nix

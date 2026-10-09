@@ -1,0 +1,259 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Fetch BookOrbit annotations and create one Book Template-style Markdown note
+# per book in Sources/Books. Requires curl and jq.
+#
+# Usage:
+#   cd ~/.config/dotfiles
+#   OBSIDIAN_VAULT=/path/to/vault secretspec run --scope bookorbit -- ./dotfiles/bookorbit-annotations
+#   ./dotfiles/bookorbit-annotations /path/to/vault
+#   BOOKORBIT_TOKEN=... ./dotfiles/bookorbit-annotations [vault-directory]
+#   BOOKORBIT_API_URL=https://example/api/v1/annotations ...
+#   BOOKORBIT_APP_URL=https://example ./dotfiles/bookorbit-annotations ...
+#
+# Credentials are prompted for when not set in the environment. Files in the
+# dedicated output directory are generated and replaced on each run.
+
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+vault_dir=${1:-${OBSIDIAN_VAULT:-$(dirname -- "$script_dir")}}
+api_url=${BOOKORBIT_API_URL:-https://bookorbit.odp-1/api/v1/annotations}
+login_url=${BOOKORBIT_LOGIN_URL:-https://bookorbit.odp-1/api/v1/auth/login}
+books_url=${BOOKORBIT_BOOKS_URL:-${api_url%/annotations}/books}
+app_url=${BOOKORBIT_APP_URL:-https://bookorbit.odp-1}
+output_dir="$vault_dir/Sources/Books"
+cover_dir="$vault_dir/Attachments/Books"
+
+if [[ ! -f "$vault_dir/Templates/Book Template.md" ]]; then
+	printf 'Error: %s is not an Obsidian vault with Templates/Book Template.md. Set OBSIDIAN_VAULT or pass the vault path.\n' "$vault_dir" >&2
+	exit 1
+fi
+
+for dependency in curl jq; do
+	if ! command -v "$dependency" >/dev/null 2>&1; then
+		printf 'Error: required command not found: %s\n' "$dependency" >&2
+		exit 1
+	fi
+done
+
+tmp_dir=$(mktemp -d)
+trap 'rm -rf -- "$tmp_dir"' EXIT
+
+access_token=${BOOKORBIT_TOKEN:-}
+if [[ -z $access_token ]]; then
+	username=${BOOKORBIT_USERNAME:-}
+	password=${BOOKORBIT_PASSWORD:-}
+	if [[ -z $username && -t 0 ]]; then
+		read -r -p 'BookOrbit username: ' username
+	fi
+	if [[ -z $password && -t 0 ]]; then
+		read -r -s -p 'BookOrbit password: ' password
+		printf '\n' >&2
+	fi
+	if [[ -z $username || -z $password ]]; then
+		printf 'Error: set BOOKORBIT_USERNAME and BOOKORBIT_PASSWORD, or BOOKORBIT_TOKEN.\n' >&2
+		exit 1
+	fi
+
+	# Send credentials in a temporary JSON file rather than curl's arguments.
+	jq -n --arg username "$username" --arg password "$password" \
+		'{username: $username, password: $password}' > "$tmp_dir/login-request.json"
+	printf 'Signing in to BookOrbit\n' >&2
+	curl --fail --silent --show-error --location \
+		--header 'Content-Type: application/json' \
+		--data-binary "@$tmp_dir/login-request.json" \
+		"$login_url" --output "$tmp_dir/login-response.json"
+	if ! access_token=$(jq -er '.accessToken | strings | select(length > 0)' "$tmp_dir/login-response.json"); then
+		printf 'Error: login response did not contain an accessToken.\n' >&2
+		exit 1
+	fi
+fi
+
+# Keep the bearer token out of curl's process arguments.
+printf 'Authorization: Bearer %s\n' "$access_token" > "$tmp_dir/auth-header"
+curl_args=(--fail --silent --show-error --location --header "@$tmp_dir/auth-header")
+
+printf 'Fetching annotations from %s\n' "$api_url" >&2
+curl "${curl_args[@]}" "$api_url" --output "$tmp_dir/response.json"
+
+# BookOrbit returns {items, total}; retrieve all active annotations a page at
+# a time. The app's UI uses a page size of 50.
+page=1
+page_size=50
+printf '[]\n' > "$tmp_dir/all-annotations.json"
+while :; do
+	page_file="$tmp_dir/page-$page.json"
+	curl "${curl_args[@]}" --get \
+		--data-urlencode 'status=active' \
+		--data-urlencode "page=$page" \
+		--data-urlencode "pageSize=$page_size" \
+		"$api_url" --output "$page_file"
+
+	if ! jq -e '.items | type == "array"' "$page_file" >/dev/null; then
+		keys=$(jq -r 'if type == "object" then (keys | join(", ")) else type end' "$page_file" 2>/dev/null || true)
+		printf 'Error: expected BookOrbit response with an items array; received top-level shape: %s\n' "${keys:-invalid JSON}" >&2
+		exit 1
+	fi
+
+	item_count=$(jq '.items | length' "$page_file")
+	jq -s '.[0] + .[1].items' "$tmp_dir/all-annotations.json" "$page_file" > "$tmp_dir/all-annotations.next.json"
+	mv -- "$tmp_dir/all-annotations.next.json" "$tmp_dir/all-annotations.json"
+	total=$(jq -r '.total // empty' "$page_file")
+	collected=$(jq 'length' "$tmp_dir/all-annotations.json")
+	if (( item_count == 0 || item_count < page_size )); then
+		break
+	fi
+	if [[ $total =~ ^[0-9]+$ ]] && (( collected >= total )); then
+		break
+	fi
+	((page += 1))
+done
+
+# BookOrbit annotation entries identify their book, while the book endpoint
+# contains richer metadata (authors, ISBNs, page count, genres, etc.). Fetch
+# each distinct book once so the generated Book Template frontmatter is useful.
+jq -n '{}' > "$tmp_dir/book-details.json"
+jq -n '{}' > "$tmp_dir/book-covers.json"
+while IFS= read -r book_id; do
+	[[ $book_id =~ ^[[:alnum:]_-]+$ ]] || continue
+	detail_file="$tmp_dir/book-$book_id.json"
+	if curl "${curl_args[@]}" "$books_url/$book_id" --output "$detail_file" \
+		&& jq -e 'type == "object"' "$detail_file" >/dev/null 2>&1; then
+		jq --arg id "$book_id" --slurpfile detail "$detail_file" \
+			'. + {($id): $detail[0]}' "$tmp_dir/book-details.json" > "$tmp_dir/book-details.next.json"
+		mv -- "$tmp_dir/book-details.next.json" "$tmp_dir/book-details.json"
+	else
+		printf 'Warning: could not load metadata for BookOrbit book %s; using annotation data.\n' "$book_id" >&2
+	fi
+
+	# The BookOrbit UI serves full-size covers from /api/v1/books/{id}/cover.
+	cover_tmp="$tmp_dir/cover-$book_id"
+	if cover_type=$(curl "${curl_args[@]}" --write-out '%{content_type}' \
+		"$books_url/$book_id/cover" --output "$cover_tmp"); then
+		cover_type=${cover_type%%;*}
+		case "$cover_type" in
+			image/jpeg|image/jpg) cover_ext=jpg ;;
+			image/png) cover_ext=png ;;
+			image/webp) cover_ext=webp ;;
+			image/gif) cover_ext=gif ;;
+			image/avif) cover_ext=avif ;;
+			*) cover_ext= ;;
+		esac
+		if [[ -n $cover_ext ]]; then
+			mkdir -p -- "$cover_dir"
+			cover_name="BookOrbit-$book_id.$cover_ext"
+			mv -- "$cover_tmp" "$cover_dir/$cover_name"
+			cover_path="Attachments/Books/$cover_name"
+			jq --arg id "$book_id" --arg path "$cover_path" \
+				'. + {($id): $path}' "$tmp_dir/book-covers.json" > "$tmp_dir/book-covers.next.json"
+			mv -- "$tmp_dir/book-covers.next.json" "$tmp_dir/book-covers.json"
+		else
+			rm -f -- "$cover_tmp"
+		fi
+	else
+		printf 'No cover available for BookOrbit book %s.\n' "$book_id" >&2
+	fi
+done < <(jq -r 'map(.bookId // .book.id // empty | tostring) | unique[]' "$tmp_dir/all-annotations.json")
+
+# Normalize BookOrbit book fields to the Book Template frontmatter keys.
+jq --arg app_url "$app_url" --slurpfile book_details "$tmp_dir/book-details.json" --slurpfile book_covers "$tmp_dir/book-covers.json" '
+  def strings:
+    if . == null then []
+    elif type == "array" then
+      map(if type == "object" then (.name // .title // .value // "") else tostring end)
+      | map(select(length > 0))
+    elif type == "object" then [(.name // .title // .value // "")]
+    else [tostring]
+    end;
+  map(. as $a | ($a.book // {}) as $embedded
+    | ($book_details[0][($a.bookId // $embedded.id // "" | tostring)] // {}) as $detail
+    | ($embedded + $detail) as $b
+    | {
+      title: (($b.title // $a.bookTitle // $a.book_title // $a.title // "Untitled") | tostring),
+      authors: (($b.author // $b.authors // $a.bookAuthor // $a.book_author // $a.author // $a.authors) | strings),
+      cover: (if $book_covers[0][($a.bookId // $embedded.id // "" | tostring)] != null
+              then "[[" + $book_covers[0][($a.bookId // $embedded.id // "" | tostring)] + "]]"
+              else ($b.coverUrl // $b.cover_url // (if ($b.cover | type) == "string" then $b.cover else ($a.coverUrl // $a.cover // null) end))
+              end),
+      genres: (($b.genre // $b.genres // $a.genre // $a.genres) | strings),
+      pages: ($b.pageCount // $b.pages // $a.pages // null),
+      isbn: ($b.isbn10 // $b.isbn // $a.isbn // null),
+      isbn13: ($b.isbn13 // $a.isbn13 // null),
+      year: ($b.publishedYear // $b.year // (($b.publishedDate // "") | tostring | .[0:4] | tonumber?)),
+      rating: ($b.rating // $a.rating // null),
+      reading_status: ($b.readStatus.status // $b.readStatus // $a.readStatus.status // $a.readStatus // null),
+      topics: (($b.topics // $b.tags // $a.topics) | strings),
+      text: (($a.text // $a.quote // $a.highlight.text // $a.highlight // $a.content // "") | tostring),
+      note: (($a.note // $a.comment // "") | tostring),
+      page: ($a.pageno // $a.page // $a.pageNumber // $a.page_number // null),
+      location: ($a.location // null),
+      chapter: ($a.chapterTitle // null),
+      reader_link: (if $a.jumpFileId != null and $a.jumpFileFormat != null
+                    and (($a.cfi // "") != "" or $a.pageno != null)
+                   then "" + $app_url + "/read/" + ($a.bookId | tostring) + "/" + ($a.jumpFileId | tostring)
+                     + "?format=" + ($a.jumpFileFormat | @uri)
+                     + (if ($a.cfi // "") != "" then "&cfi=" + ($a.cfi | @uri)
+                        elif $a.pageno != null then "&page=" + ($a.pageno | tostring | @uri)
+                        else "" end)
+                   else null end)
+    })
+' "$tmp_dir/all-annotations.json" > "$tmp_dir/annotations.json"
+
+if ! jq -e 'type == "array"' "$tmp_dir/annotations.json" >/dev/null; then
+	printf 'Error: BookOrbit response did not contain an annotation list.\n' >&2
+	exit 1
+fi
+
+mkdir -p -- "$output_dir"
+today=$(date +%F)
+declare -A output_names=()
+
+while IFS= read -r title; do
+	# Keep generated note names safe as paths while retaining readable titles.
+	filename=$(printf '%s' "$title" | sed 's#[/\\]#-#g; s/^[. ]*//; s/[. ]*$//')
+	[[ -n $filename ]] || filename=Untitled
+	if [[ ${output_names[$filename]+present} ]]; then
+		printf 'Error: multiple book titles map to the same filename: %s\n' "$filename" >&2
+		exit 1
+	fi
+	output_names[$filename]=1
+
+	jq -r --arg title "$title" --arg today "$today" '
+    def yaml_scalar:
+      if . == null then "" else tojson end;
+    def wikilinks:
+      map(if startswith("[[") then . else "[[" + . + "]]" end) | tojson;
+    [.[] | select(.title == $title)] as $items
+    | $items[0] as $book
+    | "---\n"
+      + "categories:\n  - \"[[Books]]\"\n"
+      + "author: " + ($book.authors | wikilinks) + "\n"
+      + "cover: " + ($book.cover | yaml_scalar) + "\n"
+      + "genre: " + ($book.genres | wikilinks) + "\n"
+      + "pages: " + ($book.pages | yaml_scalar) + "\n"
+      + "isbn: " + ($book.isbn | yaml_scalar) + "\n"
+      + "isbn13: " + ($book.isbn13 | yaml_scalar) + "\n"
+      + "year: " + ($book.year | yaml_scalar) + "\n"
+      + "rating: " + ($book.rating | yaml_scalar) + "\n"
+      + "reading_status: " + ($book.reading_status | yaml_scalar) + "\n"
+      + "topics: " + ($book.topics | wikilinks) + "\n"
+      + "created: " + $today + "\n"
+      + "last:\nvia: \"\"\ntags:\n  - to-read\n---\n\n"
+      + "## Quotes\n\n"
+       + ([$items[] | select(.text != "") | . as $a
+           | ([if $a.page != null then "Page: " + ($a.page | tostring) else empty end,
+               if $a.location != null then "Location: " + ($a.location | tostring) else empty end,
+               if $a.chapter != null and $a.page == null and $a.location == null then "Chapter: " + ($a.chapter | tostring) else empty end,
+               if $a.reader_link != null then "[Open in BookOrbit](" + $a.reader_link + ")" else empty end]
+              | if length > 0 then "> **" + (join(" · ")) + "**\n>\n" else "" end)
+            + (($a.text | gsub("\\r"; "") | split("\n") | map("> " + .) | join("\n")))
+            + (if $a.note != "" then "\n>\n> **Note:** " + ($a.note | gsub("\\r"; "") | gsub("\n"; "\n> ")) else "" end)
+          ] | join("\n\n"))
+      + "\n"
+  ' "$tmp_dir/annotations.json" > "$tmp_dir/note.md"
+
+	# Atomic replacement ensures interrupted runs do not leave partial notes.
+	mv -- "$tmp_dir/note.md" "$output_dir/$filename.md"
+done < <(jq -r 'map(.title) | unique[]' "$tmp_dir/annotations.json")
+
+printf 'BookOrbit notes written to %s\n' "$output_dir"

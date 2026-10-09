@@ -60,6 +60,10 @@
     actual.enable = true;
     alloy.enable = true;
     binaryCache.enable = true;
+    bookorbitAnnotations = {
+      enable = true;
+      vaultDirectory = "/home/${config.defaultUser}/Documents/Personal";
+    };
     calibre-web.enable = true;
     changedetection-io = {
       enable = true;
