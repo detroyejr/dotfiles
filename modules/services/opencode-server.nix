@@ -37,6 +37,7 @@ in
 
       path = [
         inputs.opencode.outputs.packages.x86_64-linux.opencode
+        pkgs.git
       ];
 
       script = ''
