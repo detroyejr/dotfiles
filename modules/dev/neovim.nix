@@ -40,6 +40,7 @@ in
           vim.opt.colorcolumn = "89"
           vim.opt.completeopt = 'menu,menuone,noselect,nearest'
           vim.opt.expandtab = true
+          vim.opt.exrc = true
           vim.opt.fileformat = "unix"
           vim.opt.fixendofline = true
           vim.opt.path = ",,**"
