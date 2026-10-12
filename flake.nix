@@ -29,7 +29,7 @@
     };
 
     opencode = {
-      url = "github:anomalyco/opencode/v2";
+      url = "github:anomalyco/opencode/dev";
     };
   };
 
