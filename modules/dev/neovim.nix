@@ -7,12 +7,12 @@
 let
   cfg = config.programs.neovim;
   opencode-nvim = pkgs.vimPlugins.opencode-nvim.overrideAttrs (_: {
-    version = "main";
+    version = "pr-338";
     src = pkgs.fetchFromGitHub {
       owner = "nickjvandyke";
       repo = "opencode.nvim";
-      rev = "main";
-      hash = "sha256-cY56YBPNQsutfTBtOsMkJaLRvxjQM4mO61A5w9Q8HWs=";
+      rev = "56af53acd5ee2af23c8e0e89cbd64ae592e4b47c";
+      hash = "sha256-rb1g3MfUnbhJlqOGfY8bkaXnD+E1QEuUEkWqdbt4+T8=";
     };
   });
 in
