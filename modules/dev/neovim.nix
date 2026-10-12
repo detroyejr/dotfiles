@@ -6,6 +6,15 @@
 }:
 let
   cfg = config.programs.neovim;
+  opencode-nvim = pkgs.vimPlugins.opencode-nvim.overrideAttrs (_: {
+    version = "main";
+    src = pkgs.fetchFromGitHub {
+      owner = "nickjvandyke";
+      repo = "opencode.nvim";
+      rev = "main";
+      hash = "sha256-cY56YBPNQsutfTBtOsMkJaLRvxjQM4mO61A5w9Q8HWs=";
+    };
+  });
 in
 {
   config = lib.mkIf cfg.enable {
