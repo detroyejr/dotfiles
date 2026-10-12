@@ -320,31 +320,31 @@ in
 
 
           vim.keymap.set(
-            "n",
+            { "n", "x" },
             "<Leader>aa",
-            function() require("opencode").toggle() end,
-            opts
+            function() require("opencode").prompt("@this: ") end,
+            { desc = "Send this to OpenCode", silent = true }
           )
 
           vim.keymap.set(
             "n",
             "<Leader>an",
-            ":tabnew | terminal opencode --port<CR>",
-            opts
+            ":tabnew | terminal opencode<CR>",
+            { desc = "Open OpenCode in a tab", silent = true }
           )
 
           vim.keymap.set(
             { "x", "n" },
             "<leader>at",
-            function() require("opencode").ask("@this: ", { submit = true }) end,
-            opts
+            function() require("opencode").ask("@this: ") end,
+            { desc = "Ask OpenCode about this", silent = true }
           )
 
           vim.keymap.set(
             { "x", "n" },
             "<leader>ac",
-            function() require("opencode").ask("", { submit = true }) end,
-            opts
+            function() require("opencode").ask("") end,
+            { desc = "Ask OpenCode", silent = true }
           )
 
           vim.keymap.set(
