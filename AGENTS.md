@@ -25,3 +25,13 @@
 - `secrets/secrets.yaml` is SOPS-encrypted. `.envrc` loads the age key from
   `~/.ssh/main_server_ed25519`; do not print or commit decrypted secrets.
   Preserve `flake.lock` unless changing dependencies.
+
+- Always follow commit conventions when writing commits. Write one commit per
+  change for each program using the message template `<program/service>: <what
+  changed>`. The following are examples of good commit messages:
+    * hyprland: remove stale swaync binding
+    * omarchy: disable notifications daemon
+    * neovim: use patched opencode plugin
+    * alloy: enable systemd compression
+    * bookorbit: sync annotations with obsidian
+    * flake: bump flake.lock
