@@ -5,33 +5,51 @@
   networking = {
     hostName = "razorback";
     useDHCP = false;
+    useNetworkd = true;
     wireless.enable = lib.mkForce false;
-    defaultGateway = "192.168.1.1";
-    defaultGateway6 = {
-      address = "fe80::ae91:9bff:fe03:2914";
-      interface = "end0";
-    };
-    interfaces.end0 = {
-      ipv4 = {
-        addresses = [
-          {
-            address = "192.168.1.160";
-            prefixLength = 24;
-          }
-        ];
-      };
-      ipv6 = {
-        addresses = [
-          {
-            address = "2600:4040:2484:b00:ba27:ebff:fe98:cb6f";
-            prefixLength = 64;
-          }
-        ];
-      };
-    };
     firewall = {
       allowedTCPPorts = [ 51820 ];
       allowedUDPPorts = [ 51820 ];
+    };
+  };
+
+  systemd.network = {
+    enable = true;
+    netdevs."50-tun1" = {
+      netdevConfig = {
+        Name = "tun1";
+        Kind = "tun";
+      };
+    };
+    networks."50-tun1" = {
+      matchConfig.Name = "tun1";
+      addresses = [
+        {
+          Address = "10.1.1.2/30";
+          Peer = "10.1.1.1/30";
+        }
+      ];
+
+      routes = [
+        {
+          Destination = "10.0.50.0/24";
+          Gateway = "10.1.1.1";
+        }
+      ];
+    };
+    networks."10-end0" = {
+      matchConfig.Name = "end0";
+      address = [
+        "192.168.1.160/24"
+        "2600:4040:2484:b00:ba27:ebff:fe98:cb6f/64"
+      ];
+      routes = [
+        { Gateway = "192.168.1.1"; }
+        {
+          Gateway = "fe80::ae91:9bff:fe03:2914";
+          GatewayOnLink = true;
+        }
+      ];
     };
   };
 
