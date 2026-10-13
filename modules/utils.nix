@@ -682,7 +682,6 @@ let
         hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"omarchy system lock\""))
       ''}
 
-      hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("bash -c \"swaync-client -t\""))
       hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
       hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("grim"))
 
