@@ -582,7 +582,10 @@ let
           hl.exec_cmd("hyprlock")
         ''}
 
-        hl.exec_cmd("kanshi & mako --config /etc/xdg/mako/mako.ini & blueman-applet")
+        hl.exec_cmd("kanshi & mako --config /etc/xdg/mako/mako.ini")
+        ${lib.optionalString (!config.programs.omarchy-quickshell.enable) ''
+          hl.exec_cmd("blueman-applet")
+        ''}
         hl.exec_cmd("hyprctl dispatch dpms on")
 
         ${lib.optionalString config.programs.firefox.enable ''
