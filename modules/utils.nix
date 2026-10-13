@@ -582,7 +582,7 @@ let
           hl.exec_cmd("hyprlock")
         ''}
 
-        hl.exec_cmd("kanshi & mako --config /etc/xdg/mako/mako.ini")
+        hl.exec_cmd("kanshi")
         ${lib.optionalString (!config.programs.omarchy-quickshell.enable) ''
           hl.exec_cmd("blueman-applet")
         ''}
