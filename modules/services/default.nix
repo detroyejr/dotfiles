@@ -21,6 +21,7 @@
     ./immich.nix
     ./llm.nix
     ./loki.nix
+    ./localsend.nix
     ./opencode-server.nix
     ./openrgb.nix
     ./paperless.nix

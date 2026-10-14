@@ -24,6 +24,7 @@
     element-desktop
     hyperion-ng
     libreoffice
+    localsend-cli
     lutris
     nfs-utils
     obsidian
@@ -45,6 +46,11 @@
     hyprland.enable = true;
     neovim.enable = true;
     opencode.enable = true;
+    localsend = {
+      enable = true;
+      openFirewall = true;
+      package = pkgs.localsendDesktop;
+    };
     python.enable = false;
     r.enable = false;
     mosh.enable = true;
@@ -76,6 +82,7 @@
     odpCA.enable = true;
     odpProxy.enable = true;
     freshrss.enable = true;
+    localsend-cli.enable = true;
     openrgb.enable = true;
     paperless.enable = true;
     rclone = {

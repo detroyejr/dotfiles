@@ -568,30 +568,11 @@ let
 
       hl.on("hyprland.start", function () 
         hl.exec_cmd(terminal)
-
-        ${lib.optionalString config.programs.waybar.enable ''
-          hl.exec_cmd("waybar --config /etc/xdg/CURRENT_THEME/waybar/config --style /etc/xdg/CURRENT_THEME/waybar/style.css")
-        ''}
-
-        ${lib.optionalString config.programs.omarchy-quickshell.enable ''
-          hl.exec_cmd("omarchy launch shell")
-          hl.exec_cmd("omarchy system lock")
-        ''}
-
-        ${lib.optionalString (!config.programs.omarchy-quickshell.enable) ''
-          hl.exec_cmd("hyprlock")
-        ''}
-
-        hl.exec_cmd("kanshi")
-        ${lib.optionalString (!config.programs.omarchy-quickshell.enable) ''
-          hl.exec_cmd("blueman-applet")
-        ''}
         hl.exec_cmd("hyprctl dispatch dpms on")
 
-        ${lib.optionalString config.programs.firefox.enable ''
-          hl.exec_cmd("firefox", { workspace = "2 silent" })
-        ''}
-
+        hl.exec_cmd("omarchy launch shell")
+        hl.exec_cmd("omarchy system lock")
+        hl.exec_cmd("firefox", { workspace = "2 silent" })
         hl.exec_cmd("obsidian", { workspace = "3 silent" })
         hl.exec_cmd("keepass $HOME/Documents/Sync/Personal_KeyPass.kdbx", { workspace = "9 silent" })
       end)
