@@ -117,6 +117,11 @@
     git.enable = true;
     hyprland.enable = true;
     neovim.enable = true;
+    localsend = {
+      enable = true;
+      openFirewall = true;
+      package = pkgs.localsendDesktop;
+    };
     opencode.enable = true;
     steam.enable = true;
     thunar.enable = true;
@@ -146,6 +151,7 @@
     element-desktop
     hyperion-ng
     libreoffice
+    localsend-cli
     nfs-utils
     obsidian
     plex-desktop
