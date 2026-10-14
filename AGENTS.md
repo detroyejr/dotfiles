@@ -35,3 +35,7 @@
     * alloy: enable systemd compression
     * bookorbit: sync annotations with obsidian
     * flake: bump flake.lock
+
+- If available use existing service and program options. e.g. Prefer
+  `programs.localsend.enable = true` over
+  `users.users.${defaultUser}.packages = [ localsend ];`
