@@ -62,7 +62,6 @@
       enable = true;
       vaultDirectory = "/home/${config.defaultUser}/Documents/Personal";
     };
-    calibre-web.enable = true;
     changedetection-io = {
       enable = true;
       listenAddress = "0.0.0.0";
