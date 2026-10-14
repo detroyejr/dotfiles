@@ -111,6 +111,8 @@
       "rw"
       "relatime"
       "user"
+      "nofail"
+      "x-systemd.automount"
     ];
   };
 
