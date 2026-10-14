@@ -73,7 +73,6 @@
     odpCA.enable = true;
     odpProxy.enable = true;
     freshrss.enable = true;
-    localsend-cli.enable = true;
     openrgb.enable = true;
     paperless.enable = true;
     rclone = {
