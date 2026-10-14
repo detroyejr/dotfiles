@@ -104,18 +104,6 @@
     };
   };
 
-  fileSystems."/run/mount/Media" = {
-    device = "192.168.1.107:/mnt/nas0/Media";
-    fsType = "nfs";
-    options = [
-      "rw"
-      "relatime"
-      "user"
-      "nofail"
-      "x-systemd.automount"
-    ];
-  };
-
   networking = {
     hostName = "odp-1";
     networkmanager.enable = lib.mkForce false;
@@ -144,6 +132,21 @@
   };
 
   systemd = {
+    mounts = [
+      {
+        what = "192.168.1.107:/mnt/nas0/Media";
+        where = "/run/mount/Media";
+        type = "nfs";
+        options = "rw,relatime,user";
+        mountConfig.LazyUnmount = true;
+      }
+    ];
+    automounts = [
+      {
+        where = "/run/mount/Media";
+        wantedBy = [ "multi-user.target" ];
+      }
+    ];
     targets = {
       sleep.enable = false;
       suspend.enable = false;
