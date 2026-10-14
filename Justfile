@@ -2,7 +2,7 @@ default:
   just --list
 
 setup: 
-  eval $(ssh-agent) && ssh-add ~/.ssh/github_rsa
+  ssh-add /home/detroyejr/.ssh/github_rsa && ssh-add /home/detroyejr/.ssh/mini_rsa
 
 build-keep-going system:
   nixos-rebuild build --keep-going --flake /home/detroyejr/.config/dotfiles#{{system}}
@@ -76,7 +76,8 @@ copy-cache system:
   nix copy --to ssh://detroyejr@odp-3 .#nixosConfigurations.{{system}}.config.system.build.toplevel
   nix copy --to ssh://detroyejr@odp-4 .#nixosConfigurations.{{system}}.config.system.build.toplevel
 
-ci: stash checkout-initial pull checkout-lockfile core cleanup rebase-lockfile stash-apply
+ci:
+  if [ -z "$SSH_AUTH_SOCK" ]; then eval "$(ssh-agent -s)"; fi && just setup && just stash checkout-initial pull checkout-lockfile core cleanup rebase-lockfile stash-apply
 
 # Upgrade after nix profile add --impure.
 profile:
