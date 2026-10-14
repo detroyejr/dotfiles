@@ -546,7 +546,7 @@ let
       }
     '';
   mkHyprlandConfig =
-    config: themeName:
+    config:
     pkgs.writeText "hyprland.lua" ''
       local terminal = "foot"
       local file_browser = "nautilus"
@@ -564,7 +564,12 @@ let
       hl.env("TERMINAL", terminal)
       hl.env("THEME", "/etc/xdg/CURRENT_THEME")
       hl.env("GTK_DATA_PREFIX", "/etc/xdg/CURRENT_THEME/gtk")
-      hl.env("GTK_THEME", "${themeName}")
+
+      local gtkThemeCommand = io.popen("find -L /etc/xdg/CURRENT_THEME/gtk/share/themes -mindepth 1 -maxdepth 1 -type d -print -quit")
+      local gtkThemePath = gtkThemeCommand and gtkThemeCommand:read("*l")
+      if gtkThemeCommand then gtkThemeCommand:close() end
+      local gtkTheme = gtkThemePath and gtkThemePath:match("[^/]+$") or "Adwaita"
+      hl.env("GTK_THEME", gtkTheme)
 
       hl.on("hyprland.start", function () 
         hl.exec_cmd(terminal)
@@ -643,7 +648,7 @@ let
       hl.bind(mainMod .. " + SHIFT + J", hl.dsp.exec_cmd("bash -c \"if pgrep -x @obsidian > /dev/null; then pkill obsidian; else obsidian; fi\""))
       hl.bind(mainMod .. " + SHIFT + K", hl.dsp.exec_cmd("bash -c \"if pgrep -x mono > /dev/null; then pkill mono; else keepass; fi\""))
       hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd("grim -g \"$(slurp)\""))
-      hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("next-wallpaper"))
+      hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("omarchy theme bg next "))
       hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
       hl.bind(mainMod .. " + C", hl.dsp.window.close())
       hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(file_browser))
@@ -1104,7 +1109,7 @@ let
   mkTheme =
     config: wall: scheme: font:
     let
-      hyprlandConfig = mkHyprlandConfig config scheme.slug;
+      hyprlandConfig = mkHyprlandConfig config;
     in
     pkgs.stdenv.mkDerivation {
       name = "theme-${wall.name}";

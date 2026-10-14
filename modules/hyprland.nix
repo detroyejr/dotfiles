@@ -6,23 +6,12 @@
 }:
 let
   cfg = config.programs.hyprland;
-  utils = import ./utils.nix { inherit pkgs lib; };
-  inherit (utils)
-    themeNames
-    schemes
-    mkNextWallpaper
-    mkSetTheme
-    mkRofiThemeSelector
-    mkTheme
-    ;
+  inherit (import ./utils.nix { inherit pkgs lib; }) mkHyprlandConfig;
 in
 {
   imports = [
     ./gtk.nix
-    ./hyprlock.nix
     ./omarchy-quickshell.nix
-    ./rofi.nix
-    ./wallpaper.nix
   ];
 
   options = {
@@ -44,16 +33,11 @@ in
       type = lib.types.attrs;
       description = "Cursor theme settings (cursor name, size and package).";
     };
-    themes = lib.mkOption {
-      default = map (
-        wall: mkTheme config wall schemes.${themeNames.${wall.name}} config.font
-      ) config.walls;
-      type = lib.types.listOf lib.types.package;
-      description = "List of wallpaper derivations with resized variants.";
-    };
   };
 
   config = lib.mkIf cfg.enable {
+
+    environment.etc."xdg/hypr/hyprland.lua".source = mkHyprlandConfig config;
 
     xdg.portal = {
       config.common.default = "*";
@@ -89,9 +73,6 @@ in
     };
 
     users.users.${config.defaultUser}.packages = with pkgs; [
-      (mkNextWallpaper config)
-      (mkSetTheme config)
-      (mkRofiThemeSelector config)
       acpi
       alsa-utils
       blueman
@@ -125,28 +106,5 @@ in
       xdo
       xdotool
     ];
-
-    system.activationScripts = {
-      setTheme = ''
-        #!/usr/bin/env bash
-
-        # Collect paths into an array.
-        export themePaths=(${lib.concatStringsSep " " config.themes})
-        export themeName=(${lib.concatStringsSep " " (lib.attrNames themeNames)})
-        export index=''$((RANDOM % ''${#themePaths[@]}))
-        currentTheme="''${themePaths[''$index]}"
-        if [ -d /etc/xdg/CURRENT_THEME ]; then
-          unlink /etc/xdg/CURRENT_THEME
-        fi;
-        ln -s $currentTheme /etc/xdg/CURRENT_THEME
-
-        for path in wezterm waybar hypr mako; do
-          if [ -d "/etc/xdg/$path" ]; then
-            unlink "/etc/xdg/$path"
-          fi;
-          ln -s "$currentTheme/$path" "/etc/xdg/$path"
-        done;
-      '';
-    };
   };
 }

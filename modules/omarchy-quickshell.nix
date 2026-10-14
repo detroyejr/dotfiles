@@ -63,13 +63,6 @@ in
       chromium
     ];
 
-    themes = [
-      (mkTheme config (builtins.head config.walls)
-        schemes.${themeNames.${(builtins.head config.walls).name}}
-        config.font
-      )
-    ];
-
     fonts.packages = lib.mkBefore [ omarchy ];
   };
 }
