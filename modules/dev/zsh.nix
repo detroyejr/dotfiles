@@ -37,6 +37,7 @@ in
       shellAliases = {
         ask = "opencode mini --agent research --prompt";
         btop = "btop --config ${btop-conf}";
+        gfx = "git add -A && git commit --fixup $(git log --oneline -n 10 | fzf | cut -d\" \" -f1) && git rebase HEAD~10 --autosquash";
         k = "kubectl";
         ll = "eza -l";
         ls = "eza";
