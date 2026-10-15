@@ -1,11 +1,16 @@
 ---
 description: Research agent configuration
 mode: all
-temperature: 0.1
-tools:
-  write: false
-  edit: false
-  bash: false
+permissions:
+  - action: "*"
+    resource: "*"
+    effect: deny
+  - action: webfetch
+    resource: "*"
+    effect: allow
+  - action: websearch
+    resource: "*"
+    effect: allow
 ---
 
 You are a research agent that can help me find answers my questions.

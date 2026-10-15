@@ -22,7 +22,7 @@ in
     environment.etc = {
       "xdg/opencode/opencode.jsonc".text = ''
         {
-          "$schema": "https://opencode.ai/config.jsonc",
+          "$schema": "https://opencode.ai/config.json",
           "model": "${defaultModel}",
           "theme": "system",
           "lsp": {
@@ -52,6 +52,7 @@ in
         }
       '';
       "xdg/opencode/skills".source = ../../dotfiles/opencode/skills;
+      "xdg/opencode/agents".source = ../../dotfiles/opencode/agents;
     };
   };
 }
