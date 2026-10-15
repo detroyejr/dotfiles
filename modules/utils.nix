@@ -648,7 +648,7 @@ let
       hl.bind(mainMod .. " + SHIFT + J", hl.dsp.exec_cmd("bash -c \"if pgrep -x @obsidian > /dev/null; then pkill obsidian; else obsidian; fi\""))
       hl.bind(mainMod .. " + SHIFT + K", hl.dsp.exec_cmd("bash -c \"if pgrep -x mono > /dev/null; then pkill mono; else keepass; fi\""))
       hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd("grim -g \"$(slurp)\""))
-      hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("omarchy theme bg switcher"))
+      hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("omarchy theme bg set \"$(omarchy theme bg switcher)\""))
       hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
       hl.bind(mainMod .. " + C", hl.dsp.window.close())
       hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(file_browser))
