@@ -15,6 +15,11 @@ let
       }) cfg.qmkDevices;
     }
   );
+  rgb-theme-sync = pkgs.writeScriptBin "openrgb-theme-sync" ''
+    openrgb \
+      --color $(omarchy theme color color1 | cut -d# -f2) \
+      --mode 'Solid Reactive Multi Wide'
+  '';
 in
 {
   options.services.openrgb = {
@@ -48,6 +53,8 @@ in
 
   config = lib.mkIf cfg.enable {
     services.hardware.openrgb.enable = true;
+
+    users.users.${config.defaultUser}.packages = [ rgb-theme-sync ];
 
     systemd.services.openrgb = lib.mkIf (cfg.qmkDevices != [ ]) {
       serviceConfig.ExecStart = lib.mkForce (

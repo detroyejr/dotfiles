@@ -562,14 +562,8 @@ let
       end
 
       hl.env("TERMINAL", terminal)
-      hl.env("THEME", "/etc/xdg/CURRENT_THEME")
-      hl.env("GTK_DATA_PREFIX", "/etc/xdg/CURRENT_THEME/gtk")
 
-      local gtkThemeCommand = io.popen("find -L /etc/xdg/CURRENT_THEME/gtk/share/themes -mindepth 1 -maxdepth 1 -type d -print -quit")
-      local gtkThemePath = gtkThemeCommand and gtkThemeCommand:read("*l")
-      if gtkThemeCommand then gtkThemeCommand:close() end
-      local gtkTheme = gtkThemePath and gtkThemePath:match("[^/]+$") or "Adwaita"
-      hl.env("GTK_THEME", gtkTheme)
+      ${lib.optionalString config.services.openrgb.enable ''hl.exec_cmd("openrgb-theme-sync")''}
 
       hl.on("hyprland.start", function () 
         hl.exec_cmd(terminal)

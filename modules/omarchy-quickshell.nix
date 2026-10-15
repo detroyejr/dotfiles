@@ -6,11 +6,6 @@
 }:
 let
   cfg = config.programs.omarchy-quickshell;
-  inherit (import ./utils.nix { inherit pkgs lib; })
-    mkTheme
-    schemes
-    themeNames
-    ;
   omarchy = pkgs.omarchy-quickshell.overrideAttrs (attrs: {
     postPatch = (attrs.postPatch or "") + ''
       # Hyprpaper doesn't work with  webp so we'll convert.
