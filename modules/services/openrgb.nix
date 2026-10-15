@@ -50,6 +50,16 @@ in
     services.hardware.openrgb.enable = true;
 
     systemd.services.openrgb = lib.mkIf (cfg.qmkDevices != [ ]) {
+      serviceConfig.ExecStart = lib.mkForce (
+        lib.escapeShellArgs [
+          (lib.getExe config.services.hardware.openrgb.package)
+          "--server"
+          "--server-port"
+          (toString config.services.hardware.openrgb.server.port)
+          "--localconfig"
+        ]
+      );
+
       preStart = ''
         set -eu
         config_file=/var/lib/OpenRGB/OpenRGB.json
@@ -57,7 +67,7 @@ in
         trap '${pkgs.coreutils}/bin/rm -f "$tmp_file"' EXIT
 
         if [ -s "$config_file" ]; then
-          ${pkgs.jq}/bin/jq --argfile qmk ${qmkDeviceSettings} '. * $qmk' "$config_file" > "$tmp_file"
+          ${pkgs.jq}/bin/jq --slurpfile qmk ${qmkDeviceSettings} '. * $qmk[0]' "$config_file" > "$tmp_file"
         else
           ${pkgs.coreutils}/bin/cp ${qmkDeviceSettings} "$tmp_file"
         fi
