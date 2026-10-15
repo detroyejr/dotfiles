@@ -75,7 +75,16 @@
     odpCA.enable = true;
     odpProxy.enable = true;
     freshrss.enable = true;
-    openrgb.enable = true;
+    openrgb = {
+      enable = true;
+      qmkDevices = [
+        {
+          name = "Massdrop CTRL";
+          usbVid = "04D8";
+          usbPid = "EED2";
+        }
+      ];
+    };
     paperless.enable = true;
     rclone = {
       onedrive.enable = true;
