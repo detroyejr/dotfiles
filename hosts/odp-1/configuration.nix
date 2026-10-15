@@ -10,25 +10,26 @@
   imports = [ inputs.nixos-hardware.nixosModules.dell-optiplex-3050 ];
 
   hardware.keyboard.qmk.enable = true;
-
-  users.users.${config.defaultUser}.packages = with pkgs; [
-    anki
-    calibre
-    discord
-    element-desktop
-    hyperion-ng
-    libreoffice
-    localsend-cli
-    lutris
-    nfs-utils
-    obsidian
-    plex-desktop
-    plex-htpc
-    plexamp
-    slack
-    vlc
-    yt-dlp
-  ];
+  users.users.${config.defaultUser} = {
+    packages = with pkgs; [
+      anki
+      calibre
+      discord
+      element-desktop
+      hyperion-ng
+      libreoffice
+      localsend-cli
+      lutris
+      nfs-utils
+      obsidian
+      plex-desktop
+      plex-htpc
+      plexamp
+      slack
+      vlc
+      yt-dlp
+    ];
+  };
 
   programs = {
     bash.enable = true;
