@@ -36,6 +36,8 @@
     * bookorbit: sync annotations with obsidian
     * flake: bump flake.lock
 
+- Ask before pushing commits to Github.
+
 - If available use existing service and program options. e.g. Prefer
   `programs.localsend.enable = true` over
   `users.users.${defaultUser}.packages = [ localsend ];`
