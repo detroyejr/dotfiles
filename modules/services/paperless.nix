@@ -15,6 +15,10 @@ in
       passwordFile = config.sops.secrets."paperless/password".path;
     };
 
+    users.users.${config.defaultUser}.extraGroups = [
+      config.services.redis.servers.paperless.group
+    ];
+
     networking.firewall.allowedTCPPorts = [ config.services.paperless.port ];
   };
 }
