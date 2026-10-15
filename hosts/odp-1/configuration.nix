@@ -9,6 +9,8 @@
 
   imports = [ inputs.nixos-hardware.nixosModules.dell-optiplex-3050 ];
 
+  hardware.keyboard.qmk.enable = true;
+
   users.users.${config.defaultUser}.packages = with pkgs; [
     anki
     calibre
