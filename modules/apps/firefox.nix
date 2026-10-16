@@ -1,17 +1,10 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 let
   cfg = config.programs.firefox;
-  gwfox = pkgs.fetchFromGitHub {
-    owner = "akkva";
-    repo = "gwfox";
-    rev = "280b5ce90e15ca4296824768047b2fd167bf661c";
-    hash = "sha256-KhfyO+tDV76KePpCPeTGqtbPYNLqi4leDDQ81KUs3mw=";
-  };
   preferenceStr =
     preferences:
     lib.concatLines (
@@ -45,20 +38,6 @@ let
     "datareporting.policy.dataSubmissionEnabled" = false;
     "datareporting.usage.uploadEnabled" = false;
     "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
-    "gwfox.ac" = true;
-    "gwfox.atbc" = true;
-    "gwfox.blur" = true;
-    "gwfox.bms" = true;
-    "gwfox.icons" = true;
-    "gwfox.fsi" = true;
-    "gwfox.msc" = true;
-    "gwfox.mwc" = true;
-    "gwfox.newtab" = true;
-    "gwfox.noborder" = true;
-    "gwfox.sidebar" = 1;
-    "gwfox.toolbar" = true;
-    "gwfox.urlbar" = true;
-    "gwfox.urlbar.ac" = true;
     "sidebar.main.tools" = "";
     "sidebar.verticalTabs" = true;
     "svg.context-properties.content.enabled" = true;
@@ -101,35 +80,6 @@ in
 
     environment.sessionVariables = {
       BROWSER = "firefox";
-    };
-
-    # Set the theme.
-    system.activationScripts = {
-      firefoxTheme = {
-        deps = [ "specialfs" ];
-        text = ''
-          mkdir -p /etc/xdg/mozilla/firefox \
-            && chown -R ${config.defaultUser} /etc/xdg/mozilla/firefox
-
-          cat <<EOF >> /etc/xdg/mozilla/firefox/profiles.ini
-            [Profile0]
-            Name=default
-            IsRelative=1
-            Path=d3cgob0q.default
-            Default=1
-
-            [General]
-            StartWithLastProfile=1
-            Version=2
-          EOF
-
-          rm -rf /etc/xdg/mozilla/firefox/d3cgob0q.default/chrome && \
-            mkdir -p /etc/xdg/mozilla/firefox/d3cgob0q.default/chrome && \
-            ln -sfn ${gwfox}/*.css /etc/xdg/mozilla/firefox/d3cgob0q.default/chrome
-
-          chown -R ${config.defaultUser} /etc/xdg/mozilla/firefox
-        '';
-      };
     };
   };
 }
