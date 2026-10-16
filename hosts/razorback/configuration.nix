@@ -13,6 +13,7 @@
     };
   };
 
+  services.resolved.enable = false;
   systemd.network = {
     enable = true;
     netdevs."50-tun1" = {
