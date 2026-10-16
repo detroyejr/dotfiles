@@ -28,6 +28,7 @@
     ./plex.nix
     ./prometheus.nix
     ./rclone.nix
+    ./sunshine.nix
     ./syncthing.nix
     ./veikk.nix
     ./virtualization.nix

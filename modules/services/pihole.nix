@@ -78,6 +78,7 @@ in
             "192.168.1.222 paperless.odp-1"
             "192.168.1.222 changedetection.odp-1"
             "192.168.1.222 opencode.odp-1"
+            "192.168.1.222 sunshine.odp-1"
             "192.168.1.108 scorpion"
             "107.152.96.161 resources.zune.net"
           ];

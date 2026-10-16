@@ -37,6 +37,7 @@ in
         "opencode.odp-1" = proxy "http://odp-1:46279" false;
         "paperless.odp-1" = proxy "http://127.0.0.1:28981" false;
         "prometheus.odp-1" = proxy "http://odp-2:9090" false;
+        "sunshine.odp-1" = proxy "https://127.0.0.1:47990" true;
       };
     };
 

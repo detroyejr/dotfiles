@@ -91,6 +91,7 @@
       onedrive.enable = true;
     };
     syncthing.enable = true;
+    sunshine.enable = true;
     virtualization.enable = false;
     openssh = {
       enable = true;
