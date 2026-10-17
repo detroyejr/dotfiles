@@ -34,7 +34,13 @@ in
       description = "Opencode Web Server";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      environment.XDG_CONFIG_HOME = "/etc/xdg";
+      environment = {
+        XDG_CONFIG_HOME = "/etc/xdg";
+        # Let the Firefox browser-tool plugin open Firefox itself when it is not
+        # running: the plugin passes the profile as a single --profile argument.
+        OPENCODE_FIREFOX_BIN = "${pkgs.firefox}/bin/firefox";
+        OPENCODE_FIREFOX_PROFILE = "/etc/xdg/mozilla/firefox/mEMDtC01.Profile 1";
+      };
 
       path = [
         inputs.opencode.outputs.packages.x86_64-linux.opencode
