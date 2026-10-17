@@ -119,7 +119,8 @@
   networking = {
     hostName = "odp-1";
     networkmanager.enable = lib.mkForce false;
-    wireless.enable = false;
+    wireless.enable = lib.mkForce false;
+
     interfaces.enp1s0 = {
       ipv4.addresses = [
         {

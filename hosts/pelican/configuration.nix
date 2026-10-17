@@ -28,6 +28,9 @@
   };
 
   networking = {
+    hostName = "pelican";
+    useNetworkd = true;
+
     # Wireguard needs these extra rules. See the nixos wiki
     # for more details.
     firewall = {
@@ -41,9 +44,12 @@
         ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
       '';
     };
-    useDHCP = lib.mkDefault true;
-    hostName = "pelican";
   };
+
+  services.resolved.enable = true;
+
+  systemd.network.enable = true;
+  systemd.network.wait-online.enable = false;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware = {

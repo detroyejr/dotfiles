@@ -84,6 +84,8 @@
   networking = {
     hostName = "longsword";
 
+    useNetworkd = true;
+
     # Wireguard needs these extra rules. See the nixos wiki
     # for more details.
     firewall = {
@@ -113,6 +115,11 @@
       ];
     };
   };
+
+  services.resolved.enable = true;
+
+  systemd.network.enable = true;
+  systemd.network.wait-online.enable = false;
 
   programs = {
     cataclysmdda.enable = true;
