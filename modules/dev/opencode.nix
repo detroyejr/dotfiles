@@ -25,6 +25,9 @@ in
           "$schema": "https://opencode.ai/config.json",
           "model": "${defaultModel}",
           "theme": "system",
+          "permissions": [
+            { "action": "external_directory", "resource": "*", "effect": "ask" }
+          ],
           "lsp": {
             "ruff": {
               "command": ["ruff", "server"],
