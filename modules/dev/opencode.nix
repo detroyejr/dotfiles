@@ -9,6 +9,7 @@ let
   cfg = config.programs.opencode;
   defaultModel = "opencode/gpt-6-luna";
   opencode = inputs.opencode.outputs.packages.x86_64-linux.opencode;
+  opencode-desktop = inputs.opencode.outputs.packages.x86_64-linux.opencode-desktop;
 in
 {
   options.programs.opencode.enable = lib.mkEnableOption "Opencode CLI config";
@@ -16,7 +17,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
       opencode
-      pkgs.opencode-desktop
+      opencode-desktop
     ];
 
     environment.etc = {
