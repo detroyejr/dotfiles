@@ -47,6 +47,7 @@ in
         curl
         gnused
         jq
+        rsync
       ];
       script = ''
         BOOKORBIT_USERNAME="$(< ${config.sops.secrets."bookorbit/user".path})" \

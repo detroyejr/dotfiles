@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Fetch BookOrbit annotations and create one Book Template-style Markdown note
-# per book in Sources/Books. Requires curl and jq.
+# Fetch BookOrbit annotations and sync Book Template-style Markdown notes in
+# Sources/Books. Requires curl, jq, and rsync.
 #
 # Usage:
 #   cd ~/.config/dotfiles
@@ -13,7 +13,8 @@ set -euo pipefail
 #   BOOKORBIT_APP_URL=https://example ./dotfiles/bookorbit-annotations ...
 #
 # Credentials are prompted for when not set in the environment. Files in the
-# dedicated output directory are generated and replaced on each run.
+# dedicated output directory are generated on each run. Rsync updates existing
+# files only when their contents differ and creates files that are missing.
 
 script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 vault_dir=${1:-${OBSIDIAN_VAULT:-$(dirname -- "$script_dir")}}
@@ -29,7 +30,7 @@ if [[ ! -f "$vault_dir/Templates/Book Template.md" ]]; then
 	exit 1
 fi
 
-for dependency in curl jq; do
+for dependency in curl jq rsync; do
 	if ! command -v "$dependency" >/dev/null 2>&1; then
 		printf 'Error: required command not found: %s\n' "$dependency" >&2
 		exit 1
@@ -142,7 +143,7 @@ while IFS= read -r book_id; do
 		if [[ -n $cover_ext ]]; then
 			mkdir -p -- "$cover_dir"
 			cover_name="BookOrbit-$book_id.$cover_ext"
-			mv -- "$cover_tmp" "$cover_dir/$cover_name"
+			rsync --inplace --checksum -- "$cover_tmp" "$cover_dir/$cover_name"
 			cover_path="Attachments/Books/$cover_name"
 			jq --arg id "$book_id" --arg path "$cover_path" \
 				'. + {($id): $path}' "$tmp_dir/book-covers.json" > "$tmp_dir/book-covers.next.json"
@@ -218,7 +219,16 @@ while IFS= read -r title; do
 	fi
 	output_names[$filename]=1
 
-	jq -r --arg title "$title" --arg today "$today" '
+	note_path="$output_dir/$filename.md"
+	created="$today"
+	if [[ -f $note_path ]]; then
+		existing_created=$(sed -n '/^created: /{s/^created: //;p;q;}' "$note_path")
+		if [[ $existing_created =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+			created=$existing_created
+		fi
+	fi
+
+	jq -r --arg title "$title" --arg today "$created" '
     def yaml_scalar:
       if . == null then "" else tojson end;
     def wikilinks:
@@ -252,8 +262,20 @@ while IFS= read -r title; do
       + "\n"
   ' "$tmp_dir/annotations.json" > "$tmp_dir/note.md"
 
-	# Atomic replacement ensures interrupted runs do not leave partial notes.
-	mv -- "$tmp_dir/note.md" "$output_dir/$filename.md"
+	# Check content before writing: unchanged files are untouched, while changed
+	# files are updated in place and missing notes are created.
+	rsync --inplace --checksum -- "$tmp_dir/note.md" "$note_path"
 done < <(jq -r 'map(.title) | unique[]' "$tmp_dir/annotations.json")
 
-printf 'BookOrbit notes written to %s\n' "$output_dir"
+# Sources/Books is the dedicated generated-note directory. Remove Markdown
+# notes for books that no longer have active annotations.
+for note_path in "$output_dir"/*.md; do
+	[[ -e $note_path ]] || continue
+	filename=${note_path##*/}
+	filename=${filename%.md}
+	if [[ ! ${output_names[$filename]+present} ]]; then
+		rm -- "$note_path"
+	fi
+done
+
+printf 'BookOrbit notes synced to %s\n' "$output_dir"
