@@ -7,7 +7,9 @@
 }:
 {
 
-  imports = [ inputs.nixos-hardware.nixosModules.dell-optiplex-3050 ];
+  imports = [
+    inputs.nixos-hardware.nixosModules.dell-optiplex-3050
+  ];
 
   hardware.keyboard.qmk.enable = true;
   users.users.${config.defaultUser} = {
@@ -25,11 +27,14 @@
       plex-desktop
       plex-htpc
       plexamp
+      rustdesk
       slack
       vlc
       yt-dlp
     ];
   };
+
+  hardware.uinput.enable = true;
 
   programs = {
     bash.enable = true;
@@ -118,7 +123,6 @@
 
   networking = {
     hostName = "odp-1";
-    networkmanager.enable = lib.mkForce false;
     wireless.enable = lib.mkForce false;
 
     interfaces.enp1s0 = {
@@ -130,6 +134,7 @@
       ];
       useDHCP = true;
     };
+
     firewall = {
       allowedTCPPorts = [
         22
