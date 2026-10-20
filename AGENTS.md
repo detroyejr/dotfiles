@@ -41,3 +41,7 @@
 - If available use existing service and program options. e.g. Prefer
   `programs.localsend.enable = true` over
   `users.users.${defaultUser}.packages = [ localsend ];`
+
+- Delegate focused, separable work to subagents to keep the main thread's
+  context focused. When delegated work is complete, report the results back to
+  the main thread before integrating or responding.
