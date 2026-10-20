@@ -131,14 +131,12 @@
   services = {
     docker.enable = true;
     fprintd.enable = true;
-    openrgb.enable = true;
     rclone = {
       onedrive.enable = true;
     };
     syncthing.enable = true;
     tlp.enable = true;
     virtualization.enable = false;
-    libinput.touchpad.disableWhileTyping = true;
   };
 
   users.users.${config.defaultUser}.packages = with pkgs; [
@@ -153,6 +151,7 @@
     plex-desktop
     plex-htpc
     plexamp
+    rustdesk
     vlc
     yt-dlp
   ];
