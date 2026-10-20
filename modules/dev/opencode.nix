@@ -1,13 +1,12 @@
 {
   inputs,
-  pkgs,
   config,
   lib,
   ...
 }:
 let
   cfg = config.programs.opencode;
-  defaultModel = "opencode/gpt-6-luna";
+  defaultModel = "opencode-go/gpt-6-luna";
   opencode = inputs.opencode.outputs.packages.x86_64-linux.opencode;
   opencode-desktop = inputs.opencode.outputs.packages.x86_64-linux.opencode-desktop;
 in
