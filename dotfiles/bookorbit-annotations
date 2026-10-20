@@ -267,15 +267,16 @@ while IFS= read -r title; do
 	rsync --inplace --checksum -- "$tmp_dir/note.md" "$note_path"
 done < <(jq -r 'map(.title) | unique[]' "$tmp_dir/annotations.json")
 
+# FIXME: Unsure if this is correct.
 # Sources/Books is the dedicated generated-note directory. Remove Markdown
 # notes for books that no longer have active annotations.
-for note_path in "$output_dir"/*.md; do
-	[[ -e $note_path ]] || continue
-	filename=${note_path##*/}
-	filename=${filename%.md}
-	if [[ ! ${output_names[$filename]+present} ]]; then
-		rm -- "$note_path"
-	fi
-done
+# for note_path in "$output_dir"/*.md; do
+# 	[[ -e $note_path ]] || continue
+# 	filename=${note_path##*/}
+# 	filename=${filename%.md}
+# 	if [[ ! ${output_names[$filename]+present} ]]; then
+# 		rm -- "$note_path"
+# 	fi
+# done
 
 printf 'BookOrbit notes synced to %s\n' "$output_dir"
