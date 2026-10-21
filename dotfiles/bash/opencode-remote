@@ -1,0 +1,5 @@
+opencode-remote() {
+  export OPENCODE_PASSWORD=$(cat /run/secrets/opencode/password); opencode $1 --server https://opencode.odp-1
+}
+
+opencode-remote $1 $2
