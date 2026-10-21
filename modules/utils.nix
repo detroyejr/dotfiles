@@ -251,7 +251,7 @@ let
         fi
         ln -s "$currentTheme" /etc/xdg/CURRENT_THEME
 
-        for path in wezterm waybar hypr mako; do
+        for path in wezterm hypr mako; do
           if [ -L "/etc/xdg/$path" ]; then
             unlink "/etc/xdg/$path"
           fi
@@ -260,12 +260,6 @@ let
 
         if command -v hyprctl > /dev/null 2>&1; then
           hyprctl hyprpaper wallpaper ,"$currentTheme/wallpaper/wallpaper.jpg"
-          pkill waybar || true
-
-          ${lib.optionalString config.programs.waybar.enable ''
-            hyprctl dispatch 'hl.dsp.exec_cmd("waybar --config /etc/xdg/CURRENT_THEME/waybar/config --style /etc/xdg/CURRENT_THEME/waybar/style.css")'
-          ''}
-          
           ${lib.optionalString config.programs.omarchy-quickshell.enable ''
             hyprctl dispatch 'hl.dsp.exec_cmd("omarchy restart shell")'
           ''}
@@ -1112,7 +1106,7 @@ let
 
       phases = [ "installPhase" ];
       installPhase = ''
-        mkdir -p $out/hypr $out/waybar $out/mako $out/nvim $out/wezterm/colors $out/quickshell
+        mkdir -p $out/hypr $out/mako $out/nvim $out/wezterm/colors $out/quickshell
         ln -sfn ${wall} $out/wallpaper
         ln -sfn ${mkRofiTheme wall scheme font} $out/rofi
         ln -sfn ${mkQuickShellTheme scheme} $out/quickshell/shell.toml
@@ -1143,18 +1137,6 @@ let
           }
         EOF
 
-        cat << EOF > $out/waybar/config.css
-          @define-color foreground #${scheme.colors.foreground};
-          @define-color accent #${scheme.colors.base08};
-          @define-color highlight #${scheme.colors.base0D};
-          @define-color surface #${scheme.colors.base00};
-          @define-color surface-alt #${scheme.colors.base01};
-          @define-color muted #${scheme.colors.base04};
-          @define-color warning #${scheme.colors.base09};
-        EOF
-
-        ln -sfn ${../dotfiles/waybar/config} $out/waybar/config
-        ln -sfn ${../dotfiles/waybar/style.css} $out/waybar/style.css
         ln -sfn ${mkMakoConfig scheme font} $out/mako/mako.ini
         ln -sfn ${mkWeztermConfig scheme font} $out/wezterm/wezterm.lua
         ln -sfn ${gtkThemeFromScheme scheme} $out/gtk
