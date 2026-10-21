@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./foot.nix
@@ -12,4 +12,6 @@
     ./yazi.nix
     ./zsh.nix
   ];
+
+  environment.systemPackages = [ pkgs.python3 ];
 }
