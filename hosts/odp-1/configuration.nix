@@ -184,6 +184,7 @@
           openssh
         ];
         script = ''
+          # OpenCode updates use opencode.yml and stay out of this build-hook run.
           GH_CONFIG_DIR=/etc/xdg/gh gh workflow run --repo detroyejr/dotfiles flake.yml
 
           export ISDENIED=$(

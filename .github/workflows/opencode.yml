@@ -1,0 +1,25 @@
+name: update-opencode-flake
+on:
+  workflow_dispatch:
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v23
+        with:
+          determinate: false
+      - name: Update OpenCode flake input
+        uses: DeterminateSystems/update-flake-lock@v29
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: opencode
+          branch: update_opencode_action
+          pr-title: "opencode: bump flake.lock"
+          commit-msg: "opencode: bump flake.lock"
+          git-author-name: "detroyejr"
+          git-author-email: "detroyejr@outlook.com"
+          git-committer-name: "detroyejr"
+          git-committer-email: "detroyejr@outlook.com"

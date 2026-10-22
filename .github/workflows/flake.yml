@@ -6,13 +6,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v14
+        uses: DeterminateSystems/nix-installer-action@v23
+        with:
+          determinate: false
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v24
+        uses: DeterminateSystems/update-flake-lock@v29
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: disko jovian nixos-hardware nixpkgs omarchy-quickshell sops-nix
           pr-title: "flake: bump flake.lock"
           commit-msg: "flake: bump flake.lock"
           git-author-name: "detroyejr"
