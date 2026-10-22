@@ -95,6 +95,7 @@
     rclone = {
       onedrive.enable = true;
     };
+    rustdesk-server.enable = true;
     syncthing.enable = true;
     virtualization.enable = false;
     openssh = {
