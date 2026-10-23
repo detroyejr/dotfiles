@@ -91,6 +91,7 @@ in
       mako
       mp4v2
       networkmanager_dmenu
+      newsboat
       nfs-utils
       pamixer
       pavucontrol
