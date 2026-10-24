@@ -630,91 +630,91 @@ let
         animation = "slide",
       })
 
-      hl.bind("CTRL + ALT + Delete", hl.dsp.exit())
-      hl.bind(mainMod .. " + CTRL + P", hl.dsp.exec_cmd("hyprpicker | wl-copy"))
-      hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("bash -c \"if pgrep -x wofi-emoji > /dev/null; then pkill wofi-emoji; else wofi-emoji; fi\""))
-      hl.bind(mainMod .. " + SHIFT + J", hl.dsp.exec_cmd("bash -c \"if pgrep -x @obsidian > /dev/null; then pkill obsidian; else obsidian; fi\""))
-      hl.bind(mainMod .. " + SHIFT + K", hl.dsp.exec_cmd("bash -c \"if pgrep -x mono > /dev/null; then pkill mono; else keepass; fi\""))
-      hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd("grim -g \"$(slurp)\""))
-      hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("omarchy theme bg set \"$(omarchy theme bg switcher)\""))
-      hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
-      hl.bind(mainMod .. " + C", hl.dsp.window.close())
-      hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(file_browser))
+      hl.bind("CTRL + ALT + Delete", hl.dsp.exit(), { description = "Exit Hyprland" })
+      hl.bind(mainMod .. " + CTRL + P", hl.dsp.exec_cmd("hyprpicker | wl-copy"), { description = "Pick a color" })
+      hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("bash -c \"if pgrep -x wofi-emoji > /dev/null; then pkill wofi-emoji; else wofi-emoji; fi\""), { description = "Toggle emoji picker" })
+      hl.bind(mainMod .. " + SHIFT + J", hl.dsp.exec_cmd("bash -c \"if pgrep -x @obsidian > /dev/null; then pkill obsidian; else obsidian; fi\""), { description = "Toggle Obsidian" })
+      hl.bind(mainMod .. " + SHIFT + K", hl.dsp.exec_cmd("bash -c \"if pgrep -x mono > /dev/null; then pkill mono; else keepass; fi\""), { description = "Toggle KeePass" })
+      hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd("grim -g \"$(slurp)\""), { description = "Capture selected area" })
+      hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("omarchy theme bg set \"$(omarchy theme bg switcher)\""), { description = "Change wallpaper" })
+      hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal), { description = "Open terminal" })
+      hl.bind(mainMod .. " + C", hl.dsp.window.close(), { description = "Close active window" })
+      hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(file_browser), { description = "Open file browser" })
       hl.bind(mainMod .. " + F", function()
         hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
         hl.dispatch(hl.dsp.window.center())
         hl.dispatch(hl.dsp.window.resize({ x = 1300, y = 850 }))
-      end)
-      hl.bind(mainMod .. " + G", hl.dsp.window.fullscreen())
-      hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
+      end, { description = "Toggle floating window" })
+      hl.bind(mainMod .. " + G", hl.dsp.window.fullscreen(), { description = "Toggle fullscreen" })
+      hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"), { description = "Toggle window split" })
       hl.bind(mainMod .. " + SHIFT + L", function()
         local layout = hl.get_config("general.layout")
         hl.config({ general = { layout = layout == "scrolling" and "dwindle" or "scrolling" } })
-      end)
+      end, { description = "Toggle scrolling layout" })
 
       ${lib.optionalString (!config.programs.omarchy-quickshell.enable) ''
-        hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"hyprlock\""))
+        hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"hyprlock\""), { description = "Lock screen" })
       ''}
 
       ${lib.optionalString (config.programs.omarchy-quickshell.enable) ''
-        hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"omarchy system lock\""))
+        hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"omarchy system lock\""), { description = "Lock screen" })
       ''}
 
-      hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-      hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("grim"))
+      hl.bind(mainMod .. " + P", hl.dsp.window.pseudo(), { description = "Toggle pseudo-tiling" })
+      hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("grim"), { description = "Capture screenshot" })
 
 
       ${lib.optionalString (!config.programs.omarchy-quickshell.enable) ''
-        hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else $THEME/rofi/bin/rofi-launcher; fi"))
+        hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("if pgrep -x rofi > /dev/null; then kill $(pgrep -x rofi); else $THEME/rofi/bin/rofi-launcher; fi"), { description = "Open application launcher" })
       ''}
 
       ${lib.optionalString (config.programs.omarchy-quickshell.enable) ''
-        hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("omarchy menu"))
+        hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("omarchy menu"), { description = "Open Omarchy menu" })
       ''}
 
 
-      hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
-      hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
-      hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
-      hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
+      hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }), { description = "Focus window to the left" })
+      hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }), { description = "Focus window to the right" })
+      hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }), { description = "Focus window above" })
+      hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }), { description = "Focus window below" })
 
-      hl.bind(mainMod .. " + CTRL + h", hl.dsp.focus({ direction = "left" }))
-      hl.bind(mainMod .. " + CTRL + l", hl.dsp.focus({ direction = "right" }))
-      hl.bind(mainMod .. " + CTRL + k", hl.dsp.focus({ direction = "up" }))
-      hl.bind(mainMod .. " + CTRL + j", hl.dsp.focus({ direction = "down" }))
+      hl.bind(mainMod .. " + CTRL + h", hl.dsp.focus({ direction = "left" }), { description = "Focus window to the left" })
+      hl.bind(mainMod .. " + CTRL + l", hl.dsp.focus({ direction = "right" }), { description = "Focus window to the right" })
+      hl.bind(mainMod .. " + CTRL + k", hl.dsp.focus({ direction = "up" }), { description = "Focus window above" })
+      hl.bind(mainMod .. " + CTRL + j", hl.dsp.focus({ direction = "down" }), { description = "Focus window below" })
 
       -- Move active window to a workspace with mainMod + SHIFT + [0-9]
       for i = 1, 10 do
           local key = i % 10
-          hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i}))
-          hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+          hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i}), { description = "Focus workspace " .. i })
+          hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }), { description = "Move window to workspace " .. i })
       end
 
-      hl.bind(mainMod .. " + CTRL + up", hl.dsp.window.resize({ x = 0, y = -20 }), { repeating = true })
-      hl.bind(mainMod .. " + CTRL + down", hl.dsp.window.resize({ x = 0, y = 20 }), { repeating = true })
-      hl.bind(mainMod .. " + CTRL + right", hl.dsp.window.resize({ x = 20, y = 0 }), { repeating = true })
-      hl.bind(mainMod .. " + CTRL + left", hl.dsp.window.resize({ x = -20, y = 0 }), { repeating = true })
-      hl.bind(mainMod .. " + ALT + up", hl.dsp.window.move({ x = 0, y = -20 }), { repeating = true })
-      hl.bind(mainMod .. " + ALT + down", hl.dsp.window.move({ x = 0, y = 20 }), { repeating = true })
-      hl.bind(mainMod .. " + ALT + right", hl.dsp.window.move({ x = 20, y = 0 }), { repeating = true })
-      hl.bind(mainMod .. " + ALT + left", hl.dsp.window.move({ x = -20, y = 0 }), { repeating = true })
+      hl.bind(mainMod .. " + CTRL + up", hl.dsp.window.resize({ x = 0, y = -20 }), { repeating = true, description = "Shrink window vertically" })
+      hl.bind(mainMod .. " + CTRL + down", hl.dsp.window.resize({ x = 0, y = 20 }), { repeating = true, description = "Grow window vertically" })
+      hl.bind(mainMod .. " + CTRL + right", hl.dsp.window.resize({ x = 20, y = 0 }), { repeating = true, description = "Grow window horizontally" })
+      hl.bind(mainMod .. " + CTRL + left", hl.dsp.window.resize({ x = -20, y = 0 }), { repeating = true, description = "Shrink window horizontally" })
+      hl.bind(mainMod .. " + ALT + up", hl.dsp.window.move({ x = 0, y = -20 }), { repeating = true, description = "Move window up" })
+      hl.bind(mainMod .. " + ALT + down", hl.dsp.window.move({ x = 0, y = 20 }), { repeating = true, description = "Move window down" })
+      hl.bind(mainMod .. " + ALT + right", hl.dsp.window.move({ x = 20, y = 0 }), { repeating = true, description = "Move window right" })
+      hl.bind(mainMod .. " + ALT + left", hl.dsp.window.move({ x = -20, y = 0 }), { repeating = true, description = "Move window left" })
 
-      hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("$HOME/.local/bin/bash/minimize"))
-      hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-      hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
-      hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
-      hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+      hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("$HOME/.local/bin/bash/minimize"), { description = "Minimize active window" })
+      hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }), { description = "Switch to next workspace" })
+      hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }), { description = "Switch to previous workspace" })
+      hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true, description = "Drag window" })
+      hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true, description = "Resize window with mouse" })
 
-      hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set '10%+'"), { locked = true, repeating = true })
-      hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set '10%-'"), { locked = true, repeating = true })
-      hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pamixer --increase 10 --set-limit 100"), { locked = true, repeating = true })
-      hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pamixer --decrease 10"), { locked = true, repeating = true })
-      hl.bind("XF86AudioMute", hl.dsp.exec_cmd("pamixer --toggle-mute"), { locked = true, repeating = true })
-      hl.bind("XF86AudioStop", hl.dsp.exec_cmd("playerctl stop"), { locked = true })
-      hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl pause"), { locked = true })
-      hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
-      hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-      hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+      hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set '10%+'"), { locked = true, repeating = true, description = "Increase screen brightness" })
+      hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set '10%-'"), { locked = true, repeating = true, description = "Decrease screen brightness" })
+      hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pamixer --increase 10 --set-limit 100"), { locked = true, repeating = true, description = "Increase volume" })
+      hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pamixer --decrease 10"), { locked = true, repeating = true, description = "Decrease volume" })
+      hl.bind("XF86AudioMute", hl.dsp.exec_cmd("pamixer --toggle-mute"), { locked = true, repeating = true, description = "Toggle mute" })
+      hl.bind("XF86AudioStop", hl.dsp.exec_cmd("playerctl stop"), { locked = true, description = "Stop media playback" })
+      hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl pause"), { locked = true, description = "Pause media playback" })
+      hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true, description = "Play previous track" })
+      hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true, description = "Play next track" })
+      hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true, description = "Toggle media playback" })
 
        hl.config({
            input = {
