@@ -647,6 +647,10 @@ let
       end)
       hl.bind(mainMod .. " + G", hl.dsp.window.fullscreen())
       hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
+      hl.bind(mainMod .. " + SHIFT + L", function()
+        local layout = hl.get_config("general.layout")
+        hl.config({ general = { layout = layout == "scrolling" and "dwindle" or "scrolling" } })
+      end)
 
       ${lib.optionalString (!config.programs.omarchy-quickshell.enable) ''
         hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("bash -c \"hyprlock\""))
