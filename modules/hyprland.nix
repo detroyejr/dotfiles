@@ -75,37 +75,28 @@ in
     users.users.${config.defaultUser}.packages = with pkgs; [
       acpi
       alsa-utils
-      blueman
       bluez
       brightnessctl
       colorz
       dmenu
       easyeffects
       grim
-      hyprpaper
       hyprpicker
       hyprsunset
-      kanshi
       keepass
       libnotify
       mako
       mp4v2
-      networkmanager_dmenu
       newsboat
       nfs-utils
       pamixer
       pavucontrol
       playerctl
       procps
-      slurp
-      socat
       wireplumber
       wlr-randr
       wlsunset
       wofi-emoji
-      wpgtk
-      xdo
-      xdotool
     ];
   };
 }
