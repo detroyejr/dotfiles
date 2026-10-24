@@ -52,7 +52,7 @@ in
         xwayland.enable = true;
       };
       uwsm.enable = true;
-      waybar.enable = false;
+      nautilus.enable = true;
       omarchy-quickshell.enable = true;
     };
 
