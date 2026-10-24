@@ -749,7 +749,7 @@ let
               allow_tearing = true,
           },
           decoration = {
-              rounding = 5,
+              rounding = 0,
               dim_inactive = false,
           },
           animations = {
