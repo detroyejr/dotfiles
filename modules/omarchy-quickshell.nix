@@ -40,17 +40,6 @@ in
         "WhatsApp"
         "Zoom"
       ];
-      plugins = with pkgs.omarchyPlugins; [
-        omarchy-bbs
-        omarchy-wireguard
-        omarchy-theme-manager
-      ];
-      settings.bar.layout.right = lib.mkBefore [
-        { "id" = pkgs.omarchyPlugins.omarchy-bbs.id; }
-        { "id" = pkgs.omarchyPlugins.omarchy-wireguard.id; }
-        { "id" = pkgs.omarchyPlugins.omarchy-theme-manager.id; }
-      ];
-
     };
 
     users.users.${config.defaultUser}.packages = with pkgs; [
