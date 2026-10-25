@@ -120,69 +120,88 @@
   };
 
   systemd = {
-    services.archive-feeds = lib.mkIf config.services.archivebox.enable {
-      path = with pkgs; [
-        curl
-        docker
-        jq
-        playwright-get-url
-      ];
-      script = ''
-        playwright-get-url --wait 60 https://heidelblog.net,https://heidelblog.net/feed > /tmp/heidelnews.xml
-        grep -Eo "https://heidelblog.net/[0-9]+/[0-9]+/[-a-zA-Z0-9]+/" /tmp/heidelnews.xml | uniq | head -n 20 > /tmp/heidelnews.txt
-        docker cp /tmp/heidelnews.txt archivebox:/heidelnews.txt && rm /tmp/heidelnews.txt
-        docker exec archivebox bash -c "
-          cat /heidelnews.txt | \
-          archivebox add \
-            --only-new \
-            --tag 'Theology'"
+    services = {
+      daily-reboot = {
+        description = "Reboot the machine";
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.systemd}/bin/systemctl reboot";
+        };
+      };
+      archive-feeds = lib.mkIf config.services.archivebox.enable {
+        path = with pkgs; [
+          curl
+          docker
+          jq
+          playwright-get-url
+        ];
+        script = ''
+          playwright-get-url --wait 60 https://heidelblog.net,https://heidelblog.net/feed > /tmp/heidelnews.xml
+          grep -Eo "https://heidelblog.net/[0-9]+/[0-9]+/[-a-zA-Z0-9]+/" /tmp/heidelnews.xml | uniq | head -n 20 > /tmp/heidelnews.txt
+          docker cp /tmp/heidelnews.txt archivebox:/heidelnews.txt && rm /tmp/heidelnews.txt
+          docker exec archivebox bash -c "
+            cat /heidelnews.txt | \
+            archivebox add \
+              --only-new \
+              --tag 'Theology'"
 
-        # Modern Reformation
-        playwright-get-url "https://modernreformation.org/resources" | \
-          grep -oE '/resources/essays/[-a-zA-Z0-9]+' | \
-          sort | \
-          uniq | \
-          xargs -I "{}" echo "https://modernreformation.org{}" > /tmp/modref.txt
+          # Modern Reformation
+          playwright-get-url "https://modernreformation.org/resources" | \
+            grep -oE '/resources/essays/[-a-zA-Z0-9]+' | \
+            sort | \
+            uniq | \
+            xargs -I "{}" echo "https://modernreformation.org{}" > /tmp/modref.txt
 
-        docker cp /tmp/modref.txt archivebox:/modref.txt && rm /tmp/modref.txt
-        docker exec archivebox bash -c "
-          cat /modref.txt | \
-          archivebox add \
-            --only-new \
-            --tag 'Theology'"
+          docker cp /tmp/modref.txt archivebox:/modref.txt && rm /tmp/modref.txt
+          docker exec archivebox bash -c "
+            cat /modref.txt | \
+            archivebox add \
+              --only-new \
+              --tag 'Theology'"
 
-        # Archive Favorites
-        AUTH=$(
-          curl -X POST -d "Email=admin&Passwd=$(cat /run/secrets/freshrss/password)" 'https://freshrss.odp-1/api/greader.php/accounts/ClientLogin' | \
-          grep Auth | \
-          sed 's/A/a/'
-        )
+          # Archive Favorites
+          AUTH=$(
+            curl -X POST -d "Email=admin&Passwd=$(cat /run/secrets/freshrss/password)" 'https://freshrss.odp-1/api/greader.php/accounts/ClientLogin' | \
+            grep Auth | \
+            sed 's/A/a/'
+          )
 
-        curl -s -H "Authorization:GoogleLogin $AUTH" \
-          'https://odp-1:8443/api/greader.php/reader/api/0/stream/contents/user/-/state/com.google/starred?n=20' |
-          jq -r '.items[].canonical.[].href' | \
-          grep -Ev 'odp-4' > /tmp/favorites.txt
+          curl -s -H "Authorization:GoogleLogin $AUTH" \
+            'https://odp-1:8443/api/greader.php/reader/api/0/stream/contents/user/-/state/com.google/starred?n=20' |
+            jq -r '.items[].canonical.[].href' | \
+            grep -Ev 'odp-4' > /tmp/favorites.txt
 
-        docker cp /tmp/favorites.txt archivebox:/favorites.txt && rm /tmp/favorites.txt
-        docker exec archivebox bash -c "
-          cat /favorites.txt | \
-          archivebox add \
-            --only-new \
-            --tag 'Favorites'"
+          docker cp /tmp/favorites.txt archivebox:/favorites.txt && rm /tmp/favorites.txt
+          docker exec archivebox bash -c "
+            cat /favorites.txt | \
+            archivebox add \
+              --only-new \
+              --tag 'Favorites'"
 
-      '';
-      serviceConfig = {
-        User = "root";
-        Type = "oneshot";
+        '';
+        serviceConfig = {
+          User = "root";
+          Type = "oneshot";
+        };
       };
     };
 
-    timers.archive-feeds = {
-      timerConfig = {
-        OnCalendar = "daily";
-        Persistent = false;
+    timers = {
+      daily-reboot = {
+        description = "Reboot the machine every day at 4:00 a.m. UTC";
+        timerConfig = {
+          OnCalendar = "*-*-* 04:00:00 UTC";
+          Persistent = true;
+        };
+        wantedBy = [ "timers.target" ];
       };
-      wantedBy = [ "timers.target" ];
+      archive-feeds = {
+        timerConfig = {
+          OnCalendar = "daily";
+          Persistent = false;
+        };
+        wantedBy = [ "timers.target" ];
+      };
     };
   };
 
