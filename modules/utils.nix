@@ -81,7 +81,12 @@ let
           key = mainMod .. " + F",
           action = function()
             hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
-            hl.dispatch(hl.dsp.window.resize({ x = 1500, y = 950 }))
+            local monitor = hl.get_active_monitor()
+            if monitor then
+              local width = math.floor((monitor.width / monitor.scale) * 0.75)
+              local height = math.floor((monitor.height / monitor.scale) * 0.85)
+              hl.dispatch(hl.dsp.window.resize({ x = width, y = height }))
+            end
             hl.dispatch(hl.dsp.window.center())
           end,
           options = { description = "Toggle floating window" },
