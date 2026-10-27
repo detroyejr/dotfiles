@@ -103,6 +103,7 @@
       enable = true;
       settings = {
         PasswordAuthentication = false;
+        PermitTunnel = true;
         X11Forwarding = true;
       };
     };
