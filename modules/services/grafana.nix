@@ -15,6 +15,9 @@ in
       hash = "sha256-GExrdAnzBtp1Ul13cvcZRbEM6iOtFrXXjEaY6g6lGYY=";
     };
 
+    environment.etc."grafana-dashboards/odp-build-cluster.json".source =
+      ./grafana-dashboards/odp-build-cluster.json;
+
     sops.secrets = {
       "grafana/secret_key" = {
         owner = "detroyejr";
@@ -50,6 +53,7 @@ in
           {
             name = "ODP";
             type = "prometheus";
+            uid = "odp";
             orgId = 1;
             url = "http://odp-2:9090";
             basicAuth = false;
@@ -58,6 +62,7 @@ in
           {
             name = "ODP Logs";
             type = "loki";
+            uid = "odp-logs";
             orgId = 1;
             url = "http://odp-2:3100";
             basicAuth = false;

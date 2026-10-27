@@ -16,8 +16,22 @@ in
     environment.etc."alloy/config.alloy".text = ''
       prometheus.exporter.unix "local_system" { }
 
+      discovery.relabel "local_system" {
+        targets = prometheus.exporter.unix.local_system.targets
+
+        rule {
+          target_label = "host"
+          replacement  = "${config.networking.hostName}"
+        }
+
+        rule {
+          target_label = "instance"
+          replacement  = "${config.networking.hostName}"
+        }
+      }
+
       prometheus.scrape "scrape_metrics" {
-        targets         = prometheus.exporter.unix.local_system.targets
+        targets         = discovery.relabel.local_system.output
         forward_to      = [prometheus.remote_write.metrics_service.receiver]
         scrape_interval = "10s"
       }
