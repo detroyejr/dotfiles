@@ -92,7 +92,7 @@
 
   users.users.detroyejr = {
     openssh.authorizedKeys.keys = [
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDBl7Fld1yz1/LCajyuiSUKba9eiBRjvTmTMxCC0e+2MWNk3ZCnLkMWIigGPAKuxpHilc5bt21VwKlZ+sLPuQe8YYeU3MkVt/0+L4Jd5AYWBAQv9UPAmCdSUdN3XpwgH9qJQw/MaoTloHeBzUK9W1ruK91g9AQ+7+AHp7E+S0UaTGOssrMv0SE7OamLZQ8qR7X+lSfI9ZCFSBBzLeOoCOfTZShexrGrwTYgAdx/dYAgJVCAVQPPQ6OhL2W/mAqh8wI6w0jA0TwSOHvCiv2/ocV9O2BtRyoeANBsSu8S/J49nx5ja/+PMHFcoJZSCURnkWjtmybCDmIEa5YGX14PjHmPs4Xlb+iEXsnog1aaHS9wDKE+vO2HVZJ8NaJfG0E6hBbxNx165vsZjWAxgmiY6oNUiXp+CDAhLlwso457AeJQEn0XpSnw1EVeWX0SNZ7V2gNz9oadC9bhS7SMZ9SS6hkJrlkw4aISmSJqtzQffJzjRPOQct/QXmxuJ2jOqf98PzE= jon@DESKTOP-73M5KKL"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHghjAbyAv/H7wwS/UubXrqHsUMsMXrUaLl7E9ON/2jm detroyejr@pelican"
     ];
   };
 
