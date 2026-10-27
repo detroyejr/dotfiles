@@ -15,7 +15,7 @@ in
 
     programs.foot.settings = {
       main = {
-        font = "InputMono:size=16";
+        font = "InputMono:size=12";
       };
     };
   };
