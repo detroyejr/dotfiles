@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   config,
   lib,
@@ -81,11 +82,12 @@ in
       dmenu
       easyeffects
       grim
+      inputs.hokum.packages.${system}.default # replaces mako
       hyprpicker
       hyprsunset
       keepass
       libnotify
-      mako
+      # mako
       mp4v2
       newsboat
       nfs-utils

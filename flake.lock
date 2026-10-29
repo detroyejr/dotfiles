@@ -21,6 +21,27 @@
         "type": "github"
       }
     },
+    "hokum": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793303303,
+        "narHash": "sha256-6i0gGZxrwCg4lCZijDMHl6smiZH50NvkGAXm6cSARTw=",
+        "owner": "anomalyco",
+        "repo": "hokum",
+        "rev": "4090be9d25d6771b0c9c0f5ea6f73499077b3469",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anomalyco",
+        "ref": "dev",
+        "repo": "hokum",
+        "type": "github"
+      }
+    },
     "jovian": {
       "inputs": {
         "nix-github-actions": "nix-github-actions",
@@ -100,22 +121,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1790510107,
-        "narHash": "sha256-EVMNYv7hYDDD9TGVT/hIyTYgpiXA8y3m5xIEIxuGNU0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "3181085bfd08663b6b9e60bc7a8395c2aaa741bd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "omarchy-quickshell": {
       "inputs": {
         "nixpkgs": [
@@ -138,7 +143,9 @@
     },
     "opencode": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1792697608,
@@ -158,6 +165,7 @@
     "root": {
       "inputs": {
         "disko": "disko",
+        "hokum": "hokum",
         "jovian": "jovian",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",

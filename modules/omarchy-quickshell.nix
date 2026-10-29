@@ -29,6 +29,7 @@ in
       package = omarchy;
       background.enable = true;
       menu.enable = true;
+      settings.disabledPlugins = [ "omarchy.notifications" ];
       launcher.hiddenEntries = [
         "Basecamp"
         "Discord"

@@ -25,9 +25,6 @@
       bluetooth = {
         enable = true;
         powerOnBoot = false;
-        package = pkgs.bluez.overrideAttrs (oldAttrs: {
-          configureFlags = oldAttrs.configureFlags ++ [ "--enable-sixaxis" ];
-        });
       };
       graphics = lib.mkIf (pkgs.stdenv.hostPlatform.system != "aarch64-linux") {
         enable = true;
@@ -119,6 +116,7 @@
       };
       pipewire = {
         enable = true;
+        wireplumber.enable = true;
         alsa = {
           enable = true;
           support32Bit = true;

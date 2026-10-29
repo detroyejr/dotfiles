@@ -124,7 +124,7 @@ let
         -- Media and brightness
         {
           key = "XF86AudioLowerVolume",
-          action = hl.dsp.exec_cmd("pamixer --decrease 10"),
+          action = hl.dsp.exec_cmd("pamixer --decrease 5"),
           options = {
             locked = true,
             repeating = true,
@@ -162,7 +162,7 @@ let
         },
         {
           key = "XF86AudioRaiseVolume",
-          action = hl.dsp.exec_cmd("pamixer --increase 10 --set-limit 100"),
+          action = hl.dsp.exec_cmd("pamixer --increase 5 --set-limit 100"),
           options = {
             locked = true,
             repeating = true,

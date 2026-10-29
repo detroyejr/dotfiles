@@ -30,6 +30,12 @@
 
     opencode = {
       url = "github:anomalyco/opencode/dev";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    hokum = {
+      url = "github:anomalyco/hokum/dev";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -42,6 +48,7 @@
       disko,
       omarchy-quickshell,
       opencode,
+      hokum,
       ...
     }@inputs:
     let
@@ -114,6 +121,7 @@
 
       packages.${system} = {
         inherit neovim firefox;
+        hokum = pkgs.hokum;
         default = pkgs.buildEnv {
           pname = "dots";
           version = "0.1";
