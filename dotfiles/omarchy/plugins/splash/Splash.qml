@@ -20,7 +20,9 @@ Item {
     stdout: StdioCollector {
       onStreamFinished: root.splashText = String(text || "").trim()
     }
-    onExited: if (exitCode !== 0) root.splashText = ""
+    onExited: (exitCode) => {
+      if (exitCode !== 0) root.splashText = ""
+    }
   }
 
   Process {
