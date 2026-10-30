@@ -12,6 +12,10 @@ let
       find themes -type f -iname "*.webp" -exec sh -c '${lib.getBin pkgs.imagemagick}/bin/magick "$1" "''${1%.*}.jpg"' _ {} \; \
         && find themes -type f -iname "*.webp" -delete
 
+      substituteInPlace bin/omarchy-theme-bg-switcher \
+        --replace-fail \
+          'omarchy-menu-images \' \
+          'omarchy-menu-images --lazy-thumbnails \'
     '';
 
     postInstall = (attrs.postInstall or "") + ''
