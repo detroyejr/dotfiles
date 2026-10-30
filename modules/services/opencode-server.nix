@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   lib,
   config,
@@ -43,7 +42,7 @@ in
       };
 
       path = [
-        inputs.opencode.outputs.packages.x86_64-linux.opencode
+        config.programs.opencode.package
         pkgs.git
       ];
 

@@ -32,7 +32,7 @@
       url = "github:anomalyco/opencode/dev";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     hokum = {
       url = "github:anomalyco/hokum/dev";
       inputs.nixpkgs.follows = "nixpkgs";

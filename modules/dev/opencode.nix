@@ -1,5 +1,6 @@
 {
   inputs,
+  system,
   config,
   lib,
   ...
@@ -7,15 +8,41 @@
 let
   cfg = config.programs.opencode;
   defaultModel = "opencode-go/gpt-6-luna";
-  opencode = inputs.opencode.outputs.packages.x86_64-linux.opencode;
-  opencode-desktop = inputs.opencode.outputs.packages.x86_64-linux.opencode-desktop;
+  upstream = inputs.opencode.outputs.packages.${system};
+  nodeModules =
+    if system == "x86_64-linux" then
+      upstream.opencode.node_modules.overrideAttrs (_: {
+        outputHash = "sha256-jldGJwsB717N5tOoeWQlDrpiKM6EAjMbLXV0yYE0T5c=";
+      })
+    else
+      upstream.opencode.node_modules;
+  opencode = upstream.opencode.override {
+    node_modules = nodeModules;
+  };
+  opencode-desktop = (upstream.opencode-desktop.override { inherit opencode; }).overrideAttrs (old: {
+    postPatch = old.postPatch + ''
+      substituteInPlace packages/desktop/script/build.ts \
+        --replace-fail \
+          'const cli = path.resolve(dir, "../cli/dist")' \
+          'const cli = process.env.OPENCODE_CLI_DIST ?? path.resolve(dir, "../cli/dist")'
+    '';
+  });
 in
 {
-  options.programs.opencode.enable = lib.mkEnableOption "Opencode CLI config";
+  options.programs.opencode = {
+    enable = lib.mkEnableOption "Opencode CLI config";
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = opencode;
+      internal = true;
+      readOnly = true;
+      description = "The OpenCode CLI package used by OpenCode services.";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
-      opencode
+      cfg.package
       opencode-desktop
     ];
 
