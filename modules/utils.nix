@@ -13,6 +13,8 @@ let
       local mainMod = "SUPER"
 
       hl.env("TERMINAL", terminal)
+      hl.env("TZ", "${config.time.timeZone}")
+      hl.env("TZDIR", "/etc/zoneinfo")
 
       hl.monitor({
         output = "eDP-1",
