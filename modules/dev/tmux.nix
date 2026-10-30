@@ -21,7 +21,7 @@ in
         # Get 256 colors in Windows Terminal/WSL2.
         set -g default-terminal "screen-256color"
         set-option -ga terminal-overrides ',*-256color*:Tc'
-        set -g mouse
+        set -g mouse on
         set-window-option -g mode-keys vi
 
         # We can use base index of 1 for everything but sessions.
