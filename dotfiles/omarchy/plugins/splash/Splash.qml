@@ -62,6 +62,9 @@ Item {
       WlrLayershell.layer: WlrLayer.Background
       WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
       exclusionMode: ExclusionMode.Ignore
+      // This full-screen decorative layer must not intercept pointer input
+      // intended for the wallpaper's double-click handler.
+      mask: Region { }
 
       Text {
         anchors.horizontalCenter: parent.horizontalCenter
