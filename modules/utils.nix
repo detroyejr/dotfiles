@@ -8,6 +8,10 @@ let
   mkHyprlandConfig =
     config:
     pkgs.writeText "hyprland.lua" ''
+      dofile("/etc/omarchy/default/hypr/bootstrap.lua")
+      require("default.hypr.helpers")
+      require("default.hypr.monitor-workspaces")
+
       local terminal = "foot"
       local file_browser = "nautilus"
       local mainMod = "SUPER"

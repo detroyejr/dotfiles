@@ -39,6 +39,7 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.etc."xdg/hypr/hyprland.lua".source = mkHyprlandConfig config;
+    environment.sessionVariables.OMARCHY_PATH = "/etc/omarchy";
 
     xdg.portal = {
       config.common.default = "*";
