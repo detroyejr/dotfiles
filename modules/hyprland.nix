@@ -79,6 +79,7 @@ in
       alsa-utils
       bluez
       brightnessctl
+      carrier
       colorz
       dmenu
       easyeffects

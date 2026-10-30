@@ -468,6 +468,9 @@ let
         master = {
           new_status = "slave",
         },
+        misc = {
+          focus_on_activate = true,
+        },
       })
 
       hl.on("hyprland.start", function()

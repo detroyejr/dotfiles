@@ -120,6 +120,7 @@
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
 
       packages.${system} = {
+        inherit (pkgs) carrier;
         inherit neovim firefox;
         hokum = pkgs.hokum;
         default = pkgs.buildEnv {
