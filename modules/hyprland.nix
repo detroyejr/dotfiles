@@ -85,6 +85,7 @@ in
       inputs.hokum.packages.${system}.default # replaces mako
       hyprpicker
       hyprsunset
+      inotify-tools
       keepass
       libnotify
       # mako
