@@ -83,6 +83,13 @@ let
       end
 
       local bindings = {
+        ${lib.optionalString (config.programs ? hex && config.programs.hex.enable) ''
+          {
+            key = "F9",
+            action = hl.dsp.global("anomaly.hex:dictation-F9"),
+            options = { description = "Toggle Hex dictation" },
+          },
+        ''}
         -- Window and layout controls
         {
           key = mainMod .. " + F",

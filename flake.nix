@@ -37,6 +37,11 @@
       url = "github:anomalyco/hokum/dev";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hex = {
+      url = "github:anomalyco/hex";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

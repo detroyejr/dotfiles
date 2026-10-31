@@ -21,6 +21,27 @@
         "type": "github"
       }
     },
+    "hex": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793469928,
+        "narHash": "sha256-qqAAE/YZCCvK3np0Ux8qa2szBJMXIt+sfCWaqtHA1W4=",
+        "owner": "anomalyco",
+        "repo": "hex",
+        "rev": "aa3059af5b96ae25123f10a6515230461ef1ee6f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anomalyco",
+        "repo": "hex",
+        "type": "github"
+      }
+    },
     "hokum": {
       "inputs": {
         "nixpkgs": [
@@ -39,6 +60,27 @@
         "owner": "anomalyco",
         "ref": "dev",
         "repo": "hokum",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "hex",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787797243,
+        "narHash": "sha256-8+Q7NOB7RPajRjA4pbCDLzqH+MTjnG9x6LUPLfL2joA=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "99c9ec63390f1d8c14d95d9e8b17cc29cfbd4e11",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
         "type": "github"
       }
     },
@@ -166,6 +208,7 @@
     "root": {
       "inputs": {
         "disko": "disko",
+        "hex": "hex",
         "hokum": "hokum",
         "jovian": "jovian",
         "nixos-hardware": "nixos-hardware",

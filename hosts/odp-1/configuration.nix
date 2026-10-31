@@ -9,6 +9,7 @@
 
   imports = [
     inputs.nixos-hardware.nixosModules.dell-optiplex-3050
+    inputs.hex.nixosModules.hex
   ];
 
   hardware.keyboard.qmk.enable = true;
@@ -43,6 +44,7 @@
     firefox.enable = true;
     foot.enable = true;
     git.enable = true;
+    hex.enable = true;
     hyprland.enable = true;
     neovim.enable = true;
     opencode.enable = true;
