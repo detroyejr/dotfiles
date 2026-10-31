@@ -309,8 +309,8 @@ let
           options = { description = "Toggle pseudo-tiling" },
         },
         {
-          key = mainMod .. " + PRINT",
-          action = hl.dsp.exec_cmd("grim"),
+          key = "PRINT",
+          action = hl.dsp.exec_cmd("omarchy-capture-screenshot"),
           options = { description = "Capture screenshot" },
         },
         {
