@@ -9,7 +9,6 @@
 
   imports = [
     inputs.nixos-hardware.nixosModules.dell-optiplex-3050
-    inputs.hex.nixosModules.hex
   ];
 
   hardware.keyboard.qmk.enable = true;

@@ -131,6 +131,7 @@
     firefox.enable = true;
     foot.enable = true;
     git.enable = true;
+    hex.enable = true;
     hyprland.enable = true;
     nautilus.enable = true;
     neovim.enable = true;

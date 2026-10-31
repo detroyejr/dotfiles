@@ -1,7 +1,9 @@
 {
+  inputs,
   pkgs,
   config,
   lib,
+  system,
   ...
 }:
 {
@@ -13,6 +15,9 @@
     ./kde.nix
     ./services
     ./xdg.nix
+  ]
+  ++ lib.optionals (system == "x86_64-linux") [
+    inputs.hex.nixosModules.hex
   ];
 
   config = {
