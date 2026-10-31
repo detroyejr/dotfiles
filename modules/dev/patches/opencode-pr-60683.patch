@@ -1,0 +1,718 @@
+From f04d63841f678e412d53756960139655a1805ab3 Mon Sep 17 00:00:00 2001
+From: Test User <test@test.com>
+Date: Fri, 30 Oct 2026 19:32:21 +0100
+Subject: [PATCH 1/4] fix(desktop): discover the bundled CLI channel
+
+Preserve the raw CLI channel for service registration while normalizing
+only the Desktop app identity. Keep existing prod configuration and state.
+
+Closes #60676
+---
+ packages/cli/src/services/service-config.ts   |  5 +-
+ packages/cli/test/service.test.ts             |  9 +---
+ packages/client/src/service-probe.ts          | 12 +++--
+ packages/client/src/service.ts                |  6 +++
+ packages/client/test/service-channel.test.ts  | 49 +++++++++++++++++++
+ packages/desktop/electron.vite.config.ts      |  3 +-
+ packages/desktop/src/main/constants.ts        | 11 ++++-
+ .../src/main/service/background-service.ts    | 16 ++----
+ .../desktop/src/main/service/sidecar-probe.ts | 14 ++++--
+ 9 files changed, 90 insertions(+), 35 deletions(-)
+ create mode 100644 packages/client/test/service-channel.test.ts
+
+diff --git a/packages/cli/src/services/service-config.ts b/packages/cli/src/services/service-config.ts
+index 483db314c400..7cc99671c327 100644
+--- a/packages/cli/src/services/service-config.ts
++++ b/packages/cli/src/services/service-config.ts
+@@ -1,7 +1,7 @@
+ import { Global } from "@opencode/util/global"
+ import { OPENCODE_CHANNEL, OPENCODE_VERSION } from "../version"
+ import { Hash } from "@opencode/util/hash"
+-import { Service } from "@opencode/client/effect/service"
++import { Service, registrationFilename } from "@opencode/client/effect/service"
+ import { Effect, FileSystem, Option, Schedule, Schema } from "effect"
+ import { randomBytes } from "crypto"
+ import path from "path"
+@@ -39,8 +39,7 @@ const decodeLegacy = Schema.decodeUnknownOption(
+ const decodeRegistration = Schema.decodeUnknownEffect(Schema.fromJsonString(Service.Info))
+ 
+ export function filename(channel = OPENCODE_CHANNEL) {
+-  if (channel === "latest" || channel === "dev" || channel === "beta" || channel === "next") return "service.json"
+-  return `service-${channel.replace(/[^a-zA-Z0-9._-]/g, "-")}.json`
++  return registrationFilename(channel)
+ }
+ 
+ export function defaultPort(channel = OPENCODE_CHANNEL, platform = process.platform) {
+diff --git a/packages/cli/test/service.test.ts b/packages/cli/test/service.test.ts
+index d3aa1797f302..6e9b5857c663 100644
+--- a/packages/cli/test/service.test.ts
++++ b/packages/cli/test/service.test.ts
+@@ -261,14 +261,7 @@ test.skipIf(process.platform === "win32")("port owner is unknown for a free port
+   ).toBeUndefined()
+ })
+ 
+-test("service filenames share release channels and identify preview channels", () => {
+-  expect(ServiceConfig.filename("latest")).toBe("service.json")
+-  expect(ServiceConfig.filename("dev")).toBe("service.json")
+-  expect(ServiceConfig.filename("beta")).toBe("service.json")
+-  expect(ServiceConfig.filename("next")).toBe("service.json")
+-  expect(ServiceConfig.filename("local")).toBe("service-local.json")
+-  expect(ServiceConfig.filename("preview-a")).toBe("service-preview-a.json")
+-  expect(ServiceConfig.filename("preview/a")).toBe("service-preview-a.json")
++test("recognizes preview channel versions", () => {
+   expect(ServiceConfig.versionBelongsToChannel("0.0.0-preview-a-1234", "preview-a")).toBe(true)
+   expect(ServiceConfig.versionBelongsToChannel("0.0.0-preview-a-1234.2", "preview-a")).toBe(true)
+   expect(ServiceConfig.versionBelongsToChannel("0.0.0-preview-a-other-1234", "preview-a")).toBe(false)
+diff --git a/packages/client/src/service-probe.ts b/packages/client/src/service-probe.ts
+index 7f61c84f8e0c..9c7175d3699a 100644
+--- a/packages/client/src/service-probe.ts
++++ b/packages/client/src/service-probe.ts
+@@ -1,6 +1,6 @@
+ import { homedir } from "node:os"
+ import { join } from "node:path"
+-import type { DiscoverOptions, Endpoint, Info } from "./service.js"
++import { registrationFilename, type DiscoverOptions, type Endpoint, type Info } from "./service.js"
+ import { defaultEnsureTiming } from "./service-timing.js"
+ import { matchesVersion } from "./service-version.js"
+ 
+@@ -35,9 +35,13 @@ function fail(message: string) {
+   return { _tag: "fail" as const, error: new Error(message) }
+ }
+ 
+-/** The default registration file. */
+-export function fallback() {
+-  return join(process.env["XDG_STATE_HOME"] ?? join(homedir(), ".local", "state"), "opencode", "service.json")
++/** Registration path for a CLI release channel. */
++export function fallback(channel = "latest") {
++  return join(
++    process.env["XDG_STATE_HOME"] ?? join(homedir(), ".local", "state"),
++    "opencode",
++    registrationFilename(channel),
++  )
+ }
+ 
+ /** Whether two registrations describe the same service instance. */
+diff --git a/packages/client/src/service.ts b/packages/client/src/service.ts
+index 78d4b9a60eb0..2520e88fcbea 100644
+--- a/packages/client/src/service.ts
++++ b/packages/client/src/service.ts
+@@ -1,3 +1,9 @@
++/** Registration basename for a CLI release channel. */
++export function registrationFilename(channel: string) {
++  if (channel === "latest" || channel === "dev" || channel === "beta" || channel === "next") return "service.json"
++  return `service-${channel.replace(/[^a-zA-Z0-9._-]/g, "-")}.json`
++}
++
+ /** Connection details for a local OpenCode service. */
+ export type Endpoint = {
+   /** Base URL of the service. */
+diff --git a/packages/client/test/service-channel.test.ts b/packages/client/test/service-channel.test.ts
+new file mode 100644
+index 000000000000..8c462e13a325
+--- /dev/null
++++ b/packages/client/test/service-channel.test.ts
+@@ -0,0 +1,49 @@
++import { expect, test } from "bun:test"
++import { mkdtemp, rm } from "node:fs/promises"
++import { tmpdir } from "node:os"
++import { basename, join } from "node:path"
++import { Service, registrationFilename, fallback, type Endpoint } from "../src/promise/service"
++
++test.each(["latest", "dev", "beta", "next"])("%s shares the release registration", (channel) => {
++  expect(registrationFilename(channel)).toBe("service.json")
++})
++
++test.each([
++  ["prod", "service-prod.json"],
++  ["local", "service-local.json"],
++  ["preview/a", "service-preview-a.json"],
++])("%s has a named registration", (channel, file) => {
++  expect(registrationFilename(channel)).toBe(file)
++})
++
++test("discovers and reuses an authenticated named owner without adopting the shared registration", async () => {
++  const root = await mkdtemp(join(tmpdir(), "opencode-service-channel-"))
++  const server = Bun.serve({
++    hostname: "127.0.0.1",
++    port: 0,
++    fetch: (request) =>
++      Response.json(
++        { version: "test", pid: process.pid },
++        { status: request.headers.get("authorization") === "Basic " + btoa("opencode:secret") ? 200 : 401 },
++      ),
++  })
++  try {
++    const file = join(root, basename(fallback("prod")))
++    const shared = join(root, basename(fallback()))
++    await Bun.write(
++      file,
++      JSON.stringify({ url: server.url.origin, pid: process.pid, version: "test", password: "secret" }),
++    )
++    const endpoint = {
++      url: server.url.origin,
++      auth: { type: "basic", username: "opencode", password: "secret" },
++    } satisfies Endpoint
++    expect(await Service.discover({ file: shared })).toBeUndefined()
++    expect(await Service.discover({ file, version: "test" })).toEqual(endpoint)
++    expect(await Service.ensure({ file, version: "test", command: [] })).toEqual(endpoint)
++    expect(await Bun.file(shared).exists()).toBe(false)
++  } finally {
++    await server.stop(true)
++    await rm(root, { recursive: true, force: true })
++  }
++})
+diff --git a/packages/desktop/electron.vite.config.ts b/packages/desktop/electron.vite.config.ts
+index 1e9dcf6e0908..aa29ad5fc01a 100644
+--- a/packages/desktop/electron.vite.config.ts
++++ b/packages/desktop/electron.vite.config.ts
+@@ -53,8 +53,7 @@ export default defineConfig(async ({ command }) => {
+         dedupe: ["effect"],
+       },
+       define: {
+-        // Local renderer/server mode still uses the dev application identity and updater policy.
+-        "import.meta.env.OPENCODE_CHANNEL": JSON.stringify(channel === "local" ? "dev" : channel),
++        "import.meta.env.OPENCODE_CHANNEL": JSON.stringify(process.env.OPENCODE_CHANNEL || "dev"),
+       },
+       build: {
+         minify: command === "build",
+diff --git a/packages/desktop/src/main/constants.ts b/packages/desktop/src/main/constants.ts
+index 79972677a1f7..ac30ae35190f 100644
+--- a/packages/desktop/src/main/constants.ts
++++ b/packages/desktop/src/main/constants.ts
+@@ -1,10 +1,17 @@
+ import { app } from "electron"
+ 
+-type Channel = "local" | "dev" | "beta" | "prod"
++type Channel = "dev" | "beta" | "prod"
+ 
+ const raw = import.meta.env.OPENCODE_CHANNEL
+ 
+-export const CHANNEL: Channel = raw === "local" || raw === "dev" || raw === "beta" || raw === "prod" ? raw : "dev"
++// Application identity uses prod; service discovery keeps the CLI's channel.
++export const CHANNEL: Channel =
++  raw === "latest" ? "prod" : raw === "dev" || raw === "beta" || raw === "prod" ? raw : "dev"
++
++export function serviceChannel() {
++  if (process.env.OPENCODE_DESKTOP_SERVER_CHANNEL === "local") return "local"
++  return raw
++}
+ 
+ export const VERSION = app.isPackaged ? app.getVersion() : (process.env.OPENCODE_VERSION ?? app.getVersion())
+ 
+diff --git a/packages/desktop/src/main/service/background-service.ts b/packages/desktop/src/main/service/background-service.ts
+index f6002ba6bbd9..f88d54b77772 100644
+--- a/packages/desktop/src/main/service/background-service.ts
++++ b/packages/desktop/src/main/service/background-service.ts
+@@ -1,6 +1,6 @@
+ import { app } from "electron"
+ import { Context, Effect, FileSystem, Layer, Option, Path, Schema } from "effect"
+-import { CHANNEL } from "../constants"
++import { CHANNEL, serviceChannel } from "../constants"
+ import { BackgroundServiceState } from "./background-service-state"
+ import { cleanStages } from "./cli-stages"
+ import { keptStages, serviceVersion, shouldRetryEnsure } from "./cli-version"
+@@ -36,7 +36,6 @@ export const layer = Layer.effect(
+ const connect = Effect.fn("BackgroundService.connect")(function* (mode: "initial" | "reconnect") {
+   yield* Effect.logInfo("starting v2 background service")
+   const fs = yield* FileSystem.FileSystem
+-  const path = yield* Path.Path
+   const desktopCli = yield* DesktopCli.Service
+   const runFork = Effect.runForkWith(yield* Effect.context<FileSystem.FileSystem | Path.Path>())
+   const isolated = !app.isPackaged && process.env.OPENCODE_DESKTOP_ISOLATED_SERVER === "1"
+@@ -46,14 +45,7 @@ const connect = Effect.fn("BackgroundService.connect")(function* (mode: "initial
+   if (isolated) process.env.XDG_STATE_HOME = app.getPath("userData")
+   const client = yield* Effect.promise(() => import("@opencode/client/service"))
+ 
+-  const file =
+-    process.env.OPENCODE_DESKTOP_SERVER_CHANNEL === "local"
+-      ? path.join(
+-          process.env.XDG_STATE_HOME ?? path.join(app.getPath("home"), ".local", "state"),
+-          "opencode",
+-          "service-local.json",
+-        )
+-      : undefined
++  const file = client.fallback(serviceChannel())
+ 
+   const ensure = (required = version) =>
+     client.Service.ensure({
+@@ -80,7 +72,7 @@ const connect = Effect.fn("BackgroundService.connect")(function* (mode: "initial
+ 
+   // A compatible service the entry module already found is adopted at once; ensure() still runs
+   // afterwards for its side effects (terminal handoff completion), off the renderer's path.
+-  const early = mode === "initial" && !isolated ? yield* Effect.promise(sidecarProbe) : undefined
++  const early = mode === "initial" && !isolated ? yield* Effect.promise(() => sidecarProbe(file)) : undefined
+ 
+   if (early) yield* Effect.sync(() => void runEnsure().catch(() => undefined))
+   const service = early ?? (yield* Effect.tryPromise(runEnsure))
+@@ -90,7 +82,7 @@ const connect = Effect.fn("BackgroundService.connect")(function* (mode: "initial
+ 
+   if (url.hostname === "0.0.0.0") url.hostname = "127.0.0.1"
+ 
+-  const runningVersion = yield* fs.readFileString(file ?? client.fallback()).pipe(
++  const runningVersion = yield* fs.readFileString(file).pipe(
+     Effect.map(
+       (text) =>
+         Option.getOrUndefined(Schema.decodeUnknownOption(Schema.fromJsonString(RegisteredService))(text))?.version,
+diff --git a/packages/desktop/src/main/service/sidecar-probe.ts b/packages/desktop/src/main/service/sidecar-probe.ts
+index 36914f481f5e..010ee6452ead 100644
+--- a/packages/desktop/src/main/service/sidecar-probe.ts
++++ b/packages/desktop/src/main/service/sidecar-probe.ts
+@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs"
+ import path from "node:path"
+ import { app } from "electron"
+ import type { Endpoint } from "@opencode/client/service"
+-import { CHANNEL } from "../constants"
++import { CHANNEL, serviceChannel } from "../constants"
+ 
+ // The main thread idles between showing the first window and evaluating the main bundle, waiting
+ // for the renderer's asset requests. That slot is long enough to find out whether a compatible
+@@ -10,6 +10,7 @@ import { CHANNEL } from "../constants"
+ // moment anyone asks. The probe only looks; a service that has to be started waits for the layers,
+ // which set the environment the CLI expects.
+ let probe: Promise<Endpoint | undefined> | undefined
++let probeFile: string | undefined
+ 
+ export function startSidecarProbe() {
+   if (!app.isPackaged) return
+@@ -17,12 +18,17 @@ export function startSidecarProbe() {
+ 
+   if (version === "") return
+   probe = import("@opencode/client/service")
+-    .then(({ Service }) => Service.discover({ version }))
++    .then((client) => {
++      const file = client.fallback(serviceChannel())
++      probeFile = file
++      return client.Service.discover({ file, version })
++    })
+     .catch(() => undefined)
+ }
+ 
+-export function sidecarProbe() {
+-  return probe ?? Promise.resolve(undefined)
++export async function sidecarProbe(file: string) {
++  const endpoint = await probe
++  return file === probeFile ? endpoint : undefined
+ }
+ 
+ function bundledVersion() {
+
+From d8dde3eb08c794e9bf2a90537aa31cb83558aa45 Mon Sep 17 00:00:00 2001
+From: Test User <test@test.com>
+Date: Fri, 30 Oct 2026 19:50:44 +0100
+Subject: [PATCH 2/4] docs(desktop): clarify CLI channel selection
+
+---
+ packages/desktop/README.md | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/packages/desktop/README.md b/packages/desktop/README.md
+index 475e5e6873db..c5fcc717a49a 100644
+--- a/packages/desktop/README.md
++++ b/packages/desktop/README.md
+@@ -27,6 +27,9 @@ Both read the same environment as every other release package:
+ | `OPENCODE_VERSION` | Version stamped into the app and its packages.                                                                  |
+ | `OPENCODE_TARGET`  | `darwin-arm64`, `darwin-x64`, `windows-arm64`, `windows-x64`, `linux-x64`, `linux-arm64`. Defaults to the host. |
+ 
++Build the bundled CLI and Desktop with the same `OPENCODE_CHANNEL`. `latest` and `prod` use the production app identity
++but separate service registrations.
++
+ The CLI is placed outside `app.asar` in the application's resources directory, and packaging fails if it is missing.
+ `bun run build` uses `packages/cli/dist` when that holds the target's CLI. Otherwise `dev` (and `local`, unset or unrecognized)
+ downloads the published dev CLI, `beta` downloads the beta CLI, and `prod`/`latest` fail.
+
+From 319538a31bc44a7d31d9de4031a361b18e38a71a Mon Sep 17 00:00:00 2001
+From: Test User <test@test.com>
+Date: Fri, 30 Oct 2026 21:21:48 +0100
+Subject: [PATCH 3/4] fix(desktop): align bundled CLI channels
+
+---
+ packages/desktop/README.md                    |  7 ++--
+ packages/desktop/script/build.ts              |  8 ++--
+ packages/desktop/script/utils.test.ts         | 18 +++++++++
+ packages/desktop/script/utils.ts              |  4 ++
+ .../src/main/service/background-service.ts    |  6 +--
+ .../src/main/service/cli-stages.test.ts       | 39 +++++++++++++++++++
+ .../desktop/src/main/service/cli-stages.ts    |  9 ++---
+ .../src/main/service/cli-version.test.ts      | 14 +++----
+ .../desktop/src/main/service/cli-version.ts   | 13 +++----
+ .../desktop/src/main/service/desktop-cli.ts   |  4 +-
+ 10 files changed, 92 insertions(+), 30 deletions(-)
+ create mode 100644 packages/desktop/script/utils.test.ts
+
+diff --git a/packages/desktop/README.md b/packages/desktop/README.md
+index c5fcc717a49a..840cff060ce2 100644
+--- a/packages/desktop/README.md
++++ b/packages/desktop/README.md
+@@ -27,12 +27,13 @@ Both read the same environment as every other release package:
+ | `OPENCODE_VERSION` | Version stamped into the app and its packages.                                                                  |
+ | `OPENCODE_TARGET`  | `darwin-arm64`, `darwin-x64`, `windows-arm64`, `windows-x64`, `linux-x64`, `linux-arm64`. Defaults to the host. |
+ 
+-Build the bundled CLI and Desktop with the same `OPENCODE_CHANNEL`. `latest` and `prod` use the production app identity
+-but separate service registrations.
++For a prebuilt CLI, build it and Desktop with the same `OPENCODE_CHANNEL`. `latest` and `prod` use the production
++app identity but separate service registrations.
+ 
+ The CLI is placed outside `app.asar` in the application's resources directory, and packaging fails if it is missing.
+ `bun run build` uses `packages/cli/dist` when that holds the target's CLI. Otherwise `dev` (and `local`, unset or unrecognized)
+-downloads the published dev CLI, `beta` downloads the beta CLI, and `prod`/`latest` fail.
++downloads the published dev CLI, `beta` downloads the beta CLI, and `prod`/`latest` fail. Service discovery follows
++the selected CLI's channel.
+ 
+ `bun dev` is separate from packaging: it uses local renderer/server mode, the dev app identity, and the CLI source by
+ default. `bun dev --download-server <version>` instead downloads that CLI version for local development.
+diff --git a/packages/desktop/script/build.ts b/packages/desktop/script/build.ts
+index 6d55837c1703..6cb24961502d 100644
+--- a/packages/desktop/script/build.ts
++++ b/packages/desktop/script/build.ts
+@@ -2,7 +2,7 @@
+ import { $ } from "bun"
+ import { exists } from "node:fs/promises"
+ import path from "node:path"
+-import { copyBuiltCliToResources, downloadCliToResources, getCurrentCli, resolveChannel } from "./utils"
++import { copyBuiltCliToResources, downloadCliToResources, getCurrentCli, resolveChannel, resolveCliChannel } from "./utils"
+ import { verifyBundles } from "./verify-bundles"
+ 
+ // Prepares resources/ (icons, metainfo, the bundled CLI) for OPENCODE_CHANNEL and builds the app into out/.
+@@ -25,10 +25,12 @@ const built = await exists(path.join(cli, getCurrentCli().package.replace("@open
+ if (channel === "prod" && !built)
+   throw new Error(`Production desktop builds bundle the CLI from ${cli}; build it first`)
+ 
++const cliChannel = resolveCliChannel(built)
++
+ if (built) await copyBuiltCliToResources(cli)
+ 
+-if (!built) await downloadCliToResources(channel === "beta" ? "beta" : undefined)
++if (!built) await downloadCliToResources(cliChannel)
+ 
+-await $`bunx electron-vite build`
++await $`bunx electron-vite build`.env({ ...process.env, OPENCODE_CHANNEL: cliChannel })
+ 
+ await verifyBundles(path.join(dir, "out"))
+diff --git a/packages/desktop/script/utils.test.ts b/packages/desktop/script/utils.test.ts
+new file mode 100644
+index 000000000000..cbb0d36b0cb5
+--- /dev/null
++++ b/packages/desktop/script/utils.test.ts
+@@ -0,0 +1,18 @@
++import { expect, test } from "bun:test"
++import { resolveCliChannel } from "./utils"
++
++test.each([
++  { channel: "preview-a", built: false, expected: "dev" },
++  { channel: "preview-a", built: true, expected: "preview-a" },
++  { channel: "beta", built: false, expected: "beta" },
++])("selects the bundled CLI channel for $channel (built=$built)", (input) => {
++  const previous = process.env.OPENCODE_CHANNEL
++  process.env.OPENCODE_CHANNEL = input.channel
++
++  try {
++    expect(resolveCliChannel(input.built)).toBe(input.expected)
++  } finally {
++    if (previous === undefined) delete process.env.OPENCODE_CHANNEL
++    else process.env.OPENCODE_CHANNEL = previous
++  }
++})
+diff --git a/packages/desktop/script/utils.ts b/packages/desktop/script/utils.ts
+index c81406b42f20..d04e9d9e055d 100644
+--- a/packages/desktop/script/utils.ts
++++ b/packages/desktop/script/utils.ts
+@@ -19,6 +19,10 @@ export function resolveChannel(): Channel {
+   return "dev"
+ }
+ 
++export function resolveCliChannel(built: boolean) {
++  return built ? process.env.OPENCODE_CHANNEL || "dev" : resolveChannel()
++}
++
+ export const CLI_BINARIES: Array<{ target: string; package: string; os: string; cpu: string }> = [
+   {
+     target: "darwin-arm64",
+diff --git a/packages/desktop/src/main/service/background-service.ts b/packages/desktop/src/main/service/background-service.ts
+index f88d54b77772..d8295f490eab 100644
+--- a/packages/desktop/src/main/service/background-service.ts
++++ b/packages/desktop/src/main/service/background-service.ts
+@@ -3,7 +3,7 @@ import { Context, Effect, FileSystem, Layer, Option, Path, Schema } from "effect
+ import { CHANNEL, serviceChannel } from "../constants"
+ import { BackgroundServiceState } from "./background-service-state"
+ import { cleanStages } from "./cli-stages"
+-import { keptStages, serviceVersion, shouldRetryEnsure } from "./cli-version"
++import { stageRetention, serviceVersion, shouldRetryEnsure } from "./cli-version"
+ import { DesktopCli } from "./desktop-cli"
+ import { SidecarCredentials } from "./sidecar-credentials"
+ import { sidecarProbe } from "./sidecar-probe"
+@@ -98,10 +98,10 @@ const connect = Effect.fn("BackgroundService.connect")(function* (mode: "initial
+   })
+ 
+   // Only packaged and isolated builds run a staged copy; any other binary sits in the source tree.
+-  // Keep both the bundled stage and any adopted server's stage so its executable stays on disk.
++  // Keep the bundled copy and possible stages of the adopted server.
+   if (mode === "initial" && (app.isPackaged || isolated) && cli.binary && runningVersion)
+     runFork(
+-      cleanStages(cli.binary, { keep: keptStages(cli.version, runningVersion) }).pipe(
++      cleanStages(cli.binary, stageRetention(runningVersion)).pipe(
+         Effect.catch((error) => Effect.logError("failed to clean staged v2 CLIs", { error })),
+       ),
+     )
+diff --git a/packages/desktop/src/main/service/cli-stages.test.ts b/packages/desktop/src/main/service/cli-stages.test.ts
+index f9b05339d797..24c0ea89ed88 100644
+--- a/packages/desktop/src/main/service/cli-stages.test.ts
++++ b/packages/desktop/src/main/service/cli-stages.test.ts
+@@ -5,7 +5,11 @@ import path from "node:path"
+ import { NodeFileSystem, NodePath } from "@effect/platform-node"
+ import { Effect, Layer } from "effect"
+ 
++import { testEffect } from "../../../../core/test/lib/effect"
+ import { cleanStages } from "./cli-stages"
++import { stageName, stageRetention } from "./cli-version"
++
++const it = testEffect(Layer.mergeAll(NodeFileSystem.layer, NodePath.layer))
+ 
+ describe("cleanStages", () => {
+   test.each([
+@@ -35,4 +39,39 @@ describe("cleanStages", () => {
+       rmSync(root, { recursive: true, force: true })
+     }
+   })
++
++  ;[
++    { name: "same-version channel switch", running: "2.0.32" },
++    { name: "older adopted server", running: "2.0.31" },
++  ].forEach((input) => {
++    it.live(
++      `preserves running CLI candidates after ${input.name}`,
++      Effect.gen(function* () {
++        const root = mkdtempSync(path.join(tmpdir(), "opencode-cli-stages-"))
++        const stages = {
++          current: stageName("2.0.32", "next"),
++          adopted: stageName(input.running, "dev"),
++          legacy: `${input.running}-${process.arch}`,
++          stale: stageName(`${input.running}0`, "dev"),
++          foreign: stageName(input.running, "dev", process.arch === "arm64" ? "x64" : "arm64"),
++        }
++
++        try {
++          Object.values(stages).forEach((stage) => {
++            mkdirSync(path.join(root, stage))
++            writeFileSync(path.join(root, stage, "opencode-cli"), stage)
++          })
++          writeFileSync(path.join(root, "unrelated"), "")
++
++          yield* cleanStages(path.join(root, stages.current, "opencode-cli"), stageRetention(input.running))
++
++          expect(readdirSync(root).sort()).toEqual(
++            [stages.current, stages.adopted, stages.legacy, "unrelated"].sort(),
++          )
++        } finally {
++          rmSync(root, { recursive: true, force: true })
++        }
++      }),
++    )
++  })
+ })
+diff --git a/packages/desktop/src/main/service/cli-stages.ts b/packages/desktop/src/main/service/cli-stages.ts
+index ad31ddb29794..d9d41779aa12 100644
+--- a/packages/desktop/src/main/service/cli-stages.ts
++++ b/packages/desktop/src/main/service/cli-stages.ts
+@@ -1,11 +1,10 @@
+ import { Effect, FileSystem, Path } from "effect"
+ 
+-// Each version and architecture stages its own copy of the CLI, and only the current one (plus any adopted
+-// beta server still running) is kept: a downgrade stages its copy anew. Windows refuses to delete an executable
+-// that has not exited yet, so a failed removal is logged and retried on the next launch.
++// Keep the current copy and possible stages of an adopted server.
++// Windows locks running executables; failed removals retry on the next launch.
+ export const cleanStages = Effect.fn("DesktopCli.cleanStages")(function* (
+   binary: string,
+-  options?: { readonly keep?: ReadonlyArray<string> },
++  options?: { readonly keep?: ReadonlyArray<string>; readonly keepPrefix?: string },
+ ) {
+   const fs = yield* FileSystem.FileSystem
+   const path = yield* Path.Path
+@@ -16,7 +15,7 @@ export const cleanStages = Effect.fn("DesktopCli.cleanStages")(function* (
+   yield* Effect.forEach(
+     entries,
+     Effect.fnUntraced(function* (entry) {
+-      if (keep.has(entry)) return
++      if (keep.has(entry) || (options?.keepPrefix && entry.startsWith(options.keepPrefix))) return
+       const target = path.join(root, entry)
+       const stat = yield* fs.stat(target).pipe(Effect.orElseSucceed(() => undefined))
+ 
+diff --git a/packages/desktop/src/main/service/cli-version.test.ts b/packages/desktop/src/main/service/cli-version.test.ts
+index eb10c19547e0..9537d167203a 100644
+--- a/packages/desktop/src/main/service/cli-version.test.ts
++++ b/packages/desktop/src/main/service/cli-version.test.ts
+@@ -1,5 +1,5 @@
+ import { describe, expect, test } from "bun:test"
+-import { keptStages, serviceVersion, shouldRetryEnsure } from "./cli-version"
++import { serviceVersion, shouldRetryEnsure, stageName } from "./cli-version"
+ 
+ describe("cli-version", () => {
+   test.each([
+@@ -10,12 +10,12 @@ describe("cli-version", () => {
+     expect(serviceVersion(input)).toBe(input.expected)
+   })
+ 
+-  test.each([
+-    { bundled: "0.0.0-beta-2", running: "0.0.0-beta-1", expected: ["0.0.0-beta-2-arm64", "0.0.0-beta-1-arm64"] },
+-    { bundled: "0.0.0-beta-2", running: "0.0.0-beta-2", expected: ["0.0.0-beta-2-arm64"] },
+-    { bundled: "2.0.32", running: undefined, expected: ["2.0.32-arm64"] },
+-  ])("keptStages($bundled, $running)", (input) => {
+-    expect(keptStages(input.bundled, input.running, "arm64")).toEqual(input.expected)
++  test("separates same-version CLI channels and architectures", () => {
++    const stages = ["latest", "prod"].flatMap((channel) =>
++      (["x64", "arm64"] as const).map((arch) => stageName("2.0.32", channel, arch)),
++    )
++
++    expect(new Set(stages).size).toBe(4)
+   })
+ 
+   test.each([
+diff --git a/packages/desktop/src/main/service/cli-version.ts b/packages/desktop/src/main/service/cli-version.ts
+index 59af11b17f04..6cba784da659 100644
+--- a/packages/desktop/src/main/service/cli-version.ts
++++ b/packages/desktop/src/main/service/cli-version.ts
+@@ -30,14 +30,13 @@ export function shouldRetryEnsure(version: string | undefined, message: string)
+   )
+ }
+ 
+-export function stageName(version: string, arch = process.arch) {
+-  return `${version}-${arch}`.replace(/[^a-zA-Z0-9._-]/g, "-")
++export function stageName(version: string, channel: string, arch = process.arch) {
++  return `${version}-${arch}-${channel}`.replace(/[^a-zA-Z0-9._-]/g, "-")
+ }
+ 
+-export function keptStages(bundledVersion: string, runningVersion?: string, arch = process.arch) {
+-  const stages = [stageName(bundledVersion, arch)]
++export function stageRetention(runningVersion: string, arch = process.arch) {
++  // The registration omits the CLI channel, including for a server still using a legacy stage.
++  const legacy = `${runningVersion}-${arch}`.replace(/[^a-zA-Z0-9._-]/g, "-")
+ 
+-  if (runningVersion && runningVersion !== bundledVersion) stages.push(stageName(runningVersion, arch))
+-
+-  return stages
++  return { keep: [legacy], keepPrefix: `${legacy}-` }
+ }
+diff --git a/packages/desktop/src/main/service/desktop-cli.ts b/packages/desktop/src/main/service/desktop-cli.ts
+index 6f154f33d10e..bc63e369e058 100644
+--- a/packages/desktop/src/main/service/desktop-cli.ts
++++ b/packages/desktop/src/main/service/desktop-cli.ts
+@@ -139,8 +139,8 @@ const ExecFailure = Schema.Struct({ stdout: Schema.optional(Schema.String), stde
+ const installCli = Effect.fn("DesktopCli.install")(function* (source: string, version: string) {
+   const fs = yield* FileSystem.FileSystem
+   const path = yield* Path.Path
+-  // x64 and ARM64 installers share userData on Windows ARM64, so a same-version switch must not reuse the other copy.
+-  const stage = stageName(version)
++  // Same-version builds can differ by architecture and CLI channel.
++  const stage = stageName(version, import.meta.env.OPENCODE_CHANNEL)
+   const directory = path.join(app.getPath("userData"), "cli", stage)
+   const destination = path.join(directory, executableName())
+ 
+
+From 36cfa4539e2bd2bea155ecd3b909322eb40591a7 Mon Sep 17 00:00:00 2001
+From: Test User <test@test.com>
+Date: Fri, 30 Oct 2026 22:49:47 +0100
+Subject: [PATCH 4/4] fix(desktop): require explicit prebuilt channel
+
+Prebuilt CLI manifests do not record their channel. Reject missing
+OPENCODE_CHANNEL before preparing Desktop build resources.
+---
+ packages/desktop/README.md            |  6 +++---
+ packages/desktop/script/build.ts      | 12 ++++++------
+ packages/desktop/script/utils.test.ts | 11 ++++++++++-
+ packages/desktop/script/utils.ts      |  7 ++++++-
+ 4 files changed, 25 insertions(+), 11 deletions(-)
+
+diff --git a/packages/desktop/README.md b/packages/desktop/README.md
+index 840cff060ce2..aaca77ccfe74 100644
+--- a/packages/desktop/README.md
++++ b/packages/desktop/README.md
+@@ -23,12 +23,12 @@ Both read the same environment as every other release package:
+ 
+ | Variable           | Meaning                                                                                                         |
+ | ------------------ | --------------------------------------------------------------------------------------------------------------- |
+-| `OPENCODE_CHANNEL` | `dev` (default), `beta`, or `latest`/`prod`. Picks the app identity, icons and bundled CLI.                     |
++| `OPENCODE_CHANNEL` | `dev` (download default), `beta`, or `latest`/`prod`. Picks the app identity, icons and bundled CLI.          |
+ | `OPENCODE_VERSION` | Version stamped into the app and its packages.                                                                  |
+ | `OPENCODE_TARGET`  | `darwin-arm64`, `darwin-x64`, `windows-arm64`, `windows-x64`, `linux-x64`, `linux-arm64`. Defaults to the host. |
+ 
+-For a prebuilt CLI, build it and Desktop with the same `OPENCODE_CHANNEL`. `latest` and `prod` use the production
+-app identity but separate service registrations.
++For a prebuilt CLI, set `OPENCODE_CHANNEL` explicitly to the channel used to build it. `latest` and `prod` use
++the production app identity but separate service registrations.
+ 
+ The CLI is placed outside `app.asar` in the application's resources directory, and packaging fails if it is missing.
+ `bun run build` uses `packages/cli/dist` when that holds the target's CLI. Otherwise `dev` (and `local`, unset or unrecognized)
+diff --git a/packages/desktop/script/build.ts b/packages/desktop/script/build.ts
+index 6cb24961502d..8d45bd42f65f 100644
+--- a/packages/desktop/script/build.ts
++++ b/packages/desktop/script/build.ts
+@@ -14,12 +14,6 @@ const cli = path.resolve(dir, "../cli/dist")
+ 
+ const channel = resolveChannel()
+ 
+-process.chdir(dir)
+-
+-await $`bun ./script/copy-icons.ts ${channel}`
+-
+-await $`bun ./script/copy-metainfo.ts ${channel}`
+-
+ const built = await exists(path.join(cli, getCurrentCli().package.replace("@opencode/", "")))
+ 
+ if (channel === "prod" && !built)
+@@ -27,6 +21,12 @@ if (channel === "prod" && !built)
+ 
+ const cliChannel = resolveCliChannel(built)
+ 
++process.chdir(dir)
++
++await $`bun ./script/copy-icons.ts ${channel}`
++
++await $`bun ./script/copy-metainfo.ts ${channel}`
++
+ if (built) await copyBuiltCliToResources(cli)
+ 
+ if (!built) await downloadCliToResources(cliChannel)
+diff --git a/packages/desktop/script/utils.test.ts b/packages/desktop/script/utils.test.ts
+index cbb0d36b0cb5..c114e60da036 100644
+--- a/packages/desktop/script/utils.test.ts
++++ b/packages/desktop/script/utils.test.ts
+@@ -5,11 +5,20 @@ test.each([
+   { channel: "preview-a", built: false, expected: "dev" },
+   { channel: "preview-a", built: true, expected: "preview-a" },
+   { channel: "beta", built: false, expected: "beta" },
++  { channel: undefined, built: false, expected: "dev" },
++  { channel: undefined, built: true, error: true },
++  { channel: "", built: true, error: true },
+ ])("selects the bundled CLI channel for $channel (built=$built)", (input) => {
+   const previous = process.env.OPENCODE_CHANNEL
+-  process.env.OPENCODE_CHANNEL = input.channel
++  if (input.channel === undefined) delete process.env.OPENCODE_CHANNEL
++  else process.env.OPENCODE_CHANNEL = input.channel
+ 
+   try {
++    if (input.error) {
++      expect(() => resolveCliChannel(input.built)).toThrow(Error)
++      return
++    }
++
+     expect(resolveCliChannel(input.built)).toBe(input.expected)
+   } finally {
+     if (previous === undefined) delete process.env.OPENCODE_CHANNEL
+diff --git a/packages/desktop/script/utils.ts b/packages/desktop/script/utils.ts
+index d04e9d9e055d..71ce4a7d78e4 100644
+--- a/packages/desktop/script/utils.ts
++++ b/packages/desktop/script/utils.ts
+@@ -20,7 +20,12 @@ export function resolveChannel(): Channel {
+ }
+ 
+ export function resolveCliChannel(built: boolean) {
+-  return built ? process.env.OPENCODE_CHANNEL || "dev" : resolveChannel()
++  if (!built) return resolveChannel()
++
++  const channel = process.env.OPENCODE_CHANNEL
++  if (!channel) throw new Error("Set OPENCODE_CHANNEL to the channel used to build the prebuilt CLI")
++
++  return channel
+ }
+ 
+ export const CLI_BINARIES: Array<{ target: string; package: string; os: string; cpu: string }> = [

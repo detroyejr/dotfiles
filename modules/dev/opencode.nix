@@ -8,25 +8,18 @@
 let
   cfg = config.programs.opencode;
   defaultModel = "opencode-go/gpt-6-luna";
-  upstream = inputs.opencode.outputs.packages.${system};
-  nodeModules =
-    if system == "x86_64-linux" then
-      upstream.opencode.node_modules.overrideAttrs (_: {
-        outputHash = "sha256-jldGJwsB717N5tOoeWQlDrpiKM6EAjMbLXV0yYE0T5c=";
-      })
-    else
-      upstream.opencode.node_modules;
-  opencode = upstream.opencode.override {
-    node_modules = nodeModules;
-  };
-  opencode-desktop = (upstream.opencode-desktop.override { inherit opencode; }).overrideAttrs (old: {
-    postPatch = old.postPatch + ''
-      substituteInPlace packages/desktop/script/build.ts \
-        --replace-fail \
-          'const cli = path.resolve(dir, "../cli/dist")' \
-          'const cli = process.env.OPENCODE_CLI_DIST ?? path.resolve(dir, "../cli/dist")'
-    '';
-  });
+  opencode = inputs.opencode.packages.${system}.default;
+  opencode-desktop =
+    (inputs.opencode.packages.${system}.opencode-desktop.override { inherit opencode; }).overrideAttrs
+      (old: {
+        patches = (old.patches or [ ]) ++ [ ./patches/opencode-pr-60683.patch ];
+        postPatch = old.postPatch + ''
+          substituteInPlace packages/desktop/script/build.ts \
+            --replace-fail \
+              'const cli = path.resolve(dir, "../cli/dist")' \
+              'const cli = process.env.OPENCODE_CLI_DIST ?? path.resolve(dir, "../cli/dist")'
+        '';
+      });
 in
 {
   options.programs.opencode = {
