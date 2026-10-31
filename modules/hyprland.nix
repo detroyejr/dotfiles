@@ -85,6 +85,7 @@ in
       easyeffects
       grim
       inputs.hokum.packages.${system}.default # replaces mako
+      imv
       hyprpicker
       hyprsunset
       inotify-tools
