@@ -32,6 +32,7 @@ in
 
     buildInputs = [
       prev.glib
+      prev.glib-networking
       prev.gst_all_1.gstreamer
       prev.gst_all_1.gst-plugins-base
       prev.gtk3
