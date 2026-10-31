@@ -19,6 +19,7 @@ let
       hl.env("TERMINAL", terminal)
       hl.env("TZ", "${config.time.timeZone}")
       hl.env("TZDIR", "/etc/zoneinfo")
+      hl.env("OMARCHY_SCREENRECORD_DIR", "/home/detroyejr/Documents/Videos")
 
       hl.monitor({
         output = "eDP-1",
