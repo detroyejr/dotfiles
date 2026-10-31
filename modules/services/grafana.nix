@@ -36,6 +36,83 @@ in
             options.path = "/etc/grafana-dashboards";
           }
         ];
+
+        alerting.rules.settings = {
+          apiVersion = 1;
+          groups = [
+            {
+              orgId = 1;
+              name = "ODP";
+              folder = "ODP";
+              interval = "1m";
+              rules = [
+                {
+                  uid = "ag2w7f0okslj4a";
+                  title = "Low Storage Alert";
+                  condition = "C";
+                  data = [
+                    {
+                      refId = "A";
+                      relativeTimeRange = {
+                        from = 600;
+                        to = 0;
+                      };
+                      datasourceUid = "odp";
+                      model = {
+                        editorMode = "code";
+                        expr = "100 * (1 - max by (instance) (node_filesystem_avail_bytes{mountpoint=\"/\"} / node_filesystem_size_bytes{mountpoint=\"/\"}))";
+                        instant = true;
+                        intervalMs = 1000;
+                        legendFormat = "__auto";
+                        maxDataPoints = 43200;
+                        range = false;
+                        refId = "A";
+                      };
+                    }
+                    {
+                      refId = "C";
+                      queryType = "expression";
+                      datasourceUid = "__expr__";
+                      model = {
+                        conditions = [
+                          {
+                            evaluator = {
+                              params = [ 98 ];
+                              type = "gt";
+                            };
+                            operator.type = "and";
+                            query.params = [ "C" ];
+                            reducer = {
+                              params = [ ];
+                              type = "last";
+                            };
+                            type = "query";
+                          }
+                        ];
+                        datasource = {
+                          type = "__expr__";
+                          uid = "__expr__";
+                        };
+                        expression = "A";
+                        intervalMs = 1000;
+                        maxDataPoints = 43200;
+                        refId = "C";
+                        type = "threshold";
+                      };
+                    }
+                  ];
+                  noDataState = "OK";
+                  execErrState = "Error";
+                  "for" = "5m";
+                  annotations.summary = "Low storage alert.";
+                  labels = { };
+                  isPaused = false;
+                  notification_settings.receiver = "Pushover";
+                }
+              ];
+            }
+          ];
+        };
       };
 
       settings = {
