@@ -19,6 +19,9 @@ switch:
 boot:
   nixos-rebuild boot --elevate sudo --ask-elevate-password --flake /home/detroyejr/.config/dotfiles#$(hostnamectl hostname)
 
+test:
+  nixos-rebuild test --elevate sudo --ask-elevate-password --flake /home/detroyejr/.config/dotfiles#$(hostnamectl hostname)
+
 remote-odp-2:
   nixos-rebuild switch --builders "root@odp-3 x86_64-linux; root@odp-4 x86_64-linux; root@odp-5 x86_64-linux" --flake /home/detroyejr/.config/dotfiles#odp-2 --build-host root@odp-2 --target-host root@odp-2
 
