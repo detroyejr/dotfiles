@@ -48,12 +48,9 @@
     {
       self,
       nixpkgs,
-      nixos-hardware,
       sops-nix,
       disko,
       omarchy-quickshell,
-      opencode,
-      hokum,
       ...
     }@inputs:
     let
