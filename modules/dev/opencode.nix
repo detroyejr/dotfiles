@@ -8,7 +8,20 @@
 let
   cfg = config.programs.opencode;
   defaultModel = "opencode-go/gpt-6-luna";
-  opencode = inputs.opencode.packages.${system}.default;
+  opencode =
+    let
+      package = inputs.opencode.packages.${system}.default;
+    in
+    package.overrideAttrs (old: {
+      node_modules =
+        if system == "x86_64-linux" then
+          old.node_modules.overrideAttrs (_: {
+            # The opencode dev branch has a stale node_modules hash for this platform.
+            outputHash = "sha256-xeEiIROe5jc0G5pFVayQbVG8G084v2wUnVAfU4n2HCM=";
+          })
+        else
+          old.node_modules;
+    });
   opencode-desktop =
     (inputs.opencode.packages.${system}.opencode-desktop.override { inherit opencode; }).overrideAttrs
       (old: {
@@ -45,6 +58,7 @@ in
           "$schema": "https://opencode.ai/config.json",
           "model": "${defaultModel}",
           "theme": "system",
+          "plugins": ["opencode-mobile-notifications"],
           "permissions": [
             { "action": "external_directory", "resource": "*", "effect": "ask" }
           ],
