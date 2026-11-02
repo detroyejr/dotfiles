@@ -128,14 +128,6 @@ let
           },
         },
         {
-          key = mainMod .. " + SHIFT + L",
-          action = function()
-            local layout = hl.get_config("general.layout")
-            hl.config({ general = { layout = layout == "scrolling" and "dwindle" or "scrolling" } })
-          end,
-          options = { description = "Toggle scrolling layout" },
-        },
-        {
           key = "CTRL + ALT + Delete",
           action = hl.dsp.exit(),
           options = { description = "Exit Hyprland" },
