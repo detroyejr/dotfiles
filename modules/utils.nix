@@ -11,6 +11,7 @@ let
       dofile("/etc/omarchy/default/hypr/bootstrap.lua")
       require("default.hypr.helpers")
       require("default.hypr.monitor-workspaces")
+      require("default.hypr.workspace-layouts")
 
       local terminal = "foot"
       local file_browser = "nautilus"
@@ -104,6 +105,11 @@ let
             hl.dispatch(hl.dsp.window.center())
           end,
           options = { description = "Toggle floating window" },
+        },
+        {
+          key = mainMod .. " + SHIFT + L",
+          action = hl.dsp.exec_cmd("omarchy hyprland workspace layout toggle"),
+          options = { description = "Toggle workspace layout" },
         },
         {
           key = "SUPER + space",
