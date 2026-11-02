@@ -375,8 +375,8 @@ let
         },
         {
           key = mainMod .. " + left",
-          action = hl.dsp.focus({ direction = "left" }),
-          options = { description = "Focus window to the left" },
+          action = hl.dsp.layout("focus l"),
+          options = { description = "Focus column to the left" },
         },
         {
           key = mainMod .. " + mouse:272",
@@ -399,9 +399,19 @@ let
           options = { description = "Switch to previous workspace" },
         },
         {
+          key = mainMod .. " + SHIFT + mouse_down",
+          action = hl.dsp.layout("focus r"),
+          options = { description = "Focus column to the right" },
+        },
+        {
+          key = mainMod .. " + SHIFT + mouse_up",
+          action = hl.dsp.layout("focus l"),
+          options = { description = "Focus column to the left" },
+        },
+        {
           key = mainMod .. " + right",
-          action = hl.dsp.focus({ direction = "right" }),
-          options = { description = "Focus window to the right" },
+          action = hl.dsp.layout("focus r"),
+          options = { description = "Focus column to the right" },
         },
         {
           key = mainMod .. " + up",
