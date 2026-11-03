@@ -90,7 +90,7 @@
               "x86_64-linux"
               "i686-linux"
             ];
-            maxJobs = 6;
+            maxJobs = 2;
             supportedFeatures = [
               "benchmark"
               "kvm"
