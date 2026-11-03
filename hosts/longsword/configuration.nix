@@ -176,7 +176,6 @@
     element-desktop
     hyperion-ng
     libreoffice
-    lutris
     nfs-utils
     obsidian
     plex-desktop

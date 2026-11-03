@@ -21,7 +21,6 @@
       hyperion-ng
       libreoffice
       localsend-cli
-      lutris
       nfs-utils
       obsidian
       plex-desktop
