@@ -68,7 +68,9 @@
             cudaSupport = false;
             input-fonts.acceptLicense = true;
           };
-          overlays = map import (getFiles ./packages);
+          overlays = map (
+            path: if baseNameOf path == "opencode" then import path { inherit inputs system; } else import path
+          ) (getFiles ./packages);
         };
       pkgs = mkPkgs system;
 

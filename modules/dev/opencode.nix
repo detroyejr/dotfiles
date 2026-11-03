@@ -1,45 +1,19 @@
 {
-  inputs,
-  system,
   config,
+  pkgs,
   lib,
   ...
 }:
 let
   cfg = config.programs.opencode;
   defaultModel = "opencode-go/gpt-6-luna";
-  opencode =
-    let
-      package = inputs.opencode.packages.${system}.default;
-    in
-    package.overrideAttrs (old: {
-      node_modules =
-        if system == "x86_64-linux" then
-          old.node_modules.overrideAttrs (_: {
-            # The opencode dev branch has a stale node_modules hash for this platform.
-            outputHash = "sha256-xeEiIROe5jc0G5pFVayQbVG8G084v2wUnVAfU4n2HCM=";
-          })
-        else
-          old.node_modules;
-    });
-  opencode-desktop =
-    (inputs.opencode.packages.${system}.opencode-desktop.override { inherit opencode; }).overrideAttrs
-      (old: {
-        patches = (old.patches or [ ]) ++ [ ./patches/opencode-pr-60683.patch ];
-        postPatch = old.postPatch + ''
-          substituteInPlace packages/desktop/script/build.ts \
-            --replace-fail \
-              'const cli = path.resolve(dir, "../cli/dist")' \
-              'const cli = process.env.OPENCODE_CLI_DIST ?? path.resolve(dir, "../cli/dist")'
-        '';
-      });
 in
 {
   options.programs.opencode = {
     enable = lib.mkEnableOption "Opencode CLI config";
     package = lib.mkOption {
       type = lib.types.package;
-      default = opencode;
+      default = pkgs.opencode;
       internal = true;
       readOnly = true;
       description = "The OpenCode CLI package used by OpenCode services.";
@@ -49,7 +23,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
       cfg.package
-      opencode-desktop
+      pkgs.opencode-desktop
     ];
 
     environment.etc = {
@@ -71,6 +45,21 @@ in
             "jarl": {
               "command": ["jarl", "server"],
               "extensions": [".r", ".R"]
+            }
+          }
+          "mcp": {
+            "servers": {
+              "browse": {
+                "type": "local",
+                "command": [
+                  "${pkgs.nodejs-slim}/bin/node",
+                  "/home/detroyejr/Documents/browse/cli/dist/cli.mjs",
+                  "mcp"
+                ],
+                "environment": {
+                  "OPENCODE_BROWSER_RUNTIME": "3dbca73289567ad0"
+                }
+              }
             }
           }
         }
