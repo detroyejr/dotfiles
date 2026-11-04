@@ -46,7 +46,7 @@ in
               "command": ["jarl", "server"],
               "extensions": [".r", ".R"]
             }
-          }
+          },
           "mcp": {
             "servers": {
               "browse": {
