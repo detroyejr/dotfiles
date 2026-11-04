@@ -170,11 +170,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793625115,
-        "narHash": "sha256-zXYKd9W4JtCWvTEvsxU2oNlAH7ekDI24Ky/+RyLcHZo=",
+        "lastModified": 1793802248,
+        "narHash": "sha256-d4BDGbIoJMjcFx6ovTgONmxICLoUW0tLqtp6zJi+X4c=",
         "owner": "detroyejr",
         "repo": "omarchy-quickshell-nix",
-        "rev": "956d352203741ba69bc9d7ee872aaf396b88710a",
+        "rev": "a33bb5ff2675897b2df709e15884ce51ed0f8f37",
         "type": "github"
       },
       "original": {
