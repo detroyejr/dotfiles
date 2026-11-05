@@ -304,9 +304,9 @@ let
           options = { description = "Lock screen" },
         },
         {
-          key = mainMod .. " + M",
-          action = hl.dsp.exec_cmd("$HOME/.local/bin/bash/minimize"),
-          options = { description = "Minimize active window" },
+          key = mainMod .. " + SHIFT + M",
+          action = hl.dsp.exec_cmd("omarchy-hyprland-window-minimize"),
+          options = { description = "Minimize window to the dock" },
         },
         {
           key = mainMod .. " + P",
