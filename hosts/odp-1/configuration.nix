@@ -81,6 +81,7 @@
     odpCA.enable = true;
     odpProxy.enable = true;
     freshrss.enable = true;
+    gliff.enable = true;
     openrgb = {
       enable = true;
       qmkDevices = [

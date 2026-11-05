@@ -17,6 +17,7 @@
     ./fwupd.nix
     ./freshrss.nix
     ./glance.nix
+    ./gliff-server.nix
     ./grafana.nix
     ./immich.nix
     ./llm.nix
