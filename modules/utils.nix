@@ -107,6 +107,21 @@ let
           options = { description = "Toggle floating window" },
         },
         {
+          key = "SUPER + S",
+          action = hl.dsp.workspace.toggle_special("scratchpad"),
+          options = { description = "Toggle scratchpad" },
+        },
+        {
+          key = "SUPER + ALT + S",
+          action = hl.dsp.window.move({ workspace = "special:scratchpad", follow = false }),
+          options = { description = "Move window to scratchpad" },
+        },
+        {
+          key = "SUPER + SHIFT + grave",
+          action = hl.dsp.window.move({ workspace = "special:qconsole", follow = false }),
+          options = { description = "Move window to qconsole" },
+        },
+        {
           key = mainMod .. " + SHIFT + L",
           action = hl.dsp.exec_cmd("omarchy hyprland workspace layout toggle"),
           options = { description = "Toggle workspace layout" },
@@ -305,8 +320,10 @@ let
         },
         {
           key = mainMod .. " + SHIFT + M",
-          action = hl.dsp.exec_cmd("omarchy-hyprland-window-minimize"),
-          options = { description = "Minimize window to the dock" },
+          action = hl.dsp.exec_cmd(
+            [[if [ "$(omarchy-hyprland-workspace-layout-current)" = floating ]; then omarchy-hyprland-window-minimize; else hyprctl dispatch "movetoworkspace special:scratchpad"; fi]]
+          ),
+          options = { description = "Minimize or move window to scratchpad" },
         },
         {
           key = mainMod .. " + P",
@@ -375,8 +392,8 @@ let
         },
         {
           key = mainMod .. " + left",
-          action = hl.dsp.layout("focus l"),
-          options = { description = "Focus column to the left" },
+          action = hl.dsp.focus({ direction = "left" }),
+          options = { description = "Focus window to the left" },
         },
         {
           key = mainMod .. " + mouse:272",
@@ -410,8 +427,8 @@ let
         },
         {
           key = mainMod .. " + right",
-          action = hl.dsp.layout("focus r"),
-          options = { description = "Focus column to the right" },
+          action = hl.dsp.focus({ direction = "right" }),
+          options = { description = "Focus window to the right" },
         },
         {
           key = mainMod .. " + up",
