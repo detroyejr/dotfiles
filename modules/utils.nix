@@ -277,19 +277,24 @@ let
           options = { description = "Focus window to the right" },
         },
         {
-          key = mainMod .. " + CTRL + left",
-          action = hl.dsp.window.resize({ x = -20, y = 0 }),
-          options = { repeating = true, description = "Shrink window horizontally" },
+          key = mainMod .. " + left",
+          action = hl.dsp.focus({ direction = "left" }),
+          options = { description = "Focus window to the left" },
         },
         {
-          key = mainMod .. " + CTRL + right",
-          action = hl.dsp.window.resize({ x = 20, y = 0 }),
-          options = { repeating = true, description = "Grow window horizontally" },
+          key = mainMod .. " + down",
+          action = hl.dsp.focus({ direction = "down" }),
+          options = { description = "Focus window below" },
         },
         {
-          key = mainMod .. " + CTRL + up",
-          action = hl.dsp.window.resize({ x = 0, y = -20 }),
-          options = { repeating = true, description = "Shrink window vertically" },
+          key = mainMod .. " + up",
+          action = hl.dsp.focus({ direction = "up" }),
+          options = { description = "Focus window above" },
+        },
+        {
+          key = mainMod .. " + right",
+          action = hl.dsp.focus({ direction = "right" }),
+          options = { description = "Focus window to the right" },
         },
 
         -- Applications and utilities
@@ -386,16 +391,6 @@ let
 
         -- Directional and mouse bindings
         {
-          key = mainMod .. " + down",
-          action = hl.dsp.focus({ direction = "down" }),
-          options = { description = "Focus window below" },
-        },
-        {
-          key = mainMod .. " + left",
-          action = hl.dsp.focus({ direction = "left" }),
-          options = { description = "Focus window to the left" },
-        },
-        {
           key = mainMod .. " + mouse:272",
           action = hl.dsp.window.drag(),
           options = { mouse = true, description = "Drag window" },
@@ -424,17 +419,7 @@ let
           key = mainMod .. " + SHIFT + mouse_up",
           action = hl.dsp.layout("focus l"),
           options = { description = "Focus column to the left" },
-        },
-        {
-          key = mainMod .. " + right",
-          action = hl.dsp.focus({ direction = "right" }),
-          options = { description = "Focus window to the right" },
-        },
-        {
-          key = mainMod .. " + up",
-          action = hl.dsp.focus({ direction = "up" }),
-          options = { description = "Focus window above" },
-        },
+        }
       }
 
       -- Workspace bindings
