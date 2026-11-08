@@ -24,7 +24,7 @@
     };
 
     omarchy-quickshell = {
-      url = "github:detroyejr/omarchy-quickshell-nix/dev";
+      url = "github:detroyejr/omarchy-quickshell-nix/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

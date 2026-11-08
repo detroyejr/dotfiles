@@ -170,16 +170,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1793912767,
-        "narHash": "sha256-wwTIZZEvor/LvA3ESnIYVaOKdEtYFveIC/fzJvGPDB8=",
+        "lastModified": 1794161220,
+        "narHash": "sha256-GqakbMLWQyVG8yaLM0K5/JdVTDtXY6bb6njAePDdPIk=",
         "owner": "detroyejr",
         "repo": "omarchy-quickshell-nix",
-        "rev": "1421cf1ba8be948daf689e3688b2c623ed3ef902",
+        "rev": "96dcaa097c0804ed1bccaa5d76f7a6396987cec1",
         "type": "github"
       },
       "original": {
         "owner": "detroyejr",
-        "ref": "dev",
+        "ref": "main",
         "repo": "omarchy-quickshell-nix",
         "type": "github"
       }
