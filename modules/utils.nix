@@ -493,10 +493,7 @@ let
 
       hl.on("hyprland.start", function()
         hl.exec_cmd("omarchy launch shell")
-        hl.exec_cmd(terminal)
         hl.exec_cmd("hyprctl dispatch dpms on")
-        hl.exec_cmd("firefox", { workspace = "2 silent" })
-        hl.exec_cmd("obsidian", { workspace = "3 silent" })
         hl.exec_cmd("omarchy system lock")
       end)
     '';
