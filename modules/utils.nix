@@ -9,7 +9,13 @@ let
     config:
     pkgs.writeText "hyprland.lua" ''
       dofile("/etc/omarchy/default/hypr/bootstrap.lua")
+      
+      -- Default animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
+      hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
+      hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
+
       require("default.hypr.helpers")
+      require("default.hypr.qconsole")
       require("default.hypr.monitor-workspaces")
       require("default.hypr.workspace-layouts")
 
@@ -107,17 +113,22 @@ let
           options = { description = "Toggle floating window" },
         },
         {
-          key = "SUPER + S",
+          key = mainMod .. " + S",
           action = hl.dsp.workspace.toggle_special("scratchpad"),
           options = { description = "Toggle scratchpad" },
         },
         {
-          key = "SUPER + ALT + S",
+          key = mainMod .. " + ALT + S",
           action = hl.dsp.window.move({ workspace = "special:scratchpad", follow = false }),
           options = { description = "Move window to scratchpad" },
         },
         {
-          key = "SUPER + SHIFT + grave",
+          key = mainMod .. " + grave",
+          action = hl.dsp.workspace.toggle_special("qconsole"),
+          options = { description = "Move window to qconsole" },
+        },
+        {
+          key = mainMod .. " + SHIFT + grave",
           action = hl.dsp.window.move({ workspace = "special:qconsole", follow = false }),
           options = { description = "Move window to qconsole" },
         },
@@ -312,11 +323,6 @@ let
           key = mainMod .. " + J",
           action = hl.dsp.layout("togglesplit"),
           options = { description = "Toggle window split" },
-        },
-        {
-          key = mainMod .. " + L",
-          action = hl.dsp.exec_cmd("bash -c \"hyprlock\""),
-          options = { description = "Lock screen" },
         },
         {
           key = mainMod .. " + L",
