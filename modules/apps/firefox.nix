@@ -48,6 +48,10 @@ let
     "datareporting.policy.dataSubmissionEnabled" = false;
     "datareporting.usage.uploadEnabled" = false;
     "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+    "font.default.x-western" = "serif";
+    "font.name.monospace.x-western" = "Input Mono";
+    "font.name.sans-serif.x-western" = "Input Serif";
+    "font.name.serif.x-western" = "Input Serif";
     "sidebar.main.tools" = "";
     "sidebar.verticalTabs" = true;
     "svg.context-properties.content.enabled" = true;
