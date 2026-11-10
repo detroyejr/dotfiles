@@ -54,7 +54,7 @@ in
         xwayland.enable = true;
       };
       uwsm.enable = true;
-      nautilus.enable = true;
+      nautilus.enable = false;
       omarchy-quickshell.enable = true;
     };
 
@@ -83,15 +83,15 @@ in
       colorz
       dmenu
       easyeffects
+      flea
       grim
-      inputs.hokum.packages.${system}.default # replaces mako
-      imv
       hyprpicker
       hyprsunset
+      imv
       inotify-tools
+      inputs.hokum.packages.${system}.default # replaces mako
       keepass
       libnotify
-      # mako
       mp4v2
       newsboat
       nfs-utils

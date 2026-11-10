@@ -20,7 +20,7 @@ let
       require("default.hypr.workspace-layouts")
 
       local terminal = "foot"
-      local file_browser = "nautilus"
+      local file_browser = "flea"
       local mainMod = "SUPER"
 
       hl.env("TERMINAL", terminal)
@@ -69,8 +69,8 @@ let
           center = true,
         },
         {
-          name = "nautilus-float",
-          match = { class = "org.gnome.Nautilus" },
+          name = file_browser .. "-float",
+          match = { class = "com.thisisgm.flea" },
           float = true,
           center = true,
           size = "1100 700",
