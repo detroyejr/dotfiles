@@ -1,13 +1,13 @@
 final: prev: {
   bookorbit = prev.bookorbit.overrideAttrs (
     finalAttrs: previousAttrs: {
-      version = "3.7.0";
+      version = "3.8.0";
 
       src = prev.fetchFromGitHub {
         owner = "bookorbit";
         repo = "bookorbit";
         tag = "v${finalAttrs.version}";
-        hash = "sha256-XhWBzJ28iVe/MLrxEh/1or7uMRqpSuRerWPa0d71C+k=";
+        hash = "sha256-dz/ctTLvI99mi9O9ABKFjDU4xF/Q0CiUAPecw+oz6zc=";
       };
 
       pnpmWorkspaces = [
@@ -25,7 +25,7 @@ final: prev: {
           ;
         pnpm = prev.pnpm_11;
         fetcherVersion = 4;
-        hash = "sha256-hhWEhds3uK6L1E2tW6IZWmmFDSYCjzgP2YAY/KCMZdE=";
+        hash = "sha256-N9c6l+ub+1NobtsCK3WSOlKyw7ol5e9RC4DWY9lubR0=";
       };
 
       buildPhase = ''
