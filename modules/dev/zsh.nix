@@ -37,6 +37,7 @@ in
       shellAliases = {
         ask = "opencode mini --agent research --prompt";
         btop = "btop --config ${btop-conf}";
+        fs = "flea --tui";
         gfx = "git add -A && git commit --fixup $(git log --oneline -n 10 | fzf | cut -d\" \" -f1) && git rebase HEAD~10 --autosquash";
         k = "kubectl";
         ll = "eza -l";
@@ -45,9 +46,9 @@ in
         rm = "rm -I";
         ssh = "TERM=xterm-256color ssh";
         st = "set-title";
-        tf = "tmux-fzf";
         task = "obsidian task";
         tasks = "obsidian tasks daily verbose";
+        tf = "tmux-fzf";
       };
       ohMyZsh = {
         enable = true;

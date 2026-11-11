@@ -133,7 +133,6 @@
     git.enable = true;
     hex.enable = true;
     hyprland.enable = true;
-    nautilus.enable = true;
     neovim.enable = true;
     obs-studio = {
       enable = true;
