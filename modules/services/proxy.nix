@@ -9,8 +9,9 @@ let
     locations."/" = {
       proxyPass = upstream;
       proxyWebsockets = true;
-      extraConfig = lib.optionalString ssl ''
-        proxy_ssl_verify off;
+      extraConfig = ''
+        client_max_body_size 200m;
+        ${lib.optionalString ssl "proxy_ssl_verify off;"}
       '';
     };
   };
