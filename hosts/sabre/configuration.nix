@@ -8,19 +8,18 @@
 
 {
 
-  imports = [ inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p15v-intel-gen3 ];
+  imports = [ inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14s-amd-gen4 ];
 
   boot = {
     initrd = {
       availableKernelModules = [
-        "xhci_pci"
         "nvme"
-        "usb_storage"
-        "sd_mod"
+        "xhci_pci"
+        "thunderbolt"
       ];
       kernelModules = [ ];
     };
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
     loader = {
       systemd-boot.enable = true;
@@ -35,7 +34,7 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware = {
-    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     enableRedistributableFirmware = lib.mkDefault true;
   };
 
@@ -88,32 +87,27 @@
   };
 
   programs = {
-    cataclysmdda.enable = true;
+    direnv.enable = true;
     firefox.enable = true;
+    foot.enable = true;
     git.enable = true;
-    hyprland.enable = true;
-    nautilus.enable = true;
     neovim.enable = true;
     opencode.enable = true;
-    steam.enable = true;
     tmux.enable = true;
-    wezterm.enable = true;
     wireshark.enable = true;
-    yazi.enable = true;
     zsh.enable = true;
   };
 
   services = {
-    docker.enable = false;
+    desktopManager.plasma6.enable = true;
+    displayManager.plasma-login-manager.enable = true;
+    docker.enable = true;
     fprintd.enable = true;
-    openrgb.enable = true;
     rclone = {
       onedrive.enable = true;
     };
     syncthing.enable = true;
-    tlp.enable = true;
-    virtualization.enable = false;
-    libinput.touchpad.disableWhileTyping = true;
+    virtualization.enable = true;
   };
 
   users.users.${config.defaultUser}.packages = with pkgs; [
@@ -121,15 +115,17 @@
     discord
     element-desktop
     hyperion-ng
+    keepass
     libreoffice
     nfs-utils
     obsidian
     plex-desktop
     plex-htpc
     plexamp
+    windows95-kde-theme
     vlc
     yt-dlp
   ];
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "26.05";
 }
