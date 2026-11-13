@@ -1,0 +1,19 @@
+{
+  "KPackageStructure": "Plasma/LookAndFeel",
+  "KPlugin": {
+    "Authors": [
+      {
+        "Name": "Windows 95 KDE Theme contributors"
+      }
+    ],
+    "Category": "Plasma Look And Feel",
+    "Description": "Windows 95 colors, window decoration, and Chicago95 icons",
+    "EnabledByDefault": true,
+    "Id": "org.kde.windows95.desktop",
+    "License": "GPL-3.0",
+    "Name": "Windows 95",
+    "Version": "1.0",
+    "Website": "https://github.com/grassmunk/Chicago95"
+  },
+  "X-Plasma-APIVersion": "2"
+}
