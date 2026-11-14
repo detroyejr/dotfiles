@@ -120,95 +120,82 @@ in
           vim.keymap.set("n", "<C-A-x>", "yy<C-w>p<C-\\><C-n>pi<CR><C-\\><CR>")
           vim.keymap.set("v", "<C-A-x>", "y<C-w>p<C-\\><C-n>pi<CR><C-\\><CR>")
 
-          local load_theme_colors = function()
-            local ok, colors = pcall(dofile, "/etc/xdg/CURRENT_THEME/nvim/colors.lua")
-            if ok and type(colors) == "table" then
-              return colors
-            end
 
-            return {
-              background = "#191724",
-              foreground = "#e0def4",
-              base00 = "#191724",
-              base01 = "#1f1d2e",
-              base02 = "#26233a",
-              base03 = "#6e6a86",
-              base04 = "#908caa",
-              base05 = "#e0def4",
-              base06 = "#e0def4",
-              base07 = "#524f67",
-              base08 = "#eb6f92",
-              base09 = "#f6c177",
-              base0A = "#ebbcba",
-              base0B = "#95b1ac",
-              base0C = "#9ccfd8",
-              base0D = "#c4a7e7",
-              base0E = "#31748f",
-              base0F = "#403d52",
-            }
+          vim.cmd.colorscheme("default")
+          ${lib.optionalString (config.system.name == "sabre") ''
+            -- Set a colorscheme for named system.
+            vim.cmd.colorscheme("desert")
+          ''}
+
+          local load_theme_colors = function()
+            local ok, colors = pcall(dofile, "/home/detroyejr/.local/state/omarchy/current/theme/neovim.lua")
+            if ok and type(colors) == "table" then
+              return colors[1].opts.colors
+            end
+            return {}
           end
 
           local colors = load_theme_colors()
-          local palette = {
-            _nc = colors.base01,
-            base = colors.base00,
-            foam = colors.base0C,
-            gold = colors.base09,
-            highlight_high = colors.base03,
-            highlight_low = colors.base01,
-            highlight_med = colors.base02,
-            iris = colors.base0D,
-            leaf = colors.base0B,
-            love = colors.base08,
-            muted = colors.base03,
-            none = "NONE",
-            overlay = colors.base02,
-            pine = colors.base0E,
-            rose = colors.base0A,
-            subtle = colors.base04,
-            surface = colors.base01,
-            text = colors.base06,
-            warn = colors.base09,
-          }
+          if (#colors) > 0 then
+            local palette = {
+              _nc = colors.dark_fg,
+              base = colors.bg,
+              foam = colors.cyan,
+              gold = colors.yellow,
+              highlight_high = colors.lighter_bg,
+              highlight_low = colors.dark_bg,
+              highlight_med = colors.selection,
+              iris = colors.blue,
+              leaf = colors.green,
+              love = colors.red,
+              muted = colors.muted,
+              none = "NONE",
+              overlay = colors.selection,
+              pine = colors.cyan,
+              rose = colors.magenta,
+              subtle = colors.dark_fg,
+              surface = colors.dark_bg,
+              text = colors.fg,
+              warn = colors.orange,
+            }
 
-          -- NOTE: Custom highlights need two versions to work with CommentString
-          local highlights = {
-            ColorColumn = { bg = palette.surface },
-            Comment = { fg = palette.subtle, italic = true },
-            Function = { ctermfg = 14, fg = palette.rose },
-            Normal = { fg = palette.text, bg = palette.none },
-            Pmenu = { fg = palette.subtle, bg = palette.surface },
-            PmenuExtra = { fg = palette.muted, bg = palette.surface },
-            PmenuExtraSel = { fg = palette.subtle, bg = palette.overlay },
-            PmenuKind = { fg = palette.foam, bg = palette.surface },
-            PmenuKindSel = { fg = palette.subtle, bg = palette.overlay },
-            PmenuSbar = { bg = palette.surface },
-            PmenuSel = { fg = palette.text, bg = palette.overlay },
-            PmenuThumb = { bg = palette.muted },
-            StatusLine = { fg = palette.subtle, cterm = { bold, underline } },
-            StatusLineNC = { fg = palette.subtle, cterm = { bold, underline } },
-            String = { ctermfg = 10, fg = palette.gold },
-            Visual = { bg = palette.highlight_med, blend = 15 },
+            -- NOTE: Custom highlights need two versions to work with CommentString
+            local highlights = {
+              ColorColumn = { bg = palette.surface },
+              Comment = { fg = palette.subtle, italic = true },
+              Function = { ctermfg = 14, fg = palette.rose },
+              Normal = { fg = palette.text, bg = palette.none },
+              Pmenu = { fg = palette.subtle, bg = palette.surface },
+              PmenuExtra = { fg = palette.muted, bg = palette.surface },
+              PmenuExtraSel = { fg = palette.subtle, bg = palette.overlay },
+              PmenuKind = { fg = palette.foam, bg = palette.surface },
+              PmenuKindSel = { fg = palette.subtle, bg = palette.overlay },
+              PmenuSbar = { bg = palette.surface },
+              PmenuSel = { fg = palette.text, bg = palette.overlay },
+              PmenuThumb = { bg = palette.muted },
+              StatusLine = { fg = palette.subtle, cterm = { bold, underline } },
+              StatusLineNC = { fg = palette.subtle, cterm = { bold, underline } },
+              String = { ctermfg = 10, fg = palette.gold },
+              Visual = { bg = palette.highlight_med, blend = 15 },
 
-            Fixme = { fg = palette.base, bg = palette.love, bold = true },
-            FixmeText = { fg = palette.love },
-            Hack = { fg = palette.base, bg = palette.warn, bold = true },
-            HackText = { fg = palette.warn },
-            Note = { fg = palette.base, bg = palette.pine, bold = true },
-            NoteText = { fg = palette.pine },
-            Todo = { fg = palette.base, bg = palette.rose, bold = true },
-            TodoText = { fg = palette.rose },
-          }
+              Fixme = { fg = palette.base, bg = palette.love, bold = true },
+              FixmeText = { fg = palette.love },
+              Hack = { fg = palette.base, bg = palette.warn, bold = true },
+              HackText = { fg = palette.warn },
+              Note = { fg = palette.base, bg = palette.pine, bold = true },
+              NoteText = { fg = palette.pine },
+              Todo = { fg = palette.base, bg = palette.rose, bold = true },
+              TodoText = { fg = palette.rose },
+            }
 
-          for group, highlight in pairs(highlights) do
-            vim.api.nvim_set_hl(0, group, highlight)
+            for group, highlight in pairs(highlights) do
+              vim.api.nvim_set_hl(0, group, highlight)
+            end
           end
-
 
           require("todo-comments").setup({
             signs = false,
           })
-
 
           local group = vim.api.nvim_create_augroup("autocmdgroup", { clear = true })
 
