@@ -28,7 +28,7 @@ final: prev: {
       libva
       libxkbcommon
       mesa
-      mesa-libgbm
+      libgbm
       openssh
       vulkan-loader
       wayland
