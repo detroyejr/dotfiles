@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -13,6 +14,7 @@ in
   config = lib.mkIf cfg.enable {
     services.nix-serve = {
       enable = true;
+      package = pkgs.nix-serve-ng;
       secretKeyFile = "/home/detroyejr/.ssh/cache-private-key.pem";
     };
 
