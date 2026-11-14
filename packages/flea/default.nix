@@ -1,6 +1,6 @@
 final: prev:
 let
-  version = "0.4.0";
+  version = "0.4.3";
   cargoTarget = prev.stdenv.hostPlatform.rust.rustcTarget;
   pythonRuntime = prev.python3.withPackages (packages: [ packages.pygobject3 ]);
   runtimeLibs = prev.lib.makeLibraryPath (
@@ -30,10 +30,10 @@ in
       owner = "thisisgm";
       repo = "flea";
       tag = "v${version}";
-      hash = "sha256-zzGFgcpA2D3AwGKjt8H1cz9mwi/i/iqBNB4xLl35bZg=";
+      hash = "sha256-/s2ego3S/gqqZABrEEa3Z0PSWxwUvntLA4GMLVcUZaE=";
     };
 
-    cargoHash = "sha256-eOl8EtxMEKpwRancasWjtYQ+su7WCpppiCtZ+rZ+WMU=";
+    cargoHash = "sha256-Hj7lC1WrUD+amqV+AKoAuIs88HYjCeWYTbWGcPVCpCw=";
     cargoBuildFlags = [
       "--workspace"
       "--bins"
@@ -70,9 +70,9 @@ in
         --replace-fail '/usr/share/flea/ui' '${placeholder "out"}/share/flea/ui'
       substituteInPlace src/i18n/mod.rs src/shelfplugin.rs \
         --replace-fail '/usr/share/flea' '${placeholder "out"}/share/flea'
-      substituteInPlace crates/flea-gui/src/g2/pv3/mpris.rs \
+      substituteInPlace crates/flea-gui/src/g2/media_preview/mpris.rs \
         --replace-fail '/usr/lib/flea/flea-mpris' '${placeholder "out"}/lib/flea/flea-mpris'
-      substituteInPlace crates/flea-gui/src/g2/pl2/mount_process.rs \
+      substituteInPlace crates/flea-gui/src/g2/network_shares/mount_process.rs \
         --replace-fail '/usr/lib/flea/flea-gio-auth' '${placeholder "out"}/lib/flea/flea-gio-auth'
       substituteInPlace tools/flea-portal tools/flea-filemanager1 \
         --replace-fail '/usr/bin/flea' '${placeholder "out"}/bin/flea'
