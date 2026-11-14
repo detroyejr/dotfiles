@@ -127,37 +127,28 @@ in
             vim.cmd.colorscheme("desert")
           ''}
 
-          local function read_directory(path)
-              local uv = vim.uv or vim.loop
-              local result = {}
-              local scan, err = uv.fs_scandir(path)
-              assert(scan, ("Cannot read directory %s: %s"):format(path, err))
 
-              while true do
-                  local name = uv.fs_scandir_next(scan)
-                  if not name then break end
+          local theme_dir = vim.fn.expand("~/.local/state/omarchy/current/theme")
+          local colors_toml = theme_dir .. "/colors.toml"
+          local colors_json = theme_dir .. "/colors.json"
+          vim.fn.system(
+            "toml2json " .. vim.fn.shellescape(colors_toml) ..
+            " > " .. vim.fn.shellescape(colors_json)
+          )
 
-                  local full_path = path .. "/" .. name
-                  local stat, stat_err = uv.fs_lstat(full_path)
-                  assert(stat, ("Cannot inspect %s: %s"):format(full_path, stat_err))
-
-                  if stat.type == "directory" then
-                      result[name] = read_directory(full_path)
-                  elseif stat.type == "file" then
-                      local file, file_err = io.open(full_path, "rb")
-                      assert(file, ("Cannot read %s: %s"):format(full_path, file_err))
-
-                      result[name] = file:read("*a")
-                      file:close()
-                  end
+          local colors
+          if vim.v.shell_error == 0 then
+            local colors_file = io.open(colors_json, "r")
+            if colors_file then
+              local ok, decoded = pcall(vim.json.decode, colors_file:read("*a"))
+              colors_file:close()
+              if ok then
+                colors = decoded
               end
-
-              return result
+            end
           end
 
-          local colors = read_directory("/home/detroyejr/.local/state/omarchy/current/theme")["colors.toml"]
-
-          if (#colors) > 0 then
+          if colors then
             local palette = {
               _nc = colors.dark_fg,
               base = colors.bg,
@@ -426,6 +417,7 @@ in
       nixd
       nixfmt
       ripgrep
+      toml2json
       tree-sitter
     ];
   };
