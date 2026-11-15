@@ -12,6 +12,7 @@
     cataclysmdda.enable = true;
     firefox.enable = true;
     git.enable = true;
+    kde.enable = true;
     neovim.enable = true;
     obs-studio = {
       enable = true;
@@ -33,7 +34,6 @@
   };
 
   services = {
-    desktopManager.plasma6.enable = true;
     flatpak.enable = true;
     openssh = {
       enable = true;
