@@ -14,7 +14,6 @@
     ./hyprland.nix
     ./kde.nix
     ./services
-    ./xdg.nix
   ]
   ++ lib.optionals (system == "x86_64-linux") [
     inputs.hex.nixosModules.hex
