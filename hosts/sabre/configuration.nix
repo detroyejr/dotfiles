@@ -91,6 +91,7 @@
     firefox.enable = true;
     foot.enable = true;
     git.enable = true;
+    kde.enable = true;
     neovim.enable = true;
     opencode.enable = true;
     tmux.enable = true;
@@ -99,8 +100,6 @@
   };
 
   services = {
-    desktopManager.plasma6.enable = true;
-    displayManager.plasma-login-manager.enable = true;
     docker.enable = true;
     fprintd.enable = true;
     rclone = {
@@ -122,7 +121,6 @@
     plex-desktop
     plex-htpc
     plexamp
-    windows95-kde-theme
     vlc
     yt-dlp
   ];

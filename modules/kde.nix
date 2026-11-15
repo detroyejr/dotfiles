@@ -14,6 +14,7 @@ in
     services = {
       displayManager.sddm.enable = true;
       desktopManager.plasma6.enable = true;
+      displayManager.plasma-login-manager.enable = true;
       xserver.enable = true;
     };
 
@@ -27,10 +28,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      whitesur-cursors
-      whitesur-icon-theme
-      whitesur-kde
-      latte-dock
+      windows95-kde-theme
     ];
   };
 }
