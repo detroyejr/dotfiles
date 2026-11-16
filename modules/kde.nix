@@ -6,6 +6,10 @@
 }:
 let
   cfg = config.programs.kde;
+  windows95StartupSound = pkgs.fetchurl {
+    url = "https://archive.org/download/windows95_startup_hifi/windows95_startup_hifi.wav";
+    hash = "sha256-qdAqPmtD+P0iQdXA7DH1extTsM+O5iHPTq//RnKQ9yc=";
+  };
 in
 {
   options.programs.kde.enable = lib.mkEnableOption "KDE Plasma desktop";
@@ -52,6 +56,15 @@ in
       XDG_PUBLICSHARE_DIR="$HOME/Public"
       XDG_TEMPLATES_DIR="$HOME/Templates"
       XDG_VIDEOS_DIR="$HOME/Videos"
+    '';
+
+    environment.etc."xdg/autostart/windows95-startup-sound.desktop".text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Windows 95 Startup Sound
+      Comment=Play the Windows 95 startup sound when KDE starts
+      Exec=${pkgs.pipewire}/bin/pw-play ${windows95StartupSound}
+      Terminal=false
     '';
 
     environment.systemPackages = with pkgs; [
