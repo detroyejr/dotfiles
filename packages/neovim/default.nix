@@ -6,8 +6,8 @@ prev: final: {
     src = prev.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "aee9105c8a0b409181eae7292f84c20b05a6847c";
-      hash = "sha256-muao8JvYJsFyIN9XAtGWQhmGFz3s0myq45yQ8SNrGUg=";
+      rev = "4ef4bed584a099d03ec7591306c33e1f81e68ae8";
+      hash = "sha256-MAI/+9FBfcXGp3+a1XLH3sx0UgzwcOe1AzbYeib6MJw=";
     };
     postInstall = ''
       mv $out/share/applications/org.neovim.nvim.desktop $out/share/applications/nvim.desktop
