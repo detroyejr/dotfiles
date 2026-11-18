@@ -24,6 +24,7 @@ in
     environment.systemPackages = [
       cfg.package
       pkgs.opencode-desktop
+      pkgs.browse
     ];
 
     environment.etc = {
@@ -52,8 +53,7 @@ in
               "browse": {
                 "type": "local",
                 "command": [
-                  "${pkgs.nodejs-slim}/bin/node",
-                  "/home/detroyejr/Documents/browse/cli/dist/cli.mjs",
+                  "${pkgs.browse}/bin/browse",
                   "mcp"
                 ],
                 "environment": {
