@@ -8,9 +8,11 @@ in
       "bookorbit/jwtSecret" = { };
       "bookorbit/podcastEncryptionKey" = { };
       "bookorbit/setupBootstrapToken" = { };
+      "bookorbit/aiEncryptionKey" = { };
     };
 
     sops.templates."bookorbit.env".content = ''
+      AI_ENCRYPTION_KEY=${config.sops.placeholder."bookorbit/aiEncryptionKey"}
       JWT_SECRET=${config.sops.placeholder."bookorbit/jwtSecret"}
       PODCAST_ENCRYPTION_KEY=${config.sops.placeholder."bookorbit/podcastEncryptionKey"}
       SETUP_BOOTSTRAP_TOKEN=${config.sops.placeholder."bookorbit/setupBootstrapToken"}
