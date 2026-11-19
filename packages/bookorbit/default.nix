@@ -1,13 +1,13 @@
 final: prev: {
   bookorbit = prev.bookorbit.overrideAttrs (
     finalAttrs: previousAttrs: {
-      version = "3.8.0";
+      version = "3.9.0";
 
       src = prev.fetchFromGitHub {
         owner = "bookorbit";
         repo = "bookorbit";
         tag = "v${finalAttrs.version}";
-        hash = "sha256-dz/ctTLvI99mi9O9ABKFjDU4xF/Q0CiUAPecw+oz6zc=";
+        hash = "sha256-/2jJhPyLU/d6bROqk0jkXge7zkP1Yi4xATcWzASYqx4=";
       };
 
       pnpmWorkspaces = [
@@ -25,11 +25,28 @@ final: prev: {
           ;
         pnpm = prev.pnpm_11;
         fetcherVersion = 4;
-        hash = "sha256-N9c6l+ub+1NobtsCK3WSOlKyw7ol5e9RC4DWY9lubR0=";
+        hash = "sha256-RTiVPjE4AazlVnKV3UCnUy6oER8QQTZqaL+0hcsTkyU=";
       };
 
       buildPhase = ''
         runHook preBuild
+
+        # @swc/core >= 1.16 ships its native addon as a self-loading ELF carrier
+        # with a zstd payload that cannot initialize its cache in the Nix sandbox.
+        # Replace the carrier with its decoded raw addon before building.
+        find node_modules -name 'swc.*.node' -exec node -e '
+          const fs = require("node:fs"), z = require("node:zlib");
+          const signature = Buffer.from("SWCNZSTD\x01\x00\x60\x00", "latin1");
+          for (const p of process.argv.slice(1)) {
+            const b = fs.readFileSync(p);
+            const i = b.indexOf(signature);
+            if (i < 0) continue;
+            const frameLen = Number(b.readBigUInt64LE(i + 16));
+            const raw = z.zstdDecompressSync(b.subarray(i + 96, i + 96 + frameLen));
+            fs.chmodSync(p, 0o644);
+            fs.writeFileSync(p, raw);
+          }
+        ' {} +
 
         # ora's spinner hangs in the non-TTY sandbox without CI set.
         export CI=1
