@@ -9,7 +9,7 @@ let
     config:
     pkgs.writeText "hyprland.lua" ''
       dofile("/etc/omarchy/default/hypr/bootstrap.lua")
-      
+
       -- Default animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
       hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
       hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
@@ -58,8 +58,8 @@ let
 
       local windowRules = {
         {
-          name = "omarchy-screensaver",
-          match = { class = "org.omarchy.screensaver" },
+          name = "firefox-kiosk-screensaver",
+          match = { class = "firefox-kiosk" },
           fullscreen = true,
         },
         {

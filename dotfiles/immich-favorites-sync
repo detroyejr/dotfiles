@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${IMMICH_API_URL:?IMMICH_API_URL must be set}"
+: "${RCLONE_DESTINATION:?RCLONE_DESTINATION must be set}"
+: "${RCLONE_CONFIG:?RCLONE_CONFIG must be set}"
+: "${CREDENTIALS_DIRECTORY:?systemd credentials directory is required}"
+
+api_key_file="$CREDENTIALS_DIRECTORY/immich_api_key"
+work_dir="$(mktemp -d)"
+trap 'rm -rf "$work_dir"' EXIT
+
+if [[ ! -s "$api_key_file" ]]; then
+  echo "Immich API key credential is missing or empty" >&2
+  exit 1
+fi
+
+printf 'x-api-key: %s\n' "$(<"$api_key_file")" > "$work_dir/headers"
+chmod 600 "$work_dir/headers"
+
+rclone mkdir "$RCLONE_DESTINATION" --config="$RCLONE_CONFIG"
+rclone lsf "$RCLONE_DESTINATION" --files-only --config="$RCLONE_CONFIG" \
+  > "$work_dir/remote-files"
+
+page=1
+while :; do
+  response="$work_dir/page.json"
+  curl --fail --silent --show-error \
+    --header "@$work_dir/headers" \
+    --header 'Content-Type: application/json' \
+    --data "{\"isFavorite\":true,\"type\":\"IMAGE\",\"page\":$page,\"size\":250}" \
+    "$IMMICH_API_URL/search/metadata" \
+    --output "$response"
+
+  jq -e '(.assets.items // .items) | type == "array"' "$response" > /dev/null
+
+  while IFS= read -r asset; do
+    asset_id="$(jq -r '.id' <<< "$asset")"
+    original_name="$(jq -r '(.originalFileName // "image") | split("/") | last | gsub("[[:cntrl:]]"; "_")' <<< "$asset")"
+    filename="${asset_id}_${original_name}"
+
+    if grep -Fxq -- "$filename" "$work_dir/remote-files"; then
+      continue
+    fi
+
+    curl --fail --silent --show-error \
+      --header "@$work_dir/headers" \
+      "$IMMICH_API_URL/assets/$asset_id/original" \
+      --output "$work_dir/$asset_id"
+    rclone copyto "$work_dir/$asset_id" "$RCLONE_DESTINATION/$filename" \
+      --config="$RCLONE_CONFIG"
+    printf '%s\n' "$filename" >> "$work_dir/remote-files"
+  done < <(jq -c '(.assets.items // .items // [])[]' "$response")
+
+  next_page="$(jq -r '.assets.nextPage // .nextPage // empty' "$response")"
+  if [[ -z "$next_page" || "$next_page" == null ]]; then
+    break
+  fi
+  page="$next_page"
+done

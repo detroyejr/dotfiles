@@ -19,6 +19,7 @@
     ./glance.nix
     ./gliff-server.nix
     ./grafana.nix
+    ./immich-kiosk.nix
     ./immich.nix
     ./llm.nix
     ./loki.nix

@@ -66,6 +66,10 @@
     actual.enable = true;
     alloy.enable = true;
     binaryCache.enable = true;
+    immichFavoritesSync = {
+      enable = true;
+      immichApiUrl = "http://odp-5:2283/api";
+    };
     bookorbitAnnotations = {
       enable = true;
       vaultDirectory = "/home/${config.defaultUser}/Documents/Personal";
