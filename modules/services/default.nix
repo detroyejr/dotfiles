@@ -23,6 +23,7 @@
     ./immich.nix
     ./llm.nix
     ./loki.nix
+    ./ntopng.nix
     ./opencode-server.nix
     ./openrgb.nix
     ./paperless.nix
