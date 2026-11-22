@@ -42,7 +42,7 @@ in
                     type = "twitch-channels";
                     channels = [
                       "chess"
-                      "chess24"
+                      "chesscomevents"
                       "johnbartholomew"
                       "teej_dv"
                       "theprimeagen"
