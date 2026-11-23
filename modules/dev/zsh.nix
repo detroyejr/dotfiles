@@ -97,6 +97,7 @@ in
       qsv
       sops
       ssh-to-age
+      sshuttle
       tree
       unzip
       wget
